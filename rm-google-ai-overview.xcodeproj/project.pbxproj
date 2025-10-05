@@ -110,13 +110,9 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/_locales,
-				Resources/background.js,
 				Resources/content.js,
 				Resources/images,
 				Resources/manifest.json,
-				Resources/popup.css,
-				Resources/popup.html,
-				Resources/popup.js,
 				SafariWebExtensionHandler.swift,
 			);
 			target = B2E9DD3E2E92315F0014FC4B /* rm-google-ai-overview Extension (iOS) */;
@@ -125,13 +121,9 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/_locales,
-				Resources/background.js,
 				Resources/content.js,
 				Resources/images,
 				Resources/manifest.json,
-				Resources/popup.css,
-				Resources/popup.html,
-				Resources/popup.js,
 				SafariWebExtensionHandler.swift,
 			);
 			target = B2E9DD482E92315F0014FC4B /* rm-google-ai-overview Extension (macOS) */;
