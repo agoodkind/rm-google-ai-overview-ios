@@ -15,7 +15,7 @@ export default defineConfig([
   reactHooks.configs['recommended-latest'],
   reactRefresh.configs.vite,
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['src/**/*.{ts,tsx}'],
     plugins: {
       react,
       prettier,
