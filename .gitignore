@@ -22,4 +22,4 @@ dist-ssr
 *.sln
 *.sw?
 Shared (Extension)/Resources
-
+Shared (App)/Resources
