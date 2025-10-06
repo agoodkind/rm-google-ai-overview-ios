@@ -109,10 +109,6 @@
 		B2E9DD802E92315F0014FC4B /* Exceptions for "Shared (Extension)" folder in "rm-google-ai-overview Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Resources/_locales,
-				Resources/content.js,
-				Resources/images,
-				Resources/manifest.json,
 				SafariWebExtensionHandler.swift,
 			);
 			target = B2E9DD3E2E92315F0014FC4B /* rm-google-ai-overview Extension (iOS) */;
@@ -120,10 +116,6 @@
 		B2E9DD812E92315F0014FC4B /* Exceptions for "Shared (Extension)" folder in "rm-google-ai-overview Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Resources/_locales,
-				Resources/content.js,
-				Resources/images,
-				Resources/manifest.json,
 				SafariWebExtensionHandler.swift,
 			);
 			target = B2E9DD482E92315F0014FC4B /* rm-google-ai-overview Extension (macOS) */;
@@ -145,10 +137,6 @@
 			exceptions = (
 				B2E9DD802E92315F0014FC4B /* Exceptions for "Shared (Extension)" folder in "rm-google-ai-overview Extension (iOS)" target */,
 				B2E9DD812E92315F0014FC4B /* Exceptions for "Shared (Extension)" folder in "rm-google-ai-overview Extension (macOS)" target */,
-			);
-			explicitFolders = (
-				Resources/_locales,
-				Resources/images,
 			);
 			path = "Shared (Extension)";
 			sourceTree = "<group>";
