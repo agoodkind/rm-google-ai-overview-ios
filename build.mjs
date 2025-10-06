@@ -21,23 +21,47 @@ const isDev = process.env.NODE_ENV === 'development';
 /** @type {boolean} */
 const watch = process.argv.includes('--watch');
 
-/** @type {import('esbuild').BuildOptions} */
-const buildOptions = {
-  entryPoints: [r('src/content.ts')],
+/**
+ * @typedef {Object} EntryConfig
+ * @property {string} input - Input file path
+ * @property {string} output - Output file path
+ */
+
+/** @type {EntryConfig[]} */
+const entries = [
+  {
+    input: r('src/content.ts'),
+    output: r('Shared (Extension)', 'Resources', 'content.js'),
+  },
+  {
+    input: r('src/shared-script.ts'),
+    output: r('Shared (App)', 'Resources', 'Script.js'),
+  },
+];
+
+/**
+ * Create build options for an entry
+ * @param {EntryConfig} entry
+ * @returns {import('esbuild').BuildOptions}
+ */
+const createBuildOptions = (entry) => ({
+  entryPoints: [entry.input],
   bundle: true,
-  outfile: r('Shared (Extension)', 'Resources', 'content.js'),
+  outfile: entry.output,
   format: 'iife',
   platform: 'browser',
   target: 'es2022',
   minify: !isDev,
   sourcemap: isDev ? 'inline' : false,
   logLevel: isDev ? 'debug' : 'info',
-};
+});
 
 if (watch) {
-  const ctx = await context(buildOptions);
-  await ctx.watch();
+  const contexts = await Promise.all(entries.map((entry) => context(createBuildOptions(entry))));
+  await Promise.all(contexts.map((ctx) => ctx.watch()));
   console.log('Watching for changes...');
 } else {
-  await build(buildOptions).catch(() => process.exit(1));
+  await Promise.all(entries.map((entry) => build(createBuildOptions(entry)))).catch(() =>
+    process.exit(1),
+  );
 }
