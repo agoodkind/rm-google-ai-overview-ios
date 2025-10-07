@@ -10,13 +10,20 @@ const patterns = [
   /Přehled od AI/i, // cz
 ];
 
+if (process.env.ENABLE_DEBUG) {
+  console.error('rm-google-ai-overview: Debug mode is enabled');
+  console.error('Build TS: ', process.env.BUILD_TS);
+}
+
 const observer = new MutationObserver(() => {
   // each time there's a mutation in the document see if there's an ai overview to hide
-  const mainBody = document.querySelector('div#rcnt') as HTMLElement | null;
+  const mainBody = document.querySelector('div#rcnt') as HTMLDivElement | null;
   if (!mainBody) {
     return;
   }
-  const aiText = [...mainBody.querySelectorAll('h1, h2')].find((e) => {
+
+  const headings = mainBody.querySelectorAll('h1, h2');
+  const aiText = [...headings].find((e) => {
     if (e instanceof HTMLElement) {
       return patterns.some((pattern) => pattern.test(e.innerText));
     }
