@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  Shared (App)
 //
-//  Created by Alex Goodkind on 10/4/25.
+//  Created by Alex Goodkind on 10/7/25.
 //
 
 import WebKit
@@ -16,7 +16,7 @@ import SafariServices
 typealias PlatformViewController = NSViewController
 #endif
 
-let extensionBundleIdentifier = "goodkind-io.rm-google-ai-overview.Extension"
+let extensionBundleIdentifier = "goodkind-io.Remove-Google-AI-Overview.Extension"
 
 class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMessageHandler {
 

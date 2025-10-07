@@ -1,9 +1,13 @@
 // @ts-check
+import { config } from 'dotenv';
 import { build, context } from 'esbuild';
 import console from 'node:console';
 import { dirname, resolve } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
+
+// Load environment variables from .env file
+config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,7 +20,7 @@ const __dirname = dirname(__filename);
 const r = (...args) => resolve(__dirname, ...args);
 
 /** @type {boolean} */
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.ENABLE_DEBUG === 'true';
 
 /** @type {boolean} */
 const watch = process.argv.includes('--watch');
@@ -31,12 +35,12 @@ const watch = process.argv.includes('--watch');
 const entries = [
   {
     input: r('src/content.ts'),
-    output: r('Shared (Extension)', 'Resources', 'content.js'),
+    output: r('xcode', 'Shared (Extension)', 'Resources', 'content.js'),
   },
-  {
-    input: r('src/shared-script.ts'),
-    output: r('Shared (App)', 'Resources', 'Script.js'),
-  },
+  // {
+  //   input: r('src/shared-script.ts'),
+  //   output: r('xcode', 'Shared (App)', 'Resources', 'Script.js'),
+  // },
 ];
 
 /**
@@ -54,6 +58,15 @@ const createBuildOptions = (entry) => ({
   minify: !isDev,
   sourcemap: isDev ? 'inline' : false,
   logLevel: isDev ? 'debug' : 'info',
+  define: {
+    // Inject environment variables as compile-time constants
+    'process.env.ENABLE_DEBUG': JSON.stringify(
+      Boolean(process.env.ENABLE_DEBUG === 'true' || 'false'),
+    ),
+    'process.env.BUILD_TS': JSON.stringify(new Date().toISOString()),
+    // Add any additional environment variables you want to inject
+    // Format: 'process.env.VAR_NAME': JSON.stringify(process.env.VAR_NAME || 'default_value'),
+  },
 });
 
 if (watch) {
