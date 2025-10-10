@@ -27,3 +27,4 @@ dist-ssr
 *.sln
 *.sw?
 xcode/Shared (Extension)/Resources/content.js
+xcode/Shared (App)/Resources/Script.js
