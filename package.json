@@ -10,12 +10,16 @@
   },
   "dependencies": {
     "deeply-convert-keys": "^1.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.1.14",
     "webextension-polyfill": "0.10.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "@types/cors": "^2.8.19",
     "@types/node": "^24.5.2",
+    "@types/react": "^19.2.2",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
     "@typescript-eslint/parser": "^8.44.1",
     "cors": "^2.8.5",
