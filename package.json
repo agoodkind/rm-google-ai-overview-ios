@@ -49,6 +49,7 @@
     "printWidth": 100,
     "bracketSpacing": true,
     "arrowParens": "always",
-    "endOfLine": "lf"
+    "endOfLine": "lf",
+    "insertFinalNewLine": "false"
   }
 }

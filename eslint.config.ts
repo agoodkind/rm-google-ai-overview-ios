@@ -25,6 +25,7 @@ export default defineConfig([
     },
     rules: {
       curly: ['error', 'all'],
+      'max-len': ['error', { code: 100, ignoreUrls: true, ignoreStrings: true }],
       'prettier/prettier': 'error',
       '@typescript-eslint/no-unused-vars': [
         'warn',
@@ -36,5 +37,5 @@ export default defineConfig([
       ],
     },
   },
-  prettierConfig, // This must come last to override any conflicting rules
+  prettierConfig, // Must be last to override conflicting formatting rules
 ]);

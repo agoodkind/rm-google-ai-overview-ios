@@ -1,16 +1,17 @@
 /**
  * Safari WebKit message handler types
  */
-interface WebKitMessageHandler {
-  postMessage(message: string): void;
-}
+type Platform = 'ios' | 'mac';
 
-interface WebKitMessageHandlers {
-  controller: WebKitMessageHandler;
+declare global {
+  interface Window {
+    webkit?: {
+      messageHandlers?: {
+        controller?: {
+          postMessage: (message: string) => void;
+        };
+      };
+    };
+    show?: (platform: Platform, enabled?: boolean, useSettings?: boolean) => void;
+  }
 }
-
-interface WebKit {
-  messageHandlers: WebKitMessageHandlers;
-}
-
-declare const webkit: WebKit;
