@@ -37,10 +37,10 @@ const entries = [
     input: r('src/Content.ts'),
     output: r('xcode', 'Shared (Extension)', 'Resources', 'content.js'),
   },
-  // {
-  //   input: r('src/shared-script.ts'),
-  //   output: r('xcode', 'Shared (App)', 'Resources', 'Script.js'),
-  // },
+  {
+    input: r('src/AppWebView.tsx'),
+    output: r('xcode', 'Shared (App)', 'Resources', 'Script.js'),
+  },
 ];
 
 /**
