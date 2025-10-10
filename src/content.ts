@@ -26,10 +26,10 @@ if (process.env.DEV_MODE) {
 
 const observer = new MutationObserver((target) => {
   if (process.env.DEV_MODE) {
-    console.debug('Mutation observed', target);
+    console.debug('Mutation observed', ...target);
   }
   // each time there's a mutation in the document see if there's an ai overview to hide
-  const mainBody = document.querySelector('div#rcnt') as HTMLDivElement | null;
+  const mainBody = document.querySelector('div#main') as HTMLDivElement | null;
   if (!mainBody) {
     if (process.env.DEV_MODE) {
       console.debug('No main body found');
@@ -45,6 +45,9 @@ const observer = new MutationObserver((target) => {
   });
 
   if (!aiText) {
+    if (process.env.DEV_MODE) {
+      console.debug('No AI overview text found in headings:', [...headings]);
+    }
     return;
   }
 
