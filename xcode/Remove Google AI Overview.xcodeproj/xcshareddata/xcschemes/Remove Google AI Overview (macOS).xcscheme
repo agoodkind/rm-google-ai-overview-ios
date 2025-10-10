@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B201AF3F2E95C4E4008A3464"
+               BlueprintIdentifier = "B201AF512E95C4E4008A3464"
                BuildableName = "Remove Google AI Overview.app"
-               BlueprintName = "Remove Google AI Overview (iOS)"
+               BlueprintName = "Remove Google AI Overview (macOS)"
                ReferencedContainer = "container:Remove Google AI Overview.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B201AF3F2E95C4E4008A3464"
+            BlueprintIdentifier = "B201AF512E95C4E4008A3464"
             BuildableName = "Remove Google AI Overview.app"
-            BlueprintName = "Remove Google AI Overview (iOS)"
+            BlueprintName = "Remove Google AI Overview (macOS)"
             ReferencedContainer = "container:Remove Google AI Overview.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B201AF3F2E95C4E4008A3464"
+            BlueprintIdentifier = "B201AF512E95C4E4008A3464"
             BuildableName = "Remove Google AI Overview.app"
-            BlueprintName = "Remove Google AI Overview (iOS)"
+            BlueprintName = "Remove Google AI Overview (macOS)"
             ReferencedContainer = "container:Remove Google AI Overview.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
