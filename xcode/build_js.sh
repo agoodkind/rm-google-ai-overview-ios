@@ -30,11 +30,9 @@ if [ "$("$PNPM" install)" -ne 0 ]; then
   exit 1
 fi
 
-
-
 # Build the project
 # check xcode configuration
-if [ "$CONFIGURATION" === "Debug" ]; then
+if [ "$CONFIGURATION" == "Debug" ]; then
   echo "Building in Debug mode..."
   BUILD_CMD="build:debug"
 else
