@@ -12,15 +12,12 @@ const patterns = [
 
 if (process.env.DEV_MODE) {
   const logLabel = '[rm-google-ai-overview-ios]';
-  const doSOmethingElse = () => {
-    console.log('test');
-  };
 
   // Bind the timestamp object - toString() gets called at log-time
-  console.log = console.log.bind(console, logLabel, doSOmethingElse);
-  console.warn = console.warn.bind(console, logLabel, doSOmethingElse);
-  console.error = console.error.bind(console, logLabel, doSOmethingElse);
-  console.debug = console.debug.bind(console, logLabel, doSOmethingElse);
+  console.log = console.log.bind(console, logLabel);
+  console.warn = console.warn.bind(console, logLabel);
+  console.error = console.error.bind(console, logLabel);
+  console.debug = console.debug.bind(console, logLabel);
 
   console.warn('Debug mode is enabled');
   console.warn('Build TS: ', process.env.BUILD_TS);
