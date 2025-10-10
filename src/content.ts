@@ -24,10 +24,16 @@ if (process.env.DEV_MODE) {
   console.warn('Current TS: ', new Date().toString());
 }
 
-const observer = new MutationObserver(() => {
+const observer = new MutationObserver((target) => {
+  if (process.env.DEV_MODE) {
+    console.debug('Mutation observed', target);
+  }
   // each time there's a mutation in the document see if there's an ai overview to hide
   const mainBody = document.querySelector('div#rcnt') as HTMLDivElement | null;
   if (!mainBody) {
+    if (process.env.DEV_MODE) {
+      console.debug('No main body found');
+    }
     return;
   }
 
@@ -65,7 +71,6 @@ const observer = new MutationObserver(() => {
     headerTabs.style.paddingBottom = '12px';
   }
 
-  // For debugging
   if (process.env.DEV_MODE) {
     console.debug('Headings:', headings, [...headings]);
     console.debug('Header tabs:', headerTabs);

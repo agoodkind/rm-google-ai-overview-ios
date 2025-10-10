@@ -20,18 +20,21 @@ echo "Changed directory to $(pwd)"
 echo "Using Node.js version: $(node -v)"
 echo "Using pnpm version: $("$PNPM" -v)"
 echo "Using esbuild version: $("$PNPM" exec esbuild --version)"
+echo "Current Xcode configuration: $CONFIGURATION"
 
+echo "Installing dependencies..."
+"$PNPM" install
 # Install dependencies
 if [ "$("$PNPM" install)" -ne 0 ]; then
   echo "Failed to install dependencies with pnpm."
   exit 1
 fi
 
-echo "Current Xcode configuration: $CONFIGURATION"
+
 
 # Build the project
 # check xcode configuration
-if [ "$CONFIGURATION" == "Debug" ]; then
+if [ "$CONFIGURATION" === "Debug" ]; then
   echo "Building in Debug mode..."
   BUILD_CMD="build:debug"
 else
