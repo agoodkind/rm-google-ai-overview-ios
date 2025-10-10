@@ -6,6 +6,24 @@
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
       buildArchitectures = "Automatic">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "echo &quot;${PROJECT_DIR}&quot;&#10;cd &quot;${PROJECT_DIR}&quot;&#10;agvtool bump&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "B201AF512E95C4E4008A3464"
+                     BuildableName = "Remove Google AI Overview.app"
+                     BlueprintName = "Remove Google AI Overview (macOS)"
+                     ReferencedContainer = "container:Remove Google AI Overview.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
