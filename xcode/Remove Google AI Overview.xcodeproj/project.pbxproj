@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		B201AF5E2E95C4E4008A3464 /* Remove Google AI Overview Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF5D2E95C4E4008A3464 /* Remove Google AI Overview Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B201AF682E95C4E4008A3464 /* Remove Google AI Overview Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF672E95C4E4008A3464 /* Remove Google AI Overview Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B248D6092E98ABB20055FF1F /* build_js.sh in Resources */ = {isa = PBXBuildFile; fileRef = B248D6082E98ABB20055FF1F /* build_js.sh */; };
+		B248D60A2E98ABB20055FF1F /* build_js.sh in Resources */ = {isa = PBXBuildFile; fileRef = B248D6082E98ABB20055FF1F /* build_js.sh */; };
+		B2D49E8A2E95FEBF00F36696 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
+		B2D49E8B2E95FEBF00F36696 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
+		B2D49E8C2E95FEBF00F36696 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
+		B2D49E8D2E95FEBF00F36696 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +64,8 @@
 		B201AF522E95C4E4008A3464 /* Remove Google AI Overview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Remove Google AI Overview.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF5D2E95C4E4008A3464 /* Remove Google AI Overview Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Remove Google AI Overview Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF672E95C4E4008A3464 /* Remove Google AI Overview Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Remove Google AI Overview Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B248D6082E98ABB20055FF1F /* build_js.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build_js.sh; sourceTree = "<group>"; };
+		B2D49E892E95FEBF00F36696 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -66,7 +74,7 @@
 			membershipExceptions = (
 				"/Localized: Resources/Main.html",
 				Assets.xcassets,
-				Resources/Icon.png,
+				Resources/icon.png,
 				Resources/Script.js,
 				Resources/Style.css,
 				ViewController.swift,
@@ -92,7 +100,7 @@
 			membershipExceptions = (
 				"/Localized: Resources/Main.html",
 				Assets.xcassets,
-				Resources/Icon.png,
+				Resources/icon.png,
 				Resources/Script.js,
 				Resources/Style.css,
 				ViewController.swift,
@@ -110,8 +118,8 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/_locales,
-				Resources/images,
 				Resources/content.js,
+				Resources/images,
 				Resources/manifest.json,
 				SafariWebExtensionHandler.swift,
 			);
@@ -121,10 +129,24 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/_locales,
-				Resources/images,
 				Resources/content.js,
+				Resources/images,
 				Resources/manifest.json,
 				SafariWebExtensionHandler.swift,
+			);
+			target = B201AF662E95C4E4008A3464 /* Remove Google AI Overview Extension (macOS) */;
+		};
+		B248D6052E9899720055FF1F /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview Extension (iOS)" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/icon.png,
+			);
+			target = B201AF5C2E95C4E4008A3464 /* Remove Google AI Overview Extension (iOS) */;
+		};
+		B248D6062E9899720055FF1F /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview Extension (macOS)" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/icon.png,
 			);
 			target = B201AF662E95C4E4008A3464 /* Remove Google AI Overview Extension (macOS) */;
 		};
@@ -136,6 +158,8 @@
 			exceptions = (
 				B201AF8B2E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview (iOS)" target */,
 				B201AF952E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview (macOS)" target */,
+				B248D6052E9899720055FF1F /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview Extension (iOS)" target */,
+				B248D6062E9899720055FF1F /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview Extension (macOS)" target */,
 			);
 			path = "Shared (App)";
 			sourceTree = "<group>";
@@ -219,6 +243,8 @@
 		B201AF232E95C4E2008A3464 = {
 			isa = PBXGroup;
 			children = (
+				B248D6082E98ABB20055FF1F /* build_js.sh */,
+				B2D49E892E95FEBF00F36696 /* AppIcon.icon */,
 				B201AF282E95C4E2008A3464 /* Shared (App) */,
 				B201AF312E95C4E4008A3464 /* Shared (Extension) */,
 				B201AF422E95C4E4008A3464 /* iOS (App) */,
@@ -297,6 +323,7 @@
 			buildPhases = (
 				B201AF592E95C4E4008A3464 /* Sources */,
 				B201AF5A2E95C4E4008A3464 /* Frameworks */,
+				B248D60B2E98AD0C0055FF1F /* ShellScript */,
 				B201AF5B2E95C4E4008A3464 /* Resources */,
 			);
 			buildRules = (
@@ -319,6 +346,7 @@
 			buildPhases = (
 				B201AF632E95C4E4008A3464 /* Sources */,
 				B201AF642E95C4E4008A3464 /* Frameworks */,
+				B248D6072E98A23C0055FF1F /* Run Script */,
 				B201AF652E95C4E4008A3464 /* Resources */,
 			);
 			buildRules = (
@@ -386,6 +414,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2D49E8A2E95FEBF00F36696 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +422,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2D49E8D2E95FEBF00F36696 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +430,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B248D6092E98ABB20055FF1F /* build_js.sh in Resources */,
+				B2D49E8C2E95FEBF00F36696 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,10 +439,56 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B248D60A2E98ABB20055FF1F /* build_js.sh in Resources */,
+				B2D49E8B2E95FEBF00F36696 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B248D6072E98A23C0055FF1F /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/build_js.sh",
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Shared (Extension)/Resources/content.js",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nchmod +x build_js.sh\n./build_js.sh\n";
+		};
+		B248D60B2E98AD0C0055FF1F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/build_js.sh",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Shared (Extension)/Resources/content.js",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nchmod +x build_js.sh\n./build_js.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B201AF3C2E95C4E4008A3464 /* Sources */ = {
@@ -540,7 +618,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = Main.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -583,7 +661,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = Main.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -617,7 +695,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -653,7 +731,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;

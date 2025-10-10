@@ -10,7 +10,20 @@ const patterns = [
   /Přehled od AI/i, // cz
 ];
 
-if (process.env.ENABLE_DEBUG) {
+if (process.env.DEV_MODE) {
+  // Object with toString that returns current timestamp
+  const timestamp = {
+    toString: () => {
+      const now = new Date();
+      return `[${now.toTimeString().split(' ')[0]}]`;
+    },
+  };
+
+  // Bind the timestamp object - toString() gets called at log-time
+  console.log = console.log.bind(console, timestamp);
+  console.warn = console.warn.bind(console, timestamp);
+  console.error = console.error.bind(console, timestamp);
+
   console.error('rm-google-ai-overview: Debug mode is enabled');
   console.error('Build TS: ', process.env.BUILD_TS);
 }
@@ -29,9 +42,16 @@ const observer = new MutationObserver(() => {
     }
   });
 
-  let aiOverview = aiText?.closest('div#rso > div') as HTMLDivElement; // AI overview as a search result
+  if (!aiText) {
+    return;
+  }
+
+  let aiOverview = aiText.parentElement; // google changes oct 9 2025
   if (!aiOverview) {
-    aiOverview = aiText?.closest('div#rcnt > div') as HTMLDivElement; // AI overview above search results
+    aiOverview = aiText.closest('div#rso > div') as HTMLDivElement; // AI overview as a search result
+  }
+  if (!aiOverview) {
+    aiOverview = aiText.closest('div#rcnt > div') as HTMLDivElement; // AI overview above search results
   }
 
   // Hide AI overview
@@ -46,7 +66,16 @@ const observer = new MutationObserver(() => {
   }
 
   // For debugging
-  // console.log([...mainBody?.querySelectorAll('h1, h2')].map(e => { return { text: e.innerText, obj: e }}));
+  if (process.env.DEV_MODE) {
+    console.debug(
+      [...headings].map((e) => {
+        if (e instanceof HTMLElement) {
+          return { text: e.innerText, obj: e };
+        }
+      }),
+    );
+  }
+
   const mainElement = document.querySelector('[role="main"]') as HTMLElement | null;
   if (mainElement) {
     mainElement.style.marginTop = '24px';

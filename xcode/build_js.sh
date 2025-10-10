@@ -22,7 +22,6 @@ echo "Using pnpm version: $("$PNPM" -v)"
 echo "Using esbuild version: $("$PNPM" exec esbuild --version)"
 
 # Install dependencies
-"$PNPM" install
 if [ "$("$PNPM" install)" -ne 0 ]; then
   echo "Failed to install dependencies with pnpm."
   exit 1
