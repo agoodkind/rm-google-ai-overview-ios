@@ -61,7 +61,7 @@ const createBuildOptions = (entry) => ({
   define: {
     // Inject environment variables as compile-time constants
     'process.env.DEV_MODE': JSON.stringify(Boolean(process.env.DEV_MODE === 'true' || false)),
-    'process.env.BUILD_TS': JSON.stringify(new Date().toISOString()),
+    'process.env.BUILD_TS': JSON.stringify(new Date().toString()),
     // Add any additional environment variables you want to inject
     // Format: 'process.env.VAR_NAME': JSON.stringify(process.env.VAR_NAME || 'default_value'),
   },

@@ -21,6 +21,7 @@ if (process.env.DEV_MODE) {
 
   console.warn('Debug mode is enabled');
   console.warn('Build TS: ', process.env.BUILD_TS);
+  console.warn('Current TS: ', new Date().toString());
 }
 
 const observer = new MutationObserver(() => {
