@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc && node build.mjs",
-    "build:debug": "tsc && ENABLE_DEBUG=true node build.mjs",
-    "build:watch": "ENABLE_DEBUG=true node build.mjs --watch"
+    "build:debug": "tsc && DEV_MODE=false node build.mjs",
+    "build:watch": "DEV_MODE=false node build.mjs --watch"
   },
   "dependencies": {
     "deeply-convert-keys": "^1.0.0",

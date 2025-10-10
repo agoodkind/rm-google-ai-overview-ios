@@ -20,7 +20,7 @@ const __dirname = dirname(__filename);
 const r = (...args) => resolve(__dirname, ...args);
 
 /** @type {boolean} */
-const isDev = process.env.ENABLE_DEBUG === 'true';
+const isDev = process.env.DEV_MODE === 'true';
 
 /** @type {boolean} */
 const watch = process.argv.includes('--watch');
@@ -60,9 +60,7 @@ const createBuildOptions = (entry) => ({
   logLevel: isDev ? 'debug' : 'info',
   define: {
     // Inject environment variables as compile-time constants
-    'process.env.ENABLE_DEBUG': JSON.stringify(
-      Boolean(process.env.ENABLE_DEBUG === 'true' || 'false'),
-    ),
+    'process.env.DEV_MODE': JSON.stringify(Boolean(process.env.DEV_MODE === 'true' || false)),
     'process.env.BUILD_TS': JSON.stringify(new Date().toISOString()),
     // Add any additional environment variables you want to inject
     // Format: 'process.env.VAR_NAME': JSON.stringify(process.env.VAR_NAME || 'default_value'),
