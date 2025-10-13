@@ -20,7 +20,7 @@ const __dirname = dirname(__filename);
 const r = (...args) => resolve(__dirname, ...args);
 
 /** @type {boolean} */
-const isDev = process.env.DEV_MODE === 'true';
+const isDev = process.env.BUILD_ENV === 'development';
 
 /** @type {boolean} */
 const watch = process.argv.includes('--watch');
@@ -37,10 +37,10 @@ const entries = [
     input: r('src/Content.ts'),
     output: r('xcode', 'Shared (Extension)', 'Resources', 'content.js'),
   },
-  {
-    input: r('src/AppWebView.tsx'),
-    output: r('xcode', 'Shared (App)', 'Resources', 'Script.js'),
-  },
+  // {
+  //   input: r('src/AppWebView.tsx'),
+  //   output: r('xcode', 'Shared (App)', 'Resources', 'Script.js'),
+  // },
 ];
 
 /**
@@ -58,9 +58,13 @@ const createBuildOptions = (entry) => ({
   minify: !isDev,
   sourcemap: isDev ? 'inline' : false,
   logLevel: isDev ? 'debug' : 'info',
+  alias: {
+    '@': r('src'),
+    '@lib': r('src/lib'),
+  },
   define: {
     // Inject environment variables as compile-time constants
-    'process.env.DEV_MODE': JSON.stringify(Boolean(process.env.DEV_MODE === 'true' || false)),
+    'process.env.BUILD_ENV': JSON.stringify(process.env.BUILD_ENV || 'production'),
     'process.env.BUILD_TS': JSON.stringify(new Date().toISOString()),
     // Add any additional environment variables you want to inject
     // Format: 'process.env.VAR_NAME': JSON.stringify(process.env.VAR_NAME || 'default_value'),

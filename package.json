@@ -4,9 +4,10 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "build": "tsc && node build.mjs",
-    "build:debug": "tsc && DEV_MODE=true node build.mjs",
-    "build:watch": "DEV_MODE=true node build.mjs --watch"
+    "build": "tsc && BUILD_ENV=production node build.mjs",
+    "build:testing": "tsc && BUILD_ENV=testing node build.mjs",
+    "build:development": "tsc && BUILD_ENV=development node build.mjs",
+    "build:watch": "BUILD_ENV=development node build.mjs --watch"
   },
   "dependencies": {
     "deeply-convert-keys": "^1.0.0",
