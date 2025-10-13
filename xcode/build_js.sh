@@ -34,7 +34,7 @@ fi
 # check xcode configuration
 if [ "$CONFIGURATION" == "Debug" ]; then
   echo "Building in Debug mode..."
-  BUILD_CMD="build:debug"
+  BUILD_CMD="build:development"
 else
   echo "Building in Release mode..."
   BUILD_CMD="build"

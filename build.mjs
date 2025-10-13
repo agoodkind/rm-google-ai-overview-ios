@@ -25,6 +25,19 @@ const isDev = process.env.BUILD_ENV === 'development';
 /** @type {boolean} */
 const watch = process.argv.includes('--watch');
 
+const getGitCommitSha = async () => {
+  const { exec } = await import('node:child_process');
+  return new Promise((resolve) => {
+    exec('git rev-parse HEAD', (err, stdout) => {
+      if (err) {
+        resolve('');
+      } else {
+        resolve(stdout.trim());
+      }
+    });
+  });
+};
+
 /**
  * @typedef {Object} EntryConfig
  * @property {string} input - Input file path
@@ -46,9 +59,9 @@ const entries = [
 /**
  * Create build options for an entry
  * @param {EntryConfig} entry
- * @returns {import('esbuild').BuildOptions}
+ * @returns {Promise<import('esbuild').BuildOptions>}
  */
-const createBuildOptions = (entry) => ({
+const createBuildOptions = async (entry) => ({
   entryPoints: [entry.input],
   bundle: true,
   outfile: entry.output,
@@ -65,18 +78,21 @@ const createBuildOptions = (entry) => ({
   define: {
     // Inject environment variables as compile-time constants
     'process.env.BUILD_ENV': JSON.stringify(process.env.BUILD_ENV || 'production'),
-    'process.env.BUILD_TS': JSON.stringify(new Date().toISOString()),
+    'process.env.BUILD_TS': JSON.stringify(new Date().toString()),
+    'process.env.COMMIT_SHA': JSON.stringify(await getGitCommitSha()),
     // Add any additional environment variables you want to inject
     // Format: 'process.env.VAR_NAME': JSON.stringify(process.env.VAR_NAME || 'default_value'),
   },
 });
 
 if (watch) {
-  const contexts = await Promise.all(entries.map((entry) => context(createBuildOptions(entry))));
+  const contexts = await Promise.all(
+    entries.map(async (entry) => context(await createBuildOptions(entry))),
+  );
   await Promise.all(contexts.map((ctx) => ctx.watch()));
   console.log('Watching for changes...');
 } else {
-  await Promise.all(entries.map((entry) => build(createBuildOptions(entry)))).catch(() =>
-    process.exit(1),
+  await Promise.all(entries.map(async (entry) => build(await createBuildOptions(entry)))).catch(
+    () => process.exit(1),
   );
 }
