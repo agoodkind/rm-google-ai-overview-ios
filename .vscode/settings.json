@@ -1,0 +1,14 @@
+{
+  "debug.node.autoAttach": "off",
+  "debug.javascript.unmapMissingSources": true,
+  "debug.javascript.terminalOptions": {
+    "skipFiles": ["<node_internals>/**"]
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/xcode/build/**": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/xcode/DerivedData/**": true
+  }
+}

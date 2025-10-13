@@ -1,0 +1,62 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Watch",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "build:watch"],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "esbuild",
+        "pattern": {
+          "regexp": "^([^\\s].*):?(\\d+)?:?(\\d+)?:?\\s+(warning|error):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*Starting compilation in watch mode.*$",
+          "endsPattern": "^.*Watching for changes.*$"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "TypeScript Compile",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["exec", "tsc"],
+      "problemMatcher": ["$tsc"],
+      "group": "build"
+    },
+    {
+      "label": "Build Debug",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "build:debug"],
+      "problemMatcher": {
+        "owner": "esbuild",
+        "pattern": {
+          "regexp": "^([^\\s].*):?(\\d+)?:?(\\d+)?:?\\s+(warning|error):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      },
+      "group": "build"
+    }
+  ]
+}
