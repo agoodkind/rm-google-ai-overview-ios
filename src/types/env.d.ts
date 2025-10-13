@@ -7,10 +7,12 @@
 declare namespace NodeJS {
   interface ProcessEnv {
     readonly NODE_ENV: 'development' | 'production';
-    // Add your custom environment variables here
-    // readonly API_KEY?: string;
-    // readonly API_URL?: string;
-    // readonly ENABLE_DEBUG?: string;
-    // readonly ENABLE_ANALYTICS?: string;
   }
 }
+
+declare global {
+  const DEV_MODE: boolean;
+  const BUILD_TS: string;
+}
+
+export global {}

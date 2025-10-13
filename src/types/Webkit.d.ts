@@ -15,3 +15,5 @@ declare global {
     show?: (platform: Platform, enabled?: boolean, useSettings?: boolean) => void;
   }
 }
+
+export global {}
