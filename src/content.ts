@@ -1,4 +1,7 @@
-const patterns = [
+import { isDev, log } from '@lib/shims';
+
+const aiTextPatterns = [
+  // regex patterns to match "AI overview" in various languages
   /übersicht mit ki/i, // de
   /ai overview/i, // en
   /prezentare generală generată de ai/i, // ro
@@ -8,90 +11,107 @@ const patterns = [
   /AI-overzicht/i, // nl
   /Vista creada con IA/i, // es
   /Přehled od AI/i, // cz
+  /Aperçu généré par l'IA/i, // fr
+
+  // patterns for "AI Mode" since Google sometimes uses that instead
+  /ki-modus/i, // de
+  /AI mode/i, // en
+  /modul AI/i, // ro
+  /AI モード/, // ja
+  /Режим ИИ/, // ru
+  /AI 模式/, // zh-TW
+  /AI-modus/i, // nl
+  /Modo IA/i, // es
+  /Režim AI/i, // cz
+  /Mode IA/i, // fr
 ];
 
-if (process.env.DEV_MODE) {
-  const logLabel = '[rm-google-ai-overview-ios]';
+let mainBodyInitialized = false;
+let hasRun = false;
+const elements = new Set<HTMLElement>();
 
-  // Bind the timestamp object - toString() gets called at log-time
-  console.log = console.log.bind(console, logLabel);
-  console.warn = console.warn.bind(console, logLabel);
-  console.error = console.error.bind(console, logLabel);
-  console.debug = console.debug.bind(console, logLabel);
+const processHeadings = (mainBody: HTMLDivElement) =>
+  [...mainBody.querySelectorAll('h1, h2')]
+    .filter((e): e is HTMLElement => {
+      if (e instanceof HTMLElement) {
+        return aiTextPatterns.some((pattern) => pattern.test(e.innerText));
+      } else {
+        return false;
+      }
+    })
+    .map((heading) => {
+      let aiOverview = heading.parentElement; // google changes oct 9 2025
+      if (!aiOverview) {
+        aiOverview = heading.closest('div#rso > div') as HTMLDivElement; // AI overview as a search result
+      }
+      if (!aiOverview) {
+        aiOverview = heading.closest('div#rcnt > div') as HTMLDivElement; // AI overview above search results
+      }
+      return aiOverview;
+    })
+    .forEach(processSingleElement);
 
-  console.warn('Debug mode is enabled');
-  console.warn('Build TS: ', process.env.BUILD_TS);
-  console.warn('Current TS: ', new Date().toString());
-}
+const processPeopleAlsoAsk = (mainBody: HTMLDivElement) =>
+  [...mainBody.querySelectorAll('div.related-question-pair')]
+    .filter(
+      (el) => el.parentElement?.parentElement?.parentElement?.parentElement,
+    )
+    .map((el) => el.parentElement!.parentElement!.parentElement!.parentElement)
+    .filter((el) => el !== null)
+    .forEach(processSingleElement);
 
-const observer = new MutationObserver((target) => {
-  if (process.env.DEV_MODE) {
-    console.debug('Mutation observed', ...target);
+// ai mode inline card has a custom tag: ai-mode-inline-card
+const processAICard = (mainBody: HTMLDivElement) =>
+  [...mainBody.getElementsByTagName('ai-mode-inline-card')]
+    .map((card) => card.parentElement)
+    .filter((el) => el !== null)
+    .forEach(processSingleElement);
+
+const processSingleElementWithApply = (el: Element) => {
+  if (!(el instanceof HTMLElement)) {
+    return;
   }
-  // each time there's a mutation in the document see if there's an ai overview to hide
+
+  if (elements.has(el)) {
+    return;
+  }
+  if (isDev) {
+    console.debug('Found new element:', el);
+  }
+  elements.add(el);
+};
+const processSingleElement = (el: Element) => processSingleElementWithApply(el);
+
+const observer = new MutationObserver(() => {
+  if (!hasRun) {
+    if (isDev) {
+      console.debug('Initial run');
+    }
+    hasRun = true;
+  }
+
   const mainBody = document.querySelector('div#main') as HTMLDivElement | null;
+  if (mainBody && !mainBodyInitialized) {
+    if (isDev) {
+      console.debug('Main body found');
+    }
+    mainBodyInitialized = true;
+  }
   if (!mainBody) {
-    if (process.env.DEV_MODE) {
-      console.debug('No main body found');
-    }
     return;
   }
 
-  const headings = mainBody.querySelectorAll('h1, h2');
-  const aiText = [...headings].find((e) => {
-    if (e instanceof HTMLElement) {
-      return patterns.some((pattern) => pattern.test(e.innerText));
-    }
-  });
+  processHeadings(mainBody);
+  processPeopleAlsoAsk(mainBody);
+  processAICard(mainBody);
 
-  if (!aiText) {
-    if (process.env.DEV_MODE) {
-      console.debug('No AI overview text found in headings:', [...headings]);
-    }
-    return;
-  }
-
-  let aiOverview = aiText.parentElement; // google changes oct 9 2025
-  if (!aiOverview) {
-    aiOverview = aiText.closest('div#rso > div') as HTMLDivElement; // AI overview as a search result
-  }
-  if (!aiOverview) {
-    aiOverview = aiText.closest('div#rcnt > div') as HTMLDivElement; // AI overview above search results
-  }
-
-  if (process.env.DEV_MODE) {
-    console.debug('AI Overview Element:', aiOverview);
-  }
-
-  // Hide AI overview
-  if (aiOverview) {
-    aiOverview.style.display = 'none';
-  }
-
-  // Restore padding after header tabs
-  const headerTabs = document.querySelector('div#hdtb-sc > div') as HTMLElement | null;
-  if (headerTabs) {
-    headerTabs.style.paddingBottom = '12px';
-  }
-
-  if (process.env.DEV_MODE) {
-    console.debug('Headings:', headings, [...headings]);
-    console.debug('Header tabs:', headerTabs);
-  }
-
-  const mainElement = document.querySelector('[role="main"]') as HTMLElement | null;
-  if (mainElement) {
-    mainElement.style.marginTop = '24px';
-  }
-
-  // Remove entries in "People also ask" section if it contains "AI overview"
-  const peopleAlsoAskAiOverviews = [
-    ...document.querySelectorAll('div.related-question-pair'),
-  ].filter((el) => patterns.some((pattern) => pattern.test(el.innerHTML)));
-
-  peopleAlsoAskAiOverviews.forEach((el) => {
-    if (el.parentElement && el.parentElement.parentElement) {
-      el.parentElement.parentElement.style.display = 'none';
+  [...elements].forEach((el) => {
+    if (isDev) {
+      el.style.outline = '3px solid orange';
+      el.style.outlineOffset = '-1px';
+      el.style.backgroundColor = 'rgba(255, 165, 0, 0.1)';
+    } else {
+      el.style.display = 'none';
     }
   });
 });
@@ -100,3 +120,14 @@ observer.observe(document, {
   childList: true,
   subtree: true,
 });
+
+if (isDev) {
+  log('warn', () => {
+    console.log(
+      'Dev mode is enabled - AI overview sections will be highlighted but not removed',
+    );
+  });
+  console.warn('Debug mode is enabled');
+  console.warn('Build time: ', process.env.BUILD_TS);
+  console.warn('Current time: ', new Date().toString());
+}
