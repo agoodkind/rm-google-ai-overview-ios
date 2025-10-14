@@ -1,6 +1,6 @@
+import { Command } from '@commander-js/extra-typings';
 import tailwindcss from '@tailwindcss/postcss';
 import autoprefixer from 'autoprefixer';
-import { cac } from 'cac';
 import { config } from 'dotenv';
 import { build, context } from 'esbuild';
 import console from 'node:console';
@@ -53,7 +53,6 @@ const getGitCommitSha = async () => {
  * @property {'script'|'css'} type Processing pipeline to use.
  * @property {import('esbuild').Format=} [format='iife'] Script output format (scripts only).
  * @property {string=} [target='es2022'] JS target (scripts only).
- * @property {import('esbuild').JsxMode=} [jsx='automatic'] JSX mode (scripts only).
  */
 
 /**
@@ -168,7 +167,6 @@ const createBuildOptions = async (entry) => {
     format: entry.format,
     platform: 'browser',
     target: entry.target,
-    jsx: entry.jsx,
   };
 };
 
@@ -200,14 +198,17 @@ async function watchEntry(entry) {
  */
 function filterEntries(all, { only, exclude }) {
   let out = all;
+
   if (only && only.length) {
     const set = new Set(only);
     out = out.filter((e) => set.has(e.name));
   }
+
   if (exclude && exclude.length) {
     const set = new Set(exclude);
     out = out.filter((e) => !set.has(e.name));
   }
+
   return out;
 }
 
@@ -222,10 +223,12 @@ async function execute({ only, exclude, list, watch }) {
     console.warn('No entries selected');
     return { mode: 'none', entries: [] };
   }
+
   if (list) {
     listEntries(selected);
     return { mode: 'list', entries: selected };
   }
+
   if (watch) {
     const contexts = await Promise.all(selected.map((e) => watchEntry(e)));
     console.log(
@@ -235,6 +238,7 @@ async function execute({ only, exclude, list, watch }) {
     );
     return { mode: 'watch', entries: selected, contexts };
   }
+
   await Promise.all(selected.map((e) => buildEntry(e)));
   console.log(
     `Built (${selected.length}) entries: ${selected
@@ -244,31 +248,24 @@ async function execute({ only, exclude, list, watch }) {
   return { mode: 'build', entries: selected };
 }
 
+/**
+ * @param {string[]} argv
+ * @return {Promise<void>}
+ */
 async function main(argv = process.argv) {
-  const cli = cac('bundle');
-  cli
-    .option('--only <names>', 'Comma-separated entry names to include')
-    .option('--exclude <names>', 'Comma-separated entry names to exclude')
+  const program = new Command();
+  program
+    .name('bundle')
+    .version('1.0.0')
+    .option('--only <names...>', 'Comma-separated entry names to include')
+    .option('--exclude <names...>', 'Comma-separated entry names to exclude')
     .option('--watch', 'Watch mode')
-    .option('--list', 'List matching entries (no build)');
-  cli.help();
-  cli.version('1.0.0');
-  cli
-    .command('[...files]', 'Build (default)') // files ignored; allows invocation without subcommand
-    .action(async (_files, opts) => {
-      const list = Boolean(opts.list);
-      const watch = Boolean(opts.watch);
-      const only = (opts.only || '')
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
-      const exclude = (opts.exclude || '')
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
-      await execute({ only, exclude, list, watch });
+    .option('--list', 'List matching entries (no build)')
+    .action(async (options) => {
+      await execute(options);
     });
-  cli.parse(argv);
+
+  await program.parseAsync(argv);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

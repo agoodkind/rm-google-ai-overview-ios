@@ -22,11 +22,9 @@ echo "Using pnpm version: $("$PNPM" -v)"
 echo "Using esbuild version: $("$PNPM" exec esbuild --version)"
 echo "Current Xcode configuration: $CONFIGURATION"
 
-echo "Installing dependencies..."
-"$PNPM" install
-# Install dependencies
-if [ "$("$PNPM" install)" -ne 0 ]; then
-  echo "Failed to install dependencies with pnpm."
+echo "Installing dependencies (if needed)..."
+if ! "$PNPM" install; then
+  echo "Failed to install dependencies with pnpm." >&2
   exit 1
 fi
 
@@ -40,7 +38,10 @@ else
   BUILD_CMD="build"
 fi
 
-if [ "$("$PNPM" run "$BUILD_CMD")" -ne 0 ]; then
-  echo "Build failed."
+echo "Running pnpm run $BUILD_CMD ..."
+if ! "$PNPM" run "$BUILD_CMD"; then
+  echo "Build failed." >&2
   exit 1
 fi
+
+echo "JS build script completed successfully." 

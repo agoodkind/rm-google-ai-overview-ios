@@ -39,8 +39,3 @@ export const entries = [
     output: 'xcode/Shared (App)/Resources/Style.css',
   },
 ];
-
-// Helper for users who want to programmatically extend entries:
-export function withAdditionalEntries(additional) {
-  return [...entries, ...additional];
-}
