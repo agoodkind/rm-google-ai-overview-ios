@@ -7,7 +7,8 @@
     "build": "tsc && BUILD_ENV=production node build.mjs",
     "build:testing": "tsc && BUILD_ENV=testing node build.mjs",
     "build:development": "tsc && BUILD_ENV=development node build.mjs",
-    "build:watch": "BUILD_ENV=development node build.mjs --watch"
+    "build:watch": "BUILD_ENV=development node build.mjs --watch",
+    "dev:app": "node dev-server.mjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.14",
