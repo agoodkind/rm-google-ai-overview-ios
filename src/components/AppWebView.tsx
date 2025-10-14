@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 type Platform = 'ios' | 'mac';
 type ExtensionState = 'on' | 'off' | 'unknown';
 
-function App() {
+export function AppWebView() {
   const [platform, setPlatform] = useState<Platform | null>(null);
   const [state, setState] = useState<ExtensionState>('unknown');
   const [useSettingsInsteadOfPreferences, setUseSettingsInsteadOfPreferences] = useState(false);
@@ -83,4 +83,4 @@ function App() {
   );
 }
 
-export default App;
+

@@ -24,6 +24,19 @@ const aiTextPatterns = [
   /Modo IA/i, // es
   /Režim AI/i, // cz
   /Mode IA/i, // fr
+
+  // patterns for "People also ask"
+  /Le persone chiedono anche/i, // it
+  /Las personas también preguntan/i, // es
+  /Les gens demandent aussi/i, // fr
+  /Andere gebruikers fragen auch/i, // de
+  /Alte persoane întreabă și/i, // ro
+  /人々も尋ねる/i, // ja
+  /Другие люди также спрашивают/i, // ru
+  /其他人也在问/i, // zh-TW
+  /Mensen vragen ook/i, // nl
+  /Lidé se také ptají/i, // cz
+  /People also ask/i, // en
 ];
 
 let mainBodyInitialized = false;
