@@ -28,7 +28,10 @@ const aiTextPatterns = [
 
 let mainBodyInitialized = false;
 let hasRun = false;
-const elements = new Set<HTMLElement>();
+let dupeCount = 0;
+let hideCount = 0;
+let lastStatsPrintTime = 0;
+const elements = new WeakSet<HTMLElement>();
 
 const processHeadings = (mainBody: HTMLDivElement) =>
   [...mainBody.querySelectorAll('h1, h2')]
@@ -73,14 +76,29 @@ const processSingleElementWithApply = (el: Element) => {
   }
 
   if (elements.has(el)) {
+    dupeCount++;
     return;
   }
   if (isDev) {
     console.debug('Found new element:', el);
   }
+
+  hideElement(el);
+
   elements.add(el);
 };
 const processSingleElement = (el: Element) => processSingleElementWithApply(el);
+
+const hideElement = (el: HTMLElement) => {
+  if (isDev) {
+    el.style.outline = '3px solid orange';
+    el.style.outlineOffset = '-1px';
+    el.style.backgroundColor = 'rgba(255, 165, 0, 0.1)';
+  } else {
+    el.style.display = 'none';
+  }
+  hideCount++;
+};
 
 const observer = new MutationObserver(() => {
   if (!hasRun) {
@@ -105,15 +123,16 @@ const observer = new MutationObserver(() => {
   processPeopleAlsoAsk(mainBody);
   processAICard(mainBody);
 
-  [...elements].forEach((el) => {
-    if (isDev) {
-      el.style.outline = '3px solid orange';
-      el.style.outlineOffset = '-1px';
-      el.style.backgroundColor = 'rgba(255, 165, 0, 0.1)';
-    } else {
-      el.style.display = 'none';
-    }
-  });
+  if (isDev && Date.now() - lastStatsPrintTime > 500) {
+    lastStatsPrintTime = Date.now();
+    console.debug(
+      'Stats:',
+      'Duplicates found:',
+      dupeCount,
+      'Elements hidden:',
+      hideCount,
+    );
+  }
 });
 
 observer.observe(document, {
