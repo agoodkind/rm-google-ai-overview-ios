@@ -17,16 +17,17 @@
     "webextension-polyfill": "0.10.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.36.0",
+    "@eslint/js": "^9.37.0",
+    "@stylistic/eslint-plugin": "^5.4.0",
     "@types/cors": "^2.8.19",
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.7.2",
     "@types/react": "^19.2.2",
-    "@typescript-eslint/eslint-plugin": "^8.44.1",
-    "@typescript-eslint/parser": "^8.44.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.2",
-    "esbuild": "^0.24.0",
-    "eslint": "^9.36.0",
+    "dotenv": "^17.2.3",
+    "esbuild": "^0.24.2",
+    "eslint": "^9.37.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "express": "^5.1.0",
@@ -35,7 +36,7 @@
     "prettier": "^3.6.2",
     "tsx": "^4.20.6",
     "typescript": "~5.8.3",
-    "typescript-eslint": "^8.44.0"
+    "typescript-eslint": "^8.46.1"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -47,7 +48,7 @@
     "singleQuote": true,
     "tabWidth": 2,
     "trailingComma": "all",
-    "printWidth": 100,
+    "printWidth": 80,
     "bracketSpacing": true,
     "arrowParens": "always"
   }

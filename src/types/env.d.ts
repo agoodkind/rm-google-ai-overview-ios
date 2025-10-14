@@ -11,7 +11,7 @@ declare namespace NodeJS {
 }
 
 declare global {
-  const DEV_MODE: boolean;
+  const BUILD_ENV: 'development' | 'testing' | 'production';
   const BUILD_TS: string;
 }
 
