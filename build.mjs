@@ -1,15 +1,15 @@
-import { Command } from '@commander-js/extra-typings';
-import tailwindcss from '@tailwindcss/postcss';
-import autoprefixer from 'autoprefixer';
-import { config } from 'dotenv';
-import { build, context } from 'esbuild';
-import console from 'node:console';
-import fs from 'node:fs/promises';
-import { dirname, isAbsolute, resolve } from 'node:path';
-import process from 'node:process';
-import { fileURLToPath } from 'node:url';
-import postcss from 'postcss';
-import { entries as configEntries } from './build.config.mjs';
+import { Command } from "@commander-js/extra-typings";
+import tailwindcss from "@tailwindcss/postcss";
+import autoprefixer from "autoprefixer";
+import { config } from "dotenv";
+import { build, context } from "esbuild";
+import console from "node:console";
+import fs from "node:fs/promises";
+import { dirname, isAbsolute, resolve } from "node:path";
+import process from "node:process";
+import { fileURLToPath } from "node:url";
+import postcss from "postcss";
+import { entries as configEntries } from "./build.config.mjs";
 
 // Load environment variables from .env file
 config();
@@ -25,18 +25,18 @@ const __dirname = dirname(__filename);
 const r = (...args) => resolve(__dirname, ...args);
 
 /** @type {boolean} */
-const isDev = process.env.BUILD_ENV === 'development';
+const isDev = process.env.BUILD_ENV === "development";
 
 /**
  * Get the current Git commit SHA.
  * @returns {Promise<string>} The current Git commit SHA.
  */
 const getGitCommitSha = async () => {
-  const { exec } = await import('node:child_process');
+  const { exec } = await import("node:child_process");
   return new Promise((resolve) => {
-    exec('git rev-parse HEAD', (err, stdout) => {
+    exec("git rev-parse HEAD", (err, stdout) => {
       if (err) {
-        resolve('');
+        resolve("");
       } else {
         resolve(stdout.trim());
       }
@@ -53,6 +53,7 @@ const getGitCommitSha = async () => {
  * @property {'script'|'css'} type Processing pipeline to use.
  * @property {import('esbuild').Format=} [format='iife'] Script output format (scripts only).
  * @property {string=} [target='es2022'] JS target (scripts only).
+ * @property {'automatic'|'transform'|'preserve'=} [jsx='automatic'] JSX transform mode.
  */
 
 /**
@@ -79,9 +80,9 @@ const getGitCommitSha = async () => {
  */
 function getEntries() {
   return configEntries.map((e) => ({
-    format: 'iife',
-    target: 'es2022',
-    jsx: 'automatic',
+    format: "iife",
+    target: "es2022",
+    jsx: "automatic",
     ...e,
     input: isAbsolute(e.input) ? e.input : r(e.input),
     output: isAbsolute(e.output) ? e.output : r(e.output),
@@ -96,14 +97,14 @@ function getEntries() {
  */
 function listEntries(entries) {
   if (!entries.length) {
-    console.log('No entries');
+    console.log("No entries");
     return;
   }
   const rows = entries.map((e) => ({
     name: e.name,
     type: e.type,
-    input: e.input.replace(__dirname + '/', ''),
-    output: e.output.replace(__dirname + '/', ''),
+    input: e.input.replace(__dirname + "/", ""),
+    output: e.output.replace(__dirname + "/", ""),
   }));
   console.table(rows);
 }
@@ -113,16 +114,16 @@ function listEntries(entries) {
  * @type {import('esbuild').Plugin}
  */
 const postCssPlugin = {
-  name: 'postcss-tailwind',
+  name: "postcss-tailwind",
   setup(build) {
     build.onLoad({ filter: /\.css$/ }, async (args) => {
-      const source = await fs.readFile(args.path, 'utf8');
+      const source = await fs.readFile(args.path, "utf8");
       const result = await postcss([
         // Tailwind first so autoprefixer can act on the final utilities
         tailwindcss(),
         autoprefixer(),
       ]).process(source, { from: args.path });
-      return { contents: result.css, loader: 'css' };
+      return { contents: result.css, loader: "css" };
     });
   },
 };
@@ -133,7 +134,7 @@ const postCssPlugin = {
  * @returns {Promise<import('esbuild').BuildOptions>}
  */
 const createBuildOptions = async (entry) => {
-  const isCss = entry.type === 'css';
+  const isCss = entry.type === "css";
 
   /** @type {import('esbuild').BuildOptions} */
   const base = {
@@ -141,32 +142,36 @@ const createBuildOptions = async (entry) => {
     bundle: true,
     outfile: entry.output,
     minify: !isDev,
-    sourcemap: isDev ? 'inline' : false,
-    logLevel: isDev ? 'debug' : 'info',
+    sourcemap: isDev ? "inline" : false,
+    logLevel: isDev ? "debug" : "info",
     alias: {
-      '@': r('src'),
-      '@lib': r('src/lib'),
-      '@components': r('src/components'),
-      '@styles': r('src/styles'),
+      "@": r("src"),
+      "@lib": r("src/lib"),
+      "@components": r("src/components"),
+      "@styles": r("src/styles"),
     },
     define: {
-      'process.env.BUILD_ENV': JSON.stringify(
-        process.env.BUILD_ENV || 'production',
+      "process.env.BUILD_ENV": JSON.stringify(
+        process.env.BUILD_ENV || "production",
       ),
-      'process.env.BUILD_TS': JSON.stringify(new Date().toString()),
-      'process.env.COMMIT_SHA': JSON.stringify(await getGitCommitSha()),
+      "process.env.BUILD_TS": JSON.stringify(new Date().toString()),
+      "process.env.COMMIT_SHA": JSON.stringify(await getGitCommitSha()),
     },
   };
 
   if (isCss) {
-    return { ...base, loader: { '.css': 'css' }, plugins: [postCssPlugin] };
+    return { ...base, loader: { ".css": "css" }, plugins: [postCssPlugin] };
   }
 
   return {
     ...base,
     format: entry.format,
-    platform: 'browser',
+    platform: "browser",
     target: entry.target,
+    jsx: entry.jsx || "automatic",
+    loader: {
+      ".png": "dataurl",
+    },
   };
 };
 
@@ -220,13 +225,13 @@ function filterEntries(all, { only, exclude }) {
 async function execute({ only, exclude, list, watch }) {
   let selected = filterEntries(getEntries(), { only, exclude });
   if (!selected.length) {
-    console.warn('No entries selected');
-    return { mode: 'none', entries: [] };
+    console.warn("No entries selected");
+    return { mode: "none", entries: [] };
   }
 
   if (list) {
     listEntries(selected);
-    return { mode: 'list', entries: selected };
+    return { mode: "list", entries: selected };
   }
 
   if (watch) {
@@ -234,18 +239,18 @@ async function execute({ only, exclude, list, watch }) {
     console.log(
       `Watching (${selected.length}) entries: ${selected
         .map((e) => e.name)
-        .join(', ')}`,
+        .join(", ")}`,
     );
-    return { mode: 'watch', entries: selected, contexts };
+    return { mode: "watch", entries: selected, contexts };
   }
 
   await Promise.all(selected.map((e) => buildEntry(e)));
   console.log(
     `Built (${selected.length}) entries: ${selected
       .map((e) => e.name)
-      .join(', ')}`,
+      .join(", ")}`,
   );
-  return { mode: 'build', entries: selected };
+  return { mode: "build", entries: selected };
 }
 
 /**
@@ -255,12 +260,12 @@ async function execute({ only, exclude, list, watch }) {
 async function main(argv = process.argv) {
   const program = new Command();
   program
-    .name('bundle')
-    .version('1.0.0')
-    .option('--only <names...>', 'Comma-separated entry names to include')
-    .option('--exclude <names...>', 'Comma-separated entry names to exclude')
-    .option('--watch', 'Watch mode')
-    .option('--list', 'List matching entries (no build)')
+    .name("bundle")
+    .version("1.0.0")
+    .option("--only <names...>", "Comma-separated entry names to include")
+    .option("--exclude <names...>", "Comma-separated entry names to exclude")
+    .option("--watch", "Watch mode")
+    .option("--list", "List matching entries (no build)")
     .action(async (options) => {
       await execute(options);
     });
