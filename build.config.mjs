@@ -21,21 +21,21 @@
 /** @type {EntryConfig[]} */
 export const entries = [
   {
-    name: 'extensionContent',
-    type: 'script',
-    input: 'src/Content.ts',
-    output: 'xcode/Shared (Extension)/Resources/content.js',
+    name: "contentScript",
+    type: "script",
+    input: "src/Content.ts",
+    output: "xcode/Shared (Extension)/Resources/content.js",
   },
   {
-    name: 'appView',
-    type: 'script',
-    input: 'src/SharedAppView.tsx',
-    output: 'xcode/Shared (App)/Resources/Script.js',
+    name: "appWebView",
+    type: "script",
+    input: "src/SharedAppView.tsx",
+    output: "xcode/Shared (App)/Resources/Script.js",
   },
   {
-    name: 'appStyles',
-    type: 'css',
-    input: 'src/styles/App.css',
-    output: 'xcode/Shared (App)/Resources/Style.css',
+    name: "appStyles",
+    type: "css",
+    input: "src/styles/App.css",
+    output: "xcode/Shared (App)/Resources/Style.css",
   },
 ];
