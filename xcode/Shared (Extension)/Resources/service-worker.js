@@ -1,0 +1,1 @@
+(()=>{browser.runtime.onMessage.addListener((s,n,r)=>(!1,s.action==="getDisplayMode"?(browser.runtime.sendNativeMessage("application.id",{action:"getDisplayMode"}).then(e=>{!1,r(e)}).catch(e=>{console.error("Error communicating with native app:",e),r({error:e.message})}),!0):!1));!1;})();

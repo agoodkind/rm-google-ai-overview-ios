@@ -6,12 +6,19 @@
 //
 
 import Cocoa
+import WebKit
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        // Override point for customization after application launch.
+        // Preload WKWebView to eliminate first-launch delay
+        workaroundInitialWebViewDelay()
+    }
+    
+    func workaroundInitialWebViewDelay() {
+        let webView = WKWebView()
+        webView.loadHTMLString("", baseURL: nil)
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

@@ -18,6 +18,8 @@ import WebKit
 
 let extensionBundleIdentifier =
     "goodkind-io.Remove-Google-AI-Overview.Extension"
+let APP_GROUP_ID = "group.com.goodkind.rm-google-ai-overview"
+let DISPLAY_MODE_KEY = "rm-ai-display-mode"
 
 #if DEBUG
     let devServerDefaultHost = "http://localhost:8080"
@@ -188,7 +190,22 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
             }
         #endif
         
+        // Handle display mode changes from AppWebView
+        if message.name == "controller",
+           let body = message.body as? [String: Any],
+           let action = body["action"] as? String,
+           action == "set-display-mode",
+           let mode = body["mode"] as? String
+        {
+            let defaults = UserDefaults(suiteName: APP_GROUP_ID)
+            defaults?.set(mode, forKey: DISPLAY_MODE_KEY)
+            print("[Settings] Updated display mode to: \(mode)")
+            return
+        }
+        
         #if os(macOS)
+        // mac specific extension settings
+        // since macs can programmatically open safari settings (iOS & catalyst can't)
             guard let body = message.body as? String else { return }
             switch body {
             case "open-preferences":
