@@ -27,5 +27,3 @@ export const doRender = () => {
     console.log("Created root and called render: SharedAppView.");
   }
 };
-
-doRender();

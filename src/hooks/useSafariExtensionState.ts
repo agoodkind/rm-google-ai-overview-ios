@@ -1,3 +1,4 @@
+import { verbose } from "@/lib/shims";
 import type { Platform } from "@components/AppWebView";
 import { useEffect, useState } from "react";
 
@@ -57,8 +58,14 @@ export function useSafariExtensionState(): SafariExtensionState {
         return;
       }
 
-      if (!containsDetails(e.detail)) {
+      if (e.type !== "safari-extension-state" || !containsDetails(e.detail)) {
         return;
+      }
+
+      if (verbose) {
+        console.debug("Received safari-extension-state event:", e.detail, {
+          full: e,
+        });
       }
 
       const {

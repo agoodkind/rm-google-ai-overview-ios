@@ -24,10 +24,11 @@ let DISPLAY_MODE_KEY = "rm-ai-display-mode"
 #if DEBUG
     let devServerDefaultHost = "http://localhost:8080"
     let devServerHTMLPath = "xcode/Shared (App)/Resources/Base.lproj/Main.html"
-    
+
     // Read from UserDefaults if available, otherwise use default
     var devServerBaseURL: String {
-        UserDefaults.standard.string(forKey: "dev-server-host") ?? devServerDefaultHost
+        UserDefaults.standard.string(forKey: "dev-server-host")
+            ?? devServerDefaultHost
     }
 #endif
 
@@ -42,10 +43,12 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
             if #available(macOS 13.3, *) {
                 if #available(iOS 16.4, *) {
                     self.webView.isInspectable = true
-                } 
+                }
             }
             // Attempt to load local dev server for rapid React iteration
-            if let devURL = URL(string: "\(devServerBaseURL)/\(devServerHTMLPath)") {
+            if let devURL = URL(
+                string: "\(devServerBaseURL)/\(devServerHTMLPath)"
+            ) {
                 let request = URLRequest(
                     url: devURL,
                     cachePolicy: .reloadIgnoringLocalCacheData,
@@ -173,10 +176,10 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
 
             // Handle dev server URL updates from web content
             if message.name == "controller",
-               let body = message.body as? [String: Any],
-               let action = body["action"] as? String,
-               action == "set-dev-server-url",
-               let url = body["url"] as? String
+                let body = message.body as? [String: Any],
+                let action = body["action"] as? String,
+                action == "set-dev-server-url",
+                let url = body["url"] as? String
             {
                 UserDefaults.standard.set(url, forKey: "dev-server-host")
                 print("[Dev] Updated dev server URL to: \(url)")
@@ -187,28 +190,30 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
                 return
             }
         #endif
-        
+
+        guard let body = message.body as? [String: Any] else { return }
+        guard let action = body["action"] as? String else { return }
+
+        switch action {
         // Handle display mode changes from AppWebView
-        if message.name == "controller",
-           let body = message.body as? [String: Any],
-           let action = body["action"] as? String,
-           action == "set-display-mode",
-           let mode = body["mode"] as? String
-        {
+        case "set-display-mode":
+            let mode = body["mode"] as? String
             let defaults = UserDefaults(suiteName: APP_GROUP_ID)
             defaults?.set(mode, forKey: DISPLAY_MODE_KEY)
-            print("[Settings] Updated display mode to: \(mode)")
+            print("[userContentController] [set-display-mode] Updated display mode to: \(mode)")
             return
+        default:
+            break
         }
-        
+
         #if os(macOS)
-        // mac specific extension settings
-        // since macs can programmatically open safari settings (iOS & catalyst can't)
+            // mac specific extension settings
+            // since macs can programmatically open safari settings (iOS & catalyst can't)
             guard let body = message.body as? String else { return }
 
             switch body {
             case "open-preferences":
-    
+
                 SFSafariApplication.showPreferencesForExtension(
                     withIdentifier: extensionBundleIdentifier
                 ) { error in
@@ -239,7 +244,10 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
                                 }
                             }));
                             """
-                        self.webView.evaluateJavaScript(js, completionHandler: nil)
+                        self.webView.evaluateJavaScript(
+                            js,
+                            completionHandler: nil
+                        )
                     }
                 }
             default:

@@ -12,7 +12,7 @@ export const entryPoints = [
     out: "xcode/Shared (Extension)/Resources/service-worker",
   },
   {
-    in: "src/SharedAppView.tsx",
+    in: "src/AppSharedScript.ts",
     out: "xcode/Shared (App)/Resources/Script",
   },
   {
