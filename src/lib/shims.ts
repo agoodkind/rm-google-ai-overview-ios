@@ -1,9 +1,8 @@
 export const isDev = process.env.BUILD_ENV === "development";
 export const isPreview = process.env.BUILD_ENV === "preview";
+export const isProd = process.env.BUILD_ENV === "production";
 
 export const verbose = isDev || isPreview;
-
-export const isProd = process.env.BUILD_ENV === "production";
 
 export const buildTime = process.env.BUILD_TS;
 export const commitSHA = process.env.COMMIT_SHA || "unknown";

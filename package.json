@@ -8,7 +8,8 @@
     "build:preview": "tsc && BUILD_ENV=preview node build.mjs",
     "build:development": "tsc && BUILD_ENV=development node build.mjs",
     "build:watch": "BUILD_ENV=development node build.mjs --watch",
-    "dev:app": "node dev-server.mjs"
+    "dev:app": "node dev-server.mjs",
+    "lint": "eslint . --ext .ts,.tsx --fix --debug"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.14",
@@ -28,6 +29,7 @@
     "@typescript-eslint/eslint-plugin": "^8.46.1",
     "@typescript-eslint/parser": "^8.46.1",
     "autoprefixer": "^10.4.21",
+    "clsx": "^2.1.1",
     "commander": "^14.0.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
