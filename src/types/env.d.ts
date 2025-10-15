@@ -6,20 +6,17 @@
  */
 declare namespace NodeJS {
   interface ProcessEnv {
-    readonly NODE_ENV: 'development' | 'production';
+    readonly NODE_ENV: "development" | "production";
+    readonly BUILD_ENV: "development" | "preview" | "production";
+    readonly BUILD_TS: string;
   }
 }
 
-declare global {
-  const BUILD_ENV: 'development' | 'testing' | 'production';
-  const BUILD_TS: string;
-}
-
-declare module '*.module.css' {
+declare module "*.module.css" {
   const classes: Record<string, string>;
   export default classes;
 }
 
-declare module '*.css';
+declare module "*.css";
 
 export global {}

@@ -1,10 +1,10 @@
 import { AppWebView } from "@components/AppWebView";
 import { DevOverlay } from "@components/DevOverlay";
-import { isDev } from "@lib/shims";
+import { verbose } from "@lib/shims";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-if (isDev) {
+if (verbose) {
   console.log(`Build time: ${process.env.BUILD_TS}`);
   console.log(`Commit SHA: ${process.env.COMMIT_SHA || "unknown"}`);
   console.log(`Platform: ${window.platform}`);
@@ -16,7 +16,7 @@ if (isDev) {
 }
 
 export const doRender = () => {
-  if (isDev) {
+  if (verbose) {
     console.log("Starting initial rend of SharedAppView…");
   }
   const root = createRoot(document.getElementById("root")!);
@@ -24,11 +24,11 @@ export const doRender = () => {
     <StrictMode>
       <>
         <AppWebView />
-        {isDev ? <DevOverlay /> : null}
+        {verbose ? <DevOverlay /> : null}
       </>
     </StrictMode>,
   );
-  if (isDev) {
+  if (verbose) {
     console.log("Created root and called render: SharedAppView.");
   }
 };
@@ -36,7 +36,7 @@ export const doRender = () => {
 doRender();
 
 // Dev: add Cmd+R listener for manual reload when using dev server
-if (isDev && /localhost:5173/.test(location.host)) {
+if (verbose && /localhost:5173/.test(location.host)) {
   window.addEventListener("keydown", (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "r") {
       e.preventDefault();

@@ -1,8 +1,8 @@
-import { buildTime, commitSHA, isDev } from "@lib/shims";
+import { buildTime, commitSHA, verbose } from "@lib/shims";
 
 /** Simple corner overlay showing dev server status + manual reload */
 export function DevOverlay() {
-  if (!isDev) {
+  if (!verbose) {
     return null;
   }
   const onDev = /localhost:5173/.test(location.host);

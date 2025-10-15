@@ -1,10 +1,15 @@
-export const isDev = process.env.BUILD_ENV === 'development';
-export const isTest = process.env.BUILD_ENV === 'testing';
-export const isProd = process.env.BUILD_ENV === 'production';
-export const buildTime = process.env.BUILD_TS;
+export const isDev = process.env.BUILD_ENV === "development";
+export const isPreview = process.env.BUILD_ENV === "preview";
 
-if (isDev) {
-  const logLabel = '[rm-google-ai-overview-ios]';
+export const verbose = isDev || isPreview;
+
+export const isProd = process.env.BUILD_ENV === "production";
+
+export const buildTime = process.env.BUILD_TS;
+export const commitSHA = process.env.COMMIT_SHA || "unknown";
+
+if (verbose) {
+  const logLabel = `[rm-google-ai-overview-ios]`;
 
   // Bind the timestamp object - toString() gets called at log-time
   console.log = console.log.bind(console, logLabel);
@@ -14,10 +19,10 @@ if (isDev) {
 }
 
 export function log(
-  level: 'log' | 'warn' | 'error' | 'debug',
+  level: "log" | "warn" | "error" | "debug",
   logFn: () => unknown,
 ) {
-  if (isDev || level !== 'debug') {
+  if (verbose || level !== "debug") {
     logFn();
   }
 }
