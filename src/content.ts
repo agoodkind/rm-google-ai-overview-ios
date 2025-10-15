@@ -1,4 +1,4 @@
-import { isDev, log } from "@lib/shims";
+import { log, verbose } from "@lib/shims";
 
 const aiTextPatterns = [
   // regex patterns to match "AI overview" in various languages
@@ -92,7 +92,7 @@ const processSingleElementWithApply = (el: Element) => {
     dupeCount++;
     return;
   }
-  if (isDev) {
+  if (verbose) {
     console.debug("Found new element:", el);
   }
 
@@ -103,7 +103,7 @@ const processSingleElementWithApply = (el: Element) => {
 const processSingleElement = (el: Element) => processSingleElementWithApply(el);
 
 const hideElement = (el: HTMLElement) => {
-  if (isDev) {
+  if (verbose) {
     el.style.outline = "3px solid orange";
     el.style.outlineOffset = "-1px";
     el.style.backgroundColor = "rgba(255, 165, 0, 0.1)";
@@ -115,7 +115,7 @@ const hideElement = (el: HTMLElement) => {
 
 const observer = new MutationObserver(() => {
   if (!hasRun) {
-    if (isDev) {
+    if (verbose) {
       console.debug("Initial run");
     }
     hasRun = true;
@@ -123,7 +123,7 @@ const observer = new MutationObserver(() => {
 
   const mainBody = document.querySelector("div#main") as HTMLDivElement | null;
   if (mainBody && !mainBodyInitialized) {
-    if (isDev) {
+    if (verbose) {
       console.debug("Main body found");
     }
     mainBodyInitialized = true;
@@ -136,7 +136,7 @@ const observer = new MutationObserver(() => {
   processPeopleAlsoAsk(mainBody);
   processAICard(mainBody);
 
-  if (isDev && Date.now() - lastStatsPrintTime > 500) {
+  if (verbose && Date.now() - lastStatsPrintTime > 500) {
     lastStatsPrintTime = Date.now();
     console.debug(
       "Stats:",
@@ -153,7 +153,7 @@ observer.observe(document, {
   subtree: true,
 });
 
-if (isDev) {
+if (verbose) {
   log("warn", () => {
     console.log(
       "Dev mode is enabled - AI overview sections will be highlighted but not removed",
