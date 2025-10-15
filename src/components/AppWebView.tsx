@@ -1,86 +1,67 @@
-import { useEffect, useState } from 'react';
+import { useState } from "react";
 
-type Platform = 'ios' | 'mac';
-type ExtensionState = 'on' | 'off' | 'unknown';
+export type Platform = "ios" | "mac";
 
 export function AppWebView() {
-  const [platform, setPlatform] = useState<Platform | null>(null);
-  const [state, setState] = useState<ExtensionState>('unknown');
-  const [useSettingsInsteadOfPreferences, setUseSettingsInsteadOfPreferences] = useState(false);
-
-  useEffect(() => {
-    // Expose show function globally for Swift to call
-    window.show = (platformParam: Platform, enabled?: boolean, useSettings?: boolean) => {
-      setPlatform(platformParam);
-
-      if (useSettings !== undefined) {
-        setUseSettingsInsteadOfPreferences(useSettings);
-      }
-
-      if (typeof enabled === 'boolean') {
-        setState(enabled ? 'on' : 'off');
-      } else {
-        setState('unknown');
-      }
-    };
-
-    return () => {
-      delete window.show;
-    };
-  }, []);
+  const [platform, setPlatform] = useState<Platform | null>(
+    window.platform ?? null,
+  );
+  const [state, setState] = useState<boolean | null>(window.enabled ?? null);
+  const [useSettingsInsteadOfPreferences, setUseSettingsInsteadOfPreferences] =
+    useState<boolean | null>(window.useSettings ?? null);
 
   const getButtonText = () => {
     return useSettingsInsteadOfPreferences
-      ? 'Quit and Open Safari Settings…'
-      : 'Quit and Open Safari Extensions Preferences…';
+      ? "Quit and Open Safari Settings…"
+      : "Quit and Open Safari Extensions Preferences…";
   };
 
   const getStateMessage = () => {
-    if (platform === 'ios') {
+    if (platform === "ios") {
       return "You can turn on Remove Google AI Overview's Safari extension in Settings.";
     }
 
     const location = useSettingsInsteadOfPreferences
-      ? 'the Extensions section of Safari Settings'
-      : 'Safari Extensions preferences';
+      ? "the Extensions section of Safari Settings"
+      : "Safari Extensions preferences";
 
-    switch (state) {
-      case 'on':
-        return `Remove Google AI Overview's extension is currently on. You can turn it off in ${location}.`;
-      case 'off':
-        return `Remove Google AI Overview's extension is currently off. You can turn it on in ${location}.`;
-      case 'unknown':
-        return `You can turn on Remove Google AI Overview's extension in ${location}.`;
+    if (state === null) {
+      return `You can turn on Remove Google AI Overview's extension in ${location}.`;
+    }
+    if (state === true) {
+      return `Remove Google AI Overview's extension is currently on. You can turn it off in ${location}.`;
+    }
+    if (state === false) {
+      return `Remove Google AI Overview's extension is currently off. You can turn it on in ${location}.`;
     }
   };
 
   const handleOpenPreferences = () => {
     if (window.webkit?.messageHandlers?.controller) {
-      window.webkit.messageHandlers.controller.postMessage('open-preferences');
+      window.webkit.messageHandlers.controller.postMessage("open-preferences");
     }
   };
 
-  if (!platform) {
-    return null; // Don't render until show() is called
-  }
-
   return (
-    <div className="flex h-screen items-center justify-center flex-col gap-5 mx-10 text-center select-none">
+    <div className="flex h-screen items-center justify-center flex-col gap-5 mx-10 text-center select-none bg-white text-slate-900 dark:bg-slate-800 dark:text-slate-100 transition-colors">
       <img
-        src="icon.png"
+        src="../icon.png"
         width="128"
         height="128"
         alt="Remove Google AI Overview Icon"
-        className="pointer-events-none"
+        className="pointer-events-none drop-shadow-sm dark:drop-shadow md:transition-opacity"
       />
-      <p className="font-system">{getStateMessage()}</p>
-      {platform === 'mac' && (
-        <button onClick={handleOpenPreferences} className="text-base cursor-default">
+      <p className="font-system text-base leading-relaxed max-w-xs text-slate-700 dark:text-slate-200">
+        {getStateMessage()}
+      </p>
+      {platform === "mac" && (
+        <button
+          onClick={handleOpenPreferences}
+          className="text-base cursor-default px-4 py-2 rounded-md bg-slate-200/80 dark:bg-slate-700/70 backdrop-blur border border-slate-300 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-600/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 transition-colors"
+        >
           {getButtonText()}
         </button>
       )}
     </div>
   );
 }
-
-
