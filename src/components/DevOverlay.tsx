@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const DEV_HOST_KEY = "dev-server-host";
 const DEFAULT_DEV_HOST = "http://localhost:8080";
+const MINIMIZE_KEY = "dev-overlay-minimized";
 
 const normalizeDevHost = (url: string) => {
   // Replace 0.0.0.0 with localhost for macOS sandbox compatibility
@@ -27,6 +28,9 @@ export function DevOverlay() {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(devHost);
+  const [isMinimized, setIsMinimized] = useState(() => {
+    return localStorage.getItem(MINIMIZE_KEY) === "true";
+  });
 
   useEffect(() => {
     const checkDevServer = async () => {
@@ -57,6 +61,34 @@ export function DevOverlay() {
 
   const handleReload = () => location.reload();
 
+  const toggleMinimize = () => {
+    const newState = !isMinimized;
+    setIsMinimized(newState);
+    localStorage.setItem(MINIMIZE_KEY, String(newState));
+  };
+
+  if (isMinimized) {
+    return (
+      <div
+        className="fixed top-2 right-2 z-50 text-xs font-mono rounded bg-slate-900/80 text-slate-100 dark:bg-slate-700/80 backdrop-blur px-2 py-1 shadow-lg select-none cursor-pointer hover:bg-slate-800/90"
+        onClick={toggleMinimize}
+        title="Click to expand"
+      >
+        <div className="flex items-center gap-2">
+          <span
+            className={clsx(
+              "inline-block size-2 rounded-full",
+              isDevServer ? "bg-green-400 animate-pulse" : "bg-yellow-400",
+            )}
+          />
+          <span className="opacity-60 text-[11px]">
+            {commitSHA.slice(0, 8)}
+          </span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="fixed top-2 right-2 z-50 text-xs font-mono rounded bg-slate-900/80 text-slate-100 dark:bg-slate-700/80 backdrop-blur px-3 py-2 shadow-lg space-y-1 select-none max-w-xs">
       <div className="flex items-center gap-2">
@@ -67,6 +99,25 @@ export function DevOverlay() {
           )}
         />
         <span>{isDevServer ? "Dev Server" : "Bundled HTML"}</span>
+        <button
+          onClick={toggleMinimize}
+          className="ml-auto text-slate-400 hover:text-slate-200"
+          title="Minimize"
+        >
+          <svg
+            className="size-4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19.5 12h-15"
+            />
+          </svg>
+        </button>
       </div>
 
       {isEditing ? (

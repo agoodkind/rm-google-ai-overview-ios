@@ -1,5 +1,13 @@
 import { log, verbose } from "@lib/shims";
 
+const DISPLAY_MODE_KEY = "rm-ai-display-mode";
+type DisplayMode = "hide" | "highlight";
+
+const getDisplayMode = (): DisplayMode => {
+  const saved = localStorage.getItem(DISPLAY_MODE_KEY);
+  return saved === "highlight" ? "highlight" : "hide";
+};
+
 const aiTextPatterns = [
   // regex patterns to match "AI overview" in various languages
   /übersicht mit ki/i, // de
@@ -103,13 +111,29 @@ const processSingleElementWithApply = (el: Element) => {
 const processSingleElement = (el: Element) => processSingleElementWithApply(el);
 
 const hideElement = (el: HTMLElement) => {
-  if (verbose) {
+  const mode = getDisplayMode();
+
+  if (mode === "highlight") {
     el.style.outline = "3px solid orange";
     el.style.outlineOffset = "-1px";
     el.style.backgroundColor = "rgba(255, 165, 0, 0.1)";
+    el.style.position = "relative";
+    el.style.display = "";
+
+    const overlay = document.createElement("div");
+    overlay.style.position = "absolute";
+    overlay.style.top = "0";
+    overlay.style.left = "0";
+    overlay.style.width = "100%";
+    overlay.style.height = "100%";
+    overlay.style.backgroundColor = "rgba(255, 165, 0, 0.15)";
+    overlay.style.pointerEvents = "none";
+    overlay.style.zIndex = "1";
+    el.appendChild(overlay);
   } else {
     el.style.display = "none";
   }
+
   hideCount++;
 };
 

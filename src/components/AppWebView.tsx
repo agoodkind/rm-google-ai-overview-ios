@@ -1,4 +1,5 @@
 import { useSafariExtensionState } from "../hooks/useSafariExtensionState";
+import { SettingsPanel } from "./SettingsPanel";
 
 export type Platform = "ios" | "mac";
 
@@ -34,25 +35,29 @@ export function AppWebView() {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center flex-col gap-5 mx-10 text-center select-none bg-white text-slate-900 dark:bg-slate-800 dark:text-slate-100 transition-colors">
-      <img
-        src="../icon.png"
-        width="128"
-        height="128"
-        alt="Remove Google AI Overview Icon"
-        className="pointer-events-none drop-shadow-sm dark:drop-shadow md:transition-opacity"
-      />
-      <p className="font-system text-base leading-relaxed max-w-xs text-slate-700 dark:text-slate-200">
-        {getStateMessage()}
-      </p>
-      {platform === "mac" && (
-        <button
-          onClick={handleOpenPreferences}
-          className="text-base cursor-default px-4 py-2 rounded-md bg-slate-200/80 dark:bg-slate-700/70 backdrop-blur border border-slate-300 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-600/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 transition-colors"
-        >
-          {getButtonText()}
-        </button>
-      )}
+    <div className="flex min-h-screen items-center justify-center flex-col gap-8 p-10 bg-white text-slate-900 dark:bg-slate-800 dark:text-slate-100 transition-colors">
+      <div className="flex flex-col items-center gap-5 text-center">
+        <img
+          src="../icon.png"
+          width="128"
+          height="128"
+          alt="Remove Google AI Overview Icon"
+          className="pointer-events-none drop-shadow-sm dark:drop-shadow md:transition-opacity"
+        />
+        <p className="font-system text-base leading-relaxed max-w-xs text-slate-700 dark:text-slate-200">
+          {getStateMessage()}
+        </p>
+        {platform === "mac" && (
+          <button
+            onClick={handleOpenPreferences}
+            className="text-base cursor-default px-4 py-2 rounded-md bg-slate-200/80 dark:bg-slate-700/70 backdrop-blur border border-slate-300 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-600/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 transition-colors"
+          >
+            {getButtonText()}
+          </button>
+        )}
+      </div>
+
+      <SettingsPanel />
     </div>
   );
 }

@@ -38,7 +38,9 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
     private func loadInitialContent() {
         #if DEBUG
             if #available(macOS 13.3, *) {
-                self.webView.isInspectable = true
+                if #available(iOS 16.4, *) {
+                    self.webView.isInspectable = true
+                } 
             }
             // Attempt to load local dev server for rapid React iteration
             if let devURL = URL(string: "\(devServerBaseURL)/\(devServerHTMLPath)") {
@@ -230,16 +232,3 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
     }
 
 }
-
-#if DEBUG
-    import WebKit
-    extension WKWebView {
-        func forceInspector() {
-            evaluateJavaScript("void 0") { _, _ in
-                // Private API call (avoid for App Store) – use only locally:
-                self.perform(Selector(("_inspectElementAtPoint:")))
-            }
-        }
-    }
-#endif
-
