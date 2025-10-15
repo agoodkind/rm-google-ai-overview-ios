@@ -134,6 +134,7 @@ export async function execute({ watch = false, serve }) {
     const { host, port } = await ctx.serve({
       servedir: ".",
       port: serve,
+      host: "localhost",
     });
     console.log(`Serving at http://${host}:${port}`);
 

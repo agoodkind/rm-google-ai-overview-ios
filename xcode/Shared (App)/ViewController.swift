@@ -19,31 +19,29 @@ import WebKit
 let extensionBundleIdentifier =
     "goodkind-io.Remove-Google-AI-Overview.Extension"
 
+#if DEBUG
+    let devServerDefaultHost = "http://localhost:8080"
+    let devServerHTMLPath = "xcode/Shared (App)/Resources/Base.lproj/Main.html"
+    
+    // Read from UserDefaults if available, otherwise use default
+    var devServerBaseURL: String {
+        UserDefaults.standard.string(forKey: "dev-server-host") ?? devServerDefaultHost
+    }
+#endif
+
 class ViewController: PlatformViewController, WKNavigationDelegate,
     WKScriptMessageHandler
 {
 
     @IBOutlet var webView: WKWebView!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.webView.navigationDelegate = self
-
-        #if os(iOS)
-            self.webView.scrollView.isScrollEnabled = false
-        #endif
-
-        self.webView.configuration.userContentController.add(
-            self,
-            name: "controller"
-        )
+    private func loadInitialContent() {
         #if DEBUG
             if #available(macOS 13.3, *) {
                 self.webView.isInspectable = true
             }
             // Attempt to load local dev server for rapid React iteration
-            if let devURL = URL(string: "http://localhost:5173/") {
+            if let devURL = URL(string: "\(devServerBaseURL)/\(devServerHTMLPath)") {
                 let request = URLRequest(
                     url: devURL,
                     cachePolicy: .reloadIgnoringLocalCacheData,
@@ -60,6 +58,7 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
                             self.webView.load(URLRequest(url: devURL))
                         }
                     } else {
+                        // fallback to bundled
                         if let error = error {
                             print(
                                 "[Dev] Dev server unreachable: \(error.localizedDescription). Falling back to bundled HTML."
@@ -98,6 +97,22 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
         #endif
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.webView.navigationDelegate = self
+
+        #if os(iOS)
+            self.webView.scrollView.isScrollEnabled = false
+        #endif
+
+        self.webView.configuration.userContentController.add(
+            self,
+            name: "controller"
+        )
+        self.loadInitialContent()
+    }
+
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         #if os(iOS)
             let iosJS = """
@@ -115,14 +130,6 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
                 }));
                 """
             webView.evaluateJavaScript(macInitJS)
-
-            #if DEBUG
-                if let currentURL = webView.url?.absoluteString,
-                    currentURL.contains("localhost:5173")
-                {
-                    webView.forceInspector()
-                }
-            #endif
 
             SFSafariExtensionManager.getStateOfSafariExtension(
                 withIdentifier: extensionBundleIdentifier
@@ -161,6 +168,24 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
         _ userContentController: WKUserContentController,
         didReceive message: WKScriptMessage
     ) {
+        #if DEBUG
+            // Handle dev server URL updates from web content
+            if message.name == "controller",
+               let body = message.body as? [String: Any],
+               let action = body["action"] as? String,
+               action == "set-dev-server-url",
+               let url = body["url"] as? String
+            {
+                UserDefaults.standard.set(url, forKey: "dev-server-host")
+                print("[Dev] Updated dev server URL to: \(url)")
+                // reload
+                DispatchQueue.main.async {
+                    self.loadInitialContent()
+                }
+                return
+            }
+        #endif
+        
         #if os(macOS)
             guard let body = message.body as? String else { return }
             switch body {

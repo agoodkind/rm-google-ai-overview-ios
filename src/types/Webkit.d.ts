@@ -11,12 +11,17 @@ interface SafariExtensionStateDetail {
 
 type SafariExtensionStateEvent = CustomEvent<SafariExtensionStateDetail>;
 
+interface DevServerMessage {
+  action: "set-dev-server-url";
+  url: string;
+}
+
 declare global {
   interface Window {
     webkit?: {
       messageHandlers?: {
         controller?: {
-          postMessage: (message: string) => void;
+          postMessage: (message: string | DevServerMessage) => void;
         };
       };
     };
