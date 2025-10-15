@@ -7,9 +7,7 @@ import { createRoot } from "react-dom/client";
 if (verbose) {
   console.log(`Build time: ${process.env.BUILD_TS}`);
   console.log(`Commit SHA: ${process.env.COMMIT_SHA || "unknown"}`);
-  const devServerActive = /localhost:5173/.test(location.host);
   console.log(`Current host: ${location.host}`);
-  console.log(`Dev Server (localhost:5173) Active: ${devServerActive}`);
 }
 
 export const doRender = () => {
@@ -31,13 +29,3 @@ export const doRender = () => {
 };
 
 doRender();
-
-// Dev: add Cmd+R listener for manual reload when using dev server
-if (verbose && /localhost:5173/.test(location.host)) {
-  window.addEventListener("keydown", (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "r") {
-      e.preventDefault();
-      location.reload();
-    }
-  });
-}

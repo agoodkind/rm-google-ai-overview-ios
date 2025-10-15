@@ -10,11 +10,10 @@ const getDisplayMode = (): DisplayMode => {
 };
 
 const fetchDisplayModeFromNative = async (): Promise<DisplayMode> => {
-  // @ts-expect-error - browser is available in Safari extension
   if (typeof browser === "undefined") {
     throw new Error("browser is not available");
   }
-  // @ts-expect-error - browser is available in Safari extension
+
   if (!browser.runtime?.sendMessage) {
     throw new Error("browser.runtime.sendMessage is not available");
   }
@@ -23,7 +22,7 @@ const fetchDisplayModeFromNative = async (): Promise<DisplayMode> => {
     console.debug("Fetching display mode from service worker");
   }
   // Send message to service worker, which will forward to native app
-  // @ts-expect-error - browser is available in Safari extension
+
   const response = await browser.runtime.sendMessage({
     action: "getDisplayMode",
   });

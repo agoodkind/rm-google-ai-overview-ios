@@ -36,6 +36,9 @@ importers:
       '@types/cors':
         specifier: ^2.8.19
         version: 2.8.19
+      '@types/firefox-webext-browser':
+        specifier: ^120.0.5
+        version: 120.0.5
       '@types/node':
         specifier: ^24.7.2
         version: 24.7.2
@@ -48,6 +51,9 @@ importers:
       '@types/web':
         specifier: ^0.0.279
         version: 0.0.279
+      '@types/webextension-polyfill':
+        specifier: ^0.12.4
+        version: 0.12.4
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.46.1
         version: 8.46.1(@typescript-eslint/parser@8.46.1(eslint@9.37.0(jiti@2.6.1))(typescript@5.8.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.8.3)
@@ -619,6 +625,9 @@ packages:
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
+  '@types/firefox-webext-browser@120.0.5':
+    resolution: {integrity: sha512-imn8ecga0HQWcOSvxy9i0lD+7vpHgkj1NVLvXS1lNHqHt03Z4QwazeEdoWe+C9JXpmVyKiRanb+z9D/w001tRg==}
+
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
@@ -635,6 +644,9 @@ packages:
 
   '@types/web@0.0.279':
     resolution: {integrity: sha512-JXvFfMxLwNgMfEUaMva2j+LqewbNnsF+Q/2It6KQUWA+bLYtg7wJ+kKPbNLF/PyjQe5H6omTD4V2QaUtbGK7hg==}
+
+  '@types/webextension-polyfill@0.12.4':
+    resolution: {integrity: sha512-wK8YdSI0pDiaehSLDIvtvonYmLwUUivg4Z6JCJO8rkyssMAG82cFJgwPK/V7NO61mJBLg/tXeoXQL8AFzpXZmQ==}
 
   '@typescript-eslint/eslint-plugin@8.46.1':
     resolution: {integrity: sha512-rUsLh8PXmBjdiPY+Emjz9NX2yHvhS11v0SR6xNJkm5GM1MO9ea/1GoDKlHHZGrOJclL/cZ2i/vRUYVtjRhrHVQ==}
@@ -1935,6 +1947,8 @@ snapshots:
 
   '@types/estree@1.0.8': {}
 
+  '@types/firefox-webext-browser@120.0.5': {}
+
   '@types/json-schema@7.0.15': {}
 
   '@types/node@24.7.2':
@@ -1950,6 +1964,8 @@ snapshots:
       csstype: 3.1.3
 
   '@types/web@0.0.279': {}
+
+  '@types/webextension-polyfill@0.12.4': {}
 
   '@typescript-eslint/eslint-plugin@8.46.1(@typescript-eslint/parser@8.46.1(eslint@9.37.0(jiti@2.6.1))(typescript@5.8.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.8.3)':
     dependencies:

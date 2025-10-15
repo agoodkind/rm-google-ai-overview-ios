@@ -120,7 +120,6 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         #if os(iOS)
             let iosJS = """
-                window.platform = 'ios';
                 window.dispatchEvent(new CustomEvent('safari-extension-state', {
                   detail: { platform: 'ios' }
                 }));
@@ -128,7 +127,6 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
             webView.evaluateJavaScript(iosJS)
         #elseif os(macOS)
             let macInitJS = """
-                window.platform = 'mac';
                 window.dispatchEvent(new CustomEvent('safari-extension-state', {
                   detail: { platform: 'mac' }
                 }));
@@ -150,10 +148,7 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
                     }()
 
                     let js = """
-                        window.platform='mac';
-                        window.enabled=\(state.isEnabled);
-                        window.extensionState=\(state.isEnabled);
-                        window.useSettings=\(useSettingsFlag);
+
                         window.dispatchEvent(new CustomEvent('safari-extension-state', {
                           detail: {
                             platform: 'mac',
@@ -173,6 +168,9 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
         didReceive message: WKScriptMessage
     ) {
         #if DEBUG
+
+            print("[userContentController] got message", message)
+
             // Handle dev server URL updates from web content
             if message.name == "controller",
                let body = message.body as? [String: Any],
@@ -207,8 +205,10 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
         // mac specific extension settings
         // since macs can programmatically open safari settings (iOS & catalyst can't)
             guard let body = message.body as? String else { return }
+
             switch body {
             case "open-preferences":
+    
                 SFSafariApplication.showPreferencesForExtension(
                     withIdentifier: extensionBundleIdentifier
                 ) { error in

@@ -1,25 +1,11 @@
 import { buildTime, commitSHA } from "@lib/shims";
+import { testLocalhostConnect } from "@lib/utils";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 
 const DEV_HOST_KEY = "dev-server-host";
 const DEFAULT_DEV_HOST = "http://localhost:8080";
 const MINIMIZE_KEY = "dev-overlay-minimized";
-
-const normalizeDevHost = (url: string) => {
-  // Replace 0.0.0.0 with localhost for macOS sandbox compatibility
-  return url.replace("://0.0.0.0:", "://localhost:");
-};
-
-const testLocalhostConnect = async (baseUrl: string) => {
-  try {
-    const normalizedUrl = normalizeDevHost(baseUrl);
-    const resp = await fetch(normalizedUrl, { method: "HEAD" });
-    return resp.ok;
-  } catch {
-    return false;
-  }
-};
 
 export function DevOverlay() {
   const [isDevServer, setIsDevServer] = useState(false);
@@ -44,23 +30,26 @@ export function DevOverlay() {
 
   const handleSaveHost = () => {
     const trimmed = editValue.trim();
-    if (trimmed) {
-      setDevHost(trimmed);
-      localStorage.setItem(DEV_HOST_KEY, trimmed);
-      setIsEditing(false);
-
-      // Notify Swift/native code about the dev server URL change
-      if (window.webkit?.messageHandlers?.controller) {
-        window.webkit.messageHandlers.controller.postMessage({
-          action: "set-dev-server-url",
-          url: trimmed,
-        });
-      }
+    if (!trimmed) {
+      return;
     }
+
+    setDevHost(trimmed);
+    localStorage.setItem(DEV_HOST_KEY, trimmed);
+    setIsEditing(false);
+
+    if (!window.webkit?.messageHandlers?.controller) {
+      return;
+    }
+
+    // Notify Swift code about the dev server URL change
+    window.webkit.messageHandlers.controller.postMessage({
+      action: "set-dev-server-url",
+      url: trimmed,
+    });
   };
 
   const handleReload = () => location.reload();
-
   const toggleMinimize = () => {
     const newState = !isMinimized;
     setIsMinimized(newState);
