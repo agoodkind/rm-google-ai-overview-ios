@@ -16,12 +16,19 @@ interface DevServerMessage {
   url: string;
 }
 
+interface DisplayModeMessage {
+  action: "set-display-mode";
+  mode: string;
+}
+
 declare global {
   interface Window {
     webkit?: {
       messageHandlers?: {
         controller?: {
-          postMessage: (message: string | DevServerMessage) => void;
+          postMessage: (
+            message: string | DevServerMessage | DisplayModeMessage,
+          ) => void;
         };
       };
     };
