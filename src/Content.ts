@@ -1,12 +1,44 @@
-import { log, verbose } from "@lib/shims";
+import { isDev, isPreview, isProd, verbose } from "@lib/shims";
 
 const DISPLAY_MODE_KEY = "rm-ai-display-mode";
 type DisplayMode = "hide" | "highlight";
 
+let currentDisplayMode: DisplayMode = "hide";
+
 const getDisplayMode = (): DisplayMode => {
+  return currentDisplayMode;
+};
+
+const fetchDisplayModeFromNative = async (): Promise<DisplayMode> => {
+  try {
+    // @ts-expect-error - browser is available in Safari extension
+    if (typeof browser !== "undefined" && browser.runtime?.sendNativeMessage) {
+      // @ts-expect-error - browser is available in Safari extension
+      const response = await browser.runtime.sendNativeMessage(
+        "application.id",
+        {
+          action: "getDisplayMode",
+        },
+      );
+      return response.displayMode === "highlight" ? "highlight" : "hide";
+    }
+  } catch (err) {
+    if (verbose) {
+      console.warn("Failed to fetch display mode from native:", err);
+    }
+  }
+  // Fallback to localStorage for non-Safari browsers
   const saved = localStorage.getItem(DISPLAY_MODE_KEY);
   return saved === "highlight" ? "highlight" : "hide";
 };
+
+// Initialize display mode
+fetchDisplayModeFromNative().then((mode) => {
+  currentDisplayMode = mode;
+  if (verbose) {
+    console.debug("Initial display mode:", mode);
+  }
+});
 
 const aiTextPatterns = [
   // regex patterns to match "AI overview" in various languages
@@ -178,12 +210,8 @@ observer.observe(document, {
 });
 
 if (verbose) {
-  log("warn", () => {
-    console.log(
-      "Dev mode is enabled - AI overview sections will be highlighted but not removed",
-    );
-  });
-  console.warn("Debug mode is enabled");
+  console.warn("Verbose logging is enabled");
   console.warn("Build time: ", process.env.BUILD_TS);
   console.warn("Current time: ", new Date().toString());
+  console.debug({ displayMode: getDisplayMode(), isDev, isPreview, isProd });
 }
