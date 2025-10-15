@@ -1,4 +1,4 @@
-import { isDev, log } from '@lib/shims';
+import { isDev, log } from "@lib/shims";
 
 const aiTextPatterns = [
   // regex patterns to match "AI overview" in various languages
@@ -47,7 +47,7 @@ let lastStatsPrintTime = 0;
 const elements = new WeakSet<HTMLElement>();
 
 const processHeadings = (mainBody: HTMLDivElement) =>
-  [...mainBody.querySelectorAll('h1, h2')]
+  [...mainBody.querySelectorAll("h1, h2")]
     .filter((e): e is HTMLElement => {
       if (e instanceof HTMLElement) {
         return aiTextPatterns.some((pattern) => pattern.test(e.innerText));
@@ -58,17 +58,17 @@ const processHeadings = (mainBody: HTMLDivElement) =>
     .map((heading) => {
       let aiOverview = heading.parentElement; // google changes oct 9 2025
       if (!aiOverview) {
-        aiOverview = heading.closest('div#rso > div') as HTMLDivElement; // AI overview as a search result
+        aiOverview = heading.closest("div#rso > div") as HTMLDivElement; // AI overview as a search result
       }
       if (!aiOverview) {
-        aiOverview = heading.closest('div#rcnt > div') as HTMLDivElement; // AI overview above search results
+        aiOverview = heading.closest("div#rcnt > div") as HTMLDivElement; // AI overview above search results
       }
       return aiOverview;
     })
     .forEach(processSingleElement);
 
 const processPeopleAlsoAsk = (mainBody: HTMLDivElement) =>
-  [...mainBody.querySelectorAll('div.related-question-pair')]
+  [...mainBody.querySelectorAll("div.related-question-pair")]
     .filter(
       (el) => el.parentElement?.parentElement?.parentElement?.parentElement,
     )
@@ -78,7 +78,7 @@ const processPeopleAlsoAsk = (mainBody: HTMLDivElement) =>
 
 // ai mode inline card has a custom tag: ai-mode-inline-card
 const processAICard = (mainBody: HTMLDivElement) =>
-  [...mainBody.getElementsByTagName('ai-mode-inline-card')]
+  [...mainBody.getElementsByTagName("ai-mode-inline-card")]
     .map((card) => card.parentElement)
     .filter((el) => el !== null)
     .forEach(processSingleElement);
@@ -93,7 +93,7 @@ const processSingleElementWithApply = (el: Element) => {
     return;
   }
   if (isDev) {
-    console.debug('Found new element:', el);
+    console.debug("Found new element:", el);
   }
 
   hideElement(el);
@@ -104,11 +104,11 @@ const processSingleElement = (el: Element) => processSingleElementWithApply(el);
 
 const hideElement = (el: HTMLElement) => {
   if (isDev) {
-    el.style.outline = '3px solid orange';
-    el.style.outlineOffset = '-1px';
-    el.style.backgroundColor = 'rgba(255, 165, 0, 0.1)';
+    el.style.outline = "3px solid orange";
+    el.style.outlineOffset = "-1px";
+    el.style.backgroundColor = "rgba(255, 165, 0, 0.1)";
   } else {
-    el.style.display = 'none';
+    el.style.display = "none";
   }
   hideCount++;
 };
@@ -116,15 +116,15 @@ const hideElement = (el: HTMLElement) => {
 const observer = new MutationObserver(() => {
   if (!hasRun) {
     if (isDev) {
-      console.debug('Initial run');
+      console.debug("Initial run");
     }
     hasRun = true;
   }
 
-  const mainBody = document.querySelector('div#main') as HTMLDivElement | null;
+  const mainBody = document.querySelector("div#main") as HTMLDivElement | null;
   if (mainBody && !mainBodyInitialized) {
     if (isDev) {
-      console.debug('Main body found');
+      console.debug("Main body found");
     }
     mainBodyInitialized = true;
   }
@@ -139,10 +139,10 @@ const observer = new MutationObserver(() => {
   if (isDev && Date.now() - lastStatsPrintTime > 500) {
     lastStatsPrintTime = Date.now();
     console.debug(
-      'Stats:',
-      'Duplicates found:',
+      "Stats:",
+      "Duplicates found:",
       dupeCount,
-      'Elements hidden:',
+      "Elements hidden:",
       hideCount,
     );
   }
@@ -154,12 +154,12 @@ observer.observe(document, {
 });
 
 if (isDev) {
-  log('warn', () => {
+  log("warn", () => {
     console.log(
-      'Dev mode is enabled - AI overview sections will be highlighted but not removed',
+      "Dev mode is enabled - AI overview sections will be highlighted but not removed",
     );
   });
-  console.warn('Debug mode is enabled');
-  console.warn('Build time: ', process.env.BUILD_TS);
-  console.warn('Current time: ', new Date().toString());
+  console.warn("Debug mode is enabled");
+  console.warn("Build time: ", process.env.BUILD_TS);
+  console.warn("Current time: ", new Date().toString());
 }
