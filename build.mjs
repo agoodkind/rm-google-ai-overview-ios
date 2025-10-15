@@ -124,10 +124,26 @@ const createBuildOptions = async () => {
 
 /**
  * Execute build pipeline.
- * @param {{ watch?: boolean }} opts
+ * @param {{ watch?: boolean; serve?: number }} opts
  */
-export async function execute({ watch = false }) {
+export async function execute({ watch = false, serve }) {
   const options = await createBuildOptions();
+
+  if (serve) {
+    const ctx = await context(options);
+    const { host, port } = await ctx.serve({
+      servedir: ".",
+      port: serve,
+    });
+    console.log(`Serving at http://${host}:${port}`);
+
+    if (watch) {
+      await ctx.watch();
+      console.log("Watch mode enabled - live reload active");
+    }
+
+    return { mode: "serve", contexts: [ctx], host, port };
+  }
 
   if (watch) {
     const ctx = await context(options);
@@ -150,6 +166,7 @@ async function main(argv = process.argv) {
     .name("bundle")
     .version("1.0.0")
     .option("--watch", "Watch mode")
+    .option("--serve <port>", "Serve mode with optional port", parseInt)
     .action(async (options) => {
       await execute(options);
     });

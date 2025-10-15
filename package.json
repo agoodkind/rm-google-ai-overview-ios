@@ -8,6 +8,7 @@
     "build:preview": "tsc && BUILD_ENV=preview node build.mjs",
     "build:development": "tsc && BUILD_ENV=development node build.mjs",
     "build:watch": "BUILD_ENV=development node build.mjs --watch",
+    "serve": "BUILD_ENV=development node build.mjs --serve 8080 --watch",
     "dev:app": "node dev-server.mjs",
     "lint": "eslint . --ext .ts,.tsx --fix --debug"
   },
