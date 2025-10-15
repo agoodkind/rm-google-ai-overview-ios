@@ -1,39 +1,30 @@
-import { useState } from "react";
+import { useSafariExtensionState } from "../hooks/useSafariExtensionState";
 
 export type Platform = "ios" | "mac";
 
 export function AppWebView() {
-  const [platform, setPlatform] = useState<Platform | null>(
-    window.platform ?? null,
-  );
-  const [state, setState] = useState<boolean | null>(window.enabled ?? null);
-  const [useSettingsInsteadOfPreferences, setUseSettingsInsteadOfPreferences] =
-    useState<boolean | null>(window.useSettings ?? null);
+  const { platform, enabled, useSettings } = useSafariExtensionState();
 
-  const getButtonText = () => {
-    return useSettingsInsteadOfPreferences
+  const getButtonText = () =>
+    useSettings
       ? "Quit and Open Safari Settings…"
       : "Quit and Open Safari Extensions Preferences…";
-  };
 
   const getStateMessage = () => {
     if (platform === "ios") {
       return "You can turn on Remove Google AI Overview's Safari extension in Settings.";
     }
 
-    const location = useSettingsInsteadOfPreferences
+    const location = useSettings
       ? "the Extensions section of Safari Settings"
       : "Safari Extensions preferences";
 
-    if (state === null) {
+    if (enabled == null) {
       return `You can turn on Remove Google AI Overview's extension in ${location}.`;
     }
-    if (state === true) {
-      return `Remove Google AI Overview's extension is currently on. You can turn it off in ${location}.`;
-    }
-    if (state === false) {
-      return `Remove Google AI Overview's extension is currently off. You can turn it on in ${location}.`;
-    }
+    return enabled
+      ? `Remove Google AI Overview's extension is currently on. You can turn it off in ${location}.`
+      : `Remove Google AI Overview's extension is currently off. You can turn it on in ${location}.`;
   };
 
   const handleOpenPreferences = () => {
