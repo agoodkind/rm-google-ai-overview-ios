@@ -10,11 +10,20 @@ export function SettingsPanel() {
     return saved === "highlight" ? "highlight" : "hide";
   });
 
-  const handleDisplayModeChange = (mode: DisplayMode) => {
+  const handleDisplayModeChange = async (mode: DisplayMode) => {
     setDisplayMode(mode);
     localStorage.setItem(DISPLAY_MODE_KEY, mode);
-  };
 
+    // Send to native app via webkit message handler
+    try {
+      window.webkit?.messageHandlers?.controller?.postMessage({
+        action: "set-display-mode",
+        mode: mode,
+      });
+    } catch (err) {
+      console.warn("Failed to send display mode to native:", err);
+    }
+  };
   return (
     <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 max-w-md w-full">
       <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4">
