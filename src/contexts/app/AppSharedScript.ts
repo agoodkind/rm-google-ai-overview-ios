@@ -1,3 +1,3 @@
-import { doRender } from "@/contexts/app/components/SharedAppView";
+import { doRender } from "@contexts/app/components/SharedAppView";
 
 doRender();

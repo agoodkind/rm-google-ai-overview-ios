@@ -28,10 +28,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@lib/*": ["./src/lib/*"],
-      "@components/*": ["src/contexts/app/components/*"],
       "@styles/*": ["./src/styles/*"],
-      "@hooks/*": ["src/contexts/app/hooks/*"],
-      "@contexts/*": ["src/contexts/*"]
+      "@contexts/*": ["./src/contexts/*"]
     }
   },
   "include": ["src", "build.mjs", "eslint.config.ts"]
