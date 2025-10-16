@@ -1,8 +1,7 @@
 import {
   registerMessageListener,
   sendRuntimeMessage,
-  validMessage,
-  type RuntimeMessageRequest,
+  validObject,
 } from "@lib/messaging";
 import { isDev, verbose } from "@lib/shims";
 
@@ -46,7 +45,11 @@ export const sendNativeMessage = async (message: unknown) => {
 
   // safari ignores  application ID parameter
   // and only sends to the native application that contains
-  return await browser.runtime.sendNativeMessage("application.id", message);
+  const result = await browser.runtime.sendNativeMessage(
+    "application.id",
+    message,
+  );
+  return result;
 };
 
 const fetchDisplayModeFromNative = async (): Promise<DisplayMode> => {
@@ -65,7 +68,7 @@ const relayMessage = async (
     type: "relayMessage",
     originalMessage: message,
     originalSender: sender,
-  } satisfies RuntimeMessageRequest;
+  };
 
   await Promise.all([
     sendRuntimeMessage(relayMessage),
@@ -76,13 +79,10 @@ const relayMessage = async (
 // Listen for messages from content scripts
 registerMessageListener((message, sender, sendResponse) => {
   if (isDev) {
-    console.debug("Service worker received message:", message);
     relayMessage(message, sender);
   }
 
-  // Type guard to check if message is MessageFromContent
-  if (!validMessage(message)) {
-    console.error("Invalid message received in service worker:", message);
+  if (!validObject(message) || !("type" in message)) {
     return;
   }
 
@@ -91,21 +91,14 @@ registerMessageListener((message, sender, sendResponse) => {
       // fetch display mode from native app
       fetchDisplayModeFromNative()
         .then((displayMode) => {
-          if (verbose) {
-            console.debug("Fetched display mode from native app:", displayMode);
-          }
           sendResponse({ type: "getDisplayMode", displayMode });
         })
         .catch((error) => {
-          console.error("Error fetching display mode from native app:", error);
           sendResponse({ error: error.message });
         });
 
       return true; // return true to indicate async response
     default:
-      if (verbose) {
-        console.debug("Unknown type:", message.type);
-      }
       return;
   }
 });

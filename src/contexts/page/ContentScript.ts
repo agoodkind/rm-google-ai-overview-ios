@@ -1,4 +1,9 @@
-import { registerMessageListener, sendRuntimeMessage } from "@/lib/messaging";
+import { DEFAULT_DISPLAY_MODE } from "@/lib/constants";
+import {
+  registerMessageListener,
+  sendRuntimeMessage,
+  validObject,
+} from "@/lib/messaging";
 import { isDev, isPreview, isProd, verbose } from "@lib/shims";
 
 const aiTextPatterns = [
@@ -43,7 +48,12 @@ const aiTextPatterns = [
 // const DISPLAY_MODE_KEY = "rm-ai-display-mode";
 type DisplayMode = "hide" | "highlight";
 
-const fetchDisplayMode = async (): Promise<DisplayMode> => {
+let displayModeCache: DisplayMode | null = null;
+
+const fetchDisplayMode = async () => {
+  if (displayModeCache) {
+    return displayModeCache;
+  }
   const response = await sendRuntimeMessage({
     type: "getDisplayMode",
   });
@@ -54,11 +64,15 @@ const fetchDisplayMode = async (): Promise<DisplayMode> => {
     });
   }
 
-  if ("displayMode" in response) {
-    return response.displayMode;
+  if (validObject(response)) {
+    if ("displayMode" in response) {
+      displayModeCache = response.displayMode as DisplayMode;
+      return displayModeCache;
+    }
+    console.debug("valid message but not display mode message");
   }
-
-  throw new Error("Invalid response from service worker");
+  console.error("invalid response received for getDisplayMode, defaulting");
+  return DEFAULT_DISPLAY_MODE;
 };
 
 let mainBodyInitialized = false;
@@ -196,14 +210,13 @@ const observer = new MutationObserver(async () => {
 
 const bootStrap = async () => {
   const displayMode = await fetchDisplayMode();
+  if (verbose) {
+    console.debug({ displayMode, isDev, isPreview, isProd });
+  }
   observer.observe(document, {
     childList: true,
     subtree: true,
   });
-
-  if (verbose) {
-    console.debug({ displayMode, isDev, isPreview, isProd });
-  }
 };
 
 bootStrap().catch((error) => {

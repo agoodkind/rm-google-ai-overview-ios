@@ -3,7 +3,7 @@ import { testLocalhostConnect } from "@lib/utils";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 
-const DEV_HOST_KEY = "dev-server-host";
+const DEV_HOST_KEY = "devServerHost";
 const DEFAULT_DEV_HOST = "http://localhost:8080";
 const MINIMIZE_KEY = "dev-overlay-minimized";
 
@@ -44,7 +44,7 @@ export function DevOverlay() {
 
     // Notify Swift code about the dev server URL change
     window.webkit.messageHandlers.controller.postMessage({
-      type: "set-dev-server-url",
+      type: "setDevServerUrl",
       url: trimmed,
     });
   };

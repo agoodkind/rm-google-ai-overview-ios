@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const DISPLAY_MODE_KEY = "rm-ai-display-mode";
 type DisplayMode = "hide" | "highlight";
@@ -10,6 +10,38 @@ export function SettingsPanel() {
     return saved === "highlight" ? "highlight" : "hide";
   });
 
+  useEffect(() => {
+    // Request current display mode from native app
+    const handleDisplayModeResponse = (event: CustomEvent) => {
+      const mode = event.detail?.mode;
+      if (mode === "hide" || mode === "highlight") {
+        setDisplayMode(mode);
+        localStorage.setItem(DISPLAY_MODE_KEY, mode);
+      }
+    };
+
+    window.addEventListener(
+      "displayModeResponse",
+      handleDisplayModeResponse as EventListener,
+    );
+
+    // Request display mode from native
+    try {
+      window.webkit?.messageHandlers?.controller?.postMessage({
+        type: "getDisplayMode",
+      });
+    } catch (err) {
+      console.warn("Failed to request display mode from native:", err);
+    }
+
+    return () => {
+      window.removeEventListener(
+        "displayModeResponse",
+        handleDisplayModeResponse as EventListener,
+      );
+    };
+  }, []);
+
   const handleDisplayModeChange = async (mode: DisplayMode) => {
     setDisplayMode(mode);
     localStorage.setItem(DISPLAY_MODE_KEY, mode);
@@ -17,7 +49,7 @@ export function SettingsPanel() {
     // Send to native app via webkit message handler
     try {
       window.webkit?.messageHandlers?.controller?.postMessage({
-        type: "set-display-mode",
+        type: "setDisplayMode",
         mode: mode,
       });
     } catch (err) {
