@@ -1,5 +1,5 @@
-import { AppWebView } from "@components/AppWebView";
-import { DevOverlay } from "@components/DevOverlay";
+import { AppWebView } from "@/contexts/app/components/AppWebView";
+import { DevOverlay } from "@/contexts/app/components/DevOverlay";
 import { isDev, verbose } from "@lib/shims";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";

@@ -1,5 +1,5 @@
+import type { Platform } from "@/contexts/app/components/AppWebView";
 import { verbose } from "@/lib/shims";
-import type { Platform } from "@components/AppWebView";
 import { useEffect, useState } from "react";
 
 export interface SafariExtensionState {
