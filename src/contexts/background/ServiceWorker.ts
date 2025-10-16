@@ -1,5 +1,5 @@
+import { NATIVE_MESSAGING_ID } from "@lib/constants";
 import { verbose } from "@lib/shims";
-import { NATIVE_MESSAGING_ID } from "../../lib/constants";
 
 type DisplayMode = "hide" | "highlight";
 

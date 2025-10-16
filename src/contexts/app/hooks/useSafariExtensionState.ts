@@ -1,4 +1,4 @@
-import type { Platform } from "@contexts/app/components/AppWebView";
+import type { Platform } from "../components/AppWebView";
 import { verbose } from "@lib/shims";
 import { useEffect, useState } from "react";
 
