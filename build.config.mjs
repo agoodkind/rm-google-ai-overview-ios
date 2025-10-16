@@ -8,8 +8,8 @@ export const entryPoints = [
     out: "xcode/Shared (Extension)/Resources/content",
   },
   {
-    in: "src/contexts/background/ServiceWorker.ts",
-    out: "xcode/Shared (Extension)/Resources/service-worker",
+    in: "src/contexts/background/Background.ts",
+    out: "xcode/Shared (Extension)/Resources/background",
   },
   {
     in: "src/contexts/app/AppSharedScript.ts",

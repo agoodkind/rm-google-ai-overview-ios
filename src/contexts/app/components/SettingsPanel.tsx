@@ -17,7 +17,7 @@ export function SettingsPanel() {
     // Send to native app via webkit message handler
     try {
       window.webkit?.messageHandlers?.controller?.postMessage({
-        action: "set-display-mode",
+        type: "set-display-mode",
         mode: mode,
       });
     } catch (err) {

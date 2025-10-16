@@ -36,9 +36,11 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
     WKScriptMessageHandler
 {
     // Helper to dispatch the 'safari-extension-state' event with optional fields
-    private func dispatchSafariExtensionState(platform: String? = nil,
-                                              enabled: Bool? = nil,
-                                              useSettings: Bool? = nil) {
+    private func dispatchSafariExtensionState(
+        platform: String? = nil,
+        enabled: Bool? = nil,
+        useSettings: Bool? = nil
+    ) {
         var details: [String] = []
         if let platform = platform {
             details.append("platform: '\(platform)'")
@@ -161,7 +163,11 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
                             return false
                         }
                     }()
-                    self.dispatchSafariExtensionState(platform: "mac", enabled: state.isEnabled, useSettings: useSettingsFlag)
+                    self.dispatchSafariExtensionState(
+                        platform: "mac",
+                        enabled: state.isEnabled,
+                        useSettings: useSettingsFlag
+                    )
                 }
             }
         #endif
@@ -172,8 +178,7 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
         didReceive message: WKScriptMessage
     ) {
         #if DEBUG
-
-            print("[userContentController] got message", message)
+        print("[userContentController] got message name=\(message.name) body=\(message.body)")
 
             // Handle dev server URL updates from web content
             if message.name == "controller",
@@ -201,7 +206,9 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
             let mode = body["mode"] as? String
             let defaults = UserDefaults(suiteName: APP_GROUP_ID)
             defaults?.set(mode, forKey: DISPLAY_MODE_KEY)
-            print("[userContentController] [set-display-mode] Updated display mode to: \(mode)")
+            print(
+                "[userContentController] [set-display-mode] Updated display mode to: \(String(describing: mode))"
+            )
             return
         default:
             break
@@ -235,7 +242,10 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
                                 return false
                             }
                         }()
-                        self.dispatchSafariExtensionState(enabled: state.isEnabled, useSettings: useSettingsFlag)
+                        self.dispatchSafariExtensionState(
+                            enabled: state.isEnabled,
+                            useSettings: useSettingsFlag
+                        )
                     }
                 }
             default:

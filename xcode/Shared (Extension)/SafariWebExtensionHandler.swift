@@ -14,6 +14,8 @@ let DISPLAY_MODE_KEY = "rm-ai-display-mode"
 class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
 
     func beginRequest(with context: NSExtensionContext) {
+        print("Received message from browser.runtime.sendNativeMessage", context.inputItems)
+        
         let request = context.inputItems.first as? NSExtensionItem
 
         let profile: UUID?
@@ -30,10 +32,6 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             message = request?.userInfo?["message"]
         }
         
-        #if DEBUG
-        print("Received message from browser.runtime.sendNativeMessage:", message ?? "no message", profile?.uuidString ?? "no uuid")
-        #endif
-        
         os_log(.default, "Received message from browser.runtime.sendNativeMessage: %@ (profile: %@)", String(describing: message), profile?.uuidString ?? "none")
 
         let response = NSExtensionItem()
@@ -42,6 +40,14 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
            let action = messageDict["action"] as? String {
             
             switch(action) {
+            case "serviceWorkerStarted":
+                print("Service worker started notification received")
+                os_log(.default, "Service worker started")
+                if #available(iOS 15.0, macOS 11.0, *) {
+                    response.userInfo = [ SFExtensionMessageKey: [ "status": "acknowledged" ] ]
+                } else {
+                    response.userInfo = [ "message": [ "status": "acknowledged" ] ]
+                }
             case "getDisplayMode":
                 let displayMode = getDisplayMode()
                 if #available(iOS 15.0, macOS 11.0, *) {
@@ -49,16 +55,9 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
                 } else {
                     response.userInfo = [ "message": [ "displayMode": displayMode ] ]
                 }
-            case "setDisplayMode":
-                if let mode = messageDict["mode"] as? String {
-                    setDisplayMode(mode)
-                    if #available(iOS 15.0, macOS 11.0, *) {
-                        response.userInfo = [ SFExtensionMessageKey: [ "success": true ] ]
-                    } else {
-                        response.userInfo = [ "message": [ "success": true ] ]
-                    }
-                } 
             default:
+                print("Unknown action received:", action)
+                os_log(.default, "Unknown type: %@", action)
                 break;
             }
         } else {
@@ -73,9 +72,8 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         context.completeRequest(returningItems: [ response ], completionHandler: nil)
     }
     
-    private func getDisplayMode() -> String {
-        let defaults = UserDefaults(suiteName: APP_GROUP_ID)
-        return defaults?.string(forKey: DISPLAY_MODE_KEY) ?? "hide"
+    private func getDisplayMode() -> String? {
+        return "test mode change me"
     }
     
     private func setDisplayMode(_ mode: String) {

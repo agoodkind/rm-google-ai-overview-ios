@@ -117,10 +117,10 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/_locales,
+				Resources/background.js,
 				Resources/content.js,
 				Resources/images,
 				Resources/manifest.json,
-				"Resources/service-worker.js",
 				SafariWebExtensionHandler.swift,
 			);
 			target = B201AF5C2E95C4E4008A3464 /* Remove Google AI Overview Extension (iOS) */;
@@ -129,10 +129,10 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/_locales,
+				Resources/background.js,
 				Resources/content.js,
 				Resources/images,
 				Resources/manifest.json,
-				"Resources/service-worker.js",
 				SafariWebExtensionHandler.swift,
 			);
 			target = B201AF662E95C4E4008A3464 /* Remove Google AI Overview Extension (macOS) */;
@@ -159,6 +159,20 @@
 			);
 			target = B201AF512E95C4E4008A3464 /* Remove Google AI Overview (macOS) */;
 		};
+		B2B572562EA096B600887919 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview (iOS)" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/background.js,
+			);
+			target = B201AF3F2E95C4E4008A3464 /* Remove Google AI Overview (iOS) */;
+		};
+		B2B572572EA096B600887919 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview (macOS)" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/background.js,
+			);
+			target = B201AF512E95C4E4008A3464 /* Remove Google AI Overview (macOS) */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -176,6 +190,8 @@
 		B201AF312E95C4E4008A3464 /* Shared (Extension) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				B2B572562EA096B600887919 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview (iOS)" target */,
+				B2B572572EA096B600887919 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview (macOS)" target */,
 				B201AF9E2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview Extension (iOS)" target */,
 				B201AF9F2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview Extension (macOS)" target */,
 			);
@@ -476,6 +492,7 @@
 				"$(SRCROOT)/Shared (App)/Resources/Script.js",
 				"$(SRCROOT)/Shared (App)/Resources/Style.css",
 				"$(SRCROOT)/Shared (Extension)/Resources/service-worker.js",
+				"$(SRCROOT)/Shared (Extension)/Resources/background.js",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
@@ -499,6 +516,7 @@
 				"$(SRCROOT)/Shared (App)/Resources/Script.js",
 				"$(SRCROOT)/Shared (App)/Resources/Style.css",
 				"$(SRCROOT)/Shared (Extension)/Resources/service-worker.js",
+				"$(SRCROOT)/Shared (Extension)/Resources/background.js",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
@@ -555,7 +573,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 149;
+				CURRENT_PROJECT_VERSION = 167;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
@@ -589,7 +607,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 149;
+				CURRENT_PROJECT_VERSION = 167;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
@@ -627,7 +645,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 149;
+				CURRENT_PROJECT_VERSION = 167;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info-Debug.plist";
@@ -670,7 +688,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 149;
+				CURRENT_PROJECT_VERSION = 167;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
@@ -711,7 +729,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 149;
+				CURRENT_PROJECT_VERSION = 167;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -747,7 +765,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 149;
+				CURRENT_PROJECT_VERSION = 167;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -786,7 +804,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 149;
+				CURRENT_PROJECT_VERSION = 167;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -829,7 +847,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 149;
+				CURRENT_PROJECT_VERSION = 167;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;

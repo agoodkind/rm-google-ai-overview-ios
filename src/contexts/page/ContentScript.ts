@@ -1,47 +1,5 @@
+import { registerMessageListener, sendRuntimeMessage } from "@/lib/messaging";
 import { isDev, isPreview, isProd, verbose } from "@lib/shims";
-
-// const DISPLAY_MODE_KEY = "rm-ai-display-mode";
-type DisplayMode = "hide" | "highlight";
-
-let currentDisplayMode: DisplayMode | null = null;
-
-const fetchDisplayMode = async (): Promise<DisplayMode> => {
-  if (currentDisplayMode !== null) {
-    return currentDisplayMode;
-  }
-
-  if (typeof browser === "undefined") {
-    throw new Error("browser is not available");
-  }
-
-  if (!browser.runtime?.sendMessage) {
-    throw new Error("browser.runtime.sendMessage is not available");
-  }
-
-  if (verbose) {
-    console.debug("Fetching display mode from service worker!");
-  }
-  // Send message to service worker, which will forward to native app
-
-  const response = await browser.runtime.sendMessage({
-    action: "getDisplayMode",
-  });
-
-  if (response.error) {
-    throw new Error(`Error fetching display mode: ${response.error}`);
-  }
-
-  if (!response.displayMode) {
-    throw new Error("No displayMode in response");
-  }
-
-  if (verbose) {
-    console.debug("Fetched display mode from service worker result:", response);
-  }
-
-  currentDisplayMode = response.displayMode;
-  return response.displayMode;
-};
 
 const aiTextPatterns = [
   // regex patterns to match "AI overview" in various languages
@@ -81,6 +39,27 @@ const aiTextPatterns = [
   /Lidé se také ptají/i, // cz
   /People also ask/i, // en
 ];
+
+// const DISPLAY_MODE_KEY = "rm-ai-display-mode";
+type DisplayMode = "hide" | "highlight";
+
+const fetchDisplayMode = async (): Promise<DisplayMode> => {
+  const response = await sendRuntimeMessage({
+    type: "getDisplayMode",
+  });
+
+  if (verbose) {
+    console.debug("Response from service worker fetch:", {
+      response,
+    });
+  }
+
+  if ("displayMode" in response) {
+    return response.displayMode;
+  }
+
+  throw new Error("Invalid response from service worker");
+};
 
 let mainBodyInitialized = false;
 let hasRun = false;
@@ -146,26 +125,35 @@ const processSingleElement = async (el: Element) => {
 
 const hideElement = async (el: HTMLElement) => {
   const mode = await fetchDisplayMode();
+  const overlay = document.createElement("div");
 
-  if (mode === "highlight") {
-    el.style.outline = "3px solid orange";
-    el.style.outlineOffset = "-1px";
-    el.style.backgroundColor = "rgba(255, 165, 0, 0.1)";
-    el.style.position = "relative";
-    el.style.display = "";
+  switch (mode) {
+    case "highlight":
+      el.style.outline = "3px solid orange";
+      el.style.outlineOffset = "-1px";
+      el.style.backgroundColor = "rgba(255, 165, 0, 0.1)";
+      el.style.position = "relative";
+      el.style.display = "";
 
-    const overlay = document.createElement("div");
-    overlay.style.position = "absolute";
-    overlay.style.top = "0";
-    overlay.style.left = "0";
-    overlay.style.width = "100%";
-    overlay.style.height = "100%";
-    overlay.style.backgroundColor = "rgba(255, 165, 0, 0.15)";
-    overlay.style.pointerEvents = "none";
-    overlay.style.zIndex = "1";
-    el.appendChild(overlay);
-  } else {
-    el.style.display = "none";
+      overlay.style.position = "absolute";
+      overlay.style.top = "0";
+      overlay.style.left = "0";
+      overlay.style.width = "100%";
+      overlay.style.height = "100%";
+      overlay.style.backgroundColor = "rgba(255, 165, 0, 0.15)";
+      overlay.style.pointerEvents = "none";
+      overlay.style.zIndex = "1";
+      el.appendChild(overlay);
+
+      break;
+    case "hide":
+      el.style.display = "none";
+      break;
+    default:
+      if (verbose) {
+        console.error("Unknown display mode:", mode);
+      }
+      return;
   }
 
   hideCount++;
@@ -178,7 +166,6 @@ const observer = new MutationObserver(async () => {
     }
     hasRun = true;
   }
-  await fetchDisplayMode();
 
   const mainBody = document.querySelector("div#main") as HTMLDivElement | null;
   if (mainBody && !mainBodyInitialized) {
@@ -207,20 +194,31 @@ const observer = new MutationObserver(async () => {
   }
 });
 
-observer.observe(document, {
-  childList: true,
-  subtree: true,
+const bootStrap = async () => {
+  const displayMode = await fetchDisplayMode();
+  observer.observe(document, {
+    childList: true,
+    subtree: true,
+  });
+
+  if (verbose) {
+    console.debug({ displayMode, isDev, isPreview, isProd });
+  }
+};
+
+bootStrap().catch((error) => {
+  console.error("Error in bootstrap:", error);
 });
 
 if (verbose) {
   console.warn("Verbose logging is enabled");
+  console.warn("Build env:", process.env.BUILD_ENV);
   console.warn("Build time: ", process.env.BUILD_TS);
   console.warn("Current time: ", new Date().toString());
-  fetchDisplayMode()
-    .then((displayMode) => {
-      console.debug({ displayMode, isDev, isPreview, isProd });
-    })
-    .catch((error) => {
-      console.error("Error fetching display mode:", error);
+
+  if (isDev) {
+    registerMessageListener((message) => {
+      console.debug("Content script received message:", message);
     });
+  }
 }

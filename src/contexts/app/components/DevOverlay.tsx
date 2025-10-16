@@ -44,7 +44,7 @@ export function DevOverlay() {
 
     // Notify Swift code about the dev server URL change
     window.webkit.messageHandlers.controller.postMessage({
-      action: "set-dev-server-url",
+      type: "set-dev-server-url",
       url: trimmed,
     });
   };
