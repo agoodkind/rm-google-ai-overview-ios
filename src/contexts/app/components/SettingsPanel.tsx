@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 
-const DISPLAY_MODE_KEY = "rm-ai-display-mode";
+const DISPLAY_MODE_KEY = "skip-ai-display-mode";
 type DisplayMode = "hide" | "highlight";
 
 export function SettingsPanel() {

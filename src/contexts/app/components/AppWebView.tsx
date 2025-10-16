@@ -13,7 +13,7 @@ export function AppWebView() {
 
   const getStateMessage = () => {
     if (platform === "ios") {
-      return "You can turn on Remove Google AI Overview's Safari extension in Settings.";
+      return "You can turn on Skip AI's Safari extension in Settings.";
     }
 
     const location = useSettings
@@ -21,11 +21,11 @@ export function AppWebView() {
       : "Safari Extensions preferences";
 
     if (enabled == null) {
-      return `You can turn on Remove Google AI Overview's extension in ${location}.`;
+      return `You can turn on Skip AI's extension in ${location}.`;
     }
     return enabled
-      ? `Remove Google AI Overview's extension is currently on. You can turn it off in ${location}.`
-      : `Remove Google AI Overview's extension is currently off. You can turn it on in ${location}.`;
+      ? `Skip AI's extension is currently on. You can turn it off in ${location}.`
+      : `Skip AI's extension is currently off. You can turn it on in ${location}.`;
   };
 
   const handleOpenPreferences = () => {
@@ -41,7 +41,7 @@ export function AppWebView() {
           src="../icon.png"
           width="128"
           height="128"
-          alt="Remove Google AI Overview Icon"
+          alt="Skip AI Icon"
           className="pointer-events-none drop-shadow-sm dark:drop-shadow md:transition-opacity"
         />
         <p className="font-system text-base leading-relaxed max-w-xs text-slate-700 dark:text-slate-200">

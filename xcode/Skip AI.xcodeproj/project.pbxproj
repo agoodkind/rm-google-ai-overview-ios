@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B201AF5E2E95C4E4008A3464 /* Remove Google AI Overview Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF5D2E95C4E4008A3464 /* Remove Google AI Overview Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B201AF682E95C4E4008A3464 /* Remove Google AI Overview Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF672E95C4E4008A3464 /* Remove Google AI Overview Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B201AF5E2E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B201AF682E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B2D49E8A2E95FEBF00F36696 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
 		B2D49E8B2E95FEBF00F36696 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
 		B2D49E8C2E95FEBF00F36696 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
@@ -21,14 +21,14 @@
 			containerPortal = B201AF242E95C4E2008A3464 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B201AF5C2E95C4E4008A3464;
-			remoteInfo = "Remove Google AI Overview Extension (iOS)";
+			remoteInfo = "Skip AI Extension (iOS)";
 		};
 		B201AF692E95C4E4008A3464 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B201AF242E95C4E2008A3464 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B201AF662E95C4E4008A3464;
-			remoteInfo = "Remove Google AI Overview Extension (macOS)";
+			remoteInfo = "Skip AI Extension (macOS)";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -39,7 +39,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				B201AF5E2E95C4E4008A3464 /* Remove Google AI Overview Extension.appex in Embed Foundation Extensions */,
+				B201AF5E2E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -50,7 +50,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				B201AF682E95C4E4008A3464 /* Remove Google AI Overview Extension.appex in Embed Foundation Extensions */,
+				B201AF682E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,14 +58,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B201AF402E95C4E4008A3464 /* Remove Google AI Overview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Remove Google AI Overview.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B201AF522E95C4E4008A3464 /* Remove Google AI Overview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Remove Google AI Overview.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B201AF5D2E95C4E4008A3464 /* Remove Google AI Overview Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Remove Google AI Overview Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B201AF672E95C4E4008A3464 /* Remove Google AI Overview Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Remove Google AI Overview Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B22271DA2EA0BCFA0074DA03 /* Remove Google AI Overview (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Remove Google AI Overview (iOS).entitlements"; sourceTree = "<group>"; };
-		B22271DB2EA0BD2D0074DA03 /* Remove Google AI Overview (macOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Remove Google AI Overview (macOS).entitlements"; sourceTree = "<group>"; };
-		B22271DC2EA0BD3D0074DA03 /* Remove Google AI Overview Extension (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Remove Google AI Overview Extension (iOS).entitlements"; sourceTree = "<group>"; };
-		B22271DD2EA0BD430074DA03 /* Remove Google AI Overview Extension (macOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Remove Google AI Overview Extension (macOS).entitlements"; sourceTree = "<group>"; };
+		B201AF402E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B201AF522E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Skip AI Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Skip AI Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B22271DA2EA0BCFA0074DA03 /* Skip AI (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI (iOS).entitlements"; sourceTree = "<group>"; };
+		B22271DB2EA0BD2D0074DA03 /* Skip AI (macOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI (macOS).entitlements"; sourceTree = "<group>"; };
+		B22271DC2EA0BD3D0074DA03 /* Skip AI Extension (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI Extension (iOS).entitlements"; sourceTree = "<group>"; };
+		B22271DD2EA0BD430074DA03 /* Skip AI Extension (macOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI Extension (macOS).entitlements"; sourceTree = "<group>"; };
 		B22272712EA0C3460074DA03 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		B22272722EA0C3520074DA03 /* Preview.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Preview.xcconfig; sourceTree = "<group>"; };
 		B22272732EA0C3660074DA03 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B201AF8B2E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview (iOS)" target */ = {
+		B201AF8B2E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Skip AI (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Resources/Main.html",
@@ -84,24 +84,24 @@
 				Resources/Style.css,
 				ViewController.swift,
 			);
-			target = B201AF3F2E95C4E4008A3464 /* Remove Google AI Overview (iOS) */;
+			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
 		};
-		B201AF8F2E95C4E4008A3464 /* Exceptions for "iOS (Extension)" folder in "Remove Google AI Overview Extension (iOS)" target */ = {
+		B201AF8F2E95C4E4008A3464 /* Exceptions for "iOS (Extension)" folder in "Skip AI Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = B201AF5C2E95C4E4008A3464 /* Remove Google AI Overview Extension (iOS) */;
+			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
 		};
-		B201AF942E95C4E4008A3464 /* Exceptions for "iOS (App)" folder in "Remove Google AI Overview (iOS)" target */ = {
+		B201AF942E95C4E4008A3464 /* Exceptions for "iOS (App)" folder in "Skip AI (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"Info-Debug.plist",
 				Info.plist,
 			);
-			target = B201AF3F2E95C4E4008A3464 /* Remove Google AI Overview (iOS) */;
+			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
 		};
-		B201AF952E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview (macOS)" target */ = {
+		B201AF952E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Skip AI (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Resources/Main.html",
@@ -111,16 +111,16 @@
 				Resources/Style.css,
 				ViewController.swift,
 			);
-			target = B201AF512E95C4E4008A3464 /* Remove Google AI Overview (macOS) */;
+			target = B201AF512E95C4E4008A3464 /* Skip AI (macOS) */;
 		};
-		B201AF992E95C4E4008A3464 /* Exceptions for "macOS (Extension)" folder in "Remove Google AI Overview Extension (macOS)" target */ = {
+		B201AF992E95C4E4008A3464 /* Exceptions for "macOS (Extension)" folder in "Skip AI Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = B201AF662E95C4E4008A3464 /* Remove Google AI Overview Extension (macOS) */;
+			target = B201AF662E95C4E4008A3464 /* Skip AI Extension (macOS) */;
 		};
-		B201AF9E2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview Extension (iOS)" target */ = {
+		B201AF9E2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Skip AI Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/_locales,
@@ -130,9 +130,9 @@
 				Resources/manifest.json,
 				SafariWebExtensionHandler.swift,
 			);
-			target = B201AF5C2E95C4E4008A3464 /* Remove Google AI Overview Extension (iOS) */;
+			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
 		};
-		B201AF9F2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview Extension (macOS)" target */ = {
+		B201AF9F2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Skip AI Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/_locales,
@@ -142,43 +142,43 @@
 				Resources/manifest.json,
 				SafariWebExtensionHandler.swift,
 			);
-			target = B201AF662E95C4E4008A3464 /* Remove Google AI Overview Extension (macOS) */;
+			target = B201AF662E95C4E4008A3464 /* Skip AI Extension (macOS) */;
 		};
-		B248D6052E9899720055FF1F /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview Extension (iOS)" target */ = {
+		B248D6052E9899720055FF1F /* Exceptions for "Shared (App)" folder in "Skip AI Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/icon.png,
 			);
-			target = B201AF5C2E95C4E4008A3464 /* Remove Google AI Overview Extension (iOS) */;
+			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
 		};
-		B248D6062E9899720055FF1F /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview Extension (macOS)" target */ = {
+		B248D6062E9899720055FF1F /* Exceptions for "Shared (App)" folder in "Skip AI Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/icon.png,
 			);
-			target = B201AF662E95C4E4008A3464 /* Remove Google AI Overview Extension (macOS) */;
+			target = B201AF662E95C4E4008A3464 /* Skip AI Extension (macOS) */;
 		};
-		B2B567112EA016C200887919 /* Exceptions for "macOS (App)" folder in "Remove Google AI Overview (macOS)" target */ = {
+		B2B567112EA016C200887919 /* Exceptions for "macOS (App)" folder in "Skip AI (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"Info-Debug.plist",
 				Info.plist,
 			);
-			target = B201AF512E95C4E4008A3464 /* Remove Google AI Overview (macOS) */;
+			target = B201AF512E95C4E4008A3464 /* Skip AI (macOS) */;
 		};
-		B2B572562EA096B600887919 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview (iOS)" target */ = {
+		B2B572562EA096B600887919 /* Exceptions for "Shared (Extension)" folder in "Skip AI (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/background.js,
 			);
-			target = B201AF3F2E95C4E4008A3464 /* Remove Google AI Overview (iOS) */;
+			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
 		};
-		B2B572572EA096B600887919 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview (macOS)" target */ = {
+		B2B572572EA096B600887919 /* Exceptions for "Shared (Extension)" folder in "Skip AI (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/background.js,
 			);
-			target = B201AF512E95C4E4008A3464 /* Remove Google AI Overview (macOS) */;
+			target = B201AF512E95C4E4008A3464 /* Skip AI (macOS) */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -186,10 +186,10 @@
 		B201AF282E95C4E2008A3464 /* Shared (App) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B201AF8B2E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview (iOS)" target */,
-				B201AF952E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview (macOS)" target */,
-				B248D6052E9899720055FF1F /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview Extension (iOS)" target */,
-				B248D6062E9899720055FF1F /* Exceptions for "Shared (App)" folder in "Remove Google AI Overview Extension (macOS)" target */,
+				B201AF8B2E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Skip AI (iOS)" target */,
+				B201AF952E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Skip AI (macOS)" target */,
+				B248D6052E9899720055FF1F /* Exceptions for "Shared (App)" folder in "Skip AI Extension (iOS)" target */,
+				B248D6062E9899720055FF1F /* Exceptions for "Shared (App)" folder in "Skip AI Extension (macOS)" target */,
 			);
 			path = "Shared (App)";
 			sourceTree = "<group>";
@@ -197,10 +197,10 @@
 		B201AF312E95C4E4008A3464 /* Shared (Extension) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B2B572562EA096B600887919 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview (iOS)" target */,
-				B2B572572EA096B600887919 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview (macOS)" target */,
-				B201AF9E2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview Extension (iOS)" target */,
-				B201AF9F2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Remove Google AI Overview Extension (macOS)" target */,
+				B2B572562EA096B600887919 /* Exceptions for "Shared (Extension)" folder in "Skip AI (iOS)" target */,
+				B2B572572EA096B600887919 /* Exceptions for "Shared (Extension)" folder in "Skip AI (macOS)" target */,
+				B201AF9E2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Skip AI Extension (iOS)" target */,
+				B201AF9F2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Skip AI Extension (macOS)" target */,
 			);
 			explicitFolders = (
 				Resources/_locales,
@@ -212,7 +212,7 @@
 		B201AF422E95C4E4008A3464 /* iOS (App) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B201AF942E95C4E4008A3464 /* Exceptions for "iOS (App)" folder in "Remove Google AI Overview (iOS)" target */,
+				B201AF942E95C4E4008A3464 /* Exceptions for "iOS (App)" folder in "Skip AI (iOS)" target */,
 			);
 			path = "iOS (App)";
 			sourceTree = "<group>";
@@ -220,7 +220,7 @@
 		B201AF532E95C4E4008A3464 /* macOS (App) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B2B567112EA016C200887919 /* Exceptions for "macOS (App)" folder in "Remove Google AI Overview (macOS)" target */,
+				B2B567112EA016C200887919 /* Exceptions for "macOS (App)" folder in "Skip AI (macOS)" target */,
 			);
 			path = "macOS (App)";
 			sourceTree = "<group>";
@@ -228,7 +228,7 @@
 		B201AF612E95C4E4008A3464 /* iOS (Extension) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B201AF8F2E95C4E4008A3464 /* Exceptions for "iOS (Extension)" folder in "Remove Google AI Overview Extension (iOS)" target */,
+				B201AF8F2E95C4E4008A3464 /* Exceptions for "iOS (Extension)" folder in "Skip AI Extension (iOS)" target */,
 			);
 			path = "iOS (Extension)";
 			sourceTree = "<group>";
@@ -236,7 +236,7 @@
 		B201AF6B2E95C4E4008A3464 /* macOS (Extension) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B201AF992E95C4E4008A3464 /* Exceptions for "macOS (Extension)" folder in "Remove Google AI Overview Extension (macOS)" target */,
+				B201AF992E95C4E4008A3464 /* Exceptions for "macOS (Extension)" folder in "Skip AI Extension (macOS)" target */,
 			);
 			path = "macOS (Extension)";
 			sourceTree = "<group>";
@@ -278,10 +278,10 @@
 		B201AF232E95C4E2008A3464 = {
 			isa = PBXGroup;
 			children = (
-				B22271DD2EA0BD430074DA03 /* Remove Google AI Overview Extension (macOS).entitlements */,
-				B22271DC2EA0BD3D0074DA03 /* Remove Google AI Overview Extension (iOS).entitlements */,
-				B22271DB2EA0BD2D0074DA03 /* Remove Google AI Overview (macOS).entitlements */,
-				B22271DA2EA0BCFA0074DA03 /* Remove Google AI Overview (iOS).entitlements */,
+				B22271DD2EA0BD430074DA03 /* Skip AI Extension (macOS).entitlements */,
+				B22271DC2EA0BD3D0074DA03 /* Skip AI Extension (iOS).entitlements */,
+				B22271DB2EA0BD2D0074DA03 /* Skip AI (macOS).entitlements */,
+				B22271DA2EA0BCFA0074DA03 /* Skip AI (iOS).entitlements */,
 				B248D6082E98ABB20055FF1F /* build_js.sh */,
 				B2D49E892E95FEBF00F36696 /* AppIcon.icon */,
 				B201AF282E95C4E2008A3464 /* Shared (App) */,
@@ -300,10 +300,10 @@
 		B201AF412E95C4E4008A3464 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B201AF402E95C4E4008A3464 /* Remove Google AI Overview.app */,
-				B201AF522E95C4E4008A3464 /* Remove Google AI Overview.app */,
-				B201AF5D2E95C4E4008A3464 /* Remove Google AI Overview Extension.appex */,
-				B201AF672E95C4E4008A3464 /* Remove Google AI Overview Extension.appex */,
+				B201AF402E95C4E4008A3464 /* Skip AI.app */,
+				B201AF522E95C4E4008A3464 /* Skip AI.app */,
+				B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */,
+				B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -311,9 +311,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B201AF3F2E95C4E4008A3464 /* Remove Google AI Overview (iOS) */ = {
+		B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B201AF912E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Remove Google AI Overview (iOS)" */;
+			buildConfigurationList = B201AF912E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Skip AI (iOS)" */;
 			buildPhases = (
 				B201AF3C2E95C4E4008A3464 /* Sources */,
 				B201AF3D2E95C4E4008A3464 /* Frameworks */,
@@ -328,16 +328,16 @@
 			fileSystemSynchronizedGroups = (
 				B201AF422E95C4E4008A3464 /* iOS (App) */,
 			);
-			name = "Remove Google AI Overview (iOS)";
+			name = "Skip AI (iOS)";
 			packageProductDependencies = (
 			);
-			productName = "Remove Google AI Overview (iOS)";
-			productReference = B201AF402E95C4E4008A3464 /* Remove Google AI Overview.app */;
+			productName = "Skip AI (iOS)";
+			productReference = B201AF402E95C4E4008A3464 /* Skip AI.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B201AF512E95C4E4008A3464 /* Remove Google AI Overview (macOS) */ = {
+		B201AF512E95C4E4008A3464 /* Skip AI (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B201AF9B2E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Remove Google AI Overview (macOS)" */;
+			buildConfigurationList = B201AF9B2E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Skip AI (macOS)" */;
 			buildPhases = (
 				B201AF4E2E95C4E4008A3464 /* Sources */,
 				B201AF4F2E95C4E4008A3464 /* Frameworks */,
@@ -352,16 +352,16 @@
 			fileSystemSynchronizedGroups = (
 				B201AF532E95C4E4008A3464 /* macOS (App) */,
 			);
-			name = "Remove Google AI Overview (macOS)";
+			name = "Skip AI (macOS)";
 			packageProductDependencies = (
 			);
-			productName = "Remove Google AI Overview (macOS)";
-			productReference = B201AF522E95C4E4008A3464 /* Remove Google AI Overview.app */;
+			productName = "Skip AI (macOS)";
+			productReference = B201AF522E95C4E4008A3464 /* Skip AI.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B201AF5C2E95C4E4008A3464 /* Remove Google AI Overview Extension (iOS) */ = {
+		B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B201AF8C2E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Remove Google AI Overview Extension (iOS)" */;
+			buildConfigurationList = B201AF8C2E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Skip AI Extension (iOS)" */;
 			buildPhases = (
 				B201AF592E95C4E4008A3464 /* Sources */,
 				B201AF5A2E95C4E4008A3464 /* Frameworks */,
@@ -375,16 +375,16 @@
 			fileSystemSynchronizedGroups = (
 				B201AF612E95C4E4008A3464 /* iOS (Extension) */,
 			);
-			name = "Remove Google AI Overview Extension (iOS)";
+			name = "Skip AI Extension (iOS)";
 			packageProductDependencies = (
 			);
-			productName = "Remove Google AI Overview Extension (iOS)";
-			productReference = B201AF5D2E95C4E4008A3464 /* Remove Google AI Overview Extension.appex */;
+			productName = "Skip AI Extension (iOS)";
+			productReference = B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		B201AF662E95C4E4008A3464 /* Remove Google AI Overview Extension (macOS) */ = {
+		B201AF662E95C4E4008A3464 /* Skip AI Extension (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B201AF962E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Remove Google AI Overview Extension (macOS)" */;
+			buildConfigurationList = B201AF962E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Skip AI Extension (macOS)" */;
 			buildPhases = (
 				B201AF632E95C4E4008A3464 /* Sources */,
 				B201AF642E95C4E4008A3464 /* Frameworks */,
@@ -398,11 +398,11 @@
 			fileSystemSynchronizedGroups = (
 				B201AF6B2E95C4E4008A3464 /* macOS (Extension) */,
 			);
-			name = "Remove Google AI Overview Extension (macOS)";
+			name = "Skip AI Extension (macOS)";
 			packageProductDependencies = (
 			);
-			productName = "Remove Google AI Overview Extension (macOS)";
-			productReference = B201AF672E95C4E4008A3464 /* Remove Google AI Overview Extension.appex */;
+			productName = "Skip AI Extension (macOS)";
+			productReference = B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -429,7 +429,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B201AF272E95C4E2008A3464 /* Build configuration list for PBXProject "Remove Google AI Overview" */;
+			buildConfigurationList = B201AF272E95C4E2008A3464 /* Build configuration list for PBXProject "Skip AI" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -443,10 +443,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B201AF3F2E95C4E4008A3464 /* Remove Google AI Overview (iOS) */,
-				B201AF512E95C4E4008A3464 /* Remove Google AI Overview (macOS) */,
-				B201AF5C2E95C4E4008A3464 /* Remove Google AI Overview Extension (iOS) */,
-				B201AF662E95C4E4008A3464 /* Remove Google AI Overview Extension (macOS) */,
+				B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */,
+				B201AF512E95C4E4008A3464 /* Skip AI (macOS) */,
+				B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */,
+				B201AF662E95C4E4008A3464 /* Skip AI Extension (macOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -572,12 +572,12 @@
 /* Begin PBXTargetDependency section */
 		B201AF602E95C4E4008A3464 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B201AF5C2E95C4E4008A3464 /* Remove Google AI Overview Extension (iOS) */;
+			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
 			targetProxy = B201AF5F2E95C4E4008A3464 /* PBXContainerItemProxy */;
 		};
 		B201AF6A2E95C4E4008A3464 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B201AF662E95C4E4008A3464 /* Remove Google AI Overview Extension (macOS) */;
+			target = B201AF662E95C4E4008A3464 /* Skip AI Extension (macOS) */;
 			targetProxy = B201AF692E95C4E4008A3464 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -587,13 +587,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B22272712EA0C3460074DA03 /* Debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Remove Google AI Overview Extension (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 200;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -607,7 +607,7 @@
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Remove-Google-AI-Overview.Extension";
-				PRODUCT_NAME = "Remove Google AI Overview Extension";
+				PRODUCT_NAME = "Skip AI Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -623,13 +623,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B22272732EA0C3660074DA03 /* Release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Remove Google AI Overview Extension (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 200;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -643,7 +643,7 @@
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Remove-Google-AI-Overview.Extension";
-				PRODUCT_NAME = "Remove Google AI Overview Extension";
+				PRODUCT_NAME = "Skip AI Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -663,13 +663,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Remove Google AI Overview (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 200;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info-Debug.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview";
+				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = Main.storyboard;
@@ -689,7 +689,7 @@
 					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Remove-Google-AI-Overview";
-				PRODUCT_NAME = "Remove Google AI Overview";
+				PRODUCT_NAME = "Skip AI";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -708,13 +708,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Remove Google AI Overview (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 200;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview";
+				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = Main.storyboard;
@@ -734,7 +734,7 @@
 					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Remove-Google-AI-Overview";
-				PRODUCT_NAME = "Remove Google AI Overview";
+				PRODUCT_NAME = "Skip AI";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -751,16 +751,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B22272712EA0C3460074DA03 /* Debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Remove Google AI Overview Extension (macOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 200;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -774,7 +774,7 @@
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Remove-Google-AI-Overview.Extension";
-				PRODUCT_NAME = "Remove Google AI Overview Extension";
+				PRODUCT_NAME = "Skip AI Extension";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -790,16 +790,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B22272732EA0C3660074DA03 /* Release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Remove Google AI Overview Extension (macOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 200;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -813,7 +813,7 @@
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Remove-Google-AI-Overview.Extension";
-				PRODUCT_NAME = "Remove Google AI Overview Extension";
+				PRODUCT_NAME = "Skip AI Extension";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -832,16 +832,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Remove Google AI Overview (macOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 200;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview";
+				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -858,7 +858,7 @@
 					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Remove-Google-AI-Overview";
-				PRODUCT_NAME = "Remove Google AI Overview";
+				PRODUCT_NAME = "Skip AI";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -877,16 +877,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Remove Google AI Overview (macOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 200;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview";
+				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -903,7 +903,7 @@
 					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Remove-Google-AI-Overview";
-				PRODUCT_NAME = "Remove Google AI Overview";
+				PRODUCT_NAME = "Skip AI";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -1103,13 +1103,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Remove Google AI Overview (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 200;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info-Debug.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview";
+				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = Main.storyboard;
@@ -1129,7 +1129,7 @@
 					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Remove-Google-AI-Overview";
-				PRODUCT_NAME = "Remove Google AI Overview";
+				PRODUCT_NAME = "Skip AI";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -1148,16 +1148,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Remove Google AI Overview (macOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 200;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview";
+				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -1174,7 +1174,7 @@
 					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Remove-Google-AI-Overview";
-				PRODUCT_NAME = "Remove Google AI Overview";
+				PRODUCT_NAME = "Skip AI";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -1190,13 +1190,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B22272722EA0C3520074DA03 /* Preview.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Remove Google AI Overview Extension (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 200;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1210,7 +1210,7 @@
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Remove-Google-AI-Overview.Extension";
-				PRODUCT_NAME = "Remove Google AI Overview Extension";
+				PRODUCT_NAME = "Skip AI Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -1226,16 +1226,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B22272722EA0C3520074DA03 /* Preview.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Remove Google AI Overview Extension (macOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 200;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Remove Google AI Overview Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1249,7 +1249,7 @@
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Remove-Google-AI-Overview.Extension";
-				PRODUCT_NAME = "Remove Google AI Overview Extension";
+				PRODUCT_NAME = "Skip AI Extension";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1264,7 +1264,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B201AF272E95C4E2008A3464 /* Build configuration list for PBXProject "Remove Google AI Overview" */ = {
+		B201AF272E95C4E2008A3464 /* Build configuration list for PBXProject "Skip AI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B201AFA02E95C4E4008A3464 /* Debug */,
@@ -1274,7 +1274,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		B201AF8C2E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Remove Google AI Overview Extension (iOS)" */ = {
+		B201AF8C2E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Skip AI Extension (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B201AF8D2E95C4E4008A3464 /* Debug */,
@@ -1284,7 +1284,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		B201AF912E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Remove Google AI Overview (iOS)" */ = {
+		B201AF912E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Skip AI (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B201AF922E95C4E4008A3464 /* Debug */,
@@ -1294,7 +1294,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		B201AF962E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Remove Google AI Overview Extension (macOS)" */ = {
+		B201AF962E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Skip AI Extension (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B201AF972E95C4E4008A3464 /* Debug */,
@@ -1304,7 +1304,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		B201AF9B2E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Remove Google AI Overview (macOS)" */ = {
+		B201AF9B2E95C4E4008A3464 /* Build configuration list for PBXNativeTarget "Skip AI (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B201AF9C2E95C4E4008A3464 /* Debug */,

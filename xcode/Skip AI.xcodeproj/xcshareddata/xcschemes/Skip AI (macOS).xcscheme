@@ -16,9 +16,9 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "B201AF512E95C4E4008A3464"
-                     BuildableName = "Remove Google AI Overview.app"
-                     BlueprintName = "Remove Google AI Overview (macOS)"
-                     ReferencedContainer = "container:Remove Google AI Overview.xcodeproj">
+                     BuildableName = "Skip AI.app"
+                     BlueprintName = "Skip AI (macOS)"
+                     ReferencedContainer = "container:Skip AI.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
             </ActionContent>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B201AF512E95C4E4008A3464"
-               BuildableName = "Remove Google AI Overview.app"
-               BlueprintName = "Remove Google AI Overview (macOS)"
-               ReferencedContainer = "container:Remove Google AI Overview.xcodeproj">
+               BuildableName = "Skip AI.app"
+               BlueprintName = "Skip AI (macOS)"
+               ReferencedContainer = "container:Skip AI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -57,9 +57,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B201AF662E95C4E4008A3464"
-               BuildableName = "Remove Google AI Overview Extension.appex"
-               BlueprintName = "Remove Google AI Overview Extension (macOS)"
-               ReferencedContainer = "container:Remove Google AI Overview.xcodeproj">
+               BuildableName = "Skip AI Extension.appex"
+               BlueprintName = "Skip AI Extension (macOS)"
+               ReferencedContainer = "container:Skip AI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -86,9 +86,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B201AF512E95C4E4008A3464"
-            BuildableName = "Remove Google AI Overview.app"
-            BlueprintName = "Remove Google AI Overview (macOS)"
-            ReferencedContainer = "container:Remove Google AI Overview.xcodeproj">
+            BuildableName = "Skip AI.app"
+            BlueprintName = "Skip AI (macOS)"
+            ReferencedContainer = "container:Skip AI.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -110,9 +110,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B201AF512E95C4E4008A3464"
-            BuildableName = "Remove Google AI Overview.app"
-            BlueprintName = "Remove Google AI Overview (macOS)"
-            ReferencedContainer = "container:Remove Google AI Overview.xcodeproj">
+            BuildableName = "Skip AI.app"
+            BlueprintName = "Skip AI (macOS)"
+            ReferencedContainer = "container:Skip AI.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -9,7 +9,7 @@ import SafariServices
 import os.log
 
 let APP_GROUP_ID = "group.com.goodkind.rm-google-ai-overview"
-let DISPLAY_MODE_KEY = "rm-ai-display-mode"
+let DISPLAY_MODE_KEY = "skip-ai-display-mode"
 #if DEBUG
 let DEFAULT_DISPLAY_MODE = "highlight"
 #else

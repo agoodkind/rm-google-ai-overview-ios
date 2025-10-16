@@ -45,7 +45,7 @@ const aiTextPatterns = [
   /People also ask/i, // en
 ];
 
-// const DISPLAY_MODE_KEY = "rm-ai-display-mode";
+// const DISPLAY_MODE_KEY = "skip-ai-display-mode";
 type DisplayMode = "hide" | "highlight";
 
 let displayModeCache: DisplayMode | null = null;

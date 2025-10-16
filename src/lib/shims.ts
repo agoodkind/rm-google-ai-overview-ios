@@ -8,7 +8,7 @@ export const buildTime = process.env.BUILD_TS;
 export const commitSHA = process.env.COMMIT_SHA || "unknown";
 
 if (verbose) {
-  const logLabel = `[rm-google-ai-overview-ios]`;
+  const logLabel = `[skip-ai-ios]`;
 
   // Bind the timestamp object - toString() gets called at log-time
   console.log = console.log.bind(console, logLabel);
