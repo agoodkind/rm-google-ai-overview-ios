@@ -39,6 +39,20 @@
                ReferencedContainer = "container:Remove Google AI Overview.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B201AF5C2E95C4E4008A3464"
+               BuildableName = "Remove Google AI Overview Extension.appex"
+               BlueprintName = "Remove Google AI Overview Extension (iOS)"
+               ReferencedContainer = "container:Remove Google AI Overview.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -90,7 +104,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Preview"
       revealArchiveInOrganizer = "YES">
       <PreActions>
          <ExecutionAction

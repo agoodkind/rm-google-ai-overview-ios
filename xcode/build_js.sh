@@ -33,6 +33,9 @@ fi
 if [ "$CONFIGURATION" == "Debug" ]; then
   echo "Building in Debug mode..."
   BUILD_CMD="build:development"
+elif [ "$CONFIGURATION" == "Preview" ]; then
+  echo "Building in Preview mode..."
+  BUILD_CMD="build:preview"
 else
   echo "Building in Release mode..."
   BUILD_CMD="build"

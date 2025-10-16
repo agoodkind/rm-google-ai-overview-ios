@@ -6,6 +6,7 @@
 //
 
 import WebKit
+import os.log
 
 #if os(iOS)
     import UIKit
@@ -20,6 +21,11 @@ let extensionBundleIdentifier =
     "goodkind-io.Remove-Google-AI-Overview.Extension"
 let APP_GROUP_ID = "group.com.goodkind.rm-google-ai-overview"
 let DISPLAY_MODE_KEY = "rm-ai-display-mode"
+#if DEBUG
+    let DEFAULT_DISPLAY_MODE = "highlight"
+#else
+    let DEFAULT_DISPLAY_MODE = "hide"
+#endif
 
 #if DEBUG
     let devServerDefaultHost = "http://localhost:8080"
@@ -27,7 +33,7 @@ let DISPLAY_MODE_KEY = "rm-ai-display-mode"
 
     // Read from UserDefaults if available, otherwise use default
     var devServerBaseURL: String {
-        UserDefaults.standard.string(forKey: "dev-server-host")
+        UserDefaults.standard.string(forKey: "devServerHost")
             ?? devServerDefaultHost
     }
 #endif
@@ -178,17 +184,17 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
         didReceive message: WKScriptMessage
     ) {
         #if DEBUG
-        print("[userContentController] got message name=\(message.name) body=\(message.body)")
+        os_log(.debug, "[userContentController] got message name=%{public}@ body=%{public}@", message.name)
 
             // Handle dev server URL updates from web content
             if message.name == "controller",
                 let body = message.body as? [String: Any],
                 let action = body["action"] as? String,
-                action == "set-dev-server-url",
+                action == "setDevServerUrl",
                 let url = body["url"] as? String
             {
-                UserDefaults.standard.set(url, forKey: "dev-server-host")
-                print("[Dev] Updated dev server URL to: \(url)")
+                UserDefaults.standard.set(url, forKey: "devServerHost")
+                os_log(.debug, "[Dev] Updated dev server URL to: %@", url)
                 // reload
                 DispatchQueue.main.async {
                     self.loadInitialContent()
@@ -198,17 +204,28 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
         #endif
 
         guard let body = message.body as? [String: Any] else { return }
-        guard let action = body["action"] as? String else { return }
+        guard let type = body["type"] as? String else { return }
 
-        switch action {
+        switch type {
         // Handle display mode changes from AppWebView
-        case "set-display-mode":
-            let mode = body["mode"] as? String
-            let defaults = UserDefaults(suiteName: APP_GROUP_ID)
-            defaults?.set(mode, forKey: DISPLAY_MODE_KEY)
-            print(
-                "[userContentController] [set-display-mode] Updated display mode to: \(String(describing: mode))"
-            )
+        case "setDisplayMode":
+            if let mode = body["mode"] as? String {
+                let defaults = UserDefaults(suiteName: APP_GROUP_ID)
+                defaults?.set(mode, forKey: DISPLAY_MODE_KEY)
+                defaults?.synchronize()
+                os_log(.debug, "[userContentController] [setDisplayMode] Updated display mode to: %@", mode)
+            } else {
+                os_log(.debug, "[userContentController] [setDisplayMode] ERROR: mode is nil")
+            }
+            return
+        case "getDisplayMode":
+            let mode = getDisplayMode()
+            let js = """
+                window.dispatchEvent(new CustomEvent('displayModeResponse', {
+                  detail: { mode: '\(mode)' }
+                }));
+                """
+            self.webView.evaluateJavaScript(js)
             return
         default:
             break
@@ -221,7 +238,6 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
 
             switch body {
             case "open-preferences":
-
                 SFSafariApplication.showPreferencesForExtension(
                     withIdentifier: extensionBundleIdentifier
                 ) { error in
@@ -252,6 +268,12 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
                 break
             }
         #endif
+    }
+    
+    private func getDisplayMode() -> String {
+        let defaults = UserDefaults(suiteName: APP_GROUP_ID)
+        let mode = defaults?.string(forKey: DISPLAY_MODE_KEY) ?? DEFAULT_DISPLAY_MODE
+        return mode
     }
 
 }

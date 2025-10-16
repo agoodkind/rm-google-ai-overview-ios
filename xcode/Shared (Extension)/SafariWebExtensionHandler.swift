@@ -10,12 +10,15 @@ import os.log
 
 let APP_GROUP_ID = "group.com.goodkind.rm-google-ai-overview"
 let DISPLAY_MODE_KEY = "rm-ai-display-mode"
+#if DEBUG
+let DEFAULT_DISPLAY_MODE = "highlight"
+#else
+let DEFAULT_DISPLAY_MODE = "hide"
+#endif
 
 class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
 
     func beginRequest(with context: NSExtensionContext) {
-        print("Received message from browser.runtime.sendNativeMessage", context.inputItems)
-        
         let request = context.inputItems.first as? NSExtensionItem
 
         let profile: UUID?
@@ -32,16 +35,15 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             message = request?.userInfo?["message"]
         }
         
-        os_log(.default, "Received message from browser.runtime.sendNativeMessage: %@ (profile: %@)", String(describing: message), profile?.uuidString ?? "none")
+        os_log(.default, "Received message from browser.runtime.sendNativeMessage: %{public}@ (profile: %{public}@)", String(describing: message), profile?.uuidString ?? "none")
 
         let response = NSExtensionItem()
         
         if let messageDict = message as? [String: Any],
-           let action = messageDict["action"] as? String {
+           let type = messageDict["type"] as? String {
             
-            switch(action) {
+            switch(type) {
             case "serviceWorkerStarted":
-                print("Service worker started notification received")
                 os_log(.default, "Service worker started")
                 if #available(iOS 15.0, macOS 11.0, *) {
                     response.userInfo = [ SFExtensionMessageKey: [ "status": "acknowledged" ] ]
@@ -56,8 +58,7 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
                     response.userInfo = [ "message": [ "displayMode": displayMode ] ]
                 }
             default:
-                print("Unknown action received:", action)
-                os_log(.default, "Unknown type: %@", action)
+                os_log(.default, "Unknown type: %{public}@", type)
                 break;
             }
         } else {
@@ -72,13 +73,11 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         context.completeRequest(returningItems: [ response ], completionHandler: nil)
     }
     
-    private func getDisplayMode() -> String? {
-        return "test mode change me"
-    }
-    
-    private func setDisplayMode(_ mode: String) {
+    private func getDisplayMode() -> String {
         let defaults = UserDefaults(suiteName: APP_GROUP_ID)
-        defaults?.set(mode, forKey: DISPLAY_MODE_KEY)
+        let mode = defaults?.string(forKey: DISPLAY_MODE_KEY) 
+        os_log(.default, "Display Mode: (stored) %{public}@, (default) %{public}@", mode ?? "none", DEFAULT_DISPLAY_MODE)
+        return mode ?? DEFAULT_DISPLAY_MODE
     }
-
 }
+

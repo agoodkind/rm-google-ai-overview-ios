@@ -1,0 +1,28 @@
+//
+//  Debug.xcconfig
+//  Remove Google AI Overview
+//
+
+// Configuration Settings
+CONFIGURATION_BUILD_DIR = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+
+// Swift Compiler - Custom Flags
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
+
+// Other Swift Flags
+OTHER_SWIFT_FLAGS = -DDEBUG
+
+// Apple Clang - Preprocessing
+GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1
+
+// Optimization Level
+SWIFT_OPTIMIZATION_LEVEL = -Onone
+GCC_OPTIMIZATION_LEVEL = 0
+
+// Debug Information
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+COPY_PHASE_STRIP = NO
+ENABLE_TESTABILITY = YES
+
+// Code Signing
+CODE_SIGN_IDENTITY = Apple Development
