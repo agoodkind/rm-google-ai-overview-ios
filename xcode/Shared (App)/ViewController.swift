@@ -5,21 +5,23 @@
 //  Created by Alex Goodkind on 10/7/25.
 //
 
-import WebKit
 import os.log
+import WebKit
 
 #if os(iOS)
     import UIKit
+
     typealias PlatformViewController = UIViewController
 #elseif os(macOS)
     import Cocoa
     import SafariServices
+
     typealias PlatformViewController = NSViewController
 #endif
 
 let extensionBundleIdentifier =
-    "goodkind-io.Remove-Google-AI-Overview.Extension"
-let APP_GROUP_ID = "group.com.goodkind.rm-google-ai-overview"
+    "goodkind-io.Skip-AI.Extension"
+let APP_GROUP_ID = "group.com.goodkind.skip-ai"
 let DISPLAY_MODE_KEY = "skip-ai-display-mode"
 #if DEBUG
     let DEFAULT_DISPLAY_MODE = "highlight"
@@ -59,10 +61,10 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
         }
         let detailBody = details.joined(separator: ", ")
         let js = """
-            window.dispatchEvent(new CustomEvent('safari-extension-state', {
-              detail: { \(detailBody) }
-            }));
-            """
+        window.dispatchEvent(new CustomEvent('safari-extension-state', {
+          detail: { \(detailBody) }
+        }));
+        """
         self.webView.evaluateJavaScript(js)
     }
 
@@ -88,7 +90,7 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
                     [weak self] _, response, error in
                     guard let self = self else { return }
                     if let http = response as? HTTPURLResponse,
-                        http.statusCode == 200, error == nil
+                       http.statusCode == 200, error == nil
                     {
                         print("[Dev] Loading dev server at \(devURL)")
                         DispatchQueue.main.async {
@@ -152,13 +154,13 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         #if os(iOS)
-            dispatchSafariExtensionState(platform: "ios")
+            self.dispatchSafariExtensionState(platform: "ios")
         #elseif os(macOS)
-            dispatchSafariExtensionState(platform: "mac")
+            self.dispatchSafariExtensionState(platform: "mac")
 
             SFSafariExtensionManager.getStateOfSafariExtension(
                 withIdentifier: extensionBundleIdentifier
-            ) { (state, error) in
+            ) { state, error in
                 guard let state = state, error == nil else { return }
 
                 DispatchQueue.main.async {
@@ -183,15 +185,19 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
         _ userContentController: WKUserContentController,
         didReceive message: WKScriptMessage
     ) {
+        guard let body = message.body as? [String: Any] else { return }
+        guard let type = body["type"] as? String else { return }
+
         #if DEBUG
-        os_log(.debug, "[userContentController] got message name=%{public}@ body=%{public}@", message.name)
+            os_log(
+                .debug,
+                "[userContentController] got message name=%{public}@ body=%{public}@",
+                message.name
+            )
 
             // Handle dev server URL updates from web content
-            if message.name == "controller",
-                let body = message.body as? [String: Any],
-                let action = body["action"] as? String,
-                action == "setDevServerUrl",
-                let url = body["url"] as? String
+            if type == "setDevServerUrl",
+            let url = body["url"] as? String
             {
                 UserDefaults.standard.set(url, forKey: "devServerHost")
                 os_log(.debug, "[Dev] Updated dev server URL to: %@", url)
@@ -203,9 +209,6 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
             }
         #endif
 
-        guard let body = message.body as? [String: Any] else { return }
-        guard let type = body["type"] as? String else { return }
-
         switch type {
         // Handle display mode changes from AppWebView
         case "setDisplayMode":
@@ -213,18 +216,25 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
                 let defaults = UserDefaults(suiteName: APP_GROUP_ID)
                 defaults?.set(mode, forKey: DISPLAY_MODE_KEY)
                 defaults?.synchronize()
-                os_log(.debug, "[userContentController] [setDisplayMode] Updated display mode to: %@", mode)
+                os_log(
+                    .debug,
+                    "[userContentController] [setDisplayMode] Updated display mode to: %@",
+                    mode
+                )
             } else {
-                os_log(.debug, "[userContentController] [setDisplayMode] ERROR: mode is nil")
+                os_log(
+                    .debug,
+                    "[userContentController] [setDisplayMode] ERROR: mode is nil"
+                )
             }
             return
         case "getDisplayMode":
-            let mode = getDisplayMode()
+            let mode = self.getDisplayMode()
             let js = """
-                window.dispatchEvent(new CustomEvent('displayModeResponse', {
-                  detail: { mode: '\(mode)' }
-                }));
-                """
+            window.dispatchEvent(new CustomEvent('displayModeResponse', {
+              detail: { mode: '\(mode)' }
+            }));
+            """
             self.webView.evaluateJavaScript(js)
             return
         default:
@@ -234,21 +244,20 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
         #if os(macOS)
             // mac specific extension settings
             // since macs can programmatically open safari settings (iOS & catalyst can't)
-            guard let body = message.body as? String else { return }
 
-            switch body {
-            case "open-preferences":
+            switch type {
+            case "openPreferences":
                 SFSafariApplication.showPreferencesForExtension(
                     withIdentifier: extensionBundleIdentifier
                 ) { error in
                     guard error == nil else { return }
                     DispatchQueue.main.async { NSApp.terminate(self) }
                 }
-            case "request-state":
+            case "requestState":
                 // Re-query current state and dispatch event
                 SFSafariExtensionManager.getStateOfSafariExtension(
                     withIdentifier: extensionBundleIdentifier
-                ) { (state, error) in
+                ) { state, error in
                     guard let state = state, error == nil else { return }
                     DispatchQueue.main.async {
                         let useSettingsFlag: Bool = {
@@ -269,11 +278,11 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
             }
         #endif
     }
-    
+
     private func getDisplayMode() -> String {
         let defaults = UserDefaults(suiteName: APP_GROUP_ID)
-        let mode = defaults?.string(forKey: DISPLAY_MODE_KEY) ?? DEFAULT_DISPLAY_MODE
+        let mode =
+            defaults?.string(forKey: DISPLAY_MODE_KEY) ?? DEFAULT_DISPLAY_MODE
         return mode
     }
-
 }

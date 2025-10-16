@@ -4,7 +4,7 @@
         "description": "The display name for the extension."
     },
     "extension_description": {
-        "message": "Skip Google's AI Overview in search results for cleaner, more direct search experience.",
+        "message": "Skip AI Overviews in search results for cleaner, more direct search experience.",
         "description": "Description of what the extension does."
     }
 }

@@ -30,7 +30,9 @@ export function AppWebView() {
 
   const handleOpenPreferences = () => {
     if (window.webkit?.messageHandlers?.controller) {
-      window.webkit.messageHandlers.controller.postMessage("open-preferences");
+      window.webkit.messageHandlers.controller.postMessage({
+        type: "openPreferences",
+      });
     }
   };
 

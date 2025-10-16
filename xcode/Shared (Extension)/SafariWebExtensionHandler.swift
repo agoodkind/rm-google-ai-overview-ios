@@ -5,19 +5,18 @@
 //  Created by Alex Goodkind on 10/7/25.
 //
 
-import SafariServices
 import os.log
+import SafariServices
 
-let APP_GROUP_ID = "group.com.goodkind.rm-google-ai-overview"
+let APP_GROUP_ID = "group.com.goodkind.skip-ai"
 let DISPLAY_MODE_KEY = "skip-ai-display-mode"
 #if DEBUG
-let DEFAULT_DISPLAY_MODE = "highlight"
+    let DEFAULT_DISPLAY_MODE = "highlight"
 #else
-let DEFAULT_DISPLAY_MODE = "hide"
+    let DEFAULT_DISPLAY_MODE = "hide"
 #endif
 
 class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
-
     func beginRequest(with context: NSExtensionContext) {
         let request = context.inputItems.first as? NSExtensionItem
 
@@ -34,50 +33,48 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         } else {
             message = request?.userInfo?["message"]
         }
-        
+
         os_log(.default, "Received message from browser.runtime.sendNativeMessage: %{public}@ (profile: %{public}@)", String(describing: message), profile?.uuidString ?? "none")
 
         let response = NSExtensionItem()
-        
+
         if let messageDict = message as? [String: Any],
-           let type = messageDict["type"] as? String {
-            
-            switch(type) {
+           let type = messageDict["type"] as? String
+        {
+            switch type {
             case "serviceWorkerStarted":
                 os_log(.default, "Service worker started")
                 if #available(iOS 15.0, macOS 11.0, *) {
-                    response.userInfo = [ SFExtensionMessageKey: [ "status": "acknowledged" ] ]
+                    response.userInfo = [SFExtensionMessageKey: ["status": "acknowledged"]]
                 } else {
-                    response.userInfo = [ "message": [ "status": "acknowledged" ] ]
+                    response.userInfo = ["message": ["status": "acknowledged"]]
                 }
             case "getDisplayMode":
                 let displayMode = getDisplayMode()
                 if #available(iOS 15.0, macOS 11.0, *) {
-                    response.userInfo = [ SFExtensionMessageKey: [ "displayMode": displayMode ] ]
+                    response.userInfo = [SFExtensionMessageKey: ["displayMode": displayMode]]
                 } else {
-                    response.userInfo = [ "message": [ "displayMode": displayMode ] ]
+                    response.userInfo = ["message": ["displayMode": displayMode]]
                 }
             default:
                 os_log(.default, "Unknown type: %{public}@", type)
-                break;
             }
         } else {
             // Fallback echo
             if #available(iOS 15.0, macOS 11.0, *) {
-                response.userInfo = [ SFExtensionMessageKey: [ "echo": message ] ]
+                response.userInfo = [SFExtensionMessageKey: ["echo": message]]
             } else {
-                response.userInfo = [ "message": [ "echo": message ] ]
+                response.userInfo = ["message": ["echo": message]]
             }
         }
 
-        context.completeRequest(returningItems: [ response ], completionHandler: nil)
+        context.completeRequest(returningItems: [response], completionHandler: nil)
     }
-    
+
     private func getDisplayMode() -> String {
         let defaults = UserDefaults(suiteName: APP_GROUP_ID)
-        let mode = defaults?.string(forKey: DISPLAY_MODE_KEY) 
+        let mode = defaults?.string(forKey: DISPLAY_MODE_KEY)
         os_log(.default, "Display Mode: (stored) %{public}@, (default) %{public}@", mode ?? "none", DEFAULT_DISPLAY_MODE)
         return mode ?? DEFAULT_DISPLAY_MODE
     }
 }
-

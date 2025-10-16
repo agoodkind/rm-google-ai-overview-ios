@@ -1,6 +1,6 @@
-import type { Platform } from "../components/AppWebView";
 import { verbose } from "@lib/shims";
 import { useEffect, useState } from "react";
+import type { Platform } from "../components/AppWebView";
 
 export interface SafariExtensionState {
   platform: Platform | null;
@@ -54,7 +54,9 @@ export function useSafariExtensionState(): SafariExtensionState {
     // request the state if we don't have it yet
     // the app will respond by emitting a "safari-extension-state" event
     if (![platform, enabled, useSettings].filter(Boolean).length) {
-      window.webkit?.messageHandlers?.controller?.postMessage("request-state");
+      window.webkit?.messageHandlers?.controller?.postMessage({
+        type: "requestState",
+      });
     }
 
     return () => {
