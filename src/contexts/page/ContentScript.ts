@@ -3,13 +3,13 @@ import { isDev, isPreview, isProd, verbose } from "@lib/shims";
 // const DISPLAY_MODE_KEY = "rm-ai-display-mode";
 type DisplayMode = "hide" | "highlight";
 
-let currentDisplayMode: DisplayMode = "hide";
+let currentDisplayMode: DisplayMode | null = null;
 
-const getDisplayMode = (): DisplayMode => {
-  return currentDisplayMode;
-};
+const fetchDisplayMode = async (): Promise<DisplayMode> => {
+  if (currentDisplayMode !== null) {
+    return currentDisplayMode;
+  }
 
-const fetchDisplayModeFromNative = async (): Promise<DisplayMode> => {
   if (typeof browser === "undefined") {
     throw new Error("browser is not available");
   }
@@ -19,7 +19,7 @@ const fetchDisplayModeFromNative = async (): Promise<DisplayMode> => {
   }
 
   if (verbose) {
-    console.debug("Fetching display mode from service worker");
+    console.debug("Fetching display mode from service worker!");
   }
   // Send message to service worker, which will forward to native app
 
@@ -28,21 +28,20 @@ const fetchDisplayModeFromNative = async (): Promise<DisplayMode> => {
   });
 
   if (response.error) {
-    throw new Error(response.error);
+    throw new Error(`Error fetching display mode: ${response.error}`);
   }
 
+  if (!response.displayMode) {
+    throw new Error("No displayMode in response");
+  }
+
+  if (verbose) {
+    console.debug("Fetched display mode from service worker result:", response);
+  }
+
+  currentDisplayMode = response.displayMode;
   return response.displayMode;
 };
-
-// Initialize display mode
-fetchDisplayModeFromNative()
-  .then((mode) => {
-    currentDisplayMode = mode;
-    if (verbose) {
-      console.debug("Initial display mode:", mode);
-    }
-  })
-  .catch(console.error);
 
 const aiTextPatterns = [
   // regex patterns to match "AI overview" in various languages
@@ -127,7 +126,7 @@ const processAICard = (mainBody: HTMLDivElement) =>
     .filter((el) => el !== null)
     .forEach(processSingleElement);
 
-const processSingleElementWithApply = (el: Element) => {
+const processSingleElement = async (el: Element) => {
   if (!(el instanceof HTMLElement)) {
     return;
   }
@@ -140,14 +139,13 @@ const processSingleElementWithApply = (el: Element) => {
     console.debug("Found new element:", el);
   }
 
-  hideElement(el);
+  await hideElement(el);
 
   elements.add(el);
 };
-const processSingleElement = (el: Element) => processSingleElementWithApply(el);
 
-const hideElement = (el: HTMLElement) => {
-  const mode = getDisplayMode();
+const hideElement = async (el: HTMLElement) => {
+  const mode = await fetchDisplayMode();
 
   if (mode === "highlight") {
     el.style.outline = "3px solid orange";
@@ -173,13 +171,14 @@ const hideElement = (el: HTMLElement) => {
   hideCount++;
 };
 
-const observer = new MutationObserver(() => {
+const observer = new MutationObserver(async () => {
   if (!hasRun) {
     if (verbose) {
       console.debug("Initial run");
     }
     hasRun = true;
   }
+  await fetchDisplayMode();
 
   const mainBody = document.querySelector("div#main") as HTMLDivElement | null;
   if (mainBody && !mainBodyInitialized) {
@@ -217,5 +216,11 @@ if (verbose) {
   console.warn("Verbose logging is enabled");
   console.warn("Build time: ", process.env.BUILD_TS);
   console.warn("Current time: ", new Date().toString());
-  console.debug({ displayMode: getDisplayMode(), isDev, isPreview, isProd });
+  fetchDisplayMode()
+    .then((displayMode) => {
+      console.debug({ displayMode, isDev, isPreview, isProd });
+    })
+    .catch((error) => {
+      console.error("Error fetching display mode:", error);
+    });
 }

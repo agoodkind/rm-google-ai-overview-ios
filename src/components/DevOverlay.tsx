@@ -177,7 +177,7 @@ export function DevOverlay() {
         className="mt-1 w-full rounded bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-slate-100 py-1 text-[11px] border border-slate-600"
         onClick={handleReload}
       >
-        Reload (Cmd+R)
+        Reload
       </button>
     </div>
   );

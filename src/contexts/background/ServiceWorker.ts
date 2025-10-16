@@ -1,5 +1,5 @@
 import { verbose } from "@lib/shims";
-import { NATIVE_MESSAGING_ID } from "./lib/constants";
+import { NATIVE_MESSAGING_ID } from "../../lib/constants";
 
 type DisplayMode = "hide" | "highlight";
 
@@ -54,3 +54,41 @@ browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 if (verbose) {
   console.debug("Service worker initialized");
 }
+browser.runtime
+  .sendMessage({
+    action: "serviceWorkerInitialized",
+  })
+  .then((response) => {
+    if (verbose) {
+      console.debug(
+        "Notified content scripts that service worker initialized:",
+        response,
+      );
+    }
+  })
+  .catch((error) => {
+    console.error(
+      "Error notifying content scripts that service worker initialized:",
+      error,
+    );
+  });
+
+// Notify native app that service worker has started
+browser.runtime
+  .sendNativeMessage(NATIVE_MESSAGING_ID, {
+    action: "serviceWorkerStarted",
+  })
+  .then((response) => {
+    if (verbose) {
+      console.debug(
+        "Notified native app that service worker started:",
+        response,
+      );
+    }
+  })
+  .catch((error) => {
+    console.error(
+      "Error notifying native app that service worker started:",
+      error,
+    );
+  });

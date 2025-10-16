@@ -2,34 +2,9 @@ import { verbose } from "@/lib/shims";
 import type { Platform } from "@components/AppWebView";
 import { useEffect, useState } from "react";
 
-const STORAGE_KEYS = {
-  platform: "safari.platform",
-  enabled: "safari.extensionEnabled",
-  useSettings: "safari.useSettings",
-} as const;
-
-function readBoolean(key: string): boolean | null {
-  try {
-    const v = localStorage.getItem(key);
-    return v == null ? null : v === "true";
-  } catch {
-    return null;
-  }
-}
-function readPlatform(): Platform | null {
-  try {
-    return (
-      (localStorage.getItem(STORAGE_KEYS.platform) as Platform | null) ?? null
-    );
-  } catch {
-    return null;
-  }
-}
-
 export interface SafariExtensionState {
   platform: Platform | null;
   enabled: boolean | null;
-  // true => show "Safari Settings" wording
   useSettings: boolean | null;
 }
 
@@ -44,13 +19,9 @@ const containsDetails = (detail: unknown): detail is SafariExtensionState => {
 };
 
 export function useSafariExtensionState(): SafariExtensionState {
-  const [platform, setPlatform] = useState<Platform | null>(readPlatform());
-  const [enabled, setEnabled] = useState<boolean | null>(
-    readBoolean(STORAGE_KEYS.enabled),
-  );
-  const [useSettings, setUseSettings] = useState<boolean | null>(
-    readBoolean(STORAGE_KEYS.useSettings),
-  );
+  const [platform, setPlatform] = useState<Platform | null>(null);
+  const [enabled, setEnabled] = useState<boolean | null>(null);
+  const [useSettings, setUseSettings] = useState<boolean | null>(null);
 
   useEffect(() => {
     const onStateEvent = (e: Event) => {
@@ -77,20 +48,17 @@ export function useSafariExtensionState(): SafariExtensionState {
       setUseSettings(useSettings);
     };
 
-    window.addEventListener(
-      "safari-extension-state",
-      onStateEvent as EventListener,
-    );
+    // add the listener
+    window.addEventListener("safari-extension-state", onStateEvent);
 
-    if ([platform, enabled, useSettings].some((v) => v == null)) {
+    // request the state if we don't have it yet
+    // the app will respond by emitting a "safari-extension-state" event
+    if (![platform, enabled, useSettings].filter(Boolean).length) {
       window.webkit?.messageHandlers?.controller?.postMessage("request-state");
     }
 
     return () => {
-      window.removeEventListener(
-        "safari-extension-state",
-        onStateEvent as EventListener,
-      );
+      window.removeEventListener("safari-extension-state", onStateEvent);
     };
   }, []);
 

@@ -29,7 +29,11 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         } else {
             message = request?.userInfo?["message"]
         }
-
+        
+        #if DEBUG
+        print("Received message from browser.runtime.sendNativeMessage:", message ?? "no message", profile?.uuidString ?? "no uuid")
+        #endif
+        
         os_log(.default, "Received message from browser.runtime.sendNativeMessage: %@ (profile: %@)", String(describing: message), profile?.uuidString ?? "none")
 
         let response = NSExtensionItem()
@@ -37,21 +41,25 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         if let messageDict = message as? [String: Any],
            let action = messageDict["action"] as? String {
             
-            if action == "getDisplayMode" {
+            switch(action) {
+            case "getDisplayMode":
                 let displayMode = getDisplayMode()
                 if #available(iOS 15.0, macOS 11.0, *) {
                     response.userInfo = [ SFExtensionMessageKey: [ "displayMode": displayMode ] ]
                 } else {
                     response.userInfo = [ "message": [ "displayMode": displayMode ] ]
                 }
-            } else if action == "setDisplayMode",
-                      let mode = messageDict["mode"] as? String {
-                setDisplayMode(mode)
-                if #available(iOS 15.0, macOS 11.0, *) {
-                    response.userInfo = [ SFExtensionMessageKey: [ "success": true ] ]
-                } else {
-                    response.userInfo = [ "message": [ "success": true ] ]
-                }
+            case "setDisplayMode":
+                if let mode = messageDict["mode"] as? String {
+                    setDisplayMode(mode)
+                    if #available(iOS 15.0, macOS 11.0, *) {
+                        response.userInfo = [ SFExtensionMessageKey: [ "success": true ] ]
+                    } else {
+                        response.userInfo = [ "message": [ "success": true ] ]
+                    }
+                } 
+            default:
+                break;
             }
         } else {
             // Fallback echo

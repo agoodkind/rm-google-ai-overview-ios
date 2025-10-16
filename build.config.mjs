@@ -4,15 +4,15 @@
 /** @type {Array<{in: string, out: string}>} */
 export const entryPoints = [
   {
-    in: "src/ContentScript.ts",
+    in: "src/contexts/page/ContentScript.ts",
     out: "xcode/Shared (Extension)/Resources/content",
   },
   {
-    in: "src/ServiceWorker.ts",
+    in: "src/contexts/background/ServiceWorker.ts",
     out: "xcode/Shared (Extension)/Resources/service-worker",
   },
   {
-    in: "src/AppSharedScript.ts",
+    in: "src/contexts/app/AppSharedScript.ts",
     out: "xcode/Shared (App)/Resources/Script",
   },
   {

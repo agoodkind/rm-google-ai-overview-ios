@@ -50,7 +50,7 @@ export function AppWebView() {
         {platform === "mac" && (
           <button
             onClick={handleOpenPreferences}
-            className="text-base cursor-default px-4 py-2 rounded-md bg-slate-200/80 dark:bg-slate-700/70 backdrop-blur border border-slate-300 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-600/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 transition-colors"
+            className="text-sm cursor-default px-3 py-1 rounded-md bg-slate-200/80 dark:bg-slate-700/70 backdrop-blur border border-slate-300 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-600/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 transition-colors"
           >
             {getButtonText()}
           </button>

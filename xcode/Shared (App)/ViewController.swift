@@ -35,6 +35,28 @@ let DISPLAY_MODE_KEY = "rm-ai-display-mode"
 class ViewController: PlatformViewController, WKNavigationDelegate,
     WKScriptMessageHandler
 {
+    // Helper to dispatch the 'safari-extension-state' event with optional fields
+    private func dispatchSafariExtensionState(platform: String? = nil,
+                                              enabled: Bool? = nil,
+                                              useSettings: Bool? = nil) {
+        var details: [String] = []
+        if let platform = platform {
+            details.append("platform: '\(platform)'")
+        }
+        if let enabled = enabled {
+            details.append("enabled: \(enabled)")
+        }
+        if let useSettings = useSettings {
+            details.append("useSettings: \(useSettings)")
+        }
+        let detailBody = details.joined(separator: ", ")
+        let js = """
+            window.dispatchEvent(new CustomEvent('safari-extension-state', {
+              detail: { \(detailBody) }
+            }));
+            """
+        self.webView.evaluateJavaScript(js)
+    }
 
     @IBOutlet var webView: WKWebView!
 
@@ -122,19 +144,9 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         #if os(iOS)
-            let iosJS = """
-                window.dispatchEvent(new CustomEvent('safari-extension-state', {
-                  detail: { platform: 'ios' }
-                }));
-                """
-            webView.evaluateJavaScript(iosJS)
+            dispatchSafariExtensionState(platform: "ios")
         #elseif os(macOS)
-            let macInitJS = """
-                window.dispatchEvent(new CustomEvent('safari-extension-state', {
-                  detail: { platform: 'mac' }
-                }));
-                """
-            webView.evaluateJavaScript(macInitJS)
+            dispatchSafariExtensionState(platform: "mac")
 
             SFSafariExtensionManager.getStateOfSafariExtension(
                 withIdentifier: extensionBundleIdentifier
@@ -149,18 +161,7 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
                             return false
                         }
                     }()
-
-                    let js = """
-
-                        window.dispatchEvent(new CustomEvent('safari-extension-state', {
-                          detail: {
-                            platform: 'mac',
-                            enabled: \(state.isEnabled),
-                            useSettings: \(useSettingsFlag)
-                          }
-                        }));
-                        """
-                    self.webView.evaluateJavaScript(js)
+                    self.dispatchSafariExtensionState(platform: "mac", enabled: state.isEnabled, useSettings: useSettingsFlag)
                 }
             }
         #endif
@@ -234,20 +235,7 @@ class ViewController: PlatformViewController, WKNavigationDelegate,
                                 return false
                             }
                         }()
-                        let js = """
-                            window.enabled=\(state.isEnabled);
-                            window.extensionState=\(state.isEnabled);
-                            window.dispatchEvent(new CustomEvent('safari-extension-state', {
-                                detail: {
-                                    enabled: \(state.isEnabled),
-                                    useSettings: \(useSettingsFlag)
-                                }
-                            }));
-                            """
-                        self.webView.evaluateJavaScript(
-                            js,
-                            completionHandler: nil
-                        )
+                        self.dispatchSafariExtensionState(enabled: state.isEnabled, useSettings: useSettingsFlag)
                     }
                 }
             default:
