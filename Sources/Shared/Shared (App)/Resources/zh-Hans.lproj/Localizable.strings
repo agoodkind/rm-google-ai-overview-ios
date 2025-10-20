@@ -1,0 +1,20 @@
+/* Extension State Messages */
+"extension.state.ios" = "你可以在设置中打开 Skip AI 的 Safari 扩展。";
+"extension.state.mac.location.settings" = "Safari 设置的扩展部分";
+"extension.state.mac.location.preferences" = "Safari 扩展偏好设置";
+"extension.state.mac.enable" = "你可以在%@中打开 Skip AI 的扩展。";
+"extension.state.mac.on" = "Skip AI 的扩展当前已打开。你可以在%@中关闭它。";
+"extension.state.mac.off" = "Skip AI 的扩展当前已关闭。你可以在%@中打开它。";
+
+/* Preferences Button Titles */
+"preferences.button.settings" = "退出并打开 Safari 设置…";
+"preferences.button.preferences" = "退出并打开 Safari 扩展偏好设置…";
+
+/* Display Mode */
+"display_mode.title" = "显示模式";
+"display_mode.description" = "选择是完全隐藏 AI 概述元素还是用橙色边框突出显示它们。";
+"display_mode.hide.title" = "隐藏";
+"display_mode.hide.description" = "隐藏：完全从视图中移除 AI 概述部分。";
+"display_mode.highlight.title" = "突出显示";
+"display_mode.highlight.description" = "突出显示：用橙色边框显示 AI 概述部分，以便你可以看到正在检测的内容。";
+

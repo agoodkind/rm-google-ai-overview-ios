@@ -1,0 +1,20 @@
+/* Extension State Messages */
+"extension.state.ios" = "Puedes activar la extensión de Safari de Skip AI en Ajustes.";
+"extension.state.mac.location.settings" = "la sección Extensiones de Ajustes de Safari";
+"extension.state.mac.location.preferences" = "Preferencias de Extensiones de Safari";
+"extension.state.mac.enable" = "Puedes activar la extensión de Skip AI en %@.";
+"extension.state.mac.on" = "La extensión de Skip AI está actualmente activada. Puedes desactivarla en %@.";
+"extension.state.mac.off" = "La extensión de Skip AI está actualmente desactivada. Puedes activarla en %@.";
+
+/* Preferences Button Titles */
+"preferences.button.settings" = "Salir y Abrir Ajustes de Safari…";
+"preferences.button.preferences" = "Salir y Abrir Preferencias de Extensiones de Safari…";
+
+/* Display Mode */
+"display_mode.title" = "Modo de Visualización";
+"display_mode.description" = "Elige si quieres ocultar completamente los elementos de resumen de IA o resaltarlos con un borde naranja.";
+"display_mode.hide.title" = "Ocultar";
+"display_mode.hide.description" = "Ocultar: Elimina completamente las secciones de resumen de IA de la vista.";
+"display_mode.highlight.title" = "Resaltar";
+"display_mode.highlight.description" = "Resaltar: Muestra las secciones de resumen de IA con un borde naranja para que puedas ver lo que se está detectando.";
+

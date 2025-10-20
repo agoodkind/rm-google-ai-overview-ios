@@ -1,0 +1,20 @@
+/* Extension State Messages */
+"extension.state.ios" = "Puoi attivare l'estensione Safari di Skip AI nelle Impostazioni.";
+"extension.state.mac.location.settings" = "la sezione Estensioni delle Impostazioni di Safari";
+"extension.state.mac.location.preferences" = "Preferenze Estensioni di Safari";
+"extension.state.mac.enable" = "Puoi attivare l'estensione di Skip AI in %@.";
+"extension.state.mac.on" = "L'estensione di Skip AI è attualmente attiva. Puoi disattivarla in %@.";
+"extension.state.mac.off" = "L'estensione di Skip AI è attualmente disattivata. Puoi attivarla in %@.";
+
+/* Preferences Button Titles */
+"preferences.button.settings" = "Esci e Apri Impostazioni Safari…";
+"preferences.button.preferences" = "Esci e Apri Preferenze Estensioni Safari…";
+
+/* Display Mode */
+"display_mode.title" = "Modalità di Visualizzazione";
+"display_mode.description" = "Scegli se nascondere completamente gli elementi di panoramica IA o evidenziarli con un bordo arancione.";
+"display_mode.hide.title" = "Nascondi";
+"display_mode.hide.description" = "Nascondi: Rimuove completamente le sezioni di panoramica IA dalla vista.";
+"display_mode.highlight.title" = "Evidenzia";
+"display_mode.highlight.description" = "Evidenzia: Mostra le sezioni di panoramica IA con un bordo arancione in modo da poter vedere cosa viene rilevato.";
+

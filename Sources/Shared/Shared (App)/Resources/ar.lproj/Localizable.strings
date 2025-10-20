@@ -1,0 +1,20 @@
+/* Extension State Messages */
+"extension.state.ios" = "يمكنك تشغيل ملحق Safari الخاص بـ Skip AI في الإعدادات.";
+"extension.state.mac.location.settings" = "قسم الملحقات في إعدادات Safari";
+"extension.state.mac.location.preferences" = "تفضيلات ملحقات Safari";
+"extension.state.mac.enable" = "يمكنك تشغيل ملحق Skip AI في %@.";
+"extension.state.mac.on" = "ملحق Skip AI مفعّل حالياً. يمكنك إيقافه في %@.";
+"extension.state.mac.off" = "ملحق Skip AI غير مفعّل حالياً. يمكنك تشغيله في %@.";
+
+/* Preferences Button Titles */
+"preferences.button.settings" = "إنهاء وفتح إعدادات Safari…";
+"preferences.button.preferences" = "إنهاء وفتح تفضيلات ملحقات Safari…";
+
+/* Display Mode */
+"display_mode.title" = "وضع العرض";
+"display_mode.description" = "اختر ما إذا كنت تريد إخفاء عناصر نظرة عامة الذكاء الاصطناعي بالكامل أو تمييزها بحدود برتقالية.";
+"display_mode.hide.title" = "إخفاء";
+"display_mode.hide.description" = "إخفاء: يزيل أقسام نظرة عامة الذكاء الاصطناعي بالكامل من العرض.";
+"display_mode.highlight.title" = "تمييز";
+"display_mode.highlight.description" = "تمييز: يعرض أقسام نظرة عامة الذكاء الاصطناعي بحدود برتقالية حتى تتمكن من رؤية ما يتم اكتشافه.";
+

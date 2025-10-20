@@ -1,288 +1,392 @@
-//
-//  ViewController.swift
-//  Shared (App)
-//
-//  Created by Alex Goodkind on 10/7/25.
-//
-
-import os.log
-import WebKit
+import SwiftUI
+import Combine
 
 #if os(iOS)
-    import UIKit
-
-    typealias PlatformViewController = UIViewController
+import UIKit
+typealias PlatformViewController = UIViewController
 #elseif os(macOS)
-    import Cocoa
-    import SafariServices
-
-    typealias PlatformViewController = NSViewController
+import Cocoa
+import SafariServices
+typealias PlatformViewController = NSViewController
 #endif
 
-let extensionBundleIdentifier =
-    "goodkind-io.Skip-AI.Extension"
+let extensionBundleIdentifier = "goodkind-io.Skip-AI.Extension"
 let APP_GROUP_ID = "group.com.goodkind.skip-ai"
 let DISPLAY_MODE_KEY = "skip-ai-display-mode"
 #if DEBUG
-    let DEFAULT_DISPLAY_MODE = "highlight"
+let DEFAULT_DISPLAY_MODE = "highlight"
 #else
-    let DEFAULT_DISPLAY_MODE = "hide"
+let DEFAULT_DISPLAY_MODE = "hide"
 #endif
 
-#if DEBUG
-    let devServerDefaultHost = "http://localhost:8080"
-    let devServerHTMLPath = "xcode/Shared (App)/Resources/Base.lproj/Main.html"
-
-    // Read from UserDefaults if available, otherwise use default
-    var devServerBaseURL: String {
-        UserDefaults.standard.string(forKey: "devServerHost")
-            ?? devServerDefaultHost
-    }
-#endif
-
-class ViewController: PlatformViewController, WKNavigationDelegate,
-    WKScriptMessageHandler
-{
-    // Helper to dispatch the 'safari-extension-state' event with optional fields
-    private func dispatchSafariExtensionState(
-        platform: String? = nil,
-        enabled: Bool? = nil,
-        useSettings: Bool? = nil
-    ) {
-        var details: [String] = []
-        if let platform = platform {
-            details.append("platform: '\(platform)'")
-        }
-        if let enabled = enabled {
-            details.append("enabled: \(enabled)")
-        }
-        if let useSettings = useSettings {
-            details.append("useSettings: \(useSettings)")
-        }
-        let detailBody = details.joined(separator: ", ")
-        let js = """
-        window.dispatchEvent(new CustomEvent('safari-extension-state', {
-          detail: { \(detailBody) }
-        }));
-        """
-        self.webView.evaluateJavaScript(js)
+final class AppViewModel: ObservableObject {
+    enum PlatformKind {
+        case ios
+        case mac
     }
 
-    @IBOutlet var webView: WKWebView!
+    enum DisplayMode: String {
+        case hide
+        case highlight
+    }
 
-    private func loadInitialContent() {
-        #if DEBUG
-            if #available(macOS 13.3, *) {
-                if #available(iOS 16.4, *) {
-                    self.webView.isInspectable = true
-                }
+    @Published var displayMode: DisplayMode
+    @Published var extensionEnabled: Bool?
+    @Published var useSettings: Bool
+    let platform: PlatformKind
+
+    init() {
+        #if os(iOS)
+        platform = .ios
+        useSettings = false
+        #else
+        platform = .mac
+        useSettings = AppViewModel.shouldUseSettings()
+        #endif
+
+        displayMode = AppViewModel.loadDisplayMode()
+
+        #if os(macOS)
+        refreshExtensionState()
+        #endif
+    }
+
+    func onAppear() {
+        displayMode = AppViewModel.loadDisplayMode()
+        #if os(macOS)
+        refreshExtensionState()
+        #endif
+    }
+
+    func selectDisplayMode(_ mode: DisplayMode) {
+        guard displayMode != mode else { return }
+        displayMode = mode
+        AppViewModel.saveDisplayMode(mode)
+    }
+
+    var stateMessage: String {
+        switch platform {
+        case .ios:
+            return "You can turn on Skip AI's Safari extension in Settings."
+        case .mac:
+            let location = useSettings
+                ? "the Extensions section of Safari Settings"
+                : "Safari Extensions preferences"
+            guard let enabled = extensionEnabled else {
+                return "You can turn on Skip AI's extension in \(location)."
             }
-            // Attempt to load local dev server for rapid React iteration
-            if let devURL = URL(
-                string: "\(devServerBaseURL)/\(devServerHTMLPath)"
-            ) {
-                let request = URLRequest(
-                    url: devURL,
-                    cachePolicy: .reloadIgnoringLocalCacheData,
-                    timeoutInterval: 1.0
-                )
-                let task = URLSession.shared.dataTask(with: request) {
-                    [weak self] _, response, error in
-                    guard let self = self else { return }
-                    if let http = response as? HTTPURLResponse,
-                       http.statusCode == 200, error == nil
-                    {
-                        print("[Dev] Loading dev server at \(devURL)")
-                        DispatchQueue.main.async {
-                            self.webView.load(URLRequest(url: devURL))
+
+            if enabled {
+                return "Skip AI's extension is currently on. You can turn it off in \(location)."
+            } else {
+                return "Skip AI's extension is currently off. You can turn it on in \(location)."
+            }
+        }
+    }
+
+    var preferencesButtonTitle: String? {
+        guard platform == .mac else { return nil }
+        if useSettings {
+            return "Quit and Open Safari Settings…"
+        } else {
+            return "Quit and Open Safari Extensions Preferences…"
+        }
+    }
+
+    func openPreferences() {
+        guard platform == .mac else { return }
+        #if os(macOS)
+        SFSafariApplication.showPreferencesForExtension(withIdentifier: extensionBundleIdentifier) { error in
+            guard error == nil else { return }
+            DispatchQueue.main.async {
+                NSApp.terminate(nil)
+            }
+        }
+        #endif
+    }
+
+    private static func userDefaults() -> UserDefaults? {
+        UserDefaults(suiteName: APP_GROUP_ID)
+    }
+
+    private static func loadDisplayMode() -> DisplayMode {
+        let stored = userDefaults()?.string(forKey: DISPLAY_MODE_KEY)
+        if let raw = stored, let mode = DisplayMode(rawValue: raw) {
+            return mode
+        }
+        return DisplayMode(rawValue: DEFAULT_DISPLAY_MODE) ?? .hide
+    }
+
+    private static func saveDisplayMode(_ mode: DisplayMode) {
+        let defaults = userDefaults()
+        defaults?.set(mode.rawValue, forKey: DISPLAY_MODE_KEY)
+        defaults?.synchronize()
+    }
+
+    #if os(macOS)
+    private func refreshExtensionState() {
+        SFSafariExtensionManager.getStateOfSafariExtension(withIdentifier: extensionBundleIdentifier) { [weak self] state, error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                if let state = state, error == nil {
+                    self.extensionEnabled = state.isEnabled
+                } else {
+                    self.extensionEnabled = nil
+                }
+                self.useSettings = AppViewModel.shouldUseSettings()
+            }
+        }
+    }
+
+    private static func shouldUseSettings() -> Bool {
+        if #available(macOS 13, *) {
+            return true
+        } else {
+            return false
+        }
+    }
+    #else
+    private func refreshExtensionState() {}
+    #endif
+}
+
+struct AppRootView: View {
+    @ObservedObject var viewModel: AppViewModel
+
+    var body: some View {
+        ZStack {
+            #if os(iOS)
+            Color(.systemBackground).ignoresSafeArea()
+            #else
+            Color.platformWindowBackground.ignoresSafeArea()
+            #endif
+
+            VStack(spacing: 32) {
+                VStack(spacing: 20) {
+                    Image("LargeIcon")
+                        .resizable()
+                        .frame(width: 128, height: 128)
+                        .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
+
+                    Text(viewModel.stateMessage)
+                        .font(.body)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal, 12)
+
+                    if let buttonTitle = viewModel.preferencesButtonTitle {
+                        Button(action: viewModel.openPreferences) {
+                            Text(buttonTitle)
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 18)
+                                .background(
+                                    Capsule()
+                                        .fill(Color.accentColor.opacity(0.12))
+                                )
                         }
-                    } else {
-                        // fallback to bundled
-                        if let error = error {
-                            print(
-                                "[Dev] Dev server unreachable: \(error.localizedDescription). Falling back to bundled HTML."
-                            )
-                        } else {
-                            print(
-                                "[Dev] Dev server probe failed (status code mismatch). Falling back to bundled HTML."
-                            )
-                        }
-                        DispatchQueue.main.async {
-                            self.webView.loadFileURL(
-                                Bundle.main.url(
-                                    forResource: "Main",
-                                    withExtension: "html"
-                                )!,
-                                allowingReadAccessTo: Bundle.main.resourceURL!
-                            )
-                        }
+                        .buttonStyle(.plain)
                     }
                 }
-                task.resume()
-            } else {
-                self.webView.loadFileURL(
-                    Bundle.main.url(
-                        forResource: "Main",
-                        withExtension: "html"
-                    )!,
-                    allowingReadAccessTo: Bundle.main.resourceURL!
-                )
+
+                SettingsPanelView(viewModel: viewModel)
             }
+#if os(macOS)
+            .frame(minWidth: 560, idealWidth: 620)
+#else
+            .frame(maxWidth: 520)
+#endif
+            .padding(.vertical, 48)
+            .padding(.horizontal, rootHorizontalPadding)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .onAppear {
+            viewModel.onAppear()
+        }
+    }
+}
+
+struct SettingsPanelView: View {
+    @ObservedObject var viewModel: AppViewModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 24) {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Display Mode")
+                    .font(.callout)
+                    .fontWeight(.semibold)
+                Text("Choose whether to hide AI overview elements completely or highlight them with an orange border.")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+            }
+
+            HStack(spacing: 16) {
+                DisplayModeButton(
+                    title: "Hide",
+                    systemImage: "eye.slash",
+                    isSelected: viewModel.displayMode == .hide,
+                    selectedColor: Color.blue
+                ) {
+                    viewModel.selectDisplayMode(.hide)
+                }
+
+                DisplayModeButton(
+                    title: "Highlight",
+                    systemImage: "checkmark.seal",
+                    isSelected: viewModel.displayMode == .highlight,
+                    selectedColor: Color.orange
+                ) {
+                    viewModel.selectDisplayMode(.highlight)
+                }
+            }
+
+            Divider()
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Hide: Completely removes AI overview sections from view.")
+                Text("Highlight: Shows AI overview sections with an orange border so you can see what is being detected.")
+            }
+            .font(.footnote)
+            .foregroundColor(.secondary)
+        }
+        .padding(24)
+        .frame(maxWidth: .infinity)
+        .background(
+            Group {
+                #if os(iOS)
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .fill(Color(.secondarySystemBackground))
+                #else
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .fill(Color.platformUnderPageBackground)
+                #endif
+            }
+        )
+    }
+}
+
+struct DisplayModeButton: View {
+    let title: String
+    let systemImage: String
+    let isSelected: Bool
+    let selectedColor: Color
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 8) {
+                Image(systemName: systemImage)
+                    .font(.title3)
+                Text(title)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 14)
+            .foregroundColor(isSelected ? Color.white : Color.primary)
+            .background(background)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var background: some View {
+        Group {
+            if isSelected {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(selectedColor)
+            } else {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(unselectedFill)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .stroke(borderColor, lineWidth: 2)
+                    )
+            }
+        }
+    }
+
+    private var unselectedFill: Color {
+        #if os(iOS)
+        return Color(.systemBackground)
         #else
-            self.webView.loadFileURL(
-                Bundle.main.url(forResource: "Main", withExtension: "html")!,
-                allowingReadAccessTo: Bundle.main.resourceURL!
-            )
+        return Color.platformWindowBackground
         #endif
+    }
+
+    private var borderColor: Color {
+        Color.gray.opacity(0.3)
+    }
+}
+
+private extension Color {
+    #if os(iOS)
+    static var platformWindowBackground: Color { Color(.systemBackground) }
+    static var platformUnderPageBackground: Color { Color(.secondarySystemBackground) }
+    #elseif os(macOS)
+    static var platformWindowBackground: Color {
+        if #available(macOS 12.0, *) {
+            return Color(nsColor: .windowBackgroundColor)
+        } else {
+            return Color(NSColor.windowBackgroundColor)
+        }
+    }
+
+    static var platformUnderPageBackground: Color {
+        if #available(macOS 12.0, *) {
+            return Color(nsColor: .underPageBackgroundColor)
+        } else {
+            return Color(NSColor.windowBackgroundColor)
+        }
+    }
+    #endif
+}
+
+final class ViewController: PlatformViewController {
+    private let viewModel = AppViewModel()
+
+    #if os(iOS)
+    private var hostingController: UIHostingController<AppRootView>?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+
+        let hosting = UIHostingController(rootView: AppRootView(viewModel: viewModel))
+        addChild(hosting)
+        view.addSubview(hosting.view)
+        hosting.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hosting.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hosting.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            hosting.view.topAnchor.constraint(equalTo: view.topAnchor),
+            hosting.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        hosting.didMove(toParent: self)
+        hostingController = hosting
+    }
+    #elseif os(macOS)
+    private var hostingView: NSHostingView<AppRootView>?
+
+    override func loadView() {
+        self.view = NSView()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.wantsLayer = true
+        view.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
 
-        self.webView.navigationDelegate = self
-
-        #if os(iOS)
-            self.webView.scrollView.isScrollEnabled = false
-        #endif
-
-        self.webView.configuration.userContentController.add(
-            self,
-            name: "controller"
-        )
-        self.loadInitialContent()
+        let hosting = NSHostingView(rootView: AppRootView(viewModel: viewModel))
+        hosting.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(hosting)
+        NSLayoutConstraint.activate([
+            hosting.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hosting.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            hosting.topAnchor.constraint(equalTo: view.topAnchor),
+            hosting.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        hostingView = hosting
     }
-
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        #if os(iOS)
-            self.dispatchSafariExtensionState(platform: "ios")
-        #elseif os(macOS)
-            self.dispatchSafariExtensionState(platform: "mac")
-
-            SFSafariExtensionManager.getStateOfSafariExtension(
-                withIdentifier: extensionBundleIdentifier
-            ) { state, error in
-                guard let state = state, error == nil else { return }
-
-                DispatchQueue.main.async {
-                    let useSettingsFlag: Bool = {
-                        if #available(macOS 13, *) {
-                            return true
-                        } else {
-                            return false
-                        }
-                    }()
-                    self.dispatchSafariExtensionState(
-                        platform: "mac",
-                        enabled: state.isEnabled,
-                        useSettings: useSettingsFlag
-                    )
-                }
-            }
-        #endif
-    }
-
-    func userContentController(
-        _ userContentController: WKUserContentController,
-        didReceive message: WKScriptMessage
-    ) {
-        guard let body = message.body as? [String: Any] else { return }
-        guard let type = body["type"] as? String else { return }
-
-        #if DEBUG
-            os_log(
-                .debug,
-                "[userContentController] got message name=%{public}@ body=%{public}@",
-                message.name
-            )
-
-            // Handle dev server URL updates from web content
-            if type == "setDevServerUrl",
-            let url = body["url"] as? String
-            {
-                UserDefaults.standard.set(url, forKey: "devServerHost")
-                os_log(.debug, "[Dev] Updated dev server URL to: %@", url)
-                // reload
-                DispatchQueue.main.async {
-                    self.loadInitialContent()
-                }
-                return
-            }
-        #endif
-
-        switch type {
-        // Handle display mode changes from AppWebView
-        case "setDisplayMode":
-            if let mode = body["mode"] as? String {
-                let defaults = UserDefaults(suiteName: APP_GROUP_ID)
-                defaults?.set(mode, forKey: DISPLAY_MODE_KEY)
-                defaults?.synchronize()
-                os_log(
-                    .debug,
-                    "[userContentController] [setDisplayMode] Updated display mode to: %@",
-                    mode
-                )
-            } else {
-                os_log(
-                    .debug,
-                    "[userContentController] [setDisplayMode] ERROR: mode is nil"
-                )
-            }
-            return
-        case "getDisplayMode":
-            let mode = self.getDisplayMode()
-            let js = """
-            window.dispatchEvent(new CustomEvent('displayModeResponse', {
-              detail: { mode: '\(mode)' }
-            }));
-            """
-            self.webView.evaluateJavaScript(js)
-            return
-        default:
-            break
-        }
-
-        #if os(macOS)
-            // mac specific extension settings
-            // since macs can programmatically open safari settings (iOS & catalyst can't)
-
-            switch type {
-            case "openPreferences":
-                SFSafariApplication.showPreferencesForExtension(
-                    withIdentifier: extensionBundleIdentifier
-                ) { error in
-                    guard error == nil else { return }
-                    DispatchQueue.main.async { NSApp.terminate(self) }
-                }
-            case "requestState":
-                // Re-query current state and dispatch event
-                SFSafariExtensionManager.getStateOfSafariExtension(
-                    withIdentifier: extensionBundleIdentifier
-                ) { state, error in
-                    guard let state = state, error == nil else { return }
-                    DispatchQueue.main.async {
-                        let useSettingsFlag: Bool = {
-                            if #available(macOS 13, *) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        }()
-                        self.dispatchSafariExtensionState(
-                            enabled: state.isEnabled,
-                            useSettings: useSettingsFlag
-                        )
-                    }
-                }
-            default:
-                break
-            }
-        #endif
-    }
-
-    private func getDisplayMode() -> String {
-        let defaults = UserDefaults(suiteName: APP_GROUP_ID)
-        let mode =
-            defaults?.string(forKey: DISPLAY_MODE_KEY) ?? DEFAULT_DISPLAY_MODE
-        return mode
-    }
+    #endif
 }

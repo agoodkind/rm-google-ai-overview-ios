@@ -1,0 +1,20 @@
+/* Extension State Messages */
+"extension.state.ios" = "You can turn on Skip AI's Safari extension in Settings.";
+"extension.state.mac.location.settings" = "the Extensions section of Safari Settings";
+"extension.state.mac.location.preferences" = "Safari Extensions preferences";
+"extension.state.mac.enable" = "You can turn on Skip AI's extension in %@.";
+"extension.state.mac.on" = "Skip AI's extension is currently on. You can turn it off in %@.";
+"extension.state.mac.off" = "Skip AI's extension is currently off. You can turn it on in %@.";
+
+/* Preferences Button Titles */
+"preferences.button.settings" = "Quit and Open Safari Settings…";
+"preferences.button.preferences" = "Quit and Open Safari Extensions Preferences…";
+
+/* Display Mode */
+"display_mode.title" = "Display Mode";
+"display_mode.description" = "Choose whether to hide AI overview elements completely or highlight them with an orange border.";
+"display_mode.hide.title" = "Hide";
+"display_mode.hide.description" = "Hide: Completely removes AI overview sections from view.";
+"display_mode.highlight.title" = "Highlight";
+"display_mode.highlight.description" = "Highlight: Shows AI overview sections with an orange border so you can see what is being detected.";
+

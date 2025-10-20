@@ -1,0 +1,20 @@
+/* Extension State Messages */
+"extension.state.ios" = "Du kannst die Safari-Erweiterung von Skip AI in den Einstellungen aktivieren.";
+"extension.state.mac.location.settings" = "dem Bereich Erweiterungen in den Safari-Einstellungen";
+"extension.state.mac.location.preferences" = "den Safari-Erweiterungseinstellungen";
+"extension.state.mac.enable" = "Du kannst die Erweiterung von Skip AI in %@ aktivieren.";
+"extension.state.mac.on" = "Die Erweiterung von Skip AI ist derzeit aktiviert. Du kannst sie in %@ deaktivieren.";
+"extension.state.mac.off" = "Die Erweiterung von Skip AI ist derzeit deaktiviert. Du kannst sie in %@ aktivieren.";
+
+/* Preferences Button Titles */
+"preferences.button.settings" = "Beenden und Safari-Einstellungen öffnen…";
+"preferences.button.preferences" = "Beenden und Safari-Erweiterungseinstellungen öffnen…";
+
+/* Display Mode */
+"display_mode.title" = "Anzeigemodus";
+"display_mode.description" = "Wähle, ob KI-Übersichtselemente vollständig ausgeblendet oder mit einem orangefarbenen Rand hervorgehoben werden sollen.";
+"display_mode.hide.title" = "Ausblenden";
+"display_mode.hide.description" = "Ausblenden: Entfernt KI-Übersichtsabschnitte vollständig aus der Ansicht.";
+"display_mode.highlight.title" = "Hervorheben";
+"display_mode.highlight.description" = "Hervorheben: Zeigt KI-Übersichtsabschnitte mit einem orangefarbenen Rand an, damit du sehen kannst, was erkannt wird.";
+

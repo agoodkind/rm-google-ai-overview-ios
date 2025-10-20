@@ -1,0 +1,20 @@
+/* Extension State Messages */
+"extension.state.ios" = "設定でSkip AIのSafari機能拡張をオンにできます。";
+"extension.state.mac.location.settings" = "Safari設定の機能拡張セクション";
+"extension.state.mac.location.preferences" = "Safariの機能拡張環境設定";
+"extension.state.mac.enable" = "%@でSkip AIの機能拡張をオンにできます。";
+"extension.state.mac.on" = "Skip AIの機能拡張は現在オンになっています。%@でオフにできます。";
+"extension.state.mac.off" = "Skip AIの機能拡張は現在オフになっています。%@でオンにできます。";
+
+/* Preferences Button Titles */
+"preferences.button.settings" = "終了してSafari設定を開く…";
+"preferences.button.preferences" = "終了してSafari機能拡張環境設定を開く…";
+
+/* Display Mode */
+"display_mode.title" = "表示モード";
+"display_mode.description" = "AI概要要素を完全に非表示にするか、オレンジ色の枠線で強調表示するかを選択します。";
+"display_mode.hide.title" = "非表示";
+"display_mode.hide.description" = "非表示：AI概要セクションを完全に表示から削除します。";
+"display_mode.highlight.title" = "強調表示";
+"display_mode.highlight.description" = "強調表示：AI概要セクションをオレンジ色の枠線で表示し、何が検出されているかを確認できます。";
+
