@@ -4,12 +4,9 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "build": "tsc && BUILD_ENV=production node build.mjs",
-    "build:preview": "tsc && BUILD_ENV=preview node build.mjs",
-    "build:development": "tsc && BUILD_ENV=development node build.mjs",
-    "build:watch": "BUILD_ENV=development node build.mjs --watch",
-    "serve": "BUILD_ENV=development node build.mjs --serve 8080 --watch",
-    "dev:app": "node dev-server.mjs",
+    "build": "tsc && node esbuild.mjs",
+    "build:watch": "node esbuild.mjs --watch",
+    "serve": "node esbuild.mjs --serve 8080 --watch",
     "lint": "eslint . --ext .ts,.tsx --fix --debug"
   },
   "dependencies": {

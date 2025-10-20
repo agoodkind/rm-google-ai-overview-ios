@@ -331,7 +331,6 @@
 			buildPhases = (
 				B201AF592E95C4E4008A3464 /* Sources */,
 				B201AF5A2E95C4E4008A3464 /* Frameworks */,
-				B248D60B2E98AD0C0055FF1F /* ShellScript */,
 				B201AF5B2E95C4E4008A3464 /* Resources */,
 			);
 			buildRules = (
@@ -352,7 +351,6 @@
 			buildPhases = (
 				B201AF632E95C4E4008A3464 /* Sources */,
 				B201AF642E95C4E4008A3464 /* Frameworks */,
-				B248D6072E98A23C0055FF1F /* Run Script */,
 				B201AF652E95C4E4008A3464 /* Resources */,
 			);
 			buildRules = (
@@ -451,56 +449,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		B248D6072E98A23C0055FF1F /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/build_js.sh",
-			);
-			name = "Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(SRCROOT)/Shared (Extension)/Resources/content.js",
-				"$(SRCROOT)/Shared (App)/Resources/Script.js",
-				"$(SRCROOT)/Shared (App)/Resources/Style.css",
-				"$(SRCROOT)/Shared (Extension)/Resources/service-worker.js",
-				"$(SRCROOT)/Shared (Extension)/Resources/background.js",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nchmod +x build_js.sh\n#./build_js.sh\n";
-		};
-		B248D60B2E98AD0C0055FF1F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/build_js.sh",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(SRCROOT)/Shared (Extension)/Resources/content.js",
-				"$(SRCROOT)/Shared (App)/Resources/Script.js",
-				"$(SRCROOT)/Shared (App)/Resources/Style.css",
-				"$(SRCROOT)/Shared (Extension)/Resources/service-worker.js",
-				"$(SRCROOT)/Shared (Extension)/Resources/background.js",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nchmod +x build_js.sh\n./build_js.sh\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B201AF3C2E95C4E4008A3464 /* Sources */ = {

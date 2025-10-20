@@ -1,6 +1,6 @@
-export const isDev = process.env.BUILD_ENV === "development";
-export const isPreview = process.env.BUILD_ENV === "preview";
-export const isProd = process.env.BUILD_ENV === "production";
+export const isDev = process.env.CONFIGURATION === "Debug";
+export const isPreview = process.env.CONFIGURATION === "Preview";
+export const isProd = process.env.CONFIGURATION === "Release";
 
 export const verbose = isDev || isPreview;
 

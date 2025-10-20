@@ -12,8 +12,28 @@ import { entryPoints } from "./esbuild.config.mjs";
 
 config();
 
+const LOGGING_VERBOSITY = Number(process.env.LOGGING_VERBOSITY || 0);
+const configuration = process.env.CONFIGURATION || "Release";
+const isDev = configuration === "Debug";
+// const isPreview = configuration === "Preview";
+// const isProd = configuration === "Release";
+console.log(`Configuration: ${configuration}`);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+console.log(`LOGGING_VERBOSITY: ${LOGGING_VERBOSITY}`);
+console.log(`Log levels to drop: ${getLogLevelsToDrop()}`);
+
+// is verbosity is 3, drop VERBOSE4 and above
+// is verbosity is 2, drop VERBOSE3 and above
+// is verbosity is 1, drop VERBOSE2 and above
+// is verbosity is 0, log nothing
+function getLogLevelsToDrop() {
+  return Array.from({ length: LOGGING_VERBOSITY }, (_, i) => i + 1)
+    .filter((level) => LOGGING_VERBOSITY < level)
+    .map((level) => `VERBOSE${level}`);
+}
 
 /**
  * Load path aliases from tsconfig.app.json (or fallback tsconfig.json)
@@ -54,8 +74,6 @@ async function loadTsconfigAliases() {
   }
   return {};
 }
-
-const isDev = process.env.BUILD_ENV === "development";
 
 /**
  * Get the current Git commit SHA.
@@ -105,8 +123,8 @@ const createBuildOptions = async () => {
     logLevel: isDev ? "debug" : "info",
     alias: dynamicAlias,
     define: {
-      "process.env.BUILD_ENV": JSON.stringify(
-        process.env.BUILD_ENV || "production",
+      "process.env.CONFIGURATION": JSON.stringify(
+        process.env.CONFIGURATION || "Release",
       ),
       "process.env.BUILD_TS": JSON.stringify(new Date().toString()),
       "process.env.COMMIT_SHA": JSON.stringify(commitSha),
@@ -118,6 +136,7 @@ const createBuildOptions = async () => {
     loader: {
       ".png": "dataurl",
     },
+    dropLabels: getLogLevelsToDrop(),
     plugins: [postCssPlugin],
   };
 };
