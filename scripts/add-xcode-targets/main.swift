@@ -28,6 +28,7 @@ import PathKit
 // ============================================================================
 
 let PROJECT_PATH = Path("../Skip AI.xcodeproj")
+let WORKSPACE_ROOT = PROJECT_PATH.parent().absolute()
 
 /// Configuration for a group to be added to the project
 struct GroupConfig {
@@ -42,15 +43,15 @@ let GROUPS: [GroupConfig] = [
     GroupConfig(
         id: "app",
         name: "app",
-        path: "../dist/app",
+        path: (WORKSPACE_ROOT + "dist/app").string,
         filePatterns: ["js", "css"],
         targets: ["Skip AI (iOS)", "Skip AI (macOS)"]
     ),
     GroupConfig(
         id: "webext",
         name: "webext",
-        path: "../dist/webext",
-        filePatterns: ["js"],
+        path: (WORKSPACE_ROOT + "dist/webext").string,
+        filePatterns: ["js", "json"],
         targets: ["Skip AI Extension (iOS)", "Skip AI Extension (macOS)"]
     )
 ]

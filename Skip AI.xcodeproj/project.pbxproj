@@ -62,9 +62,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; name = content.js; path = content.js; sourceTree = "<group>"; };
-		5697FA8E40F4810A9CD2AD7C /* Style.css */ = {isa = PBXFileReference; name = Style.css; path = Style.css; sourceTree = "<group>"; };
-		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; name = background.js; path = background.js; sourceTree = "<group>"; };
+		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
+		5697FA8E40F4810A9CD2AD7C /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
 		B201AF402E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF522E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Skip AI Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,13 +76,12 @@
 		B22272712EA0C3460074DA03 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		B22272722EA0C3520074DA03 /* Preview.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Preview.xcconfig; sourceTree = "<group>"; };
 		B22272732EA0C3660074DA03 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		B248D6082E98ABB20055FF1F /* build_js.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build_js.sh; sourceTree = "<group>"; };
 		B2D49E892E95FEBF00F36696 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
-		CCEFB2F8D967E35A76D21EC0 /* Script.js */ = {isa = PBXFileReference; name = Script.js; path = Script.js; sourceTree = "<group>"; };
+		CCEFB2F8D967E35A76D21EC0 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B201AF8B2E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		B201AF8B2E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Skip AI (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Resources/Main.html",
@@ -92,14 +91,14 @@
 			);
 			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
 		};
-		B201AF8F2E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		B201AF8F2E95C4E4008A3464 /* Exceptions for "iOS (Extension)" folder in "Skip AI Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
 		};
-		B201AF942E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		B201AF942E95C4E4008A3464 /* Exceptions for "iOS (App)" folder in "Skip AI (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"Info-Debug.plist",
@@ -107,7 +106,7 @@
 			);
 			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
 		};
-		B201AF952E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		B201AF952E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Skip AI (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Resources/Main.html",
@@ -117,14 +116,14 @@
 			);
 			target = B201AF512E95C4E4008A3464 /* Skip AI (macOS) */;
 		};
-		B201AF992E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		B201AF992E95C4E4008A3464 /* Exceptions for "macOS (Extension)" folder in "Skip AI Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = B201AF662E95C4E4008A3464 /* Skip AI Extension (macOS) */;
 		};
-		B201AF9E2E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		B201AF9E2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Skip AI Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/_locales,
@@ -134,7 +133,7 @@
 			);
 			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
 		};
-		B201AF9F2E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		B201AF9F2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Skip AI Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/_locales,
@@ -144,7 +143,7 @@
 			);
 			target = B201AF662E95C4E4008A3464 /* Skip AI Extension (macOS) */;
 		};
-		B2B567112EA016C200887919 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		B2B567112EA016C200887919 /* Exceptions for "macOS (App)" folder in "Skip AI (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"Info-Debug.plist",
@@ -155,12 +154,32 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		B201AF282E95C4E2008A3464 /* Shared (App) */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (B201AF8B2E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, B201AF952E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); path = "Shared (App)"; sourceTree = "<group>"; };
-		B201AF312E95C4E4008A3464 /* Shared (Extension) */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (B201AF9E2E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, B201AF9F2E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFolders = (Resources/_locales, Resources/images, ); path = "Shared (Extension)"; sourceTree = "<group>"; };
+		B201AF282E95C4E2008A3464 /* Shared (App) */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B201AF8B2E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Skip AI (iOS)" target */,
+				B201AF952E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Skip AI (macOS)" target */,
+			);
+			path = "Shared (App)";
+			sourceTree = "<group>";
+		};
+		B201AF312E95C4E4008A3464 /* Shared (Extension) */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B201AF9E2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Skip AI Extension (iOS)" target */,
+				B201AF9F2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Skip AI Extension (macOS)" target */,
+			);
+			explicitFolders = (
+				Resources/_locales,
+				Resources/images,
+			);
+			path = "Shared (Extension)";
+			sourceTree = "<group>";
+		};
 		B201AF422E95C4E4008A3464 /* iOS (App) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B201AF942E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+				B201AF942E95C4E4008A3464 /* Exceptions for "iOS (App)" folder in "Skip AI (iOS)" target */,
 			);
 			path = "iOS (App)";
 			sourceTree = "<group>";
@@ -168,7 +187,7 @@
 		B201AF532E95C4E4008A3464 /* macOS (App) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B2B567112EA016C200887919 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+				B2B567112EA016C200887919 /* Exceptions for "macOS (App)" folder in "Skip AI (macOS)" target */,
 			);
 			path = "macOS (App)";
 			sourceTree = "<group>";
@@ -176,7 +195,7 @@
 		B201AF612E95C4E4008A3464 /* iOS (Extension) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B201AF8F2E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+				B201AF8F2E95C4E4008A3464 /* Exceptions for "iOS (Extension)" folder in "Skip AI Extension (iOS)" target */,
 			);
 			path = "iOS (Extension)";
 			sourceTree = "<group>";
@@ -184,7 +203,7 @@
 		B201AF6B2E95C4E4008A3464 /* macOS (Extension) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B201AF992E95C4E4008A3464 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+				B201AF992E95C4E4008A3464 /* Exceptions for "macOS (Extension)" folder in "Skip AI Extension (macOS)" target */,
 			);
 			path = "macOS (Extension)";
 			sourceTree = "<group>";
@@ -230,7 +249,7 @@
 				5697FA8E40F4810A9CD2AD7C /* Style.css */,
 			);
 			name = app;
-			path = ../dist/app;
+			path = "/Users/alexander.goodkind/Personal/rm-google-ai-overview-ios/dist/app";
 			sourceTree = "<group>";
 		};
 		7C00200CF85F355C854B22BE /* webext */ = {
@@ -240,7 +259,7 @@
 				1960AEF4C814D59DD55EAEC9 /* content.js */,
 			);
 			name = webext;
-			path = ../dist/webext;
+			path = "/Users/alexander.goodkind/Personal/rm-google-ai-overview-ios/dist/webext";
 			sourceTree = "<group>";
 		};
 		B201AF232E95C4E2008A3464 = {
@@ -252,7 +271,6 @@
 				B22271DC2EA0BD3D0074DA03 /* Skip AI Extension (iOS).entitlements */,
 				B22271DB2EA0BD2D0074DA03 /* Skip AI (macOS).entitlements */,
 				B22271DA2EA0BCFA0074DA03 /* Skip AI (iOS).entitlements */,
-				B248D6082E98ABB20055FF1F /* build_js.sh */,
 				B2D49E892E95FEBF00F36696 /* AppIcon.icon */,
 				B201AF282E95C4E2008A3464 /* Shared (App) */,
 				B201AF312E95C4E4008A3464 /* Shared (Extension) */,
