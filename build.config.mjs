@@ -5,18 +5,18 @@
 export const entryPoints = [
   {
     in: "src/contexts/page/ContentScript.ts",
-    out: "xcode/Shared (Extension)/Resources/content",
+    out: "dist/webext/content",
   },
   {
     in: "src/contexts/background/Background.ts",
-    out: "xcode/Shared (Extension)/Resources/background",
+    out: "dist/webext/background",
   },
   {
     in: "src/contexts/app/AppSharedScript.ts",
-    out: "xcode/Shared (App)/Resources/Script",
+    out: "dist/app/Script",
   },
   {
     in: "src/styles/App.css",
-    out: "xcode/Shared (App)/Resources/Style",
+    out: "dist/app/Style",
   },
 ];
