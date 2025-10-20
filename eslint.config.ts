@@ -5,33 +5,13 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export default defineConfig([
-  globalIgnores(["dist", "out", "node_modules", "xcode"]),
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
-  eslintPluginPrettierRecommended,
+const baseConfig = defineConfig([
   {
-    files: ["src/**/*.{ts,tsx}", "build.mjs", "eslint.config.ts"],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parser: tseslint.parser,
-      parserOptions: {
-        project: "./tsconfig.app.json",
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-    },
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
     plugins: {
       "@stylistic": stylistic,
     },
     rules: {
+      "sort-imports": ["warn"],
       "@stylistic/arrow-parens": ["error"],
       curly: ["error", "all"],
       "max-len": [
@@ -52,6 +32,42 @@ export default defineConfig([
           caughtErrorsIgnorePattern: "^_",
         },
       ],
+    },
+  },
+]);
+
+export default defineConfig([
+  globalIgnores(["dist", "out", "node_modules", "xcode", "scripts/.build"]),
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  eslintPluginPrettierRecommended,
+  ...baseConfig,
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+      parser: tseslint.parser,
+      parserOptions: {
+        project: "./tsconfig.app.json",
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+  },
+  {
+    files: ["esbuild.mjs", "esbuild.config.mjs", "eslint.config.ts"],
+    languageOptions: {
+      globals: globals.node,
+      parserOptions: {
+        project: "./tsconfig.node.json",
+      },
     },
   },
 ]);

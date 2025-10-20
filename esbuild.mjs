@@ -8,7 +8,7 @@ import { dirname, resolve } from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import postcss from "postcss";
-import { entryPoints } from "./build.config.mjs";
+import { entryPoints } from "./esbuild.config.mjs";
 
 config();
 
@@ -48,8 +48,8 @@ async function loadTsconfigAliases() {
         alias[bareKey] = resolve(__dirname, target);
       }
       return alias;
-    } catch (_err) {
-      // keep trying next candidate
+    } catch (err) {
+      console.error("Error loading tsconfig aliases:", err);
     }
   }
   return {};
