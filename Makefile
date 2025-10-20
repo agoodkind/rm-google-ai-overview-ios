@@ -299,7 +299,7 @@ prepare:
 
 .PHONY: help install-js \
 	_build-js build-js-release build-js-preview build-js-debug watch-js-debug serve-js-debug lint-js typecheck-js \
-	add-xcode-targets add-xcode-targets-ruby \
+	add-xcode-targets \
 	_ios-build _ios-run _ios-archive build-ios-release build-ios-debug build-ios-preview run-ios-debug run-ios-release run-ios-preview archive-ios \
 	_macos-build _macos-run _macos-archive build-macos-release build-macos-debug build-macos-preview run-macos-debug run-macos-release run-macos-preview archive-macos \
 	build-safari-release build-safari-debug build-safari-preview \
