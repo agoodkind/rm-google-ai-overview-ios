@@ -8,7 +8,7 @@
 import os.log
 import SafariServices
 
-let APP_GROUP_ID = "group.com.goodkind.skip-ai"
+let APP_GROUP_ID = "group.io.goodkind.skip-ai"
 let DISPLAY_MODE_KEY = "skip-ai-display-mode"
 #if DEBUG
     let DEFAULT_DISPLAY_MODE = "highlight"

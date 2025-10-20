@@ -4,19 +4,11 @@
 /** @type {Array<{in: string, out: string}>} */
 export const entryPoints = [
   {
-    in: "src/contexts/page/ContentScript.ts",
+    in: "Sources/js/contexts/page/ContentScript.ts",
     out: "dist/webext/content",
   },
   {
-    in: "src/contexts/background/Background.ts",
+    in: "Sources/js/contexts/background/Background.ts",
     out: "dist/webext/background",
-  },
-  {
-    in: "src/contexts/app/AppSharedScript.ts",
-    out: "dist/app/Script",
-  },
-  {
-    in: "src/styles/App.css",
-    out: "dist/app/Style",
   },
 ];

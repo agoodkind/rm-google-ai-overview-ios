@@ -7,10 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03EC8AEEDE03F75FADB26B4D /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 397DF2F207F50D5E6C0290FC /* manifest.json */; };
+		47B25BF780ABF53B359B9AD9 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 397DF2F207F50D5E6C0290FC /* manifest.json */; };
 		5DFA98E0EA1783232F8C5C6B /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1960AEF4C814D59DD55EAEC9 /* content.js */; };
 		80509B37CA44C835B4EEE090 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 5697FA8E40F4810A9CD2AD7C /* Style.css */; };
 		93A2912E771AA1105C7F6A01 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 5697FA8E40F4810A9CD2AD7C /* Style.css */; };
 		9BC5606536F796391B88963D /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = CCEFB2F8D967E35A76D21EC0 /* Script.js */; };
+		A4E45A862EA6FA3C00305F93 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A842EA6FA3C00305F93 /* Release.xcconfig */; };
+		A4E45A872EA6FA3C00305F93 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */; };
+		A4E45A882EA6FA3C00305F93 /* Preview.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */; };
+		A4E45A892EA6FA3C00305F93 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A842EA6FA3C00305F93 /* Release.xcconfig */; };
+		A4E45A8A2EA6FA3C00305F93 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */; };
+		A4E45A8B2EA6FA3C00305F93 /* Preview.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */; };
+		A4E45A8C2EA6FA3C00305F93 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A842EA6FA3C00305F93 /* Release.xcconfig */; };
+		A4E45A8D2EA6FA3C00305F93 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */; };
+		A4E45A8E2EA6FA3C00305F93 /* Preview.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */; };
+		A4E45A8F2EA6FA3C00305F93 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A842EA6FA3C00305F93 /* Release.xcconfig */; };
+		A4E45A902EA6FA3C00305F93 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */; };
+		A4E45A912EA6FA3C00305F93 /* Preview.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */; };
+		A4E45ADE2EA6FAE300305F93 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
+		A4E45ADF2EA6FAE300305F93 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
+		A4E45AE02EA6FAE300305F93 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
+		A4E45AE12EA6FAE300305F93 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
 		B201AF5E2E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B201AF682E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF0D87F0D7E3C0EC5ED62652 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1960AEF4C814D59DD55EAEC9 /* content.js */; };
@@ -62,152 +80,76 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
+		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; name = content.js; path = content.js; sourceTree = "<group>"; };
+		397DF2F207F50D5E6C0290FC /* manifest.json */ = {isa = PBXFileReference; name = manifest.json; path = manifest.json; sourceTree = "<group>"; };
 		5697FA8E40F4810A9CD2AD7C /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
-		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
+		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; name = background.js; path = background.js; sourceTree = "<group>"; };
+		A4E45A7D2EA6FA2C00305F93 /* Skip AI (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI (iOS).entitlements"; sourceTree = "<group>"; };
+		A4E45A7E2EA6FA2C00305F93 /* Skip AI (macOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI (macOS).entitlements"; sourceTree = "<group>"; };
+		A4E45A7F2EA6FA2C00305F93 /* Skip AI Extension (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI Extension (iOS).entitlements"; sourceTree = "<group>"; };
+		A4E45A802EA6FA2C00305F93 /* Skip AI Extension (macOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI Extension (macOS).entitlements"; sourceTree = "<group>"; };
+		A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Preview.xcconfig; sourceTree = "<group>"; };
+		A4E45A842EA6FA3C00305F93 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		B201AF402E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF522E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Skip AI Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Skip AI Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B22271DA2EA0BCFA0074DA03 /* Skip AI (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI (iOS).entitlements"; sourceTree = "<group>"; };
-		B22271DB2EA0BD2D0074DA03 /* Skip AI (macOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI (macOS).entitlements"; sourceTree = "<group>"; };
-		B22271DC2EA0BD3D0074DA03 /* Skip AI Extension (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI Extension (iOS).entitlements"; sourceTree = "<group>"; };
-		B22271DD2EA0BD430074DA03 /* Skip AI Extension (macOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI Extension (macOS).entitlements"; sourceTree = "<group>"; };
-		B22272712EA0C3460074DA03 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		B22272722EA0C3520074DA03 /* Preview.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Preview.xcconfig; sourceTree = "<group>"; };
-		B22272732EA0C3660074DA03 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		B2D49E892E95FEBF00F36696 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		CCEFB2F8D967E35A76D21EC0 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B201AF8B2E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Skip AI (iOS)" target */ = {
+		A4E45AC12EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"/Localized: Resources/Main.html",
-				Assets.xcassets,
-				Resources/Icon.png,
-				ViewController.swift,
+				"/Localized: iOS/iOS (App)/LaunchScreen.storyboard",
+				"/Localized: iOS/iOS (App)/Main.storyboard",
+				"/Localized: Shared/Shared (App)/Resources/Main.html",
+				"iOS/iOS (App)/AppDelegate.swift",
+				"iOS/iOS (App)/SceneDelegate.swift",
+				"Shared/Shared (App)/Assets.xcassets",
+				"Shared/Shared (App)/Resources/Icon.png",
+				"Shared/Shared (App)/ViewController.swift",
 			);
 			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
 		};
-		B201AF8F2E95C4E4008A3464 /* Exceptions for "iOS (Extension)" folder in "Skip AI Extension (iOS)" target */ = {
+		A4E45AC22EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
-			);
-			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
-		};
-		B201AF942E95C4E4008A3464 /* Exceptions for "iOS (App)" folder in "Skip AI (iOS)" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Info-Debug.plist",
-				Info.plist,
-			);
-			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
-		};
-		B201AF952E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Skip AI (macOS)" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"/Localized: Resources/Main.html",
-				Assets.xcassets,
-				Resources/Icon.png,
-				ViewController.swift,
+				"/Localized: macOS/macOS (App)/Main.storyboard",
+				"/Localized: Shared/Shared (App)/Resources/Main.html",
+				"macOS/macOS (App)/AppDelegate.swift",
+				"Shared/Shared (App)/Assets.xcassets",
+				"Shared/Shared (App)/Resources/Icon.png",
+				"Shared/Shared (App)/ViewController.swift",
 			);
 			target = B201AF512E95C4E4008A3464 /* Skip AI (macOS) */;
 		};
-		B201AF992E95C4E4008A3464 /* Exceptions for "macOS (Extension)" folder in "Skip AI Extension (macOS)" target */ = {
+		A4E45AC32EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
-			);
-			target = B201AF662E95C4E4008A3464 /* Skip AI Extension (macOS) */;
-		};
-		B201AF9E2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Skip AI Extension (iOS)" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Resources/_locales,
-				Resources/images,
-				Resources/manifest.json,
-				SafariWebExtensionHandler.swift,
+				"Shared/Shared (Extension)/Resources/_locales",
+				"Shared/Shared (Extension)/Resources/images",
+				"Shared/Shared (Extension)/Resources/manifest.json",
+				"Shared/Shared (Extension)/SafariWebExtensionHandler.swift",
 			);
 			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
 		};
-		B201AF9F2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Skip AI Extension (macOS)" target */ = {
+		A4E45AC42EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Resources/_locales,
-				Resources/images,
-				Resources/manifest.json,
-				SafariWebExtensionHandler.swift,
+				"Shared/Shared (Extension)/Resources/_locales",
+				"Shared/Shared (Extension)/Resources/images",
+				"Shared/Shared (Extension)/Resources/manifest.json",
+				"Shared/Shared (Extension)/SafariWebExtensionHandler.swift",
 			);
 			target = B201AF662E95C4E4008A3464 /* Skip AI Extension (macOS) */;
-		};
-		B2B567112EA016C200887919 /* Exceptions for "macOS (App)" folder in "Skip AI (macOS)" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Info-Debug.plist",
-				Info.plist,
-			);
-			target = B201AF512E95C4E4008A3464 /* Skip AI (macOS) */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		B201AF282E95C4E2008A3464 /* Shared (App) */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				B201AF8B2E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Skip AI (iOS)" target */,
-				B201AF952E95C4E4008A3464 /* Exceptions for "Shared (App)" folder in "Skip AI (macOS)" target */,
-			);
-			path = "Shared (App)";
-			sourceTree = "<group>";
-		};
-		B201AF312E95C4E4008A3464 /* Shared (Extension) */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				B201AF9E2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Skip AI Extension (iOS)" target */,
-				B201AF9F2E95C4E4008A3464 /* Exceptions for "Shared (Extension)" folder in "Skip AI Extension (macOS)" target */,
-			);
-			explicitFolders = (
-				Resources/_locales,
-				Resources/images,
-			);
-			path = "Shared (Extension)";
-			sourceTree = "<group>";
-		};
-		B201AF422E95C4E4008A3464 /* iOS (App) */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				B201AF942E95C4E4008A3464 /* Exceptions for "iOS (App)" folder in "Skip AI (iOS)" target */,
-			);
-			path = "iOS (App)";
-			sourceTree = "<group>";
-		};
-		B201AF532E95C4E4008A3464 /* macOS (App) */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				B2B567112EA016C200887919 /* Exceptions for "macOS (App)" folder in "Skip AI (macOS)" target */,
-			);
-			path = "macOS (App)";
-			sourceTree = "<group>";
-		};
-		B201AF612E95C4E4008A3464 /* iOS (Extension) */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				B201AF8F2E95C4E4008A3464 /* Exceptions for "iOS (Extension)" folder in "Skip AI Extension (iOS)" target */,
-			);
-			path = "iOS (Extension)";
-			sourceTree = "<group>";
-		};
-		B201AF6B2E95C4E4008A3464 /* macOS (Extension) */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				B201AF992E95C4E4008A3464 /* Exceptions for "macOS (Extension)" folder in "Skip AI Extension (macOS)" target */,
-			);
-			path = "macOS (Extension)";
-			sourceTree = "<group>";
-		};
+		A4E45A932EA6FA7C00305F93 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A4E45AC12EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E45AC22EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E45AC32EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E45AC42EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFolders = ("Shared/Shared (Extension)/Resources/_locales", "Shared/Shared (Extension)/Resources/images", ); path = Sources; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,31 +199,43 @@
 			children = (
 				8596F8BF0C18B292E85E68C4 /* background.js */,
 				1960AEF4C814D59DD55EAEC9 /* content.js */,
+				397DF2F207F50D5E6C0290FC /* manifest.json */,
 			);
 			name = webext;
 			path = "/Users/alexander.goodkind/Personal/rm-google-ai-overview-ios/dist/webext";
+			sourceTree = "<group>";
+		};
+		A4E45A812EA6FA2C00305F93 /* Entitlements */ = {
+			isa = PBXGroup;
+			children = (
+				A4E45A7D2EA6FA2C00305F93 /* Skip AI (iOS).entitlements */,
+				A4E45A7E2EA6FA2C00305F93 /* Skip AI (macOS).entitlements */,
+				A4E45A7F2EA6FA2C00305F93 /* Skip AI Extension (iOS).entitlements */,
+				A4E45A802EA6FA2C00305F93 /* Skip AI Extension (macOS).entitlements */,
+			);
+			path = Entitlements;
+			sourceTree = "<group>";
+		};
+		A4E45A852EA6FA3C00305F93 /* Configs */ = {
+			isa = PBXGroup;
+			children = (
+				A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */,
+				A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */,
+				A4E45A842EA6FA3C00305F93 /* Release.xcconfig */,
+			);
+			path = Configs;
 			sourceTree = "<group>";
 		};
 		B201AF232E95C4E2008A3464 = {
 			isa = PBXGroup;
 			children = (
 				7C00200CF85F355C854B22BE /* webext */,
+				A4E45A932EA6FA7C00305F93 /* Sources */,
 				1FE6BA7E043B05BD82088671 /* app */,
-				B22271DD2EA0BD430074DA03 /* Skip AI Extension (macOS).entitlements */,
-				B22271DC2EA0BD3D0074DA03 /* Skip AI Extension (iOS).entitlements */,
-				B22271DB2EA0BD2D0074DA03 /* Skip AI (macOS).entitlements */,
-				B22271DA2EA0BCFA0074DA03 /* Skip AI (iOS).entitlements */,
+				A4E45A812EA6FA2C00305F93 /* Entitlements */,
 				B2D49E892E95FEBF00F36696 /* AppIcon.icon */,
-				B201AF282E95C4E2008A3464 /* Shared (App) */,
-				B201AF312E95C4E4008A3464 /* Shared (Extension) */,
-				B201AF422E95C4E4008A3464 /* iOS (App) */,
-				B201AF532E95C4E4008A3464 /* macOS (App) */,
-				B201AF612E95C4E4008A3464 /* iOS (Extension) */,
-				B201AF6B2E95C4E4008A3464 /* macOS (Extension) */,
 				B201AF412E95C4E4008A3464 /* Products */,
-				B22272712EA0C3460074DA03 /* Debug.xcconfig */,
-				B22272722EA0C3520074DA03 /* Preview.xcconfig */,
-				B22272732EA0C3660074DA03 /* Release.xcconfig */,
+				A4E45A852EA6FA3C00305F93 /* Configs */,
 			);
 			sourceTree = "<group>";
 		};
@@ -313,9 +267,6 @@
 			dependencies = (
 				B201AF602E95C4E4008A3464 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				B201AF422E95C4E4008A3464 /* iOS (App) */,
-			);
 			name = "Skip AI (iOS)";
 			productName = "Skip AI (iOS)";
 			productReference = B201AF402E95C4E4008A3464 /* Skip AI.app */;
@@ -335,9 +286,6 @@
 			dependencies = (
 				B201AF6A2E95C4E4008A3464 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				B201AF532E95C4E4008A3464 /* macOS (App) */,
-			);
 			name = "Skip AI (macOS)";
 			productName = "Skip AI (macOS)";
 			productReference = B201AF522E95C4E4008A3464 /* Skip AI.app */;
@@ -355,9 +303,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				B201AF612E95C4E4008A3464 /* iOS (Extension) */,
-			);
 			name = "Skip AI Extension (iOS)";
 			productName = "Skip AI Extension (iOS)";
 			productReference = B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */;
@@ -374,9 +319,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				B201AF6B2E95C4E4008A3464 /* macOS (Extension) */,
 			);
 			name = "Skip AI Extension (macOS)";
 			productName = "Skip AI Extension (macOS)";
@@ -413,6 +355,14 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
+				fr,
+				de,
+				ja,
+				"zh-Hans",
+				pt,
+				it,
+				ar,
 			);
 			mainGroup = B201AF232E95C4E2008A3464;
 			minimizedProjectReferenceProxies = 1;
@@ -434,6 +384,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4E45A8C2EA6FA3C00305F93 /* Release.xcconfig in Resources */,
+				A4E45A8D2EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
+				A4E45ADE2EA6FAE300305F93 /* AppIcon.icon in Resources */,
+				A4E45A8E2EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
 				D4C3560B3F9CD5AAC9ECA67E /* Script.js in Resources */,
 				93A2912E771AA1105C7F6A01 /* Style.css in Resources */,
 			);
@@ -443,8 +397,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4E45A892EA6FA3C00305F93 /* Release.xcconfig in Resources */,
+				A4E45A8A2EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
+				A4E45A8B2EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
 				9BC5606536F796391B88963D /* Script.js in Resources */,
 				80509B37CA44C835B4EEE090 /* Style.css in Resources */,
+				A4E45ADF2EA6FAE300305F93 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,8 +410,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4E45A8F2EA6FA3C00305F93 /* Release.xcconfig in Resources */,
+				A4E45A902EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
+				A4E45A912EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
+				A4E45AE02EA6FAE300305F93 /* AppIcon.icon in Resources */,
 				DB586B71FDDBBCD20E4A0709 /* background.js in Resources */,
 				5DFA98E0EA1783232F8C5C6B /* content.js in Resources */,
+				03EC8AEEDE03F75FADB26B4D /* manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,8 +424,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4E45A862EA6FA3C00305F93 /* Release.xcconfig in Resources */,
+				A4E45A872EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
+				A4E45A882EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
+				A4E45AE12EA6FAE300305F93 /* AppIcon.icon in Resources */,
 				F00442F24DDA0DC5E26C53C6 /* background.js in Resources */,
 				BF0D87F0D7E3C0EC5ED62652 /* content.js in Resources */,
+				47B25BF780ABF53B359B9AD9 /* manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,7 +483,6 @@
 /* Begin XCBuildConfiguration section */
 		B201AF8D2E95C4E4008A3464 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272712EA0C3460074DA03 /* Debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -551,7 +518,6 @@
 		};
 		B201AF8E2E95C4E4008A3464 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272732EA0C3660074DA03 /* Release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -588,7 +554,6 @@
 		};
 		B201AF922E95C4E4008A3464 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272712EA0C3460074DA03 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -633,7 +598,6 @@
 		};
 		B201AF932E95C4E4008A3464 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272732EA0C3660074DA03 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -679,7 +643,6 @@
 		};
 		B201AF972E95C4E4008A3464 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272712EA0C3460074DA03 /* Debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -718,7 +681,6 @@
 		};
 		B201AF982E95C4E4008A3464 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272732EA0C3660074DA03 /* Release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -757,7 +719,6 @@
 		};
 		B201AF9C2E95C4E4008A3464 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272712EA0C3460074DA03 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -802,7 +763,6 @@
 		};
 		B201AF9D2E95C4E4008A3464 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272732EA0C3660074DA03 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -847,7 +807,6 @@
 		};
 		B201AFA02E95C4E4008A3464 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272712EA0C3460074DA03 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -910,7 +869,6 @@
 		};
 		B201AFA12E95C4E4008A3464 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272732EA0C3660074DA03 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -965,7 +923,6 @@
 		};
 		B222726C2EA0C2A40074DA03 /* Preview */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272722EA0C3520074DA03 /* Preview.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1028,7 +985,6 @@
 		};
 		B222726D2EA0C2A40074DA03 /* Preview */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272722EA0C3520074DA03 /* Preview.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1073,7 +1029,6 @@
 		};
 		B222726E2EA0C2A40074DA03 /* Preview */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272722EA0C3520074DA03 /* Preview.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1118,7 +1073,6 @@
 		};
 		B222726F2EA0C2A40074DA03 /* Preview */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272722EA0C3520074DA03 /* Preview.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -1154,7 +1108,6 @@
 		};
 		B22272702EA0C2A40074DA03 /* Preview */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B22272722EA0C3520074DA03 /* Preview.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;

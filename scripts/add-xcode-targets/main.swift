@@ -41,13 +41,6 @@ struct GroupConfig {
 
 let GROUPS: [GroupConfig] = [
     GroupConfig(
-        id: "app",
-        name: "app",
-        path: (WORKSPACE_ROOT + "dist/app").string,
-        filePatterns: ["js", "css"],
-        targets: ["Skip AI (iOS)", "Skip AI (macOS)"]
-    ),
-    GroupConfig(
         id: "webext",
         name: "webext",
         path: (WORKSPACE_ROOT + "dist/webext").string,

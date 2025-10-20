@@ -11,7 +11,6 @@ const baseConfig = defineConfig([
       "@stylistic": stylistic,
     },
     rules: {
-      "sort-imports": ["warn"],
       "@stylistic/arrow-parens": ["error"],
       curly: ["error", "all"],
       "max-len": [

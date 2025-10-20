@@ -26,11 +26,11 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@contexts/*": ["./src/contexts/*"]
+      "@/*": ["./Sources/js/*"],
+      "@lib/*": ["./Sources/js/lib/*"],
+      "@styles/*": ["./Sources/js/styles/*"],
+      "@contexts/*": ["./Sources/js/contexts/*"]
     }
   },
-  "include": ["src"]
+  "include": ["Sources/js"]
 }
