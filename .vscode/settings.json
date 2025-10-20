@@ -4,6 +4,12 @@
   "debug.javascript.terminalOptions": {
     "skipFiles": ["<node_internals>/**"]
   },
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "files.watcherExclude": {
     "**/node_modules/**": true,
     "**/xcode/build/**": true,
