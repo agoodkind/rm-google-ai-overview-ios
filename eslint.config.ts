@@ -46,7 +46,7 @@ export default defineConfig([
     files: ["src/**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals,
       parser: tseslint.parser,
       parserOptions: {
         project: "./tsconfig.app.json",
