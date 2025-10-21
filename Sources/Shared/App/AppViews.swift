@@ -57,6 +57,7 @@ struct AppRootView: View {
         VStack(spacing: 20) {
             Image("LargeIcon")
                 .resizable()
+                .aspectRatio(contentMode: .fit)
                 .frame(width: 128, height: 128)
                 .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
             

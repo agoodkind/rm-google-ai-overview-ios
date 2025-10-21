@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		5DFA98E0EA1783232F8C5C6B /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1960AEF4C814D59DD55EAEC9 /* content.js */; };
+		A475DD6B2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
+		A475DD6C2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
+		A475DD6D2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
+		A475DD6E2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
 		A4E45A862EA6FA3C00305F93 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A842EA6FA3C00305F93 /* Release.xcconfig */; };
 		A4E45A872EA6FA3C00305F93 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */; };
 		A4E45A882EA6FA3C00305F93 /* Preview.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */; };
@@ -20,10 +24,6 @@
 		A4E45A8F2EA6FA3C00305F93 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A842EA6FA3C00305F93 /* Release.xcconfig */; };
 		A4E45A902EA6FA3C00305F93 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */; };
 		A4E45A912EA6FA3C00305F93 /* Preview.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */; };
-		A4E45ADE2EA6FAE300305F93 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
-		A4E45ADF2EA6FAE300305F93 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
-		A4E45AE02EA6FAE300305F93 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
-		A4E45AE12EA6FAE300305F93 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B2D49E892E95FEBF00F36696 /* AppIcon.icon */; };
 		B201AF5E2E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B201AF682E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF0D87F0D7E3C0EC5ED62652 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1960AEF4C814D59DD55EAEC9 /* content.js */; };
@@ -74,8 +74,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
-		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
+		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; name = content.js; path = content.js; sourceTree = "<group>"; };
+		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; name = background.js; path = background.js; sourceTree = "<group>"; };
+		A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		A4D672352EA705D200B5C8DE /* icon.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = icon.psd; sourceTree = "<group>"; };
 		A4D672362EA705D200B5C8DE /* icon-nobg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-nobg.png"; sourceTree = "<group>"; };
 		A4D672372EA705D200B5C8DE /* icon-nobg_vectorized.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "icon-nobg_vectorized.svg"; sourceTree = "<group>"; };
@@ -104,17 +105,15 @@
 		B201AF522E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Skip AI Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Skip AI Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B2D49E892E95FEBF00F36696 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		A4E45AC12EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (iOS)" target */ = {
+		A4E45AC12EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: iOS/App/LaunchScreen.storyboard",
 				"/Localized: iOS/App/Main.storyboard",
 				"/Localized: Shared/App/Resources/Localizable.strings",
-				iOS/App/Info.plist,
 				iOS/App/PlatformConfiguration.swift,
 				Shared/App/AppConstants.swift,
 				Shared/App/AppViewModel.swift,
@@ -129,12 +128,11 @@
 			);
 			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
 		};
-		A4E45AC22EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (macOS)" target */ = {
+		A4E45AC22EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: macOS/App/Main.storyboard",
 				"/Localized: Shared/App/Resources/Localizable.strings",
-				macOS/App/Info.plist,
 				macOS/App/PlatformConfiguration.swift,
 				Shared/App/AppConstants.swift,
 				Shared/App/AppViewModel.swift,
@@ -149,10 +147,9 @@
 			);
 			target = B201AF512E95C4E4008A3464 /* Skip AI (macOS) */;
 		};
-		A4E45AC32EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (iOS)" target */ = {
+		A4E45AC32EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				iOS/Extension/Info.plist,
 				Shared/Extension/Resources/_locales,
 				Shared/Extension/Resources/images,
 				Shared/Extension/Resources/manifest.json,
@@ -160,10 +157,9 @@
 			);
 			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
 		};
-		A4E45AC42EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (macOS)" target */ = {
+		A4E45AC42EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				macOS/Extension/Info.plist,
 				Shared/Extension/Resources/_locales,
 				Shared/Extension/Resources/images,
 				Shared/Extension/Resources/manifest.json,
@@ -174,21 +170,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A4E45A932EA6FA7C00305F93 /* Sources */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				A4E45AC12EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (iOS)" target */,
-				A4E45AC22EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (macOS)" target */,
-				A4E45AC32EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (iOS)" target */,
-				A4E45AC42EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (macOS)" target */,
-			);
-			explicitFolders = (
-				Shared/Extension/Resources/_locales,
-				Shared/Extension/Resources/images,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
+		A4E45A932EA6FA7C00305F93 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A4E45AC12EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E45AC22EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E45AC32EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E45AC42EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFolders = (Shared/Extension/Resources/_locales, Shared/Extension/Resources/images, ); path = Sources; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +235,8 @@
 		};
 		A4D6723F2EA705D200B5C8DE /* Products */ = {
 			isa = PBXGroup;
+			children = (
+			);
 			name = Products;
 			sourceTree = "<group>";
 		};
@@ -283,6 +267,7 @@
 				A4E45B5C2EA6FC0400305F93 /* icon.psd */,
 				A4E45B5D2EA6FC0400305F93 /* icon-nobg.png */,
 				A4E45B5E2EA6FC0400305F93 /* icon-nobg_vectorized.svg */,
+				A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */,
 			);
 			path = icons;
 			sourceTree = "<group>";
@@ -306,7 +291,6 @@
 				A4D6723E2EA705D200B5C8DE /* tsconfig.node.json */,
 				A4E45A932EA6FA7C00305F93 /* Sources */,
 				A4E45A812EA6FA2C00305F93 /* Entitlements */,
-				B2D49E892E95FEBF00F36696 /* AppIcon.icon */,
 				B201AF412E95C4E4008A3464 /* Products */,
 				A4E45A852EA6FA3C00305F93 /* Configs */,
 			);
@@ -465,8 +449,8 @@
 			files = (
 				A4E45A8C2EA6FA3C00305F93 /* Release.xcconfig in Resources */,
 				A4E45A8D2EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
-				A4E45ADE2EA6FAE300305F93 /* AppIcon.icon in Resources */,
 				A4E45A8E2EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
+				A475DD6E2EA70A2200E2C2C9 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,8 +460,8 @@
 			files = (
 				A4E45A892EA6FA3C00305F93 /* Release.xcconfig in Resources */,
 				A4E45A8A2EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
+				A475DD6B2EA70A2200E2C2C9 /* AppIcon.icon in Resources */,
 				A4E45A8B2EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
-				A4E45ADF2EA6FAE300305F93 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,7 +472,7 @@
 				A4E45A8F2EA6FA3C00305F93 /* Release.xcconfig in Resources */,
 				A4E45A902EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
 				A4E45A912EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
-				A4E45AE02EA6FAE300305F93 /* AppIcon.icon in Resources */,
+				A475DD6D2EA70A2200E2C2C9 /* AppIcon.icon in Resources */,
 				DB586B71FDDBBCD20E4A0709 /* background.js in Resources */,
 				5DFA98E0EA1783232F8C5C6B /* content.js in Resources */,
 			);
@@ -501,7 +485,7 @@
 				A4E45A862EA6FA3C00305F93 /* Release.xcconfig in Resources */,
 				A4E45A872EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
 				A4E45A882EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
-				A4E45AE12EA6FAE300305F93 /* AppIcon.icon in Resources */,
+				A475DD6C2EA70A2200E2C2C9 /* AppIcon.icon in Resources */,
 				F00442F24DDA0DC5E26C53C6 /* background.js in Resources */,
 				BF0D87F0D7E3C0EC5ED62652 /* content.js in Resources */,
 			);
@@ -559,10 +543,10 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 224;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Sources/iOS/Extension/Info.plist\n";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/iOS/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
@@ -594,10 +578,10 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 224;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Sources/iOS/Extension/Info.plist\n";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/iOS/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
@@ -633,9 +617,9 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 224;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -677,9 +661,9 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 224;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -719,12 +703,12 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 224;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/macOS/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -757,12 +741,12 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 224;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/macOS/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -798,13 +782,13 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 224;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/macOS/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -843,13 +827,13 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 224;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/macOS/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -1067,9 +1051,9 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 224;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -1113,13 +1097,13 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 224;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/macOS/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -1156,10 +1140,10 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 224;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Sources/iOS/Extension/Info.plist\n";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/iOS/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
@@ -1192,12 +1176,12 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 224;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/macOS/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";

@@ -1,57 +1,11 @@
-#!/usr/bin/env swift
-
-/*
- Xcode Group Manager - Swift Implementation with XcodeProj
- 
- This script uses the XcodeProj library for clean, type-safe project manipulation.
- No string matching or regex - just proper Swift APIs.
- 
- Installation:
-   cd scripts
-   swift build
-   
- Usage:
-   cd scripts
-   swift run add-xcode-targets
-   
- Or build and run the binary:
-   swift build -c release
-   .build/release/add-xcode-targets
-*/
+// XcodeProjectManager.swift
+// Xcode Manager
+//
+// Handles Xcode project manipulation using XcodeProj library
 
 import Foundation
 import XcodeProj
 import PathKit
-
-// ============================================================================
-// CONFIGURATION - All customizable IDs and paths
-// ============================================================================
-
-let PROJECT_PATH = Path("../../Skip AI.xcodeproj")
-let WORKSPACE_ROOT = PROJECT_PATH.parent().absolute()
-
-/// Configuration for a group to be added to the project
-struct GroupConfig {
-    let id: String
-    let name: String
-    let path: String
-    let filePatterns: [String]
-    let targets: [String]
-}
-
-let GROUPS: [GroupConfig] = [
-    GroupConfig(
-        id: "webext",
-        name: "webext",
-        path: (WORKSPACE_ROOT + "dist/webext").string,
-        filePatterns: ["js", "json"],
-        targets: ["Skip AI Extension (iOS)", "Skip AI Extension (macOS)"]
-    )
-]
-
-// ============================================================================
-// XCODE PROJECT MANAGER
-// ============================================================================
 
 class XcodeProjectManager {
     let project: XcodeProj
@@ -64,7 +18,54 @@ class XcodeProjectManager {
         self.pbxproj = project.pbxproj
     }
     
-    /// Find files in directory matching patterns
+    // Version Management
+    
+    func getMarketingVersion() throws -> String {
+        guard let target = pbxproj.nativeTargets.first,
+              let configs = target.buildConfigurationList?.buildConfigurations,
+              let config = configs.first,
+              let version = config.buildSettings["MARKETING_VERSION"] as? String else {
+            throw XcodeManagerError.versionNotFound("MARKETING_VERSION")
+        }
+        return version
+    }
+    
+    func getCurrentProjectVersion() throws -> Int {
+        guard let target = pbxproj.nativeTargets.first,
+              let configs = target.buildConfigurationList?.buildConfigurations,
+              let config = configs.first,
+              let versionString = config.buildSettings["CURRENT_PROJECT_VERSION"] as? String,
+              let version = Int(versionString) else {
+            throw XcodeManagerError.versionNotFound("CURRENT_PROJECT_VERSION")
+        }
+        return version
+    }
+    
+    func setMarketingVersion(_ version: String) throws {
+        for target in pbxproj.nativeTargets {
+            guard let configs = target.buildConfigurationList?.buildConfigurations else { continue }
+            for config in configs {
+                config.buildSettings["MARKETING_VERSION"] = version
+            }
+        }
+    }
+    
+    func setCurrentProjectVersion(_ build: Int) throws {
+        for target in pbxproj.nativeTargets {
+            guard let configs = target.buildConfigurationList?.buildConfigurations else { continue }
+            for config in configs {
+                config.buildSettings["CURRENT_PROJECT_VERSION"] = "\(build)"
+            }
+        }
+    }
+    
+    func setBothVersions(marketing: String, build: Int) throws {
+        try setMarketingVersion(marketing)
+        try setCurrentProjectVersion(build)
+    }
+    
+    // Group Management
+    
     func findFiles(in directory: String, patterns: [String]) -> [Path] {
         let dirPath = Path(directory)
         
@@ -92,17 +93,14 @@ class XcodeProjectManager {
         return files.sorted { $0.lastComponent < $1.lastComponent }
     }
     
-    /// Find target by name
     func findTarget(name: String) -> PBXNativeTarget? {
         return pbxproj.nativeTargets.first { $0.name == name }
     }
     
-    /// Find main group
     func mainGroup() -> PBXGroup? {
         return pbxproj.projects.first?.mainGroup
     }
     
-    /// Clean up existing group
     func cleanupGroup(_ config: GroupConfig) {
         print("Cleaning up group: \(config.name)")
         
@@ -111,12 +109,9 @@ class XcodeProjectManager {
             return
         }
         
-        // Find and remove existing group
         if let existingGroup = mainGroup.children.compactMap({ $0 as? PBXGroup }).first(where: { $0.name == config.name }) {
-            // Get all file references from the group
             let fileRefs = existingGroup.children.compactMap { $0 as? PBXFileReference }
             
-            // Remove from build phases
             for target in pbxproj.nativeTargets {
                 if let resourcesPhase = target.buildPhases.first(where: { $0 is PBXResourcesBuildPhase }) as? PBXResourcesBuildPhase {
                     let filesToRemove = resourcesPhase.files?.filter { buildFile in
@@ -130,12 +125,10 @@ class XcodeProjectManager {
                 }
             }
             
-            // Remove file references
             for fileRef in fileRefs {
                 pbxproj.delete(object: fileRef)
             }
             
-            // Remove group
             mainGroup.children.removeAll { $0 == existingGroup }
             pbxproj.delete(object: existingGroup)
             
@@ -143,7 +136,6 @@ class XcodeProjectManager {
         }
     }
     
-    /// Populate group with files
     func populateGroup(_ config: GroupConfig) {
         print("\nProcessing group: \(config.name) (\(config.path))")
         
@@ -153,7 +145,6 @@ class XcodeProjectManager {
             return
         }
         
-        // Find files
         let files = findFiles(in: config.path, patterns: config.filePatterns)
         
         guard !files.isEmpty else {
@@ -163,13 +154,11 @@ class XcodeProjectManager {
         
         print("  Found \(files.count) file(s)")
         
-        // Get main group
         guard let mainGroup = mainGroup() else {
             print("  ⚠️  Main group not found")
             return
         }
         
-        // Create new group
         let group = PBXGroup(
             children: [],
             sourceTree: .group,
@@ -179,7 +168,6 @@ class XcodeProjectManager {
         pbxproj.add(object: group)
         mainGroup.children.insert(group, at: 0)
         
-        // Find targets
         let targets = config.targets.compactMap { findTarget(name: $0) }
         
         if targets.isEmpty {
@@ -187,11 +175,9 @@ class XcodeProjectManager {
             return
         }
         
-        // Add each file
         for filePath in files {
             let fileName = filePath.lastComponent
             
-            // Create file reference
             let fileRef = PBXFileReference(
                 sourceTree: .group,
                 name: fileName,
@@ -200,20 +186,16 @@ class XcodeProjectManager {
             pbxproj.add(object: fileRef)
             group.children.append(fileRef)
             
-            // Add to each target's resources phase
             var addedToTargets: [String] = []
             
             for target in targets {
-                // Get or create resources build phase
                 guard let resourcesPhase = target.buildPhases.first(where: { $0 is PBXResourcesBuildPhase }) as? PBXResourcesBuildPhase else {
                     continue
                 }
                 
-                // Create build file
                 let buildFile = PBXBuildFile(file: fileRef)
                 pbxproj.add(object: buildFile)
                 
-                // Add to resources phase
                 if resourcesPhase.files == nil {
                     resourcesPhase.files = []
                 }
@@ -228,19 +210,16 @@ class XcodeProjectManager {
         }
     }
     
-    /// Save the project
     func save() throws {
         print("\nSaving project...")
         try project.write(path: projectPath)
         print("✅ Project saved successfully")
     }
     
-    /// Create backup
     func backup() throws {
         let pbxprojPath = projectPath + "project.pbxproj"
         let backupPath = pbxprojPath.parent() + "project.pbxproj.backup"
         
-        // Remove old backup if exists
         if FileManager.default.fileExists(atPath: backupPath.string) {
             try FileManager.default.removeItem(at: backupPath.url)
         }
@@ -252,54 +231,57 @@ class XcodeProjectManager {
         
         print("📦 Backup created: \(backupPath)")
     }
-}
-
-// ============================================================================
-// MAIN EXECUTION
-// ============================================================================
-
-func main() {
-    print(String(repeating: "=", count: 80))
-    print("Xcode Group Manager (Swift + XcodeProj)")
-    print(String(repeating: "=", count: 80))
-    print()
     
-    do {
-        // Check if project exists
-        guard PROJECT_PATH.exists else {
-            print("❌ Project not found: \(PROJECT_PATH)")
-            exit(1)
+    // Build Script Management
+    
+    func addBuildScript(to target: PBXNativeTarget) throws -> Bool {
+        // Check if script already exists
+        if target.buildPhases.contains(where: { phase in
+            if let scriptPhase = phase as? PBXShellScriptBuildPhase {
+                return scriptPhase.name == "Build JavaScript"
+            }
+            return false
+        }) {
+            return false
         }
         
-        // Create manager
-        let manager = try XcodeProjectManager(projectPath: PROJECT_PATH)
-        
-        // Create backup
-        try manager.backup()
-        print()
-        
-        // Process each group
-        for groupConfig in GROUPS {
-            manager.cleanupGroup(groupConfig)
-            manager.populateGroup(groupConfig)
+        // Find the copy files phase (embed extensions)
+        guard let copyFilesIndex = target.buildPhases.firstIndex(where: { $0 is PBXCopyFilesBuildPhase }) else {
+            print("  ⚠️  No copy files phase found in target")
+            return false
         }
         
-        // Save project
-        print()
-        try manager.save()
+        // Create shell script build phase
+        let scriptPhase = PBXShellScriptBuildPhase(
+            name: "Build JavaScript",
+            inputFileListPaths: nil,
+            outputFileListPaths: ["$(SRCROOT)/scripts/js-outputs.xcfilelist"],
+            shellPath: "/bin/bash",
+            shellScript: "\"$SRCROOT/scripts/build-js-for-xcode.sh\"\n"
+        )
         
-        print()
-        print(String(repeating: "=", count: 80))
-        print("✅ Complete!")
-        print(String(repeating: "=", count: 80))
+        pbxproj.add(object: scriptPhase)
         
-    } catch {
-        print()
-        print("❌ Error: \(error.localizedDescription)")
-        print(error)
-        exit(1)
+        // Insert before copy files phase
+        target.buildPhases.insert(scriptPhase, at: copyFilesIndex)
+        
+        return true
+    }
+    
+    func removeBuildScript(from target: PBXNativeTarget, named: String) throws -> Bool {
+        guard let scriptPhase = target.buildPhases.first(where: { phase in
+            if let script = phase as? PBXShellScriptBuildPhase {
+                return script.name == named
+            }
+            return false
+        }) else {
+            return false
+        }
+        
+        target.buildPhases.removeAll { $0 == scriptPhase }
+        pbxproj.delete(object: scriptPhase)
+        
+        return true
     }
 }
 
-// Run main
-main()

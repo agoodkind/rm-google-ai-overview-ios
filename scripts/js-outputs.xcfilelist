@@ -1,0 +1,4 @@
+$(SRCROOT)/dist/webext/background.js
+$(SRCROOT)/dist/webext/content.js
+$(SRCROOT)/dist/webext/manifest.json
+
