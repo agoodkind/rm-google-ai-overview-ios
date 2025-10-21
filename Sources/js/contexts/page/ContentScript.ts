@@ -12,7 +12,7 @@ import {
   sendRuntimeMessage,
   validObject,
 } from "@/lib/messaging";
-import { isDev, isPreview, isProd, verbose } from "@lib/shims";
+import { isDev, isPreview, isProd } from "@lib/shims";
 
 const aiTextPatterns = [
   // regex patterns to match "AI overview" in various languages
@@ -66,11 +66,9 @@ const fetchDisplayMode = async () => {
     type: "getDisplayMode",
   });
 
-  if (verbose) {
-    console.debug("Response from service worker fetch:", {
-      response,
-    });
-  }
+  VERBOSE5: console.debug("Response from service worker fetch:", {
+    response,
+  });
 
   if (validObject(response)) {
     if ("displayMode" in response) {
@@ -136,9 +134,7 @@ const processSingleElement = async (el: Element) => {
     dupeCount++;
     return;
   }
-  if (verbose) {
-    console.debug("Found new element:", el);
-  }
+  VERBOSE5: console.debug("Found new element:", el);
 
   await hideElement(el);
 
@@ -172,9 +168,7 @@ const hideElement = async (el: HTMLElement) => {
       el.style.display = "none";
       break;
     default:
-      if (verbose) {
-        console.error("Unknown display mode:", mode);
-      }
+      VERBOSE3: console.error("Unknown display mode:", mode);
       return;
   }
 
@@ -183,17 +177,13 @@ const hideElement = async (el: HTMLElement) => {
 
 const observer = new MutationObserver(async () => {
   if (!hasRun) {
-    if (verbose) {
-      console.debug("Initial run");
-    }
+    VERBOSE4: console.debug("Initial run");
     hasRun = true;
   }
 
   const mainBody = document.querySelector("div#main") as HTMLDivElement | null;
   if (mainBody && !mainBodyInitialized) {
-    if (verbose) {
-      console.debug("Main body found");
-    }
+    VERBOSE4: console.debug("Main body found");
     mainBodyInitialized = true;
   }
   if (!mainBody) {
@@ -204,7 +194,7 @@ const observer = new MutationObserver(async () => {
   processPeopleAlsoAsk(mainBody);
   processAICard(mainBody);
 
-  if (verbose && Date.now() - lastStatsPrintTime > 500) {
+  VERBOSE5: if (Date.now() - lastStatsPrintTime > 500) {
     lastStatsPrintTime = Date.now();
     console.debug(
       "Stats:",
@@ -218,9 +208,7 @@ const observer = new MutationObserver(async () => {
 
 const bootStrap = async () => {
   const displayMode = await fetchDisplayMode();
-  if (verbose) {
-    console.debug({ displayMode, isDev, isPreview, isProd });
-  }
+  VERBOSE4: console.debug({ displayMode, isDev, isPreview, isProd });
   observer.observe(document, {
     childList: true,
     subtree: true,
@@ -231,15 +219,15 @@ bootStrap().catch((error) => {
   console.error("Error in bootstrap:", error);
 });
 
-if (verbose) {
+VERBOSE3: {
   console.warn("Verbose logging is enabled");
   console.warn("Build env:", process.env.BUILD_ENV);
   console.warn("Build time: ", process.env.BUILD_TS);
   console.warn("Current time: ", new Date().toString());
+}
 
-  if (isDev) {
-    registerMessageListener((message) => {
-      console.debug("Content script received message:", message);
-    });
-  }
+if (isDev) {
+  registerMessageListener((message) => {
+    VERBOSE5: console.debug("Content script received message:", message);
+  });
 }

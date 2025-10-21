@@ -289,5 +289,140 @@ class XcodeProjectManager {
         
         return true
     }
+    
+    // File Management
+    
+    func findOrCreateGroup(at path: String, in parentGroup: PBXGroup? = nil) -> PBXGroup {
+        let parent = parentGroup ?? mainGroup()!
+        let components = path.split(separator: "/")
+        
+        var currentGroup = parent
+        for component in components {
+            let name = String(component)
+            if let existing = currentGroup.children.compactMap({ $0 as? PBXGroup }).first(where: { $0.name == name || $0.path == name }) {
+                currentGroup = existing
+            } else {
+                let newGroup = PBXGroup(children: [], sourceTree: .group, name: name, path: name)
+                pbxproj.add(object: newGroup)
+                currentGroup.children.append(newGroup)
+                currentGroup = newGroup
+            }
+        }
+        
+        return currentGroup
+    }
+    
+    func addSourceFile(filePath: Path, to targets: [PBXNativeTarget], in groupPath: String) -> Bool {
+        let group = findOrCreateGroup(at: groupPath)
+        let fileName = filePath.lastComponent
+        
+        // Check if file already exists in group
+        if group.children.compactMap({ $0 as? PBXFileReference }).contains(where: { $0.name == fileName || $0.path == fileName }) {
+            return false // File already exists
+        }
+        
+        // Files are referenced by name when in the same directory as the group
+        let relativePath = fileName
+        
+        let fileRef = PBXFileReference(
+            sourceTree: .group,
+            name: fileName,
+            path: relativePath
+        )
+        pbxproj.add(object: fileRef)
+        group.children.append(fileRef)
+        
+        var added = false
+        for target in targets {
+            guard let sourcesPhase = target.buildPhases.first(where: { $0 is PBXSourcesBuildPhase }) as? PBXSourcesBuildPhase else {
+                continue
+            }
+            
+            let buildFile = PBXBuildFile(file: fileRef)
+            pbxproj.add(object: buildFile)
+            
+            if sourcesPhase.files == nil {
+                sourcesPhase.files = []
+            }
+            sourcesPhase.files?.append(buildFile)
+            added = true
+        }
+        
+        return added
+    }
+    
+    func removeFileReference(named fileName: String, from group: PBXGroup) -> Bool {
+        guard let fileRef = group.children.compactMap({ $0 as? PBXFileReference }).first(where: { $0.name == fileName || $0.path == fileName }) else {
+            return false
+        }
+        
+        // Remove from all build phases
+        for target in pbxproj.nativeTargets {
+            for phase in target.buildPhases {
+                if let sourcesPhase = phase as? PBXSourcesBuildPhase {
+                    let filesToRemove = sourcesPhase.files?.filter { $0.file?.uuid == fileRef.uuid } ?? []
+                    for file in filesToRemove {
+                        sourcesPhase.files?.removeAll { $0 == file }
+                        pbxproj.delete(object: file)
+                    }
+                }
+                if let resourcesPhase = phase as? PBXResourcesBuildPhase {
+                    let filesToRemove = resourcesPhase.files?.filter { $0.file?.uuid == fileRef.uuid } ?? []
+                    for file in filesToRemove {
+                        resourcesPhase.files?.removeAll { $0 == file }
+                        pbxproj.delete(object: file)
+                    }
+                }
+            }
+        }
+        
+        // Remove from group
+        group.children.removeAll { $0 == fileRef }
+        pbxproj.delete(object: fileRef)
+        
+        return true
+    }
+    
+    func cleanMissingReferences(in groupPath: String) -> [String] {
+        let group = findOrCreateGroup(at: groupPath)
+        var removedFiles: [String] = []
+        
+        let fileRefs = group.children.compactMap { $0 as? PBXFileReference }
+        let projectRoot = projectPath.parent()
+        
+        for fileRef in fileRefs {
+            let fileName = fileRef.name ?? fileRef.path ?? ""
+            let filePath = projectRoot + groupPath + fileName
+            
+            if !filePath.exists {
+                if removeFileReference(named: fileName, from: group) {
+                    removedFiles.append(fileName)
+                }
+            }
+        }
+        
+        return removedFiles
+    }
+    
+    func fixContentBlockerSettings() -> Bool {
+        guard let target = findTarget(name: "ContentBlocker") else {
+            return false
+        }
+        
+        var changed = false
+        if let configs = target.buildConfigurationList?.buildConfigurations {
+            for config in configs {
+                // If INFOPLIST_FILE is set, GENERATE_INFOPLIST_FILE should be NO
+                if config.buildSettings["INFOPLIST_FILE"] != nil {
+                    if config.buildSettings["GENERATE_INFOPLIST_FILE"] as? String != "NO" {
+                        config.buildSettings["GENERATE_INFOPLIST_FILE"] = "NO"
+                        changed = true
+                    }
+                }
+            }
+        }
+        
+        return changed
+    }
 }
 

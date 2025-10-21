@@ -16,7 +16,7 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE
 OTHER_SWIFT_FLAGS = -DRELEASE
 
 // Apple Clang - Preprocessing
-GCC_PREPROCESSOR_DEFINITIONS = RELEASE=1
+GCC_PREPROCESSOR_DEFINITIONS = RELEASE=1 LOG_VERBOSITY=$(LOG_VERBOSITY)
 
 // Optimization Level
 SWIFT_OPTIMIZATION_LEVEL = -O
@@ -29,7 +29,9 @@ STRIP_INSTALLED_PRODUCT = YES
 ENABLE_TESTABILITY = NO
 
 // Code Signing
-CODE_SIGN_IDENTITY = Apple Distribution
+// Leave empty to use Xcode automatic signing
+// When archiving for App Store, Xcode will automatically use Distribution
+CODE_SIGN_IDENTITY =
 
 // Logging Configuration
 LOG_VERBOSITY = 2

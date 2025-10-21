@@ -86,5 +86,31 @@ enum LocalizedString {
     static func displayModeHighlightDescription() -> String {
         NSLocalizedString("display_mode.highlight.description", comment: "What highlight mode does")
     }
+    
+    // MARK: - Enable Extension Modal
+    
+    static func enableExtensionModalTitle() -> String {
+        NSLocalizedString("enable_extension.modal.title", comment: "Modal title for enabling extension")
+    }
+    
+    static func enableExtensionModalStep1() -> String {
+        NSLocalizedString("enable_extension.modal.step1", comment: "First step to enable extension")
+    }
+    
+    static func enableExtensionModalStep2() -> String {
+        NSLocalizedString("enable_extension.modal.step2", comment: "Second step to enable extension")
+    }
+    
+    static func enableExtensionModalStep3() -> String {
+        NSLocalizedString("enable_extension.modal.step3", comment: "Third step to enable extension")
+    }
+    
+    static func enableExtensionModalDismiss() -> String {
+        NSLocalizedString("enable_extension.modal.dismiss", comment: "Button to dismiss modal")
+    }
+    
+    static func enableExtensionModalOpenSettings() -> String {
+        NSLocalizedString("enable_extension.modal.open_settings", comment: "Button to open Settings app")
+    }
 }
 

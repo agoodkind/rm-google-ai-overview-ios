@@ -39,6 +39,7 @@ final class AppViewModel: ObservableObject {
     // @Published automatically triggers UI updates when these values change
     @Published var displayMode: DisplayMode
     @Published var extensionEnabled: Bool?  // nil = unknown, true/false = known state
+    @Published var showEnableExtensionModal: Bool = false  // Controls modal visibility on iOS
     
     let platform: PlatformAdapter
     
@@ -56,6 +57,7 @@ final class AppViewModel: ObservableObject {
         refreshExtensionState()
     }
     
+    // Called when the view appears
     func onAppear() {
         logVerbose("onAppear called", category: logCategory)
         displayMode = Self.loadDisplayMode()
@@ -104,10 +106,8 @@ final class AppViewModel: ObservableObject {
         logInfo("Opening extension preferences", category: logCategory)
         platform.openExtensionPreferences {
             DispatchQueue.main.async {
-                #if os(macOS)
-                logInfo("Extension preferences opened, terminating app", category: self.logCategory)
-                self.terminateApp()
-                #endif
+                // Platform-specific termination (implemented in platform extensions)
+                self.terminateAppIfNeeded()
             }
         }
     }
@@ -125,15 +125,18 @@ final class AppViewModel: ObservableObject {
                     logWarning("Extension state unknown", category: self.logCategory)
                 }
                 self.extensionEnabled = enabled
+                
+                // Platform-specific handling (iOS shows modal, macOS does nothing)
+                self.handleExtensionStateChanged(enabled: enabled)
             }
         }
     }
     
     private static func createPlatformAdapter() -> PlatformAdapter {
         #if os(iOS)
-        return IOSPlatformAdapter()
+        return iOSPlatformAdapter()
         #else
-        return MacOSPlatformAdapter()
+        return macOSPlatformAdapter()
         #endif
     }
     

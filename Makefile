@@ -1,3 +1,11 @@
+#
+#  Makefile
+#  Skip AI
+#
+#  Copyright © 2025 Alexander Goodkind. All rights reserved.
+#  https://goodkind.io/
+#
+
 # ============================================================================
 # Skip AI - Safari Extension Makefile
 # ============================================================================
@@ -13,6 +21,16 @@ XCODE_SCHEME_MACOS := Skip\ AI\ \(macOS\)
 XCODE_APP_NAME := Skip\ AI.app
 IOS_SIMULATOR_DEVICE := iPhone 16
 CONFIGURATION ?= Release
+
+# Environment variables - defaults based on CONFIGURATION
+ifeq ($(CONFIGURATION),Debug)
+	LOGGING_VERBOSITY ?= 5
+else ifeq ($(CONFIGURATION),Preview)
+	LOGGING_VERBOSITY ?= 3
+else
+	LOGGING_VERBOSITY ?= 2
+endif
+export LOGGING_VERBOSITY
 
 # Directories
 BUILDDIR := build/
@@ -111,19 +129,20 @@ install-js:
 
 _build-js:
 	@echo "Building JavaScript ($(CONFIGURATION))..."
+	@echo "LOGGING_VERBOSITY=$(LOGGING_VERBOSITY)"
 	$(PNPM) exec tsc
-	$(PNPM) run build
+	LOGGING_VERBOSITY=$(LOGGING_VERBOSITY) $(PNPM) run build
 
 build-js-%: install-js
 	$(MAKE) _build-js CONFIGURATION=$(subst build-js-,,$@)
 
 watch-js-debug: install-js
 	@echo "Starting watch mode..."
-	$(PNPM) run build:watch
+	LOGGING_VERBOSITY=$(LOGGING_VERBOSITY) $(PNPM) run build:watch
 
 serve-js-debug: install-js
 	@echo "Starting dev server..."
-	$(PNPM) run serve
+	LOGGING_VERBOSITY=$(LOGGING_VERBOSITY) $(PNPM) run serve
 
 lint-js: install-js
 	$(PNPM) run lint

@@ -11,7 +11,7 @@ import {
   sendRuntimeMessage,
   validObject,
 } from "@lib/messaging";
-import { isDev, verbose } from "@lib/shims";
+import { isDev } from "@lib/shims";
 
 type DisplayMode = "hide" | "highlight";
 
@@ -28,28 +28,22 @@ export const broadcastTabMessage = async (message: unknown) => {
 
         const response = await sendMessageToTab(tab.id, message);
 
-        if (verbose) {
-          console.debug(
-            "Notified content scripts that service worker initialized:",
-            response,
-          );
-        }
+        VERBOSE4: console.debug(
+          "Notified content scripts that service worker initialized:",
+          response,
+        );
       }),
   );
 };
 
 export const sendMessageToTab = async (tabId: number, message: unknown) => {
-  if (verbose) {
-    console.debug("Sending message to tab:", { tabId, message });
-  }
+  VERBOSE5: console.debug("Sending message to tab:", { tabId, message });
 
   return await browser.tabs.sendMessage(tabId, message);
 };
 
 export const sendNativeMessage = async (message: unknown) => {
-  if (verbose) {
-    console.debug("Sending native message:", message);
-  }
+  VERBOSE4: console.debug("Sending native message:", message);
 
   // safari ignores  application ID parameter
   // and only sends to the native application that contains
@@ -97,9 +91,7 @@ registerMessageListener((message, sender, sendResponse) => {
   switch (message.type) {
     case "ping": {
       // respond to ping from native app to check if extension is enabled
-      if (verbose) {
-        console.debug("Ping received from native app");
-      }
+      VERBOSE4: console.debug("Ping received from native app");
 
       // gather extension API information
       const manifest = browser.runtime.getManifest();
@@ -132,10 +124,13 @@ registerMessageListener((message, sender, sendResponse) => {
 });
 
 // Listen for extension installation/enabling
+browser.management.onInstalled.addListener((details) => {
+  VERBOSE4: console.debug("Extension installed/updated [management]:", details);
+});
+
+// Listen for extension installation/enabling
 browser.runtime.onInstalled.addListener((details) => {
-  if (verbose) {
-    console.debug("Extension installed/updated:", details);
-  }
+  VERBOSE3: console.debug("Extension installed/updated:", details);
 
   // Notify native app that extension is active
   sendNativeMessage({ type: "serviceWorkerStarted" }).catch((error) => {
@@ -144,12 +139,8 @@ browser.runtime.onInstalled.addListener((details) => {
 });
 
 // Also notify on service worker startup (Safari reopened)
-if (verbose) {
-  console.debug("Service worker initialized");
-}
+VERBOSE3: console.debug("Service worker initialized");
 
 sendNativeMessage({ type: "serviceWorkerStarted" }).catch((error) => {
-  if (verbose) {
-    console.error("Failed to notify native app:", error);
-  }
+  VERBOSE4: console.error("Failed to notify native app:", error);
 });

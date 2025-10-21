@@ -311,5 +311,164 @@ extension XcodeManager {
             }
         }
     }
+    
+    struct AddFiles: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "Add source files to Xcode targets"
+        )
+        
+        @Argument(help: "Directory containing files to add")
+        var directory: String
+        
+        @Option(name: .shortAndLong, help: "Target names (comma-separated)")
+        var targets: String
+        
+        @Option(name: .shortAndLong, help: "Group path in Xcode (e.g., 'Sources/iOS/App')")
+        var group: String
+        
+        @Flag(name: .shortAndLong, help: "Skip backup creation")
+        var noBackup = false
+        
+        @Flag(name: .long, help: "Dry run - show what would be added without making changes")
+        var dryRun = false
+        
+        func run() throws {
+            Utils.printHeader(dryRun ? "Add Files (Dry Run)" : "Add Files")
+            
+            let manager = try XcodeProjectManager(projectPath: Config.projectPath)
+            
+            if !noBackup && !dryRun {
+                try manager.backup()
+                print()
+            }
+            
+            let targetNames = targets.split(separator: ",").map { String($0.trimmingCharacters(in: .whitespaces)) }
+            let targetObjects = targetNames.compactMap { manager.findTarget(name: $0) }
+            
+            guard !targetObjects.isEmpty else {
+                print("❌ No targets found: \(targetNames.joined(separator: ", "))")
+                return
+            }
+            
+            let dirPath = Path(directory)
+            guard dirPath.exists else {
+                print("❌ Directory not found: \(directory)")
+                return
+            }
+            
+            let files = manager.findFiles(in: directory, patterns: ["swift"])
+            
+            guard !files.isEmpty else {
+                print("ℹ️  No .swift files found in \(directory)")
+                return
+            }
+            
+            print("Found \(files.count) file(s) in \(directory)")
+            print("Targets: \(targetNames.joined(separator: ", "))")
+            print("Group: \(group)")
+            print()
+            
+            var addedCount = 0
+            var skippedCount = 0
+            
+            for file in files {
+                let fileName = file.lastComponent
+                
+                if dryRun {
+                    print("  Would add: \(fileName)")
+                    addedCount += 1
+                } else {
+                    let added = manager.addSourceFile(filePath: file, to: targetObjects, in: group)
+                    if added {
+                        print("  ✓ Added: \(fileName)")
+                        addedCount += 1
+                    } else {
+                        print("  ⊘ Skipped (already exists): \(fileName)")
+                        skippedCount += 1
+                    }
+                }
+            }
+            
+            print()
+            
+            if dryRun {
+                print("Dry run complete - no changes made")
+                print("Would add \(addedCount) file(s)")
+            } else {
+                try manager.save()
+                Utils.printSuccess("Added \(addedCount) file(s), skipped \(skippedCount) file(s)")
+            }
+        }
+    }
+    
+    struct CleanMissing: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "Remove missing file references from Xcode project"
+        )
+        
+        @Option(name: .shortAndLong, help: "Group path in Xcode (e.g., 'Sources/iOS/App')")
+        var group: String
+        
+        @Flag(name: .shortAndLong, help: "Skip backup creation")
+        var noBackup = false
+        
+        func run() throws {
+            Utils.printHeader("Clean Missing References")
+            
+            let manager = try XcodeProjectManager(projectPath: Config.projectPath)
+            
+            if !noBackup {
+                try manager.backup()
+                print()
+            }
+            
+            print("Scanning group: \(group)")
+            print()
+            
+            let removed = manager.cleanMissingReferences(in: group)
+            
+            if removed.isEmpty {
+                print("✓ No missing references found")
+            } else {
+                for file in removed {
+                    print("  ✓ Removed: \(file)")
+                }
+                print()
+                try manager.save()
+                Utils.printSuccess("Removed \(removed.count) missing reference(s)")
+            }
+        }
+    }
+    
+    struct FixContentBlocker: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "Fix ContentBlocker Info.plist conflict"
+        )
+        
+        @Flag(name: .shortAndLong, help: "Skip backup creation")
+        var noBackup = false
+        
+        func run() throws {
+            Utils.printHeader("Fix ContentBlocker Settings")
+            
+            let manager = try XcodeProjectManager(projectPath: Config.projectPath)
+            
+            if !noBackup {
+                try manager.backup()
+                print()
+            }
+            
+            let changed = manager.fixContentBlockerSettings()
+            
+            if changed {
+                print("✓ Set GENERATE_INFOPLIST_FILE = NO for ContentBlocker target")
+                print()
+                try manager.save()
+                Utils.printSuccess("ContentBlocker settings fixed!")
+            } else {
+                print("✓ ContentBlocker settings already correct")
+            }
+        }
+    }
 }
 

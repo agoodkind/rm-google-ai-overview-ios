@@ -21,6 +21,29 @@ fi
 CONFIGURATION="${CONFIGURATION:-Debug}"
 echo "Building JS for configuration: $CONFIGURATION"
 
+# Map LOG_VERBOSITY (from xcconfig) to LOGGING_VERBOSITY (for JavaScript build)
+if [ -n "$LOG_VERBOSITY" ]; then
+    export LOGGING_VERBOSITY="$LOG_VERBOSITY"
+    echo "Using LOG_VERBOSITY from xcconfig: $LOG_VERBOSITY"
+fi
+
+# Set default LOGGING_VERBOSITY based on configuration if not set
+if [ -z "$LOGGING_VERBOSITY" ]; then
+    case "$CONFIGURATION" in
+        "Release")
+            export LOGGING_VERBOSITY=2
+            ;;
+        "Preview")
+            export LOGGING_VERBOSITY=3
+            ;;
+        *)
+            export LOGGING_VERBOSITY=5
+            ;;
+    esac
+fi
+
+echo "LOGGING_VERBOSITY: $LOGGING_VERBOSITY"
+
 # Navigate to project root
 cd "$SRCROOT" || exit 1
 
@@ -28,15 +51,15 @@ cd "$SRCROOT" || exit 1
 case "$CONFIGURATION" in
     "Release")
         echo "Building JS (Release)..."
-        make build-js-release
+        LOGGING_VERBOSITY=$LOGGING_VERBOSITY make build-js-release
         ;;
     "Preview")
         echo "Building JS (Preview)..."
-        make build-js-preview
+        LOGGING_VERBOSITY=$LOGGING_VERBOSITY make build-js-preview
         ;;
     *)
         echo "Building JS (Debug)..."
-        make build-js-debug
+        LOGGING_VERBOSITY=$LOGGING_VERBOSITY make build-js-debug
         ;;
 esac
 

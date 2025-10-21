@@ -82,7 +82,8 @@ logVerbose("Verbose trace", category: "SafariExtension")
 | AppViewModel | App state and UI logic |
 | IOSPlatform | iOS-specific platform code |
 | macOSPlatform | macOS-specific platform code |
-| ExtensionComm | Extension communication via shared storage |
+| ContentBlocker | iOS content blocker state detection (hybrid approach) |
+| ExtensionComm | Extension communication via shared storage (timestamp tracking) |
 | SafariExtension | Extension handler native messaging |
 
 ## Viewing Logs

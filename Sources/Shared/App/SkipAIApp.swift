@@ -26,11 +26,7 @@ struct SkipAIApp: App {
         WindowGroup {
             AppRootView(viewModel: AppViewModel())
         }
-        #if os(macOS)
-        .windowStyle(.hiddenTitleBar)
-        .windowResizability(.contentSize)
-        .defaultSize(width: 620, height: 700)
-        #endif
+        .withPlatformWindowConfiguration()
     }
 }
 

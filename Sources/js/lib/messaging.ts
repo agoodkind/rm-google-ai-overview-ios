@@ -6,8 +6,6 @@
 //  https://goodkind.io/
 //
 
-import { verbose } from "./shims";
-
 export const registerMessageListener = (
   handler: (
     message: unknown,
@@ -27,9 +25,7 @@ export const validObject = (
 export const sendRuntimeMessage = async (
   message: unknown,
 ): Promise<unknown> => {
-  if (verbose) {
-    console.debug("Sending runtime message:", message);
-  }
+  VERBOSE5: console.debug("Sending runtime message:", message);
 
   return await browser.runtime.sendMessage(message);
 };

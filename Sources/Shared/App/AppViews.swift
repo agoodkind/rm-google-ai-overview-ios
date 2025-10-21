@@ -45,6 +45,9 @@ struct AppRootView: View {
             VStack(spacing: 32) {
                 headerSection
                 SettingsPanelView(viewModel: viewModel)
+                #if DEBUG
+                DebugPanelView(viewModel: viewModel)
+                #endif
             }
             .applyPlatformFrame(for: viewModel.platform.kind)
             .padding(.vertical, 48)
@@ -194,3 +197,55 @@ struct DisplayModeButton: View {
         }
     }
 }
+
+#if DEBUG
+struct DebugPanelView: View {
+    @ObservedObject var viewModel: AppViewModel
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("DEBUG INFO")
+                .font(.caption)
+                .fontWeight(.bold)
+                .foregroundColor(.red)
+            
+            debugRow(label: "Platform", value: "\(viewModel.platform.kind)")
+            debugRow(label: "Display Mode", value: viewModel.displayMode.rawValue)
+            debugRow(label: "Extension Enabled", value: extensionStateText)
+            debugRow(label: "Use Settings", value: "\(viewModel.platform.useSettings)")
+            debugRow(label: "Show Prefs Button", value: "\(viewModel.platform.shouldShowPreferencesButton())")
+            debugRow(label: "Horizontal Padding", value: "\(viewModel.platform.horizontalPadding)")
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(debugBackground)
+        .font(.system(.caption, design: .monospaced))
+    }
+    
+    private var extensionStateText: String {
+        if let enabled = viewModel.extensionEnabled {
+            return enabled ? "true" : "false"
+        }
+        return "nil (unknown)"
+    }
+    
+    private func debugRow(label: String, value: String) -> some View {
+        HStack(spacing: 8) {
+            Text("\(label):")
+                .foregroundColor(.secondary)
+            Text(value)
+                .fontWeight(.semibold)
+            Spacer()
+        }
+    }
+    
+    private var debugBackground: some View {
+        RoundedRectangle(cornerRadius: 12, style: .continuous)
+            .fill(Color.red.opacity(0.1))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(Color.red.opacity(0.3), lineWidth: 1)
+            )
+    }
+}
+#endif

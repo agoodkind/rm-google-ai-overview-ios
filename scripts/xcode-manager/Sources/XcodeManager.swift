@@ -20,7 +20,10 @@ struct XcodeManager: ParsableCommand {
             BumpVersion.self,
             FixInfoPlist.self,
             ShowVersion.self,
-            AddBuildScript.self
+            AddBuildScript.self,
+            AddFiles.self,
+            CleanMissing.self,
+            FixContentBlocker.self
         ],
         defaultSubcommand: ShowVersion.self
     )

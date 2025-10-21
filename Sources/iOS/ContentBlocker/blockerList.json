@@ -1,0 +1,10 @@
+[
+  {
+    "action": {
+      "type": "block"
+    },
+    "trigger": {
+      "url-filter": "skip-ai-content-blocker-dummy-rule\\.example\\.com"
+    }
+  }
+]

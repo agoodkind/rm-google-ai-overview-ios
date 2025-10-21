@@ -20,7 +20,7 @@ import { entryPoints } from "./esbuild.config.mjs";
 
 config();
 
-const LOGGING_VERBOSITY = Number(process.env.LOGGING_VERBOSITY || 0);
+const LOGGING_VERBOSITY = Number(process.env.LOGGING_VERBOSITY || "0");
 const configuration = process.env.CONFIGURATION || "Release";
 const isDev = configuration === "Debug";
 // const isPreview = configuration === "Preview";

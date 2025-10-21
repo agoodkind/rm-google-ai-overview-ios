@@ -1,3 +1,4 @@
+// swift-tools-version: 5.9
 //
 //  Package.swift
 //  Skip AI
@@ -6,7 +7,6 @@
 //  https://goodkind.io/
 //
 
-// swift-tools-version: 5.9
 import PackageDescription
 
 let package = Package(

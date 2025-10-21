@@ -12,16 +12,12 @@
     "512": "images/icon-512.png"
   },
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["background.js"]
   },
-  "permissions": [
-    "nativeMessaging"
-  ],
+  "permissions": ["nativeMessaging", "management"],
   "content_scripts": [
     {
-      "js": [
-        "content.js"
-      ],
+      "js": ["content.js"],
       "type": "module",
       "run_at": "document_start",
       "matches": [
