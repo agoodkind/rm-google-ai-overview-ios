@@ -1,5 +1,7 @@
 /* Extension State Messages */
-"extension.state.ios" = "設定でSkip AIのSafari機能拡張をオンにできます。";
+"extension.state.ios.unknown" = "設定でSkip AIのSafari機能拡張をオンにできます。";
+"extension.state.ios.on" = "Skip AIの機能拡張は現在オンになっています。設定でオフにできます。";
+"extension.state.ios.off" = "Skip AIの機能拡張は現在オフになっています。設定でオンにできます。";
 "extension.state.mac.location.settings" = "Safari設定の機能拡張セクション";
 "extension.state.mac.location.preferences" = "Safariの機能拡張環境設定";
 "extension.state.mac.enable" = "%@でSkip AIの機能拡張をオンにできます。";

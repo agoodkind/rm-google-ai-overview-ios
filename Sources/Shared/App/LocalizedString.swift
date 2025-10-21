@@ -24,8 +24,16 @@
 import Foundation
 
 enum LocalizedString {
-    static func extensionStateIOS() -> String {
-        NSLocalizedString("extension.state.ios", comment: "iOS extension activation message")
+    static func extensionStateIOSUnknown() -> String {
+        NSLocalizedString("extension.state.ios.unknown", comment: "iOS extension state unknown")
+    }
+    
+    static func extensionStateIOSOn() -> String {
+        NSLocalizedString("extension.state.ios.on", comment: "iOS extension is enabled")
+    }
+    
+    static func extensionStateIOSOff() -> String {
+        NSLocalizedString("extension.state.ios.off", comment: "iOS extension is disabled")
     }
     
     static func extensionStateMacLocation(useSettings: Bool) -> String {

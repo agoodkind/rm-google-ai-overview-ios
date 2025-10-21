@@ -1,5 +1,7 @@
 /* Extension State Messages */
-"extension.state.ios" = "يمكنك تشغيل ملحق Safari الخاص بـ Skip AI في الإعدادات.";
+"extension.state.ios.unknown" = "يمكنك تشغيل ملحق Safari الخاص بـ Skip AI في الإعدادات.";
+"extension.state.ios.on" = "ملحق Skip AI مفعّل حالياً. يمكنك إيقافه في الإعدادات.";
+"extension.state.ios.off" = "ملحق Skip AI غير مفعّل حالياً. يمكنك تشغيله في الإعدادات.";
 "extension.state.mac.location.settings" = "قسم الملحقات في إعدادات Safari";
 "extension.state.mac.location.preferences" = "تفضيلات ملحقات Safari";
 "extension.state.mac.enable" = "يمكنك تشغيل ملحق Skip AI في %@.";

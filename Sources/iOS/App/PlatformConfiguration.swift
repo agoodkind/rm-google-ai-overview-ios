@@ -14,7 +14,7 @@
 //    - horizontalPadding: 32 points (optimized for mobile screens)
 //    - shouldShowPreferencesButton: Returns false (iOS can't programmatically open extension settings)
 //    - openExtensionPreferences: Does nothing (iOS limitation - user must open Settings manually)
-//    - checkExtensionState: Returns nil (iOS doesn't allow apps to query extension status)
+//    - checkExtensionState: Pings extension via native messaging to detect if enabled
 //
 // 2. PlatformColor extensions - iOS-specific colors
 //    - iosWindowBackground: Uses systemBackground (adapts to light/dark mode automatically)
@@ -23,9 +23,10 @@
 // Why are some features limited on iOS?
 // - Apple restricts what apps can do programmatically for privacy and security
 // - Users must manually enable extensions in iOS Settings app
-// - Apps can't query extension state to prevent tracking/fingerprinting
+// - We check extension state via native messaging ping/pong
 
 import SwiftUI
+import SafariServices
 
 struct IOSPlatformAdapter: PlatformAdapter {
     let kind: PlatformKind = .ios
@@ -37,9 +38,24 @@ struct IOSPlatformAdapter: PlatformAdapter {
     // iOS can't programmatically open extension preferences
     func openExtensionPreferences(completion: @escaping () -> Void) {}
     
-    // iOS can't check extension state programmatically - returns nil (unknown)
+    // Check extension state by sending ping message via native messaging
     func checkExtensionState(completion: @escaping (Bool?) -> Void) {
-        completion(nil)
+        let message: [String: Any] = ["type": "ping"]
+        
+        SFSafariApplication.dispatchMessage(
+            withName: "ping",
+            toExtensionWithIdentifier: extensionBundleIdentifier,
+            userInfo: message
+        ) { error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Extension ping failed: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    completion(true)
+                }
+            }
+        }
     }
 }
 

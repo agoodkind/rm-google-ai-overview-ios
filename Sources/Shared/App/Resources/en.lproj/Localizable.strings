@@ -1,5 +1,7 @@
 /* Extension State Messages */
-"extension.state.ios" = "You can turn on Skip AI's Safari extension in Settings.";
+"extension.state.ios.unknown" = "You can turn on Skip AI's Safari extension in Settings.";
+"extension.state.ios.on" = "Skip AI's extension is currently on. You can turn it off in Settings.";
+"extension.state.ios.off" = "Skip AI's extension is currently off. You can turn it on in Settings.";
 "extension.state.mac.location.settings" = "the Extensions section of Safari Settings";
 "extension.state.mac.location.preferences" = "Safari Extensions preferences";
 "extension.state.mac.enable" = "You can turn on Skip AI's extension in %@.";

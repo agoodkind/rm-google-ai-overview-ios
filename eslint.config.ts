@@ -31,6 +31,7 @@ const baseConfig = defineConfig([
           caughtErrorsIgnorePattern: "^_",
         },
       ],
+      "no-unused-labels": "off",
     },
   },
 ]);

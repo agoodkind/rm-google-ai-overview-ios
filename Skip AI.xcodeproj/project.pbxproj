@@ -74,8 +74,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; name = content.js; path = content.js; sourceTree = "<group>"; };
-		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; name = background.js; path = background.js; sourceTree = "<group>"; };
+		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
+		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
 		A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		A4D672352EA705D200B5C8DE /* icon.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = icon.psd; sourceTree = "<group>"; };
 		A4D672362EA705D200B5C8DE /* icon-nobg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-nobg.png"; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		A4E45AC12EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E45AC12EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: iOS/App/LaunchScreen.storyboard",
@@ -128,7 +128,7 @@
 			);
 			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
 		};
-		A4E45AC22EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E45AC22EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: macOS/App/Main.storyboard",
@@ -147,7 +147,7 @@
 			);
 			target = B201AF512E95C4E4008A3464 /* Skip AI (macOS) */;
 		};
-		A4E45AC32EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E45AC32EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Shared/Extension/Resources/_locales,
@@ -157,7 +157,7 @@
 			);
 			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
 		};
-		A4E45AC42EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E45AC42EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Shared/Extension/Resources/_locales,
@@ -170,7 +170,21 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A4E45A932EA6FA7C00305F93 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A4E45AC12EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E45AC22EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E45AC32EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E45AC42EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFolders = (Shared/Extension/Resources/_locales, Shared/Extension/Resources/images, ); path = Sources; sourceTree = "<group>"; };
+		A4E45A932EA6FA7C00305F93 /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A4E45AC12EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (iOS)" target */,
+				A4E45AC22EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (macOS)" target */,
+				A4E45AC32EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (iOS)" target */,
+				A4E45AC42EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (macOS)" target */,
+			);
+			explicitFolders = (
+				Shared/Extension/Resources/_locales,
+				Shared/Extension/Resources/images,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */

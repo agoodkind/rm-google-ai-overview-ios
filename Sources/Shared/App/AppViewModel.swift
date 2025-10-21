@@ -64,7 +64,12 @@ final class AppViewModel: ObservableObject {
     var stateMessage: String {
         switch platform.kind {
         case .ios:
-            return LocalizedString.extensionStateIOS()
+            guard let enabled = extensionEnabled else {
+                return LocalizedString.extensionStateIOSUnknown()
+            }
+            return enabled
+                ? LocalizedString.extensionStateIOSOn()
+                : LocalizedString.extensionStateIOSOff()
         case .mac:
             let location = LocalizedString.extensionStateMacLocation(useSettings: platform.useSettings)
             guard let enabled = extensionEnabled else {

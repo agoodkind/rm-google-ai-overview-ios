@@ -1,5 +1,7 @@
 /* Extension State Messages */
-"extension.state.ios" = "Puoi attivare l'estensione Safari di Skip AI nelle Impostazioni.";
+"extension.state.ios.unknown" = "Puoi attivare l'estensione Safari di Skip AI nelle Impostazioni.";
+"extension.state.ios.on" = "L'estensione di Skip AI è attualmente attiva. Puoi disattivarla nelle Impostazioni.";
+"extension.state.ios.off" = "L'estensione di Skip AI è attualmente disattivata. Puoi attivarla nelle Impostazioni.";
 "extension.state.mac.location.settings" = "la sezione Estensioni delle Impostazioni di Safari";
 "extension.state.mac.location.preferences" = "Preferenze Estensioni di Safari";
 "extension.state.mac.enable" = "Puoi attivare l'estensione di Skip AI in %@.";

@@ -42,6 +42,13 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
            let type = messageDict["type"] as? String
         {
             switch type {
+            case "ping":
+                os_log(.default, "Ping received from app")
+                if #available(iOS 15.0, macOS 11.0, *) {
+                    response.userInfo = [SFExtensionMessageKey: ["type": "pong"]]
+                } else {
+                    response.userInfo = ["message": ["type": "pong"]]
+                }
             case "serviceWorkerStarted":
                 os_log(.default, "Service worker started")
                 if #available(iOS 15.0, macOS 11.0, *) {

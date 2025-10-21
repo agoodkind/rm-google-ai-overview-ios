@@ -1,5 +1,7 @@
 /* Extension State Messages */
-"extension.state.ios" = "你可以在设置中打开 Skip AI 的 Safari 扩展。";
+"extension.state.ios.unknown" = "你可以在设置中打开 Skip AI 的 Safari 扩展。";
+"extension.state.ios.on" = "Skip AI 的扩展当前已打开。你可以在设置中关闭它。";
+"extension.state.ios.off" = "Skip AI 的扩展当前已关闭。你可以在设置中打开它。";
 "extension.state.mac.location.settings" = "Safari 设置的扩展部分";
 "extension.state.mac.location.preferences" = "Safari 扩展偏好设置";
 "extension.state.mac.enable" = "你可以在%@中打开 Skip AI 的扩展。";

@@ -87,6 +87,26 @@ registerMessageListener((message, sender, sendResponse) => {
   }
 
   switch (message.type) {
+    case "ping": {
+      // respond to ping from native app to check if extension is enabled
+      if (verbose) {
+        console.debug("Ping received from native app");
+      }
+
+      // gather extension API information
+      const manifest = browser.runtime.getManifest();
+      const details = {
+        version: manifest.version,
+        manifestVersion: manifest.manifest_version,
+        name: manifest.name,
+        extensionId: browser.runtime.id,
+        platform: navigator.platform,
+        userAgent: navigator.userAgent,
+      };
+
+      sendResponse({ type: "pong", details });
+      return true;
+    }
     case "getDisplayMode":
       // fetch display mode from native app
       fetchDisplayModeFromNative()
