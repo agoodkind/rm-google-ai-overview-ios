@@ -139,13 +139,16 @@ class XcodeProjectManager {
     func populateGroup(_ config: GroupConfig) {
         print("\nProcessing group: \(config.name) (\(config.path))")
         
-        let dirPath = Path(config.path)
-        guard dirPath.exists else {
+        // Resolve path relative to project root
+        let projectRoot = projectPath.parent()
+        let absolutePath = Path(config.path).isAbsolute ? Path(config.path) : projectRoot + config.path
+        
+        guard absolutePath.exists else {
             print("  ⚠️  Directory not found: \(config.path), skipping")
             return
         }
         
-        let files = findFiles(in: config.path, patterns: config.filePatterns)
+        let files = findFiles(in: absolutePath.string, patterns: config.filePatterns)
         
         guard !files.isEmpty else {
             print("  ℹ️  No files found in \(config.path)")
@@ -245,12 +248,6 @@ class XcodeProjectManager {
             return false
         }
         
-        // Find the copy files phase (embed extensions)
-        guard let copyFilesIndex = target.buildPhases.firstIndex(where: { $0 is PBXCopyFilesBuildPhase }) else {
-            print("  ⚠️  No copy files phase found in target")
-            return false
-        }
-        
         // Create shell script build phase
         let scriptPhase = PBXShellScriptBuildPhase(
             name: "Build JavaScript",
@@ -262,8 +259,12 @@ class XcodeProjectManager {
         
         pbxproj.add(object: scriptPhase)
         
-        // Insert before copy files phase
-        target.buildPhases.insert(scriptPhase, at: copyFilesIndex)
+        // Insert before resources phase (or at the end if not found)
+        if let resourcesIndex = target.buildPhases.firstIndex(where: { $0 is PBXResourcesBuildPhase }) {
+            target.buildPhases.insert(scriptPhase, at: resourcesIndex)
+        } else {
+            target.buildPhases.append(scriptPhase)
+        }
         
         return true
     }

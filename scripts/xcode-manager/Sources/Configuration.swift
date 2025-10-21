@@ -34,7 +34,7 @@ enum Groups {
             GroupConfig(
                 id: "webext",
                 name: "webext",
-                path: (Config.workspaceRoot + "dist/webext").string,
+                path: "dist/webext",
                 filePatterns: ["js", "json"],
                 targets: ["Skip AI Extension (iOS)", "Skip AI Extension (macOS)"]
             )
