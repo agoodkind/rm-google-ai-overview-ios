@@ -27,7 +27,7 @@ import PathKit
 // CONFIGURATION - All customizable IDs and paths
 // ============================================================================
 
-let PROJECT_PATH = Path("../Skip AI.xcodeproj")
+let PROJECT_PATH = Path("../../Skip AI.xcodeproj")
 let WORKSPACE_ROOT = PROJECT_PATH.parent().absolute()
 
 /// Configuration for a group to be added to the project

@@ -7,12 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03EC8AEEDE03F75FADB26B4D /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 397DF2F207F50D5E6C0290FC /* manifest.json */; };
-		47B25BF780ABF53B359B9AD9 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 397DF2F207F50D5E6C0290FC /* manifest.json */; };
 		5DFA98E0EA1783232F8C5C6B /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1960AEF4C814D59DD55EAEC9 /* content.js */; };
-		80509B37CA44C835B4EEE090 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 5697FA8E40F4810A9CD2AD7C /* Style.css */; };
-		93A2912E771AA1105C7F6A01 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 5697FA8E40F4810A9CD2AD7C /* Style.css */; };
-		9BC5606536F796391B88963D /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = CCEFB2F8D967E35A76D21EC0 /* Script.js */; };
 		A4E45A862EA6FA3C00305F93 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A842EA6FA3C00305F93 /* Release.xcconfig */; };
 		A4E45A872EA6FA3C00305F93 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */; };
 		A4E45A882EA6FA3C00305F93 /* Preview.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */; };
@@ -32,7 +27,6 @@
 		B201AF5E2E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B201AF682E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF0D87F0D7E3C0EC5ED62652 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1960AEF4C814D59DD55EAEC9 /* content.js */; };
-		D4C3560B3F9CD5AAC9ECA67E /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = CCEFB2F8D967E35A76D21EC0 /* Script.js */; };
 		DB586B71FDDBBCD20E4A0709 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 8596F8BF0C18B292E85E68C4 /* background.js */; };
 		F00442F24DDA0DC5E26C53C6 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 8596F8BF0C18B292E85E68C4 /* background.js */; };
 /* End PBXBuildFile section */
@@ -80,10 +74,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; name = content.js; path = content.js; sourceTree = "<group>"; };
-		397DF2F207F50D5E6C0290FC /* manifest.json */ = {isa = PBXFileReference; name = manifest.json; path = manifest.json; sourceTree = "<group>"; };
-		5697FA8E40F4810A9CD2AD7C /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
-		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; name = background.js; path = background.js; sourceTree = "<group>"; };
+		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
+		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
 		A4E45A7D2EA6FA2C00305F93 /* Skip AI (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI (iOS).entitlements"; sourceTree = "<group>"; };
 		A4E45A7E2EA6FA2C00305F93 /* Skip AI (macOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI (macOS).entitlements"; sourceTree = "<group>"; };
 		A4E45A7F2EA6FA2C00305F93 /* Skip AI Extension (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI Extension (iOS).entitlements"; sourceTree = "<group>"; };
@@ -91,65 +83,86 @@
 		A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Preview.xcconfig; sourceTree = "<group>"; };
 		A4E45A842EA6FA3C00305F93 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		A4E45B592EA6FC0400305F93 /* esbuild.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = esbuild.mjs; sourceTree = "<group>"; };
+		A4E45B5A2EA6FC0400305F93 /* esbuild.config.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = esbuild.config.mjs; sourceTree = "<group>"; };
+		A4E45B5B2EA6FC0400305F93 /* eslint.config.ts */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.typescript; path = eslint.config.ts; sourceTree = "<group>"; };
+		A4E45B5C2EA6FC0400305F93 /* icon.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = icon.psd; sourceTree = "<group>"; };
+		A4E45B5D2EA6FC0400305F93 /* icon-nobg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-nobg.png"; sourceTree = "<group>"; };
+		A4E45B5E2EA6FC0400305F93 /* icon-nobg_vectorized.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "icon-nobg_vectorized.svg"; sourceTree = "<group>"; };
+		A4E45B602EA6FC0400305F93 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		A4E45B612EA6FC0400305F93 /* package.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
+		A4E45B632EA6FC0400305F93 /* tsconfig.app.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tsconfig.app.json; sourceTree = "<group>"; };
 		B201AF402E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF522E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Skip AI Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Skip AI Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2D49E892E95FEBF00F36696 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
-		CCEFB2F8D967E35A76D21EC0 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		A4E45AC12EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E45AC12EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"/Localized: iOS/iOS (App)/LaunchScreen.storyboard",
-				"/Localized: iOS/iOS (App)/Main.storyboard",
-				"/Localized: Shared/Shared (App)/Resources/Main.html",
-				"iOS/iOS (App)/AppDelegate.swift",
-				"iOS/iOS (App)/SceneDelegate.swift",
-				"Shared/Shared (App)/Assets.xcassets",
-				"Shared/Shared (App)/Resources/Icon.png",
-				"Shared/Shared (App)/ViewController.swift",
+				"/Localized: iOS/App/LaunchScreen.storyboard",
+				"/Localized: iOS/App/Main.storyboard",
+				"/Localized: Shared/App/Resources/Main.html",
+				iOS/App/PlatformConfiguration.swift,
+				Shared/App/Assets.xcassets,
+				Shared/App/Resources/Icon.png,
+				Shared/App/ViewController.swift,
 			);
 			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
 		};
-		A4E45AC22EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E45AC22EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"/Localized: macOS/macOS (App)/Main.storyboard",
-				"/Localized: Shared/Shared (App)/Resources/Main.html",
-				"macOS/macOS (App)/AppDelegate.swift",
-				"Shared/Shared (App)/Assets.xcassets",
-				"Shared/Shared (App)/Resources/Icon.png",
-				"Shared/Shared (App)/ViewController.swift",
+				"/Localized: macOS/App/Main.storyboard",
+				"/Localized: Shared/App/Resources/Main.html",
+				macOS/App/PlatformConfiguration.swift,
+				Shared/App/Assets.xcassets,
+				Shared/App/Resources/Icon.png,
+				Shared/App/ViewController.swift,
 			);
 			target = B201AF512E95C4E4008A3464 /* Skip AI (macOS) */;
 		};
-		A4E45AC32EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E45AC32EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"Shared/Shared (Extension)/Resources/_locales",
-				"Shared/Shared (Extension)/Resources/images",
-				"Shared/Shared (Extension)/Resources/manifest.json",
-				"Shared/Shared (Extension)/SafariWebExtensionHandler.swift",
+				Shared/Extension/Resources/_locales,
+				Shared/Extension/Resources/images,
+				Shared/Extension/Resources/manifest.json,
+				Shared/Extension/SafariWebExtensionHandler.swift,
 			);
 			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
 		};
-		A4E45AC42EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E45AC42EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"Shared/Shared (Extension)/Resources/_locales",
-				"Shared/Shared (Extension)/Resources/images",
-				"Shared/Shared (Extension)/Resources/manifest.json",
-				"Shared/Shared (Extension)/SafariWebExtensionHandler.swift",
+				Shared/Extension/Resources/_locales,
+				Shared/Extension/Resources/images,
+				Shared/Extension/Resources/manifest.json,
+				Shared/Extension/SafariWebExtensionHandler.swift,
 			);
 			target = B201AF662E95C4E4008A3464 /* Skip AI Extension (macOS) */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A4E45A932EA6FA7C00305F93 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A4E45AC12EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E45AC22EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E45AC32EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E45AC42EA6FAC100305F93 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFolders = ("Shared/Shared (Extension)/Resources/_locales", "Shared/Shared (Extension)/Resources/images", ); path = Sources; sourceTree = "<group>"; };
+		A4E45A932EA6FA7C00305F93 /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A4E45AC12EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (iOS)" target */,
+				A4E45AC22EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (macOS)" target */,
+				A4E45AC32EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (iOS)" target */,
+				A4E45AC42EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (macOS)" target */,
+			);
+			explicitFolders = (
+				Shared/Extension/Resources/_locales,
+				Shared/Extension/Resources/images,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,22 +197,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1FE6BA7E043B05BD82088671 /* app */ = {
-			isa = PBXGroup;
-			children = (
-				CCEFB2F8D967E35A76D21EC0 /* Script.js */,
-				5697FA8E40F4810A9CD2AD7C /* Style.css */,
-			);
-			name = app;
-			path = "/Users/alexander.goodkind/Personal/rm-google-ai-overview-ios/dist/app";
-			sourceTree = "<group>";
-		};
 		7C00200CF85F355C854B22BE /* webext */ = {
 			isa = PBXGroup;
 			children = (
 				8596F8BF0C18B292E85E68C4 /* background.js */,
 				1960AEF4C814D59DD55EAEC9 /* content.js */,
-				397DF2F207F50D5E6C0290FC /* manifest.json */,
 			);
 			name = webext;
 			path = "/Users/alexander.goodkind/Personal/rm-google-ai-overview-ios/dist/webext";
@@ -226,12 +228,28 @@
 			path = Configs;
 			sourceTree = "<group>";
 		};
+		A4E45B5F2EA6FC0400305F93 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				A4E45B5C2EA6FC0400305F93 /* icon.psd */,
+				A4E45B5D2EA6FC0400305F93 /* icon-nobg.png */,
+				A4E45B5E2EA6FC0400305F93 /* icon-nobg_vectorized.svg */,
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
 		B201AF232E95C4E2008A3464 = {
 			isa = PBXGroup;
 			children = (
 				7C00200CF85F355C854B22BE /* webext */,
+				A4E45B592EA6FC0400305F93 /* esbuild.mjs */,
+				A4E45B5A2EA6FC0400305F93 /* esbuild.config.mjs */,
+				A4E45B5B2EA6FC0400305F93 /* eslint.config.ts */,
+				A4E45B5F2EA6FC0400305F93 /* icons */,
+				A4E45B602EA6FC0400305F93 /* Makefile */,
+				A4E45B612EA6FC0400305F93 /* package.json */,
+				A4E45B632EA6FC0400305F93 /* tsconfig.app.json */,
 				A4E45A932EA6FA7C00305F93 /* Sources */,
-				1FE6BA7E043B05BD82088671 /* app */,
 				A4E45A812EA6FA2C00305F93 /* Entitlements */,
 				B2D49E892E95FEBF00F36696 /* AppIcon.icon */,
 				B201AF412E95C4E4008A3464 /* Products */,
@@ -388,8 +406,6 @@
 				A4E45A8D2EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
 				A4E45ADE2EA6FAE300305F93 /* AppIcon.icon in Resources */,
 				A4E45A8E2EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
-				D4C3560B3F9CD5AAC9ECA67E /* Script.js in Resources */,
-				93A2912E771AA1105C7F6A01 /* Style.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,8 +416,6 @@
 				A4E45A892EA6FA3C00305F93 /* Release.xcconfig in Resources */,
 				A4E45A8A2EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
 				A4E45A8B2EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
-				9BC5606536F796391B88963D /* Script.js in Resources */,
-				80509B37CA44C835B4EEE090 /* Style.css in Resources */,
 				A4E45ADF2EA6FAE300305F93 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,7 +430,6 @@
 				A4E45AE02EA6FAE300305F93 /* AppIcon.icon in Resources */,
 				DB586B71FDDBBCD20E4A0709 /* background.js in Resources */,
 				5DFA98E0EA1783232F8C5C6B /* content.js in Resources */,
-				03EC8AEEDE03F75FADB26B4D /* manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,7 +443,6 @@
 				A4E45AE12EA6FAE300305F93 /* AppIcon.icon in Resources */,
 				F00442F24DDA0DC5E26C53C6 /* background.js in Resources */,
 				BF0D87F0D7E3C0EC5ED62652 /* content.js in Resources */,
-				47B25BF780ABF53B359B9AD9 /* manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,15 +496,15 @@
 		B201AF8D2E95C4E4008A3464 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_FILE = "Sources/iOS/Extension/Info.plist\n";
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -503,7 +515,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Skip-AI.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = io.goodkind.SkipAI.Extension;
 				PRODUCT_NAME = "Skip AI Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -519,15 +531,15 @@
 		B201AF8E2E95C4E4008A3464 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_FILE = "Sources/iOS/Extension/Info.plist\n";
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -538,7 +550,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Skip-AI.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = io.goodkind.SkipAI.Extension;
 				PRODUCT_NAME = "Skip AI Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -558,12 +570,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Skip AI (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS (App)/Info-Debug.plist";
+				INFOPLIST_FILE = "Sources/iOS/App/Info-Debug.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -571,7 +583,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -583,7 +595,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Skip-AI";
+				PRODUCT_BUNDLE_IDENTIFIER = io.goodkind.SkipAI;
 				PRODUCT_NAME = "Skip AI";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -602,12 +614,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Skip AI (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -615,7 +627,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -627,7 +639,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Skip-AI";
+				PRODUCT_BUNDLE_IDENTIFIER = io.goodkind.SkipAI;
 				PRODUCT_NAME = "Skip AI";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -644,7 +656,7 @@
 		B201AF972E95C4E4008A3464 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (macOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
@@ -652,7 +664,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_FILE = Sources/macOS/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -660,13 +672,13 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Skip-AI.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = io.goodkind.SkipAI.Extension;
 				PRODUCT_NAME = "Skip AI Extension";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -682,7 +694,7 @@
 		B201AF982E95C4E4008A3464 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (macOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
@@ -690,7 +702,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_FILE = Sources/macOS/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -698,13 +710,13 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Skip-AI.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = io.goodkind.SkipAI.Extension;
 				PRODUCT_NAME = "Skip AI Extension";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -723,7 +735,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Skip AI (macOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
@@ -732,6 +744,7 @@
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Sources/macOS/App/Info-Debug.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -740,7 +753,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -748,7 +761,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Skip-AI";
+				PRODUCT_BUNDLE_IDENTIFIER = io.goodkind.SkipAI;
 				PRODUCT_NAME = "Skip AI";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -767,7 +780,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Skip AI (macOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
@@ -776,6 +789,7 @@
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sources/macOS/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -784,7 +798,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -792,7 +806,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Skip-AI";
+				PRODUCT_BUNDLE_IDENTIFIER = io.goodkind.SkipAI;
 				PRODUCT_NAME = "Skip AI";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -807,6 +821,7 @@
 		};
 		B201AFA02E95C4E4008A3464 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -869,6 +884,7 @@
 		};
 		B201AFA12E95C4E4008A3464 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4E45A842EA6FA3C00305F93 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -908,6 +924,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -923,6 +940,7 @@
 		};
 		B222726C2EA0C2A40074DA03 /* Preview */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -964,10 +982,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -989,12 +1004,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Skip AI (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS (App)/Info-Debug.plist";
+				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1002,19 +1017,20 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Skip-AI";
+				PRODUCT_BUNDLE_IDENTIFIER = io.goodkind.SkipAI;
 				PRODUCT_NAME = "Skip AI";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -1024,6 +1040,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Preview;
 		};
@@ -1033,7 +1050,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "Skip AI (macOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
@@ -1042,6 +1059,7 @@
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sources/macOS/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -1050,15 +1068,16 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Skip-AI";
+				PRODUCT_BUNDLE_IDENTIFIER = io.goodkind.SkipAI;
 				PRODUCT_NAME = "Skip AI";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -1074,26 +1093,27 @@
 		B222726F2EA0C2A40074DA03 /* Preview */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (iOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_FILE = "Sources/iOS/Extension/Info.plist\n";
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Skip-AI.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = io.goodkind.SkipAI.Extension;
 				PRODUCT_NAME = "Skip AI Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1109,7 +1129,7 @@
 		B22272702EA0C2A40074DA03 /* Preview */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Skip AI Extension (macOS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
@@ -1117,7 +1137,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_FILE = Sources/macOS/Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1125,13 +1145,14 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "goodkind-io.Skip-AI.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = io.goodkind.SkipAI.Extension;
 				PRODUCT_NAME = "Skip AI Extension";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;

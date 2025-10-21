@@ -15,7 +15,7 @@ let package = Package(
             dependencies: [
                 .product(name: "XcodeProj", package: "XcodeProj")
             ],
-            path: "add-xcode-targets"
+            path: "."
         )
     ]
 )

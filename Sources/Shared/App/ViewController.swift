@@ -137,7 +137,13 @@ final class AppViewModel: ObservableObject {
     
     let platform: PlatformAdapter
     
-    init(platform: PlatformAdapter = Self.createPlatformAdapter()) {
+    // Default initializer - creates platform adapter automatically
+    convenience init() {
+        self.init(platform: Self.createPlatformAdapter())
+    }
+    
+    // Primary initializer - allows injecting custom platform adapter (useful for testing)
+    init(platform: PlatformAdapter) {
         self.platform = platform
         self.displayMode = Self.loadDisplayMode()
         refreshExtensionState()
@@ -181,7 +187,7 @@ final class AppViewModel: ObservableObject {
         platform.openExtensionPreferences {
             DispatchQueue.main.async {
                 #if os(macOS)
-                NSApp.terminate(nil)
+                self.terminateApp()
                 #endif
             }
         }
@@ -388,11 +394,13 @@ struct DisplayModeButton: View {
 
 // MARK: - Platform Colors
 
-// Centralized platform-specific colors with macOS availability checks
+// Platform-specific color implementations are in:
+// - Sources/iOS/App/PlatformConfiguration.swift
+// - Sources/macOS/App/PlatformConfiguration.swift
 enum PlatformColor {
     static var windowBackground: Color {
         #if os(iOS)
-        return Color(.systemBackground)
+        return iosWindowBackground
         #else
         return macOSWindowBackground
         #endif
@@ -400,30 +408,11 @@ enum PlatformColor {
     
     static var panelBackground: Color {
         #if os(iOS)
-        return Color(.secondarySystemBackground)
+        return iosPanelBackground
         #else
         return macOSPanelBackground
         #endif
     }
-    
-    #if os(macOS)
-    // macOS 12+ uses Color(nsColor:), older versions use Color(NSColor)
-    private static var macOSWindowBackground: Color {
-        if #available(macOS 12.0, *) {
-            return Color(nsColor: .windowBackgroundColor)
-        } else {
-            return Color(NSColor.windowBackgroundColor)
-        }
-    }
-    
-    private static var macOSPanelBackground: Color {
-        if #available(macOS 12.0, *) {
-            return Color(nsColor: .underPageBackgroundColor)
-        } else {
-            return Color(NSColor.windowBackgroundColor)
-        }
-    }
-    #endif
 }
 
 // MARK: - View Extensions

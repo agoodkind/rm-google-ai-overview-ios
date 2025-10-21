@@ -157,8 +157,8 @@ typecheck-js: install-js
 
 add-xcode-targets: install-js _build-js
 	@echo "Adding Xcode targets (Swift)..."
-	$(CD) $(SCRIPTS_DIR) && $(SWIFT) build
-	$(CD) $(SCRIPTS_DIR) && $(SWIFT) run add-xcode-targets
+	$(CD) $(SCRIPTS_DIR)/add-xcode-targets && $(SWIFT) build
+	$(CD) $(SCRIPTS_DIR)/add-xcode-targets && $(SWIFT) run add-xcode-targets
 
 
 # Safari iOS targets - Internal build commands
