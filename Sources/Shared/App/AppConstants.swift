@@ -21,8 +21,8 @@
 
 import Foundation
 
-let extensionBundleIdentifier = "goodkind-io.Skip-AI.Extension"
-let APP_GROUP_ID = "group.com.goodkind.skip-ai"  // Shared between app and extension
+let extensionBundleIdentifier = "io.goodkind.SkipAI.Extension"
+let APP_GROUP_ID = "group.io.goodkind.skip-ai"  // Shared between app and extension
 let DISPLAY_MODE_KEY = "skip-ai-display-mode"
 
 #if DEBUG

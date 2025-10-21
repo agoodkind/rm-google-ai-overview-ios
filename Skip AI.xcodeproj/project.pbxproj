@@ -113,11 +113,18 @@
 			membershipExceptions = (
 				"/Localized: iOS/App/LaunchScreen.storyboard",
 				"/Localized: iOS/App/Main.storyboard",
-				"/Localized: Shared/App/Resources/Main.html",
+				"/Localized: Shared/App/Resources/Localizable.strings",
 				iOS/App/PlatformConfiguration.swift,
+				Shared/App/AppConstants.swift,
+				Shared/App/AppViewModel.swift,
+				Shared/App/AppViews.swift,
 				Shared/App/Assets.xcassets,
+				Shared/App/LocalizedString.swift,
+				Shared/App/PlatformAdapter.swift,
+				Shared/App/PlatformColor.swift,
 				Shared/App/Resources/Icon.png,
-				Shared/App/ViewController.swift,
+				Shared/App/SkipAIApp.swift,
+				Shared/App/ViewExtensions.swift,
 			);
 			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
 		};
@@ -125,11 +132,18 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: macOS/App/Main.storyboard",
-				"/Localized: Shared/App/Resources/Main.html",
+				"/Localized: Shared/App/Resources/Localizable.strings",
 				macOS/App/PlatformConfiguration.swift,
+				Shared/App/AppConstants.swift,
+				Shared/App/AppViewModel.swift,
+				Shared/App/AppViews.swift,
 				Shared/App/Assets.xcassets,
+				Shared/App/LocalizedString.swift,
+				Shared/App/PlatformAdapter.swift,
+				Shared/App/PlatformColor.swift,
 				Shared/App/Resources/Icon.png,
-				Shared/App/ViewController.swift,
+				Shared/App/SkipAIApp.swift,
+				Shared/App/ViewExtensions.swift,
 			);
 			target = B201AF512E95C4E4008A3464 /* Skip AI (macOS) */;
 		};
