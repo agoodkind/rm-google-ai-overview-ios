@@ -76,6 +76,14 @@
 /* Begin PBXFileReference section */
 		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
 		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
+		A4D672352EA705D200B5C8DE /* icon.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = icon.psd; sourceTree = "<group>"; };
+		A4D672362EA705D200B5C8DE /* icon-nobg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-nobg.png"; sourceTree = "<group>"; };
+		A4D672372EA705D200B5C8DE /* icon-nobg_vectorized.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "icon-nobg_vectorized.svg"; sourceTree = "<group>"; };
+		A4D672392EA705D200B5C8DE /* pnpm-lock.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "pnpm-lock.yaml"; sourceTree = "<group>"; };
+		A4D6723A2EA705D200B5C8DE /* add-xcode-targets */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "add-xcode-targets"; sourceTree = "<group>"; };
+		A4D6723C2EA705D200B5C8DE /* Skip AI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Skip AI.xcodeproj"; sourceTree = "<group>"; };
+		A4D6723D2EA705D200B5C8DE /* tsconfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tsconfig.json; sourceTree = "<group>"; };
+		A4D6723E2EA705D200B5C8DE /* tsconfig.node.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tsconfig.node.json; sourceTree = "<group>"; };
 		A4E45A7D2EA6FA2C00305F93 /* Skip AI (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI (iOS).entitlements"; sourceTree = "<group>"; };
 		A4E45A7E2EA6FA2C00305F93 /* Skip AI (macOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI (macOS).entitlements"; sourceTree = "<group>"; };
 		A4E45A7F2EA6FA2C00305F93 /* Skip AI Extension (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Skip AI Extension (iOS).entitlements"; sourceTree = "<group>"; };
@@ -207,6 +215,29 @@
 			path = "/Users/alexander.goodkind/Personal/rm-google-ai-overview-ios/dist/webext";
 			sourceTree = "<group>";
 		};
+		A4D672382EA705D200B5C8DE /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				A4D672352EA705D200B5C8DE /* icon.psd */,
+				A4D672362EA705D200B5C8DE /* icon-nobg.png */,
+				A4D672372EA705D200B5C8DE /* icon-nobg_vectorized.svg */,
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
+		A4D6723B2EA705D200B5C8DE /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				A4D6723A2EA705D200B5C8DE /* add-xcode-targets */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
+		A4D6723F2EA705D200B5C8DE /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
 		A4E45A812EA6FA2C00305F93 /* Entitlements */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +280,12 @@
 				A4E45B602EA6FC0400305F93 /* Makefile */,
 				A4E45B612EA6FC0400305F93 /* package.json */,
 				A4E45B632EA6FC0400305F93 /* tsconfig.app.json */,
+				A4D672382EA705D200B5C8DE /* icons */,
+				A4D672392EA705D200B5C8DE /* pnpm-lock.yaml */,
+				A4D6723B2EA705D200B5C8DE /* scripts */,
+				A4D6723C2EA705D200B5C8DE /* Skip AI.xcodeproj */,
+				A4D6723D2EA705D200B5C8DE /* tsconfig.json */,
+				A4D6723E2EA705D200B5C8DE /* tsconfig.node.json */,
 				A4E45A932EA6FA7C00305F93 /* Sources */,
 				A4E45A812EA6FA2C00305F93 /* Entitlements */,
 				B2D49E892E95FEBF00F36696 /* AppIcon.icon */,
@@ -387,6 +424,12 @@
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B201AF412E95C4E4008A3464 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A4D6723F2EA705D200B5C8DE /* Products */;
+					ProjectRef = A4D6723C2EA705D200B5C8DE /* Skip AI.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */,
