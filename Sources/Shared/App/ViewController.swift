@@ -37,7 +37,7 @@ import SafariServices
 
 // MARK: - Constants
 
-let extensionBundleIdentifier = "goodkind-io.Skip-AI.Extension"
+let extensionBundleIdentifier = "io.goodkind.Skip-AI.Extension"
 let APP_GROUP_ID = "group.com.goodkind.skip-ai"  // Shared between app and extension
 let DISPLAY_MODE_KEY = "skip-ai-display-mode"
 #if DEBUG
@@ -119,60 +119,6 @@ protocol PlatformAdapter {
 enum PlatformKind {
     case ios
     case mac
-}
-
-struct IOSPlatformAdapter: PlatformAdapter {
-    let kind: PlatformKind = .ios
-    let useSettings: Bool = false
-    let horizontalPadding: CGFloat = 32
-    
-    func shouldShowPreferencesButton() -> Bool { false }
-    
-    // iOS can't programmatically open extension preferences
-    func openExtensionPreferences(completion: @escaping () -> Void) {}
-    
-    // iOS can't check extension state programmatically - returns nil (unknown)
-    func checkExtensionState(completion: @escaping (Bool?) -> Void) {
-        completion(nil)
-    }
-}
-
-struct MacOSPlatformAdapter: PlatformAdapter {
-    let kind: PlatformKind = .mac
-    let horizontalPadding: CGFloat = 56
-    
-    // macOS 13+ uses modern Settings app, older versions use System Preferences
-    var useSettings: Bool {
-        if #available(macOS 13, *) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func shouldShowPreferencesButton() -> Bool { true }
-    
-    func openExtensionPreferences(completion: @escaping () -> Void) {
-        #if os(macOS)
-        SFSafariApplication.showPreferencesForExtension(withIdentifier: extensionBundleIdentifier) { error in
-            guard error == nil else { return }
-            completion()
-        }
-        #endif
-    }
-    
-    // Queries Safari to check if our extension is currently enabled
-    func checkExtensionState(completion: @escaping (Bool?) -> Void) {
-        #if os(macOS)
-        SFSafariExtensionManager.getStateOfSafariExtension(withIdentifier: extensionBundleIdentifier) { state, error in
-            if let state = state, error == nil {
-                completion(state.isEnabled)
-            } else {
-                completion(nil)
-            }
-        }
-        #endif
-    }
 }
 
 // MARK: - View Model
