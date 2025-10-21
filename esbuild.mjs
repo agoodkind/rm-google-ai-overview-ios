@@ -106,7 +106,7 @@ const postCssPlugin = {
       const source = await fs.readFile(args.path, "utf8");
       const result = await postcss([tailwindcss(), autoprefixer()]).process(
         source,
-        { from: args.path }
+        { from: args.path },
       );
       return { contents: result.css, loader: "css" };
     });
@@ -132,7 +132,7 @@ const createBuildOptions = async () => {
     alias: dynamicAlias,
     define: {
       "process.env.CONFIGURATION": JSON.stringify(
-        process.env.CONFIGURATION || "Release"
+        process.env.CONFIGURATION || "Release",
       ),
       "process.env.BUILD_TS": JSON.stringify(new Date().toString()),
       "process.env.COMMIT_SHA": JSON.stringify(commitSha),
