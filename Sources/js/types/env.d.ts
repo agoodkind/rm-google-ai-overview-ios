@@ -1,3 +1,11 @@
+//
+//  env.d.ts
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+
 /// <reference types="node" />
 
 /**

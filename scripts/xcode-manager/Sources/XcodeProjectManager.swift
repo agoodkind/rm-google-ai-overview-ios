@@ -1,7 +1,11 @@
-// XcodeProjectManager.swift
-// Xcode Manager
 //
-// Handles Xcode project manipulation using XcodeProj library
+//  XcodeProjectManager.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+//  Handles Xcode project manipulation using XcodeProj library
 
 import Foundation
 import XcodeProj

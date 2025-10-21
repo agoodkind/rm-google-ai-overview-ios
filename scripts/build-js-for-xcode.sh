@@ -1,4 +1,11 @@
 #!/bin/bash
+#
+#  build-js-for-xcode.sh
+#  Skip AI
+#
+#  Copyright © 2025 Alexander Goodkind. All rights reserved.
+#  https://goodkind.io/
+#
 
 # Build JS for Xcode
 # This script runs during Xcode builds to ensure JS is compiled

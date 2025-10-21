@@ -1,3 +1,11 @@
+//
+//  utils.ts
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+
 const normalizeDevHost = (url: string) => {
   // Replace 0.0.0.0 with localhost for macOS sandbox compatibility
   return url.replace("://0.0.0.0:", "://localhost:");

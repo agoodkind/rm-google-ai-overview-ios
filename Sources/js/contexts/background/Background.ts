@@ -1,3 +1,11 @@
+//
+//  Background.ts
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+
 import {
   registerMessageListener,
   sendRuntimeMessage,
@@ -123,9 +131,25 @@ registerMessageListener((message, sender, sendResponse) => {
   }
 });
 
+// Listen for extension installation/enabling
+browser.runtime.onInstalled.addListener((details) => {
+  if (verbose) {
+    console.debug("Extension installed/updated:", details);
+  }
+
+  // Notify native app that extension is active
+  sendNativeMessage({ type: "serviceWorkerStarted" }).catch((error) => {
+    console.error("Failed to notify native app:", error);
+  });
+});
+
+// Also notify on service worker startup (Safari reopened)
 if (verbose) {
   console.debug("Service worker initialized");
 }
 
-// Notify native app that service worker has started
-sendNativeMessage({ type: "serviceWorkerStarted" });
+sendNativeMessage({ type: "serviceWorkerStarted" }).catch((error) => {
+  if (verbose) {
+    console.error("Failed to notify native app:", error);
+  }
+});

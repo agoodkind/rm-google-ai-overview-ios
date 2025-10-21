@@ -1,7 +1,11 @@
-// Utilities.swift
-// Xcode Manager
 //
-// Helper functions and error types
+//  Utilities.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+//  Helper functions and error types
 
 import Foundation
 

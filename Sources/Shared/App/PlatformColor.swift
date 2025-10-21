@@ -1,7 +1,11 @@
-// PlatformColor.swift
-// Skip AI - Safari Extension App
 //
-// COLOR SYSTEM - Provides consistent colors that adapt to iOS vs macOS
+//  PlatformColor.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+//  COLOR SYSTEM - Provides consistent colors that adapt to iOS vs macOS
 //
 // iOS and macOS have different native color systems (UIKit vs AppKit).
 // This file provides a unified color API that works on both platforms.

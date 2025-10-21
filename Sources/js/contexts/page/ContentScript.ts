@@ -1,3 +1,11 @@
+//
+//  ContentScript.ts
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+
 import { DEFAULT_DISPLAY_MODE } from "@/lib/constants";
 import {
   registerMessageListener,

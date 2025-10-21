@@ -1,7 +1,11 @@
-// ViewExtensions.swift
-// Skip AI - Safari Extension App
 //
-// VIEW MODIFIERS - Custom SwiftUI view behaviors
+//  ViewExtensions.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+//  VIEW MODIFIERS - Custom SwiftUI view behaviors
 //
 // This file adds new capabilities to SwiftUI views using Swift's extension system.
 // Extensions let you add methods to existing types (like adding a new button to your calculator).

@@ -1,7 +1,11 @@
-// Commands.swift
-// Xcode Manager
 //
-// CLI command implementations using ArgumentParser
+//  Commands.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+//  CLI command implementations using ArgumentParser
 
 import Foundation
 import XcodeProj

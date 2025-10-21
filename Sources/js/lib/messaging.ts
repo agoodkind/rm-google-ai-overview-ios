@@ -1,3 +1,11 @@
+//
+//  messaging.ts
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+
 import { verbose } from "./shims";
 
 export const registerMessageListener = (

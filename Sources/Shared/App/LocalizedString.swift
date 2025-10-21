@@ -1,7 +1,11 @@
-// LocalizedString.swift
-// Skip AI - Safari Extension App
 //
-// TRANSLATIONS - Handles text in multiple languages
+//  LocalizedString.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+//  TRANSLATIONS - Handles text in multiple languages
 //
 // This file provides all user-facing text strings that appear in the app's interface.
 // It automatically shows text in the user's preferred language (English, Spanish, Japanese, etc.)

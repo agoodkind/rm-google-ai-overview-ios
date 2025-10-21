@@ -1,7 +1,11 @@
-// AppViews.swift
-// Skip AI - Safari Extension App
 //
-// USER INTERFACE - All the visual components you see on screen
+//  AppViews.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+//  USER INTERFACE - All the visual components you see on screen
 //
 // This file contains the SwiftUI views that make up the app's interface.
 // Views describe WHAT the UI should look like, not HOW to build it (declarative programming).

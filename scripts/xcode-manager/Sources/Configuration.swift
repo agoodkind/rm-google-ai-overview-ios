@@ -1,7 +1,11 @@
-// Configuration.swift
-// Xcode Manager
 //
-// Project paths and group configurations
+//  Configuration.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+//  Project paths and group configurations
 
 import Foundation
 import PathKit

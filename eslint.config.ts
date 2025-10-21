@@ -1,3 +1,11 @@
+//
+//  eslint.config.ts
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+
 import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";

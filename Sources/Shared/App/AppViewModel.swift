@@ -1,7 +1,11 @@
-// AppViewModel.swift
-// Skip AI - Safari Extension App
 //
-// STATE MANAGEMENT - The "brain" of the app's UI
+//  AppViewModel.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+//  STATE MANAGEMENT - The "brain" of the app's UI
 //
 // This is the single source of truth for the app's current state.
 // When data in this file changes, the UI automatically updates.
@@ -26,6 +30,7 @@ import SwiftUI
 import Combine
 
 final class AppViewModel: ObservableObject {
+    private let logCategory = "AppViewModel"
     enum DisplayMode: String {
         case hide       // Completely remove AI content
         case highlight  // Show with orange border
@@ -44,18 +49,25 @@ final class AppViewModel: ObservableObject {
     
     // Primary initializer - allows injecting custom platform adapter (useful for testing)
     init(platform: PlatformAdapter) {
+        logInfo("Initializing AppViewModel with platform: \(platform.kind)", category: logCategory)
         self.platform = platform
         self.displayMode = Self.loadDisplayMode()
+        logDebug("Initial display mode: \(displayMode.rawValue)", category: logCategory)
         refreshExtensionState()
     }
     
     func onAppear() {
+        logVerbose("onAppear called", category: logCategory)
         displayMode = Self.loadDisplayMode()
         refreshExtensionState()
     }
     
     func selectDisplayMode(_ mode: DisplayMode) {
-        guard displayMode != mode else { return }
+        guard displayMode != mode else {
+            logVerbose("Display mode already set to \(mode.rawValue), skipping", category: logCategory)
+            return
+        }
+        logInfo("Changing display mode from \(displayMode.rawValue) to \(mode.rawValue)", category: logCategory)
         displayMode = mode
         Self.saveDisplayMode(mode)
     }
@@ -89,9 +101,11 @@ final class AppViewModel: ObservableObject {
     
     // Opens Safari preferences and quits the app (macOS only)
     func openPreferences() {
+        logInfo("Opening extension preferences", category: logCategory)
         platform.openExtensionPreferences {
             DispatchQueue.main.async {
                 #if os(macOS)
+                logInfo("Extension preferences opened, terminating app", category: self.logCategory)
                 self.terminateApp()
                 #endif
             }
@@ -100,10 +114,17 @@ final class AppViewModel: ObservableObject {
     
     // Checks with Safari whether extension is currently enabled
     private func refreshExtensionState() {
+        logDebug("Checking extension state", category: logCategory)
         platform.checkExtensionState { [weak self] enabled in
+            guard let self = self else { return }
             // [weak self] prevents memory leaks by allowing self to be deallocated
             DispatchQueue.main.async {
-                self?.extensionEnabled = enabled
+                if let enabled = enabled {
+                    logInfo("Extension state: \(enabled ? "enabled" : "disabled")", category: self.logCategory)
+                } else {
+                    logWarning("Extension state unknown", category: self.logCategory)
+                }
+                self.extensionEnabled = enabled
             }
         }
     }
@@ -124,15 +145,19 @@ final class AppViewModel: ObservableObject {
     private static func loadDisplayMode() -> DisplayMode {
         let stored = userDefaults()?.string(forKey: DISPLAY_MODE_KEY)
         if let raw = stored, let mode = DisplayMode(rawValue: raw) {
+            logDebug("Loaded display mode from storage: \(raw)", category: "AppViewModel")
             return mode
         }
+        logDebug("No stored display mode, using default: \(DEFAULT_DISPLAY_MODE)", category: "AppViewModel")
         return DisplayMode(rawValue: DEFAULT_DISPLAY_MODE) ?? .hide
     }
     
     private static func saveDisplayMode(_ mode: DisplayMode) {
+        logDebug("Saving display mode: \(mode.rawValue)", category: "AppViewModel")
         let defaults = userDefaults()
         defaults?.set(mode.rawValue, forKey: DISPLAY_MODE_KEY)
         defaults?.synchronize()
+        logVerbose("Display mode saved successfully", category: "AppViewModel")
     }
 }
 

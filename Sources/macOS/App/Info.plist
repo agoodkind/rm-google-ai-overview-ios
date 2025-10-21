@@ -16,5 +16,7 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LOG_VERBOSITY</key>
+	<string>$(LOG_VERBOSITY)</string>
 </dict>
 </plist>

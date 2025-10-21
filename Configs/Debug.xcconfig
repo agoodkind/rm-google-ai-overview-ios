@@ -2,6 +2,9 @@
 //  Debug.xcconfig
 //  Skip AI
 //
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
 
 // Configuration Settings
 CONFIGURATION_BUILD_DIR = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
@@ -26,3 +29,6 @@ ENABLE_TESTABILITY = YES
 
 // Code Signing
 CODE_SIGN_IDENTITY = Apple Development
+
+// Logging Configuration
+LOG_VERBOSITY = 5

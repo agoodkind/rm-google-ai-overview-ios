@@ -1,3 +1,11 @@
+//
+//  shims.ts
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+
 export const isDev = process.env.CONFIGURATION === "Debug";
 export const isPreview = process.env.CONFIGURATION === "Preview";
 export const isProd = process.env.CONFIGURATION === "Release";

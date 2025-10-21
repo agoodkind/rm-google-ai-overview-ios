@@ -1,7 +1,11 @@
-// SkipAIApp.swift
-// Skip AI - Safari Extension App
 //
-// ENTRY POINT - This is where your app starts!
+//  SkipAIApp.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+//  ENTRY POINT - This is where your app starts!
 //
 // This file contains the main application structure using SwiftUI's modern App protocol.
 // The @main attribute tells the operating system "start the app here."

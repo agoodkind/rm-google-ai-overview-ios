@@ -1,3 +1,11 @@
+//
+//  esbuild.config.mjs
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+
 // esbuild entry points using in/out format for custom output paths
 // See: https://esbuild.github.io/api/#entry-points
 

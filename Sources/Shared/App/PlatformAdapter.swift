@@ -1,7 +1,11 @@
-// PlatformAdapter.swift
-// Skip AI - Safari Extension App
 //
-// PLATFORM ABSTRACTION - Defines what platform-specific code must do
+//  PlatformAdapter.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+//  PLATFORM ABSTRACTION - Defines what platform-specific code must do
 //
 // iOS and macOS are different! This file defines the contract (protocol) that both
 // platforms must implement, without caring about HOW they do it.

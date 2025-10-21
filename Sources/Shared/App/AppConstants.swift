@@ -1,7 +1,11 @@
-// AppConstants.swift
-// Skip AI - Safari Extension App
 //
-// CONFIGURATION VALUES - Settings that are used everywhere in the app
+//  AppConstants.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+//  CONFIGURATION VALUES - Settings that are used everywhere in the app
 //
 // This file contains global constants that don't change during runtime.
 // Think of these as the app's configuration settings.

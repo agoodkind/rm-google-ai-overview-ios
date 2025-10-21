@@ -1,3 +1,11 @@
+//
+//  Package.swift
+//  Skip AI
+//
+//  Copyright © 2025 Alexander Goodkind. All rights reserved.
+//  https://goodkind.io/
+//
+
 // swift-tools-version: 5.9
 import PackageDescription
 
