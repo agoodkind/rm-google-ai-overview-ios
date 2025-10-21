@@ -231,6 +231,20 @@ clean-all: clean
 	@echo "Deep cleaning..."
 	$(RM) $(NODE_MODULES) $(SCRIPTS_DIR).build/
 
+clean-xcode: clean
+	@echo "WARNING: This will remove all Xcode backups and project.pbxproj.backup files!"
+	@echo "This is a destructive action and cannot be undone."
+	@echo "This will also attempt to remove all DerivedData from Developer/Xcode/DerivedData"
+	@read -p "Continue? (y/n): " confirm; \
+	if [ "$$confirm" != "y" ]; then \
+		echo "Aborting..."; \
+		exit 1; \
+	fi
+	@echo "Cleaning Xcode artifacts..."
+	$(RM) $(XCODE_PROJECT).pbxproj.backup
+	$(RM) "/Applications/Xcode.app/Contents/Developer/Xcode/DerivedData"
+
+
 prepare:
 	$(MKDIR) $(BUILDDIR) $(DERIVED_DATA)
 
