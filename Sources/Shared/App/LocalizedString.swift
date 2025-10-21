@@ -1,8 +1,25 @@
 // LocalizedString.swift
 // Skip AI - Safari Extension App
 //
-// Centralized localization helper - provides type-safe access to translated strings
-// NSLocalizedString looks up translations from Localizable.strings based on user's language
+// TRANSLATIONS - Handles text in multiple languages
+//
+// This file provides all user-facing text strings that appear in the app's interface.
+// It automatically shows text in the user's preferred language (English, Spanish, Japanese, etc.)
+//
+// How it works:
+// 1. Each function returns a translated string for a specific piece of UI text
+// 2. NSLocalizedString() looks up the translation in Localizable.strings files
+// 3. The system picks the right language file based on user's device settings
+//
+// Why use this instead of hardcoded strings?
+// - Supports multiple languages automatically
+// - Easy to add new languages (just add a new .strings file)
+// - Type-safe: If you mistype a function name, you get a compile error
+// - Centralized: All text in one place makes it easy to review copy
+//
+// Translation files are located at:
+// Sources/Shared/App/Resources/[language].lproj/Localizable.strings
+// (where [language] is en, es, fr, de, ja, zh-Hans, pt, it, ar, etc.)
 
 import Foundation
 

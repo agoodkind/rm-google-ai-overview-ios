@@ -1,8 +1,18 @@
 // SkipAIApp.swift
 // Skip AI - Safari Extension App
 //
-// Main SwiftUI app entry point for both iOS and macOS
-// This is the ENTRY POINT with @main - iOS/macOS starts here
+// ENTRY POINT - This is where your app starts!
+//
+// This file contains the main application structure using SwiftUI's modern App protocol.
+// The @main attribute tells the operating system "start the app here."
+//
+// What this file does:
+// - Creates the main window for the app
+// - Initializes the AppRootView with a view model
+// - Configures window appearance (title bar, size) differently for macOS vs iOS
+//
+// When you launch the app, the OS calls this struct and displays the window defined here.
+// Think of it like the "main()" function in other programming languages.
 
 import SwiftUI
 

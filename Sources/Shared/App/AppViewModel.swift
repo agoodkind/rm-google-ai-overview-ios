@@ -1,8 +1,26 @@
 // AppViewModel.swift
 // Skip AI - Safari Extension App
 //
-// The "brain" of the UI - manages state and business logic
-// ObservableObject + @Published properties make SwiftUI views reactive
+// STATE MANAGEMENT - The "brain" of the app's UI
+//
+// This is the single source of truth for the app's current state.
+// When data in this file changes, the UI automatically updates.
+//
+// What this file manages:
+// - Current display mode (hide or highlight AI content)
+// - Extension enabled status (is the Safari extension turned on?)
+// - Platform-specific behaviors (iOS vs macOS differences)
+// - Loading/saving user preferences to persistent storage
+// - Communication with Safari to check extension state
+//
+// How SwiftUI reactivity works:
+// 1. This class conforms to ObservableObject
+// 2. Properties marked with @Published automatically notify views when they change
+// 3. Views marked with @ObservedObject automatically redraw when notified
+// 4. Result: Change data here → UI updates instantly
+//
+// This follows the MVVM (Model-View-ViewModel) architectural pattern.
+// The ViewModel sits between your data (Model) and your UI (View).
 
 import SwiftUI
 import Combine

@@ -1,7 +1,33 @@
 // AppViews.swift
 // Skip AI - Safari Extension App
 //
-// SwiftUI view components for the app
+// USER INTERFACE - All the visual components you see on screen
+//
+// This file contains the SwiftUI views that make up the app's interface.
+// Views describe WHAT the UI should look like, not HOW to build it (declarative programming).
+//
+// Views in this file:
+//
+// 1. AppRootView - The main container for the entire app
+//    - Shows the app icon, status message, and settings panel
+//    - Automatically updates when the view model's state changes
+//    - Adapts layout based on platform (iOS vs macOS)
+//
+// 2. SettingsPanelView - The settings card with display mode options
+//    - Shows title and description
+//    - Contains the Hide/Highlight mode selector buttons
+//    - Displays explanation text for each mode
+//
+// 3. DisplayModeButton - Individual button for selecting a display mode
+//    - Changes appearance when selected (filled vs outlined)
+//    - Shows an icon and title
+//    - Calls the view model when tapped
+//
+// How SwiftUI views work:
+// - Views are structs (lightweight, value types)
+// - The body property returns the view hierarchy
+// - Views automatically re-render when @Published data changes
+// - You compose complex UIs by nesting simple views
 
 import SwiftUI
 

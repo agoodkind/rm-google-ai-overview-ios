@@ -1,9 +1,29 @@
 // PlatformColor.swift
 // Skip AI - Safari Extension App
 //
-// Platform-specific color implementations are in:
-// - Sources/iOS/App/PlatformConfiguration.swift (iosWindowBackground, iosPanelBackground)
-// - Sources/macOS/App/PlatformConfiguration.swift (macOSWindowBackground, macOSPanelBackground)
+// COLOR SYSTEM - Provides consistent colors that adapt to iOS vs macOS
+//
+// iOS and macOS have different native color systems (UIKit vs AppKit).
+// This file provides a unified color API that works on both platforms.
+//
+// What this provides:
+// - windowBackground: The main background color of the app window
+// - panelBackground: The background color for the settings panel
+//
+// How it works:
+// - Shared code calls PlatformColor.windowBackground
+// - Based on the platform, it returns the iOS or macOS specific color
+// - Actual color values are defined in the platform-specific files
+//
+// Why separate colors by platform?
+// - iOS uses UIColor (systemBackground, secondarySystemBackground)
+// - macOS uses NSColor (windowBackgroundColor, underPageBackgroundColor)
+// - Colors automatically adapt to light/dark mode
+// - Following platform conventions makes the app feel native
+//
+// Platform-specific implementations:
+// - iOS: Sources/iOS/App/PlatformConfiguration.swift
+// - macOS: Sources/macOS/App/PlatformConfiguration.swift
 
 import SwiftUI
 
