@@ -251,6 +251,7 @@ class XcodeProjectManager {
         // Create shell script build phase
         let scriptPhase = PBXShellScriptBuildPhase(
             name: "Build JavaScript",
+            inputPaths: ["$(SRCROOT)/scripts/build-js-for-xcode.sh"],
             inputFileListPaths: nil,
             outputFileListPaths: ["$(SRCROOT)/scripts/js-outputs.xcfilelist"],
             shellPath: "/bin/bash",

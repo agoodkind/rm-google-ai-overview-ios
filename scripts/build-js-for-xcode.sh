@@ -17,31 +17,19 @@ echo "Building JS for configuration: $CONFIGURATION"
 # Navigate to project root
 cd "$SRCROOT" || exit 1
 
-# Check if pnpm is available
-if ! command -v pnpm &> /dev/null; then
-    echo "Error: pnpm not found. Install with: npm install -g pnpm"
-    exit 1
-fi
-
-# Install dependencies if needed
-if [ ! -d "node_modules" ]; then
-    echo "Installing JS dependencies..."
-    pnpm install
-fi
-
-# Build based on configuration
+# Build using make based on configuration
 case "$CONFIGURATION" in
     "Release")
         echo "Building JS (Release)..."
-        pnpm run build:release
+        make build-js-release
         ;;
     "Preview")
         echo "Building JS (Preview)..."
-        pnpm run build:preview
+        make build-js-preview
         ;;
     *)
         echo "Building JS (Debug)..."
-        pnpm run build:debug
+        make build-js-debug
         ;;
 esac
 
