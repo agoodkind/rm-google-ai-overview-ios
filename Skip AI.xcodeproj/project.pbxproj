@@ -114,6 +114,7 @@
 				"/Localized: iOS/App/LaunchScreen.storyboard",
 				"/Localized: iOS/App/Main.storyboard",
 				"/Localized: Shared/App/Resources/Localizable.strings",
+				iOS/App/Info.plist,
 				iOS/App/PlatformConfiguration.swift,
 				Shared/App/AppConstants.swift,
 				Shared/App/AppViewModel.swift,
@@ -133,6 +134,7 @@
 			membershipExceptions = (
 				"/Localized: macOS/App/Main.storyboard",
 				"/Localized: Shared/App/Resources/Localizable.strings",
+				macOS/App/Info.plist,
 				macOS/App/PlatformConfiguration.swift,
 				Shared/App/AppConstants.swift,
 				Shared/App/AppViewModel.swift,
@@ -150,6 +152,7 @@
 		A4E45AC32EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				iOS/Extension/Info.plist,
 				Shared/Extension/Resources/_locales,
 				Shared/Extension/Resources/images,
 				Shared/Extension/Resources/manifest.json,
@@ -160,6 +163,7 @@
 		A4E45AC42EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				macOS/Extension/Info.plist,
 				Shared/Extension/Resources/_locales,
 				Shared/Extension/Resources/images,
 				Shared/Extension/Resources/manifest.json,
@@ -632,7 +636,7 @@
 				CURRENT_PROJECT_VERSION = 210;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Sources/iOS/App/Info-Debug.plist";
+				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -801,7 +805,7 @@
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Sources/macOS/App/Info-Debug.plist";
+				INFOPLIST_FILE = Sources/macOS/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
