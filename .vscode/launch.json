@@ -1,0 +1,88 @@
+{
+    "compounds": [
+        {
+            "name": "Debug iOS App Only",
+            "configurations": [
+                "Launch iOS App"
+            ],
+            "stopAll": true,
+            "presentation": {
+                "hidden": false,
+                "group": "",
+                "order": 1
+            }
+        },
+        {
+            "name": "Debug macOS App Only",
+            "configurations": [
+                "Launch macOS App"
+            ],
+            "stopAll": true,
+            "presentation": {
+                "hidden": false,
+                "group": "",
+                "order": 2
+            }
+        }
+    ],
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:skip-ai}/scripts/xcode-manager",
+            "name": "Debug xcode-manager (scripts/xcode-manager)",
+            "program": "${workspaceFolder:skip-ai}/scripts/xcode-manager/.build/debug/xcode-manager",
+            "preLaunchTask": "swift: Build Debug xcode-manager (scripts/xcode-manager)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:skip-ai}/scripts/xcode-manager",
+            "name": "Release xcode-manager (scripts/xcode-manager)",
+            "program": "${workspaceFolder:skip-ai}/scripts/xcode-manager/.build/release/xcode-manager",
+            "preLaunchTask": "swift: Build Release xcode-manager (scripts/xcode-manager)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Launch iOS App",
+            "program": "${workspaceFolder}/build/DerivedData/Build/Products/Debug-iphonesimulator/Skip AI.app",
+            "preLaunchTask": "Build iOS Debug",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "attach",
+            "name": "Attach to iOS App",
+            "program": "${workspaceFolder}/build/DerivedData/Build/Products/Debug-iphonesimulator/Skip AI.app",
+            "waitFor": true
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Launch macOS App",
+            "program": "${workspaceFolder}/build/DerivedData/Build/Products/Debug/Skip AI.app/Contents/MacOS/Skip AI",
+            "preLaunchTask": "Build macOS Debug",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "attach",
+            "name": "Attach to macOS App",
+            "program": "Skip AI",
+            "waitFor": true
+        },
+        {
+            "type": "lldb",
+            "request": "attach",
+            "name": "Attach to Safari Extension (One-Click)",
+            "pid": "${command:pickProcess}",
+            "preLaunchTask": "Wait for Safari Extension",
+            "presentation": {
+                "hint": "Will wait for extension to start, then show process picker"
+            }
+        }
+    ]
+}

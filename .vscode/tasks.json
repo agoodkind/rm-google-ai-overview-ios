@@ -5,7 +5,10 @@
       "label": "Build Watch",
       "type": "shell",
       "command": "pnpm",
-      "args": ["run", "build:watch"],
+      "args": [
+        "run",
+        "build:watch"
+      ],
       "isBackground": true,
       "problemMatcher": {
         "owner": "esbuild",
@@ -36,15 +39,23 @@
       "label": "TypeScript Compile",
       "type": "shell",
       "command": "pnpm",
-      "args": ["exec", "tsc"],
-      "problemMatcher": ["$tsc"],
+      "args": [
+        "exec",
+        "tsc"
+      ],
+      "problemMatcher": [
+        "$tsc"
+      ],
       "group": "build"
     },
     {
       "label": "Build Debug",
       "type": "shell",
       "command": "pnpm",
-      "args": ["run", "build:debug"],
+      "args": [
+        "run",
+        "build:debug"
+      ],
       "problemMatcher": {
         "owner": "esbuild",
         "pattern": {
@@ -57,6 +68,179 @@
         }
       },
       "group": "build"
+    },
+    {
+      "label": "Build iOS Debug",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "build-ios-debug"
+      ],
+      "problemMatcher": [
+        "$tsc",
+        "$swiftc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "Build iOS Release",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "build-ios-release"
+      ],
+      "problemMatcher": [
+        "$tsc",
+        "$swiftc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "Build macOS Debug",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "build-macos-debug"
+      ],
+      "problemMatcher": [
+        "$tsc",
+        "$swiftc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "Build macOS Release",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "build-macos-release"
+      ],
+      "problemMatcher": [
+        "$tsc",
+        "$swiftc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "Run iOS Debug",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "run-ios-debug"
+      ],
+      "problemMatcher": [
+        "$tsc",
+        "$swiftc"
+      ],
+      "group": "test",
+      "dependsOn": [
+        "Build iOS Debug"
+      ]
+    },
+    {
+      "label": "Run macOS Debug",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "run-macos-debug"
+      ],
+      "problemMatcher": [
+        "$tsc",
+        "$swiftc"
+      ],
+      "group": "test",
+      "dependsOn": [
+        "Build macOS Debug"
+      ]
+    },
+    {
+      "label": "SwiftLint",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "lint-swift"
+      ],
+      "problemMatcher": {
+        "owner": "swiftlint",
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      },
+      "group": "test"
+    },
+    {
+      "label": "Find iOS Safari Extension PID",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/attach-safari-extension.sh",
+      "args": [
+        "ios"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      }
+    },
+    {
+      "label": "Find macOS Safari Extension PID",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/attach-safari-extension.sh",
+      "args": [
+        "macos"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      }
+    },
+    {
+      "label": "Wait for App Launch",
+      "type": "shell",
+      "command": "sleep",
+      "args": [
+        "3"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Wait for Safari Extension",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/wait-and-attach-extension.sh",
+      "args": [
+        "macos"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "echo": true,
+        "showReuseMessage": false,
+        "clear": true
+      }
+    },
+    {
+      "label": "Debug Safari Extension (Terminal)",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/debug-extension.sh",
+      "args": [
+        "macos"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "group": "test"
     }
   ]
 }
