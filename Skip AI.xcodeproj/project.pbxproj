@@ -13,14 +13,10 @@
 		18781BB116FF2515DEC73F7B /* PlatformAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F20E2132CB759B510487EC7 /* PlatformAdapter.swift */; };
 		256DC5C109BF1D1DEDB06497 /* ExtensionCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06461DB463C621F9FCCB7004 /* ExtensionCommunicator.swift */; };
 		2909B814E9B93CFDFC120E51 /* FeedbackReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D66F5BD1BE746150A83F18 /* FeedbackReporter.swift */; };
-		29BCFFC1FA99323011A9C919 /* SkipAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68EF02B0650870C9E8221BA /* SkipAIApp.swift */; };
-		2AEC5CD2AE67A3D9FFCFAE01 /* WindowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B6594B7A356E2E33BF554 /* WindowConfiguration.swift */; };
-		3153605916A74FE4C1C870D8 /* DebugViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236FD903F4964B92449BD0B6 /* DebugViews.swift */; };
 		39453CA646D82A68313C2869 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27E1342F71025A6E9003084 /* AppConstants.swift */; };
 		50335E2119A3EE78F5CCAD22 /* PlatformColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C455ED0469B8BF135FE460DF /* PlatformColor.swift */; };
 		55F06E86B433B39FF0FC96B2 /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E9F9461F0F2753BBA0C95A /* Adapter.swift */; };
 		5DFA98E0EA1783232F8C5C6B /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1960AEF4C814D59DD55EAEC9 /* content.js */; };
-		5E80A64B1578AFF548CD41DD /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE31A43D8D6ED7CB251434D5 /* AppViewModel.swift */; };
 		747FD8B126D318A65A640F4D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E761647298E60A467AFE070 /* Colors.swift */; };
 		788D2B355DBBECB15EDFC084 /* ShakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F709FA4F3DF1AF7E1945AEB0 /* ShakeDetector.swift */; };
 		7E1B54ECE834DB0FC5773D8B /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C115C47E5D58EE828020D03 /* ViewExtensions.swift */; };
@@ -51,7 +47,6 @@
 		BF0D87F0D7E3C0EC5ED62652 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1960AEF4C814D59DD55EAEC9 /* content.js */; };
 		C88453A388D4EFF12FBFDE06 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA93A153DD494F412651C147 /* Helpers.swift */; };
 		D3DD7E7F1AF44128D5E81E08 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025072FBF3B0326010F7D8B9 /* Colors.swift */; };
-		D772864343CEE28699B25419 /* AppViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCB35782B38E03888E755EB /* AppViewModelExtension.swift */; };
 		DB586B71FDDBBCD20E4A0709 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 8596F8BF0C18B292E85E68C4 /* background.js */; };
 		DBC87247CA62D41A5C05636C /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83F89FCB4F7AEEB0924FB39 /* Adapter.swift */; };
 		DC52D7A809E1EBA3A509920A /* ExtensionLogReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE12B2FA07A29E51BCADAE /* ExtensionLogReader.swift */; };
@@ -183,20 +178,12 @@
 				"/Localized: iOS/App/LaunchScreen.storyboard",
 				"/Localized: iOS/App/Main.storyboard",
 				"/Localized: Shared/App/Resources/Localizable.strings",
-				iOS/App/Adapter.swift,
-				iOS/App/AppViewModelExtension.swift,
-				iOS/App/Colors.swift,
-				iOS/App/ContentBlockerStateChecker.swift,
-				iOS/App/EnableExtensionViews.swift,
-				iOS/App/ExtensionCommunicator.swift,
-				Shared/App/AppConstants.swift,
 				Shared/App/AppViewModel.swift,
 				Shared/App/AppViews.swift,
 				Shared/App/Assets.xcassets,
 				Shared/App/DebugViews.swift,
 				Shared/App/ExtensionLogReader.swift,
 				Shared/App/FeedbackReporter.swift,
-				Shared/App/LocalizedString.swift,
 				Shared/App/Resources/Icon.png,
 				Shared/App/SkipAIApp.swift,
 				Shared/App/ViewExtensions.swift,
@@ -212,15 +199,12 @@
 				"/Localized: Shared/App/Resources/Localizable.strings",
 				macOS/App/Adapter.swift,
 				macOS/App/AppViewModelExtension.swift,
-				macOS/App/Colors.swift,
-				macOS/App/Helpers.swift,
 				Shared/App/AppConstants.swift,
 				Shared/App/AppViewModel.swift,
 				Shared/App/AppViews.swift,
 				Shared/App/Assets.xcassets,
 				Shared/App/DebugViews.swift,
 				Shared/App/ExtensionLogReader.swift,
-				Shared/App/FeedbackReporter.swift,
 				Shared/App/LocalizedString.swift,
 				Shared/App/PlatformAdapter.swift,
 				Shared/App/PlatformColor.swift,
@@ -831,7 +815,6 @@
 				81F91480127A521EC5D03DA7 /* EnableExtensionViews.swift in Sources */,
 				256DC5C109BF1D1DEDB06497 /* ExtensionCommunicator.swift in Sources */,
 				788D2B355DBBECB15EDFC084 /* ShakeDetector.swift in Sources */,
-				2AEC5CD2AE67A3D9FFCFAE01 /* WindowConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -840,12 +823,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBC87247CA62D41A5C05636C /* Adapter.swift in Sources */,
-				D772864343CEE28699B25419 /* AppViewModelExtension.swift in Sources */,
 				747FD8B126D318A65A640F4D /* Colors.swift in Sources */,
 				C88453A388D4EFF12FBFDE06 /* Helpers.swift in Sources */,
-				5E80A64B1578AFF548CD41DD /* AppViewModel.swift in Sources */,
-				3153605916A74FE4C1C870D8 /* DebugViews.swift in Sources */,
-				29BCFFC1FA99323011A9C919 /* SkipAIApp.swift in Sources */,
 				7E1B54ECE834DB0FC5773D8B /* ViewExtensions.swift in Sources */,
 				2909B814E9B93CFDFC120E51 /* FeedbackReporter.swift in Sources */,
 				12FBC90E28617FDBA2ED23D8 /* ShareSheet.swift in Sources */,
@@ -901,7 +880,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/ContentBlocker/Info.plist;
@@ -932,7 +911,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/ContentBlocker/Info.plist;
@@ -965,7 +944,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/ContentBlocker/Info.plist;
@@ -998,7 +977,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/Extension/Info.plist;
@@ -1033,7 +1012,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/Extension/Info.plist;
@@ -1072,7 +1051,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
@@ -1117,7 +1096,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
@@ -1160,7 +1139,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1198,7 +1177,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1239,7 +1218,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1284,7 +1263,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1508,7 +1487,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
@@ -1554,7 +1533,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1597,7 +1576,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/Extension/Info.plist;
@@ -1633,7 +1612,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;

@@ -76,4 +76,8 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 
 # Built JS/CSS resources
-Skip AI.xcodeproj/project.pbxproj.backup
+
+# Xcode project backups
+.xcode-backups/
+*.backup
+*.backup*

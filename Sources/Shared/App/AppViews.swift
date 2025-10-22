@@ -275,36 +275,41 @@ struct SettingsPanelView: View {
     
     // Two-button selector for Hide vs Highlight mode
     private var modeButtons: some View {
-        HStack(spacing: 16) {
-            DisplayModeButton(
-                title: LocalizedString.displayModeHideTitle(),
-                systemImage: "eye.slash",
-                isSelected: viewModel.displayMode == .hide,
-                selectedColor: .blue
-            ) {
-                viewModel.selectDisplayMode(.hide)
-            }
-            
-            DisplayModeButton(
-                title: LocalizedString.displayModeHighlightTitle(),
-                systemImage: "text.line.magnify",
-                isSelected: viewModel.displayMode == .highlight,
-                selectedColor: .orange
-            ) {
-                viewModel.selectDisplayMode(.highlight)
-            }
-        }
+        DisplayModeSlider(selection: $viewModel.displayMode)
     }
     
     private var descriptionText: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(LocalizedString.displayModeHideDescription())
-                .fixedSize(horizontal: false, vertical: true)
-            Text(LocalizedString.displayModeHighlightDescription())
-                .fixedSize(horizontal: false, vertical: true)
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .top, spacing: 8) {
+                Circle()
+                    .fill(Color.blue)
+                    .frame(width: 6, height: 6)
+                    .padding(.top, 6)
+                
+                Text(formatDescription(LocalizedString.displayModeHideDescription()))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            
+            HStack(alignment: .top, spacing: 8) {
+                Circle()
+                    .fill(Color.orange)
+                    .frame(width: 6, height: 6)
+                    .padding(.top, 6)
+                
+                Text(formatDescription(LocalizedString.displayModeHighlightDescription()))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
         .font(.subheadline)
         .foregroundColor(.secondary)
+    }
+    
+    private func formatDescription(_ text: String) -> AttributedString {
+        var attributed = AttributedString(text)
+        if let colonIndex = attributed.range(of: ":") {
+            attributed[..<colonIndex.upperBound].font = .subheadline.weight(.semibold)
+        }
+        return attributed
     }
     
     private var panelBackground: some View {
@@ -313,43 +318,68 @@ struct SettingsPanelView: View {
     }
 }
 
-/// Display mode button with glass effect
-struct DisplayModeButton: View {
-    let title: String
-    let systemImage: String
-    let isSelected: Bool
-    let selectedColor: Color
-    let action: () -> Void
+/// Custom sliding segmented control for display mode
+struct DisplayModeSlider: View {
+    @Binding var selection: AppViewModel.DisplayMode
+    
+    @Namespace private var animation
     
     var body: some View {
-        Button(action: action) {
-            VStack(spacing: 10) {
-                Image(systemName: systemImage)
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                Text(title)
-                    .font(.headline)
-                    .fontWeight(.semibold)
-            }
-            .foregroundColor(isSelected ? .white : .primary)
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 18)
-            .background(
-                Group {
-                    if isSelected {
-                        selectedColor
-                    } else {
-                        Color.clear
-                    }
+        HStack(spacing: 0) {
+            // Hide button
+            Button(action: { withAnimation(.spring(response: 0.3)) { selection = .hide } }) {
+                VStack(spacing: 10) {
+                    Image(systemName: "eye.slash")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                    Text(LocalizedString.displayModeHideTitle())
+                        .font(.headline)
+                        .fontWeight(.semibold)
                 }
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(isSelected ? Color.clear : Color.gray.opacity(0.3), lineWidth: 2)
-            )
-            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .foregroundColor(selection == .hide ? .white : .primary)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 18)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            
+            // Highlight button
+            Button(action: { withAnimation(.spring(response: 0.3)) { selection = .highlight } }) {
+                VStack(spacing: 10) {
+                    Image(systemName: "text.line.magnify")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                    Text(LocalizedString.displayModeHighlightTitle())
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                }
+                .foregroundColor(selection == .highlight ? .white : .primary)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 18)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
         }
-        .backport.glassButtonStyle()
+        .background(
+            ZStack {
+                // Light background
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Color.secondary.opacity(0.08))
+                
+                // Sliding colored background
+                GeometryReader { geometry in
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(selection == .hide ? Color.blue : Color.orange)
+                        .frame(width: geometry.size.width / 2)
+                        .offset(x: selection == .hide ? 0 : geometry.size.width / 2)
+                }
+            }
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 }
 

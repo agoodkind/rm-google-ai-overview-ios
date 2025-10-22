@@ -269,22 +269,30 @@ class XcodeProjectManager {
         print("✅ Project saved successfully")
     }
     
-    /// Create backup of project.pbxproj file
+    /// Create timestamped backup of project.pbxproj file
     /// - Throws: Error if backup fails
     func backup() throws {
         let pbxprojPath = projectPath + "project.pbxproj"
-        let backupPath = pbxprojPath.parent() + "project.pbxproj.backup"
         
-        if FileManager.default.fileExists(atPath: backupPath.string) {
-            try FileManager.default.removeItem(at: backupPath.url)
+        // Create backups directory
+        let backupsDir = projectPath.parent() + ".xcode-backups"
+        if !FileManager.default.fileExists(atPath: backupsDir.string) {
+            try FileManager.default.createDirectory(at: backupsDir.url, withIntermediateDirectories: true)
         }
+        
+        // Create timestamped backup filename
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+        let timestamp = formatter.string(from: Date())
+        let backupFilename = "project.pbxproj.\(timestamp).backup"
+        let backupPath = backupsDir + backupFilename
         
         try FileManager.default.copyItem(
             at: pbxprojPath.url,
             to: backupPath.url
         )
         
-        print("📦 Backup created: \(backupPath)")
+        print("📦 Backup created: .xcode-backups/\(backupFilename)")
     }
     
     // MARK: - Build Script Management
