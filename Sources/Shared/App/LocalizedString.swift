@@ -28,34 +28,42 @@
 import Foundation
 
 enum LocalizedString {
-    static func extensionStateIOSUnknown() -> String {
+    static func extensionStateiOSUnknown() -> String {
         NSLocalizedString("extension.state.ios.unknown", comment: "iOS extension state unknown")
     }
     
-    static func extensionStateIOSOn() -> String {
+    static func extensionStateiOSOn() -> String {
         NSLocalizedString("extension.state.ios.on", comment: "iOS extension is enabled")
     }
     
-    static func extensionStateIOSOff() -> String {
+    static func extensionStateiOSOff() -> String {
         NSLocalizedString("extension.state.ios.off", comment: "iOS extension is disabled")
     }
     
-    static func extensionStateMacLocation(useSettings: Bool) -> String {
+    static func extensionStateiOSError() -> String {
+        NSLocalizedString("extension.state.ios.error", comment: "iOS extension state check failed")
+    }
+    
+    static func extensionStateMacOSLocation(useSettings: Bool) -> String {
         let key = useSettings ? "extension.state.mac.location.settings" : "extension.state.mac.location.preferences"
         return NSLocalizedString(key, comment: "Where to find Safari extension settings on macOS")
     }
     
-    static func extensionStateMacEnable(location: String) -> String {
+    static func extensionStateMacOSEnable(location: String) -> String {
         // String(format:) substitutes %@ with the location parameter
         String(format: NSLocalizedString("extension.state.mac.enable", comment: "Message when extension state is unknown"), location)
     }
     
-    static func extensionStateMacOn(location: String) -> String {
+    static func extensionStateMacOSOn(location: String) -> String {
         String(format: NSLocalizedString("extension.state.mac.on", comment: "Message when extension is currently enabled"), location)
     }
     
-    static func extensionStateMacOff(location: String) -> String {
+    static func extensionStateMacOSOff(location: String) -> String {
         String(format: NSLocalizedString("extension.state.mac.off", comment: "Message when extension is currently disabled"), location)
+    }
+    
+    static func extensionStateMacOSError(location: String) -> String {
+        String(format: NSLocalizedString("extension.state.mac.error", comment: "Message when extension state check failed"), location)
     }
     
     static func preferencesButton(useSettings: Bool) -> String {

@@ -2,11 +2,13 @@
 "extension.state.ios.unknown" = "設定でSkip AIのSafari機能拡張をオンにできます。";
 "extension.state.ios.on" = "Skip AIの機能拡張は現在オンになっています。設定でオフにできます。";
 "extension.state.ios.off" = "Skip AIの機能拡張は現在オフになっています。設定でオンにできます。";
+"extension.state.ios.error" = "機能拡張の状態を確認できません。設定を確認してください。";
 "extension.state.mac.location.settings" = "Safari設定の機能拡張セクション";
 "extension.state.mac.location.preferences" = "Safariの機能拡張環境設定";
 "extension.state.mac.enable" = "%@でSkip AIの機能拡張をオンにできます。";
 "extension.state.mac.on" = "Skip AIの機能拡張は現在オンになっています。%@でオフにできます。";
 "extension.state.mac.off" = "Skip AIの機能拡張は現在オフになっています。%@でオンにできます。";
+"extension.state.mac.error" = "機能拡張の状態を確認できません。%@を確認してください。";
 
 /* Preferences Button Titles */
 "preferences.button.settings" = "終了してSafari設定を開く…";

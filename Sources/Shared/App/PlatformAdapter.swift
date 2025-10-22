@@ -28,6 +28,13 @@
 
 import Foundation
 
+enum ExtensionState {
+    case unchecked  // Haven't checked yet
+    case enabled    // Extension is enabled
+    case disabled   // Extension is disabled
+    case error      // Check failed with error
+}
+
 protocol PlatformAdapter {
     var kind: PlatformKind { get }
     var useSettings: Bool { get }
@@ -35,7 +42,7 @@ protocol PlatformAdapter {
     
     func shouldShowPreferencesButton() -> Bool
     func openExtensionPreferences(completion: @escaping () -> Void)
-    func checkExtensionState(completion: @escaping (Bool?) -> Void)
+    func checkExtensionState(completion: @escaping (ExtensionState) -> Void)
 }
 
 enum PlatformKind {

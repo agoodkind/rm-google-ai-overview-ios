@@ -40,21 +40,22 @@ struct macOSPlatformAdapter: PlatformAdapter {
     }
     
     // Queries Safari to check if our extension is currently enabled
-    func checkExtensionState(completion: @escaping (Bool?) -> Void) {
+    func checkExtensionState(completion: @escaping (ExtensionState) -> Void) {
         logDebug("Querying Safari for extension state", category: "macOSPlatform")
         SFSafariExtensionManager.getStateOfSafariExtension(withIdentifier: extensionBundleIdentifier) { state, error in
             if let error = error {
                 logError("Failed to query extension state: \(error.localizedDescription)", category: "macOSPlatform")
-                completion(nil)
+                completion(.error)
                 return
             }
             
             if let state = state {
+                let extensionState: ExtensionState = state.isEnabled ? .enabled : .disabled
                 logInfo("Extension state from Safari: \(state.isEnabled ? "enabled" : "disabled")", category: "macOSPlatform")
-                completion(state.isEnabled)
+                completion(extensionState)
             } else {
                 logWarning("Extension state is nil", category: "macOSPlatform")
-                completion(nil)
+                completion(.unchecked)
             }
         }
     }

@@ -2,11 +2,13 @@
 "extension.state.ios.unknown" = "Vous pouvez activer l'extension Safari de Skip AI dans Réglages.";
 "extension.state.ios.on" = "L'extension de Skip AI est actuellement activée. Vous pouvez la désactiver dans Réglages.";
 "extension.state.ios.off" = "L'extension de Skip AI est actuellement désactivée. Vous pouvez l'activer dans Réglages.";
+"extension.state.ios.error" = "Impossible de vérifier l'état de l'extension. Veuillez vérifier les Réglages.";
 "extension.state.mac.location.settings" = "la section Extensions des Réglages Safari";
 "extension.state.mac.location.preferences" = "les Préférences des Extensions Safari";
 "extension.state.mac.enable" = "Vous pouvez activer l'extension de Skip AI dans %@.";
 "extension.state.mac.on" = "L'extension de Skip AI est actuellement activée. Vous pouvez la désactiver dans %@.";
 "extension.state.mac.off" = "L'extension de Skip AI est actuellement désactivée. Vous pouvez l'activer dans %@.";
+"extension.state.mac.error" = "Impossible de vérifier l'état de l'extension. Veuillez vérifier %@.";
 
 /* Preferences Button Titles */
 "preferences.button.settings" = "Quitter et Ouvrir les Réglages Safari…";

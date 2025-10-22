@@ -23,7 +23,15 @@ struct iOSPlatformAdapter: PlatformAdapter {
     func openExtensionPreferences(completion: @escaping () -> Void) {}
     
     // Check extension state using hybrid content blocker + timestamp approach
-    func checkExtensionState(completion: @escaping (Bool?) -> Void) {
-        ContentBlockerStateChecker.shared.checkContentBlockerState(completion: completion)
+    func checkExtensionState(completion: @escaping (ExtensionState) -> Void) {
+        ContentBlockerStateChecker.shared.checkContentBlockerState { enabled in
+            let state: ExtensionState
+            if let enabled = enabled {
+                state = enabled ? .enabled : .disabled
+            } else {
+                state = .unchecked
+            }
+            completion(state)
+        }
     }
 }

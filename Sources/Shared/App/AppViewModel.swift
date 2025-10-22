@@ -36,16 +36,14 @@ final class AppViewModel: ObservableObject {
         case highlight  // Show with orange border
     }
     
-    enum ExtensionState {
-        case unchecked  // Haven't checked yet or check failed
-        case enabled    // Extension is enabled
-        case disabled   // Extension is disabled
-    }
-    
     // @Published automatically triggers UI updates when these values change
     @Published var displayMode: DisplayMode
     @Published var extensionEnabled: ExtensionState = .unchecked
     @Published var showEnableExtensionModal: Bool = false  // Controls modal visibility on iOS
+    @Published var isFirstLaunchEver: Bool = false
+    @Published var launchCount: Int = 0
+    @Published var lastLaunchDate: Date?
+    @Published var currentSessionStartDate: Date = Date()
     
     let platform: PlatformAdapter
     
@@ -60,6 +58,23 @@ final class AppViewModel: ObservableObject {
         self.platform = platform
         self.displayMode = Self.loadDisplayMode()
         logDebug("Initial display mode: \(displayMode.rawValue)", category: logCategory)
+        
+        // Track first launch and launch count
+        let defaults = Self.userDefaults()
+        let hasLaunchedBefore = defaults?.bool(forKey: "has_launched_before") ?? false
+        self.isFirstLaunchEver = !hasLaunchedBefore
+        self.launchCount = defaults?.integer(forKey: "launch_count") ?? 0
+        self.lastLaunchDate = defaults?.object(forKey: "last_launch_date") as? Date
+        
+        if !hasLaunchedBefore {
+            defaults?.set(true, forKey: "has_launched_before")
+        }
+        defaults?.set(launchCount + 1, forKey: "launch_count")
+        defaults?.set(Date(), forKey: "last_launch_date")
+        defaults?.synchronize()
+        
+        logInfo("Launch #\(launchCount + 1), First launch: \(isFirstLaunchEver)", category: logCategory)
+        
         refreshExtensionState()
     }
     
@@ -86,21 +101,26 @@ final class AppViewModel: ObservableObject {
         case .ios:
             switch extensionEnabled {
             case .unchecked:
-                return LocalizedString.extensionStateIOSUnknown()
+                return LocalizedString.extensionStateiOSUnknown()
             case .enabled:
-                return LocalizedString.extensionStateIOSOn()
+                return LocalizedString.extensionStateiOSOn()
             case .disabled:
-                return LocalizedString.extensionStateIOSOff()
+                return LocalizedString.extensionStateiOSOff()
+            case .error:
+                return LocalizedString.extensionStateiOSError()
             }
         case .mac:
-            let location = LocalizedString.extensionStateMacLocation(useSettings: platform.useSettings)
+            // macOS 13+ uses "Settings", older versions use "System Preferences"
+            let location = LocalizedString.extensionStateMacOSLocation(useSettings: platform.useSettings)
             switch extensionEnabled {
             case .unchecked:
-                return LocalizedString.extensionStateMacEnable(location: location)
+                return LocalizedString.extensionStateMacOSEnable(location: location)
             case .enabled:
-                return LocalizedString.extensionStateMacOn(location: location)
+                return LocalizedString.extensionStateMacOSOn(location: location)
             case .disabled:
-                return LocalizedString.extensionStateMacOff(location: location)
+                return LocalizedString.extensionStateMacOSOff(location: location)
+            case .error:
+                return LocalizedString.extensionStateMacOSError(location: location)
             }
         }
     }
@@ -125,18 +145,10 @@ final class AppViewModel: ObservableObject {
     // Checks with Safari whether extension is currently enabled
     private func refreshExtensionState() {
         logDebug("Checking extension state", category: logCategory)
-        platform.checkExtensionState { [weak self] enabled in
+        platform.checkExtensionState { [weak self] state in
             guard let self = self else { return }
             // [weak self] prevents memory leaks by allowing self to be deallocated
             DispatchQueue.main.async {
-                let state: ExtensionState
-                if let enabled = enabled {
-                    state = enabled ? .enabled : .disabled
-                    logInfo("Extension state: \(enabled ? "enabled" : "disabled")", category: self.logCategory)
-                } else {
-                    state = .unchecked
-                    logWarning("Extension state unknown", category: self.logCategory)
-                }
                 self.extensionEnabled = state
                 
                 // Platform-specific handling (iOS shows modal, macOS does nothing)

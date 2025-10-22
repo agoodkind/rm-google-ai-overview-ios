@@ -37,33 +37,58 @@ import SwiftUI
 
 struct AppRootView: View {
     @ObservedObject var viewModel: AppViewModel
+    @Environment(\.scenePhase) private var scenePhase
     
     var body: some View {
-        content
-            .onAppear {
-                viewModel.onAppear()
-            }
-            #if os(iOS)
-            .sheet(isPresented: $viewModel.showEnableExtensionModal) {
-                EnableExtensionModal(isPresented: $viewModel.showEnableExtensionModal)
-            }
-            #endif
+        if #available(macOS 14.0, iOS 17.0, *) {
+            content
+                .onAppear {
+                    viewModel.onAppear()
+                }
+                .onChange(of: scenePhase) { oldPhase, newPhase in
+                    if newPhase == .active {
+                        viewModel.onAppear()
+                    }
+                }
+                #if os(iOS)
+                .sheet(isPresented: $viewModel.showEnableExtensionModal) {
+                    EnableExtensionModal(isPresented: $viewModel.showEnableExtensionModal)
+                }
+                #endif
+        } else {
+            content
+                .onAppear {
+                    viewModel.onAppear()
+                }
+                .onChange(of: scenePhase, perform: { newPhase in
+                    if newPhase == .active {
+                        viewModel.onAppear()
+                    }
+                })
+                #if os(iOS)
+                .sheet(isPresented: $viewModel.showEnableExtensionModal) {
+                    EnableExtensionModal(isPresented: $viewModel.showEnableExtensionModal)
+                }
+                #endif
+        }
     }
     
     private var content: some View {
         ZStack {
             PlatformColor.windowBackground.ignoresSafeArea()
             
-            VStack(spacing: 32) {
-                headerSection
-                SettingsPanelView(viewModel: viewModel)
-                #if DEBUG
-                DebugPanelView(viewModel: viewModel)
-                #endif
+            ScrollView {
+                VStack(spacing: 32) {
+                    headerSection
+                    SettingsPanelView(viewModel: viewModel)
+                    #if DEBUG
+                    DebugPanelView(viewModel: viewModel)
+                    #endif
+                }
+                .applyPlatformFrame(for: viewModel.platform.kind)
+                .padding(.vertical, 48)
+                .padding(.horizontal, viewModel.platform.horizontalPadding)
             }
-            .applyPlatformFrame(for: viewModel.platform.kind)
-            .padding(.vertical, 48)
-            .padding(.horizontal, viewModel.platform.horizontalPadding)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
@@ -212,6 +237,7 @@ struct DisplayModeButton: View {
 #if DEBUG
 struct DebugPanelView: View {
     @ObservedObject var viewModel: AppViewModel
+    @Environment(\.scenePhase) private var scenePhase
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -221,8 +247,16 @@ struct DebugPanelView: View {
                 .foregroundColor(.red)
             
             debugRow(label: "Platform", value: "\(viewModel.platform.kind)")
+            debugRow(label: "Scene Phase", value: scenePhaseText)
+            debugRow(label: "First Launch Ever", value: "\(viewModel.isFirstLaunchEver)")
+            debugRow(label: "Launch Count", value: "\(viewModel.launchCount + 1)")
+            debugRow(label: "Session Start", value: formatDate(viewModel.currentSessionStartDate))
+            if let lastLaunch = viewModel.lastLaunchDate {
+                debugRow(label: "Last Launch", value: formatDate(lastLaunch))
+                debugRow(label: "Time Since Last", value: timeSince(lastLaunch))
+            }
             debugRow(label: "Display Mode", value: viewModel.displayMode.rawValue)
-            debugRow(label: "Extension Enabled", value: extensionStateText)
+            debugRow(label: "Extension State", value: extensionStateText)
             debugRow(label: "Use Settings", value: "\(viewModel.platform.useSettings)")
             debugRow(label: "Show Prefs Button", value: "\(viewModel.platform.shouldShowPreferencesButton())")
             debugRow(label: "Horizontal Padding", value: "\(viewModel.platform.horizontalPadding)")
@@ -233,6 +267,19 @@ struct DebugPanelView: View {
         .font(.system(.caption, design: .monospaced))
     }
     
+    private var scenePhaseText: String {
+        switch scenePhase {
+        case .active:
+            return "active"
+        case .inactive:
+            return "inactive"
+        case .background:
+            return "background"
+        @unknown default:
+            return "unknown"
+        }
+    }
+    
     private var extensionStateText: String {
         switch viewModel.extensionEnabled {
         case .unchecked:
@@ -241,6 +288,8 @@ struct DebugPanelView: View {
             return "enabled"
         case .disabled:
             return "disabled"
+        case .error:
+            return "error"
         }
     }
     
@@ -261,6 +310,19 @@ struct DebugPanelView: View {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .stroke(Color.red.opacity(0.3), lineWidth: 1)
             )
+    }
+    
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .medium
+        return formatter.string(from: date)
+    }
+    
+    private func timeSince(_ date: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .abbreviated
+        return formatter.localizedString(for: date, relativeTo: Date())
     }
 }
 #endif
