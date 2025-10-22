@@ -11,19 +11,35 @@ import Foundation
 import XcodeProj
 import PathKit
 
+/// Manages Xcode project file manipulation
+///
+/// Provides methods for:
+/// - Version management (MARKETING_VERSION, CURRENT_PROJECT_VERSION)
+/// - Group and file management
+/// - Build script configuration
+/// - Project file cleanup and validation
 class XcodeProjectManager {
+    /// The loaded Xcode project
     let project: XcodeProj
+    /// The project's PBX representation
     let pbxproj: PBXProj
+    /// Path to the .xcodeproj directory
     let projectPath: Path
     
+    /// Initialize with project path
+    /// - Parameter projectPath: Path to .xcodeproj directory
+    /// - Throws: Error if project cannot be loaded
     init(projectPath: Path) throws {
         self.projectPath = projectPath
         self.project = try XcodeProj(path: projectPath)
         self.pbxproj = project.pbxproj
     }
     
-    // Version Management
+    // MARK: - Version Management
     
+    /// Get the marketing version (user-facing version string)
+    /// - Returns: Marketing version string (e.g. "1.0.0")
+    /// - Throws: `XcodeManagerError.versionNotFound` if not set
     func getMarketingVersion() throws -> String {
         guard let target = pbxproj.nativeTargets.first,
               let configs = target.buildConfigurationList?.buildConfigurations,
@@ -34,6 +50,9 @@ class XcodeProjectManager {
         return version
     }
     
+    /// Get the current project version (build number)
+    /// - Returns: Build number as integer
+    /// - Throws: `XcodeManagerError.versionNotFound` if not set
     func getCurrentProjectVersion() throws -> Int {
         guard let target = pbxproj.nativeTargets.first,
               let configs = target.buildConfigurationList?.buildConfigurations,
@@ -45,6 +64,9 @@ class XcodeProjectManager {
         return version
     }
     
+    /// Set the marketing version for all targets
+    /// - Parameter version: Marketing version string (e.g. "1.0.0")
+    /// - Throws: Error if update fails
     func setMarketingVersion(_ version: String) throws {
         for target in pbxproj.nativeTargets {
             guard let configs = target.buildConfigurationList?.buildConfigurations else { continue }
@@ -54,6 +76,9 @@ class XcodeProjectManager {
         }
     }
     
+    /// Set the current project version (build number) for all targets
+    /// - Parameter build: Build number as integer
+    /// - Throws: Error if update fails
     func setCurrentProjectVersion(_ build: Int) throws {
         for target in pbxproj.nativeTargets {
             guard let configs = target.buildConfigurationList?.buildConfigurations else { continue }
@@ -63,13 +88,23 @@ class XcodeProjectManager {
         }
     }
     
+    /// Set both marketing version and build number
+    /// - Parameters:
+    ///   - marketing: Marketing version string
+    ///   - build: Build number
+    /// - Throws: Error if update fails
     func setBothVersions(marketing: String, build: Int) throws {
         try setMarketingVersion(marketing)
         try setCurrentProjectVersion(build)
     }
     
-    // Group Management
+    // MARK: - Group Management
     
+    /// Find files in directory matching extension patterns
+    /// - Parameters:
+    ///   - directory: Directory path to search
+    ///   - patterns: File extensions to match (e.g. ["swift", "js"])
+    /// - Returns: Array of file paths, sorted by name
     func findFiles(in directory: String, patterns: [String]) -> [Path] {
         let dirPath = Path(directory)
         
@@ -97,14 +132,21 @@ class XcodeProjectManager {
         return files.sorted { $0.lastComponent < $1.lastComponent }
     }
     
+    /// Find target by name
+    /// - Parameter name: Target name (e.g. "Skip AI (iOS)")
+    /// - Returns: Target if found, nil otherwise
     func findTarget(name: String) -> PBXNativeTarget? {
         return pbxproj.nativeTargets.first { $0.name == name }
     }
     
+    /// Get the project's main group
+    /// - Returns: Main group if found
     func mainGroup() -> PBXGroup? {
         return pbxproj.projects.first?.mainGroup
     }
     
+    /// Remove existing group and all its file references
+    /// - Parameter config: Group configuration
     func cleanupGroup(_ config: GroupConfig) {
         print("Cleaning up group: \(config.name)")
         
@@ -140,6 +182,8 @@ class XcodeProjectManager {
         }
     }
     
+    /// Create group and add files to specified targets
+    /// - Parameter config: Group configuration with files and targets
     func populateGroup(_ config: GroupConfig) {
         print("\nProcessing group: \(config.name) (\(config.path))")
         
@@ -217,12 +261,16 @@ class XcodeProjectManager {
         }
     }
     
+    /// Save project changes to disk
+    /// - Throws: Error if write fails
     func save() throws {
         print("\nSaving project...")
         try project.write(path: projectPath)
         print("✅ Project saved successfully")
     }
     
+    /// Create backup of project.pbxproj file
+    /// - Throws: Error if backup fails
     func backup() throws {
         let pbxprojPath = projectPath + "project.pbxproj"
         let backupPath = pbxprojPath.parent() + "project.pbxproj.backup"
@@ -239,8 +287,12 @@ class XcodeProjectManager {
         print("📦 Backup created: \(backupPath)")
     }
     
-    // Build Script Management
+    // MARK: - Build Script Management
     
+    /// Add JavaScript build script to target
+    /// - Parameter target: Target to add script to
+    /// - Returns: True if added, false if already exists
+    /// - Throws: Error if addition fails
     func addBuildScript(to target: PBXNativeTarget) throws -> Bool {
         // Check if script already exists
         if target.buildPhases.contains(where: { phase in
@@ -274,6 +326,12 @@ class XcodeProjectManager {
         return true
     }
     
+    /// Remove build script from target
+    /// - Parameters:
+    ///   - target: Target to remove script from
+    ///   - named: Name of script phase
+    /// - Returns: True if removed, false if not found
+    /// - Throws: Error if removal fails
     func removeBuildScript(from target: PBXNativeTarget, named: String) throws -> Bool {
         guard let scriptPhase = target.buildPhases.first(where: { phase in
             if let script = phase as? PBXShellScriptBuildPhase {
@@ -290,8 +348,13 @@ class XcodeProjectManager {
         return true
     }
     
-    // File Management
+    // MARK: - File Management
     
+    /// Find or create group at path
+    /// - Parameters:
+    ///   - path: Group path (e.g. "Sources/Shared/App")
+    ///   - parentGroup: Parent group, defaults to main group
+    /// - Returns: Found or created group
     func findOrCreateGroup(at path: String, in parentGroup: PBXGroup? = nil) -> PBXGroup {
         let parent = parentGroup ?? mainGroup()!
         let components = path.split(separator: "/")
@@ -312,6 +375,12 @@ class XcodeProjectManager {
         return currentGroup
     }
     
+    /// Add source file to targets
+    /// - Parameters:
+    ///   - filePath: Path to source file
+    ///   - targets: Targets to add file to
+    ///   - groupPath: Group path in project
+    /// - Returns: True if added, false if already exists
     func addSourceFile(filePath: Path, to targets: [PBXNativeTarget], in groupPath: String) -> Bool {
         let group = findOrCreateGroup(at: groupPath)
         let fileName = filePath.lastComponent
@@ -351,6 +420,11 @@ class XcodeProjectManager {
         return added
     }
     
+    /// Remove file reference from group and all build phases
+    /// - Parameters:
+    ///   - fileName: Name of file to remove
+    ///   - group: Group containing the file
+    /// - Returns: True if removed, false if not found
     func removeFileReference(named fileName: String, from group: PBXGroup) -> Bool {
         guard let fileRef = group.children.compactMap({ $0 as? PBXFileReference }).first(where: { $0.name == fileName || $0.path == fileName }) else {
             return false
@@ -383,6 +457,9 @@ class XcodeProjectManager {
         return true
     }
     
+    /// Remove file references that no longer exist on disk
+    /// - Parameter groupPath: Group path to clean
+    /// - Returns: Array of removed file names
     func cleanMissingReferences(in groupPath: String) -> [String] {
         let group = findOrCreateGroup(at: groupPath)
         var removedFiles: [String] = []
@@ -404,6 +481,8 @@ class XcodeProjectManager {
         return removedFiles
     }
     
+    /// Fix ContentBlocker target Info.plist settings
+    /// - Returns: True if changes made, false otherwise
     func fixContentBlockerSettings() -> Bool {
         guard let target = findTarget(name: "ContentBlocker") else {
             return false

@@ -12,9 +12,9 @@ import SwiftUI
 
 extension AppViewModel {
     // Called from refreshExtensionState
-    // Shows modal when extension is disabled
+    // Shows modal when extension is disabled (only if user hasn't dismissed it before)
     func handleExtensionStateChanged(state: ExtensionState) {
-        if state == .disabled {
+        if state == .disabled && !hasSeenEnableExtensionModal {
             showEnableExtensionModal = true
         }
     }

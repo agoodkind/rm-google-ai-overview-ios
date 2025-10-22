@@ -29,8 +29,26 @@
 import SwiftUI
 import Combine
 
+/// Debug event entry for event log
+struct DebugEvent: Identifiable {
+    let id = UUID()
+    let timestamp: Date
+    let message: String
+    let type: EventType
+    
+    enum EventType {
+        case activation
+        case deactivation
+        case extensionState
+        case displayMode
+        case launch
+    }
+}
+
 final class AppViewModel: ObservableObject {
     private let logCategory = "AppViewModel"
+    private let maxDebugEvents = 20 // Keep last 20 events
+    
     enum DisplayMode: String {
         case hide       // Completely remove AI content
         case highlight  // Show with orange border
@@ -40,10 +58,24 @@ final class AppViewModel: ObservableObject {
     @Published var displayMode: DisplayMode
     @Published var extensionEnabled: ExtensionState = .unchecked
     @Published var showEnableExtensionModal: Bool = false  // Controls modal visibility on iOS
-    @Published var isFirstLaunchEver: Bool = false
-    @Published var launchCount: Int = 0
-    @Published var lastLaunchDate: Date?
-    @Published var currentSessionStartDate: Date = Date()
+    
+    // Launch tracking
+    @Published var isFirstLaunchEver: Bool = false          // True only on very first app launch
+    @Published var launchCount: Int = 0                     // Total number of times app has launched
+    @Published var lastLaunchDate: Date?                    // When app was previously launched
+    @Published var currentSessionStartDate: Date = Date()   // When current app instance started
+    
+    // Session tracking
+    @Published var lastActiveDate: Date = Date()            // Last time app became active
+    @Published var lastInactiveDate: Date?                  // Last time app became inactive
+    @Published var isColdLaunch: Bool = true                // True if fresh launch, false if resumed from background
+    @Published var activationCount: Int = 0                 // Number of times app became active this session
+    
+    // Debug event log
+    @Published var debugEventLog: [DebugEvent] = []         // Recent events for debug panel
+    
+    // User preferences
+    @Published var hasSeenEnableExtensionModal: Bool = false // Track if user dismissed modal
     
     let platform: PlatformAdapter
     
@@ -65,6 +97,7 @@ final class AppViewModel: ObservableObject {
         self.isFirstLaunchEver = !hasLaunchedBefore
         self.launchCount = defaults?.integer(forKey: "launch_count") ?? 0
         self.lastLaunchDate = defaults?.object(forKey: "last_launch_date") as? Date
+        self.hasSeenEnableExtensionModal = defaults?.bool(forKey: "has_seen_enable_extension_modal") ?? false
         
         if !hasLaunchedBefore {
             defaults?.set(true, forKey: "has_launched_before")
@@ -74,15 +107,74 @@ final class AppViewModel: ObservableObject {
         defaults?.synchronize()
         
         logInfo("Launch #\(launchCount + 1), First launch: \(isFirstLaunchEver)", category: logCategory)
+        addDebugEvent("Launch #\(launchCount + 1)", type: .launch)
         
         refreshExtensionState()
     }
     
-    // Called when the view appears
+    /// Called when the view appears or app becomes active
+    ///
+    /// Handles:
+    /// - Reloading display mode from storage
+    /// - Refreshing extension state
+    /// - Tracking app activation
     func onAppear() {
         logVerbose("onAppear called", category: logCategory)
         displayMode = Self.loadDisplayMode()
         refreshExtensionState()
+    }
+    
+    /// Track when app becomes active
+    /// - Parameter isInitialLaunch: True if this is the first activation after launch
+    func trackActivation(isInitialLaunch: Bool = false) {
+        let now = Date()
+        lastActiveDate = now
+        
+        if !isInitialLaunch {
+            isColdLaunch = false
+            activationCount += 1
+            logInfo("App became active (activation #\(activationCount)) at \(now)", category: logCategory)
+            addDebugEvent("Became active (#\(activationCount))", type: .activation)
+        } else {
+            logInfo("Initial app activation at \(now)", category: logCategory)
+            addDebugEvent("Initial activation", type: .activation)
+        }
+    }
+    
+    /// Track when app becomes inactive
+    func trackDeactivation() {
+        let now = Date()
+        lastInactiveDate = now
+        logInfo("App became inactive at \(now)", category: logCategory)
+        addDebugEvent("Became inactive", type: .deactivation)
+    }
+    
+    /// Add event to debug log
+    /// - Parameters:
+    ///   - message: Event description
+    ///   - type: Event type for categorization
+    private func addDebugEvent(_ message: String, type: DebugEvent.EventType) {
+        let event = DebugEvent(timestamp: Date(), message: message, type: type)
+        debugEventLog.insert(event, at: 0) // Most recent first
+        if debugEventLog.count > maxDebugEvents {
+            debugEventLog = Array(debugEventLog.prefix(maxDebugEvents))
+        }
+    }
+    
+    /// Generate feedback report text
+    /// - Returns: Formatted feedback report with app state and diagnostics
+    func generateFeedbackReport() -> String {
+        FeedbackReporter(viewModel: self).generateReport()
+    }
+    
+    /// Mark that user has seen and dismissed the enable extension modal
+    func dismissEnableExtensionModal() {
+        showEnableExtensionModal = false
+        hasSeenEnableExtensionModal = true
+        let defaults = Self.userDefaults()
+        defaults?.set(true, forKey: "has_seen_enable_extension_modal")
+        defaults?.synchronize()
+        logInfo("User dismissed enable extension modal", category: logCategory)
     }
     
     func selectDisplayMode(_ mode: DisplayMode) {
@@ -91,6 +183,7 @@ final class AppViewModel: ObservableObject {
             return
         }
         logInfo("Changing display mode from \(displayMode.rawValue) to \(mode.rawValue)", category: logCategory)
+        addDebugEvent("Display mode → \(mode.rawValue)", type: .displayMode)
         displayMode = mode
         Self.saveDisplayMode(mode)
     }
@@ -149,6 +242,9 @@ final class AppViewModel: ObservableObject {
             guard let self = self else { return }
             // [weak self] prevents memory leaks by allowing self to be deallocated
             DispatchQueue.main.async {
+                if self.extensionEnabled != state {
+                    self.addDebugEvent("Extension state → \(state)", type: .extensionState)
+                }
                 self.extensionEnabled = state
                 
                 // Platform-specific handling (iOS shows modal, macOS does nothing)

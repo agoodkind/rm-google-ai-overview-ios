@@ -7,34 +7,77 @@
 //
 //  USER INTERFACE - All the visual components you see on screen
 //
-// This file contains the SwiftUI views that make up the app's interface.
-// Views describe WHAT the UI should look like, not HOW to build it (declarative programming).
+//  This file contains the SwiftUI views that make up the app's interface.
+//  Views describe WHAT the UI should look like, not HOW to build it (declarative programming).
 //
-// Views in this file:
+//  Views in this file:
 //
-// 1. AppRootView - The main container for the entire app
-//    - Shows the app icon, status message, and settings panel
-//    - Automatically updates when the view model's state changes
-//    - Adapts layout based on platform (iOS vs macOS)
+//  1. AppRootView - The main container for the entire app
+//     - Shows the app icon, status message, and settings panel
+//     - Automatically updates when the view model's state changes
+//     - Adapts layout based on platform (iOS vs macOS)
 //
-// 2. SettingsPanelView - The settings card with display mode options
-//    - Shows title and description
-//    - Contains the Hide/Highlight mode selector buttons
-//    - Displays explanation text for each mode
+//  2. SettingsPanelView - The settings card with display mode options
+//     - Shows title and description
+//     - Contains the Hide/Highlight mode selector buttons
+//     - Displays explanation text for each mode
 //
-// 3. DisplayModeButton - Individual button for selecting a display mode
-//    - Changes appearance when selected (filled vs outlined)
-//    - Shows an icon and title
-//    - Calls the view model when tapped
+//  3. DisplayModeButton - Individual button for selecting a display mode
+//     - Changes appearance when selected (filled vs outlined)
+//     - Shows an icon and title
+//     - Calls the view model when tapped
 //
-// How SwiftUI views work:
-// - Views are structs (lightweight, value types)
-// - The body property returns the view hierarchy
-// - Views automatically re-render when @Published data changes
-// - You compose complex UIs by nesting simple views
+//  How SwiftUI views work:
+//  - Views are structs (lightweight, value types)
+//  - The body property returns the view hierarchy
+//  - Views automatically re-render when @Published data changes
+//  - You compose complex UIs by nesting simple views
+//
+//  SF Symbols:
+//  systemImage parameters use SF Symbols (Apple's icon system)
+//  Browse available symbols:
+//  - macOS: Download SF Symbols app from https://developer.apple.com/sf-symbols
+//  - Xcode: Window → SF Symbols
+//  - Online: https://developer.apple.com/sf-symbols
 
 import SwiftUI
 
+/// Feedback button with share sheet
+struct FeedbackButton: View {
+    @ObservedObject var viewModel: AppViewModel
+    @State private var showShareSheet = false
+    
+    var body: some View {
+        Button(action: { showShareSheet = true }) {
+            HStack(spacing: 6) {
+                Image(systemName: "envelope")
+                    .font(.subheadline)
+                Text("Report Feedback")
+                    .font(.subheadline)
+            }
+            .fontWeight(.semibold)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 18)
+            .background(
+                Capsule()
+                    .fill(Color.secondary.opacity(0.12))
+            )
+        }
+        .buttonStyle(.plain)
+        .sheet(isPresented: $showShareSheet) {
+            ShareSheet(activityItems: [viewModel.generateFeedbackReport()])
+        }
+    }
+}
+
+/// Main application view container
+///
+/// Root view that displays:
+/// - App icon and status message
+/// - Settings panel with display mode options
+/// - Debug panel (DEBUG builds only)
+///
+/// Handles scene phase changes to refresh extension state
 struct AppRootView: View {
     @ObservedObject var viewModel: AppViewModel
     @Environment(\.scenePhase) private var scenePhase
@@ -44,32 +87,56 @@ struct AppRootView: View {
             content
                 .onAppear {
                     viewModel.onAppear()
+                    viewModel.trackActivation(isInitialLaunch: true)
                 }
                 .onChange(of: scenePhase) { oldPhase, newPhase in
-                    if newPhase == .active {
-                        viewModel.onAppear()
-                    }
+                    handleScenePhaseChange(from: oldPhase, to: newPhase)
                 }
-                #if os(iOS)
-                .sheet(isPresented: $viewModel.showEnableExtensionModal) {
-                    EnableExtensionModal(isPresented: $viewModel.showEnableExtensionModal)
-                }
-                #endif
+            #if os(iOS)
+            .sheet(isPresented: $viewModel.showEnableExtensionModal) {
+                EnableExtensionModal(viewModel: viewModel)
+            }
+            #endif
         } else {
             content
                 .onAppear {
                     viewModel.onAppear()
+                    viewModel.trackActivation(isInitialLaunch: true)
                 }
                 .onChange(of: scenePhase, perform: { newPhase in
-                    if newPhase == .active {
-                        viewModel.onAppear()
-                    }
+                    handleScenePhaseChangeLegacy(to: newPhase)
                 })
-                #if os(iOS)
-                .sheet(isPresented: $viewModel.showEnableExtensionModal) {
-                    EnableExtensionModal(isPresented: $viewModel.showEnableExtensionModal)
-                }
-                #endif
+            #if os(iOS)
+            .sheet(isPresented: $viewModel.showEnableExtensionModal) {
+                EnableExtensionModal(viewModel: viewModel)
+            }
+            #endif
+        }
+    }
+    
+    /// Handle scene phase changes (iOS 17+, macOS 14+)
+    private func handleScenePhaseChange(from oldPhase: ScenePhase, to newPhase: ScenePhase) {
+        switch (oldPhase, newPhase) {
+        case (_, .active):
+            // App came to foreground
+            viewModel.onAppear()
+            viewModel.trackActivation()
+        case (.active, .inactive), (.active, .background):
+            // App left foreground
+            viewModel.trackDeactivation()
+        default:
+            break
+        }
+    }
+    
+    /// Handle scene phase changes (legacy iOS/macOS)
+    private func handleScenePhaseChangeLegacy(to newPhase: ScenePhase) {
+        if newPhase == .active {
+            viewModel.onAppear()
+            viewModel.trackActivation()
+        } else if scenePhase == .active {
+            // Was active, now becoming inactive or background
+            viewModel.trackDeactivation()
         }
     }
     
@@ -108,25 +175,35 @@ struct AppRootView: View {
                 .foregroundColor(.secondary)
                 .padding(.horizontal, 12)
             
-            // Optional unwrapping - only shows button if title is not nil
-            if let buttonTitle = viewModel.preferencesButtonTitle {
-                Button(action: viewModel.openPreferences) {
-                    Text(buttonTitle)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 18)
-                        .background(
-                            Capsule()
-                                .fill(Color.accentColor.opacity(0.12))
-                        )
+            VStack(spacing: 12) {
+                // Preferences button (macOS only)
+                if let buttonTitle = viewModel.preferencesButtonTitle {
+                    Button(action: viewModel.openPreferences) {
+                        Text(buttonTitle)
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 20)
+                            .background(
+                                Capsule()
+                                    .fill(Color.accentColor.opacity(0.12))
+                            )
+                    }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
+                
+                // Feedback button (always visible)
+                FeedbackButton(viewModel: viewModel)
             }
         }
     }
 }
 
+/// Settings panel for display mode configuration
+///
+/// Allows user to choose between:
+/// - Hide: Completely remove AI content
+/// - Highlight: Show with orange border
 struct SettingsPanelView: View {
     @ObservedObject var viewModel: AppViewModel
     
@@ -145,10 +222,10 @@ struct SettingsPanelView: View {
     private var headerText: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(LocalizedString.displayModeTitle())
-                .font(.callout)
+                .font(.headline)
                 .fontWeight(.semibold)
             Text(LocalizedString.displayModeDescription())
-                .font(.footnote)
+                .font(.subheadline)
                 .foregroundColor(.secondary)
         }
     }
@@ -183,7 +260,7 @@ struct SettingsPanelView: View {
             Text(LocalizedString.displayModeHighlightDescription())
                 .fixedSize(horizontal: false, vertical: true)
         }
-        .font(.footnote)
+        .font(.subheadline)
         .foregroundColor(.secondary)
     }
     
@@ -193,6 +270,18 @@ struct SettingsPanelView: View {
     }
 }
 
+/// Button for selecting a display mode
+///
+/// Visual style changes based on selection state:
+/// - Selected: Filled with color, white text
+/// - Unselected: Gray border, default text color
+///
+/// - Parameters:
+///   - title: Button label text
+///   - systemImage: SF Symbol icon name (see: developer.apple.com/sf-symbols)
+///   - isSelected: Whether this mode is currently selected
+///   - selectedColor: Color to use when selected
+///   - action: Closure to call when tapped
 struct DisplayModeButton: View {
     let title: String
     let systemImage: String
@@ -202,15 +291,15 @@ struct DisplayModeButton: View {
     
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 8) {
+            VStack(spacing: 10) {
                 Image(systemName: systemImage)  // SF Symbol icon
-                    .font(.title3)
+                    .font(.title2)
                 Text(title)
-                    .font(.subheadline)
+                    .font(.headline)
                     .fontWeight(.semibold)
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 14)
+            .padding(.vertical, 16)
             .foregroundColor(isSelected ? .white : .primary)
             .background(buttonBackground)
         }
@@ -234,95 +323,3 @@ struct DisplayModeButton: View {
     }
 }
 
-#if DEBUG
-struct DebugPanelView: View {
-    @ObservedObject var viewModel: AppViewModel
-    @Environment(\.scenePhase) private var scenePhase
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("DEBUG INFO")
-                .font(.caption)
-                .fontWeight(.bold)
-                .foregroundColor(.red)
-            
-            debugRow(label: "Platform", value: "\(viewModel.platform.kind)")
-            debugRow(label: "Scene Phase", value: scenePhaseText)
-            debugRow(label: "First Launch Ever", value: "\(viewModel.isFirstLaunchEver)")
-            debugRow(label: "Launch Count", value: "\(viewModel.launchCount + 1)")
-            debugRow(label: "Session Start", value: formatDate(viewModel.currentSessionStartDate))
-            if let lastLaunch = viewModel.lastLaunchDate {
-                debugRow(label: "Last Launch", value: formatDate(lastLaunch))
-                debugRow(label: "Time Since Last", value: timeSince(lastLaunch))
-            }
-            debugRow(label: "Display Mode", value: viewModel.displayMode.rawValue)
-            debugRow(label: "Extension State", value: extensionStateText)
-            debugRow(label: "Use Settings", value: "\(viewModel.platform.useSettings)")
-            debugRow(label: "Show Prefs Button", value: "\(viewModel.platform.shouldShowPreferencesButton())")
-            debugRow(label: "Horizontal Padding", value: "\(viewModel.platform.horizontalPadding)")
-        }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(debugBackground)
-        .font(.system(.caption, design: .monospaced))
-    }
-    
-    private var scenePhaseText: String {
-        switch scenePhase {
-        case .active:
-            return "active"
-        case .inactive:
-            return "inactive"
-        case .background:
-            return "background"
-        @unknown default:
-            return "unknown"
-        }
-    }
-    
-    private var extensionStateText: String {
-        switch viewModel.extensionEnabled {
-        case .unchecked:
-            return "unchecked"
-        case .enabled:
-            return "enabled"
-        case .disabled:
-            return "disabled"
-        case .error:
-            return "error"
-        }
-    }
-    
-    private func debugRow(label: String, value: String) -> some View {
-        HStack(spacing: 8) {
-            Text("\(label):")
-                .foregroundColor(.secondary)
-            Text(value)
-                .fontWeight(.semibold)
-            Spacer()
-        }
-    }
-    
-    private var debugBackground: some View {
-        RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .fill(Color.red.opacity(0.1))
-            .overlay(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .stroke(Color.red.opacity(0.3), lineWidth: 1)
-            )
-    }
-    
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .medium
-        return formatter.string(from: date)
-    }
-    
-    private func timeSince(_ date: Date) -> String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .abbreviated
-        return formatter.localizedString(for: date, relativeTo: Date())
-    }
-}
-#endif
