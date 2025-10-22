@@ -74,6 +74,9 @@ final class AppViewModel: ObservableObject {
     // Debug event log
     @Published var debugEventLog: [DebugEvent] = []         // Recent events for debug panel
     
+    // Extension logs
+    var extensionLogReader = ExtensionLogReader()      // Reads logs from extension
+    
     // User preferences
     @Published var hasSeenEnableExtensionModal: Bool = false // Track if user dismissed modal
     
@@ -117,11 +120,13 @@ final class AppViewModel: ObservableObject {
     /// Handles:
     /// - Reloading display mode from storage
     /// - Refreshing extension state
+    /// - Refreshing extension logs
     /// - Tracking app activation
     func onAppear() {
         logVerbose("onAppear called", category: logCategory)
         displayMode = Self.loadDisplayMode()
         refreshExtensionState()
+        extensionLogReader.refreshLogs()
     }
     
     /// Track when app becomes active
@@ -262,7 +267,7 @@ final class AppViewModel: ObservableObject {
     }
     
     // UserDefaults with suiteName allows sharing preferences between app and extension
-    private static func userDefaults() -> UserDefaults? {
+    static func userDefaults() -> UserDefaults? {
         UserDefaults(suiteName: APP_GROUP_ID)
     }
     

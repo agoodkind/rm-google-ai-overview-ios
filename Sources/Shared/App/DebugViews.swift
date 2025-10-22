@@ -12,6 +12,7 @@
 
 import SwiftUI
 import Combine
+import SwiftUIBackports
 
 #if DEBUG
 /// Debug information panel showing app state, lifecycle, and configuration
@@ -76,18 +77,64 @@ struct DebugPanelView: View {
                 debugRow(label: "State", value: extensionStateText)
                 debugRow(label: "Display Mode", value: viewModel.displayMode.rawValue)
                 debugRow(label: "Show Prefs Btn", value: "\(viewModel.platform.shouldShowPreferencesButton())")
+                debugRow(label: "Modal Dismissed", value: "\(viewModel.hasSeenEnableExtensionModal)")
             }
+            
+            #if os(iOS)
+            // Debug Actions
+            debugSection(title: "DEBUG ACTIONS") {
+                Button("Reset Modal Flag") {
+                    viewModel.resetModalDismissal()
+                }
+                .backport.glassButtonStyle()
+                .controlSize(.small)
+            }
+            #endif
             
             // Event Log
             debugSection(title: "EVENT LOG (Last \(min(viewModel.debugEventLog.count, 10)))") {
-                if viewModel.debugEventLog.isEmpty {
-                    Text("No events yet")
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
-                        .italic()
-                } else {
-                    ForEach(viewModel.debugEventLog.prefix(10)) { event in
-                        eventRow(event: event)
+                logContainer {
+                    if viewModel.debugEventLog.isEmpty {
+                        Text("No events yet")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .italic()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding()
+                    } else {
+                        ScrollView {
+                            VStack(alignment: .leading, spacing: 6) {
+                                ForEach(viewModel.debugEventLog.prefix(10)) { event in
+                                    eventRow(event: event)
+                                }
+                            }
+                            .padding(12)
+                        }
+                        .frame(maxHeight: 150)
+                    }
+                }
+            }
+            
+            // Extension Logs
+            debugSection(title: "EXTENSION LOGS (Last \(min(viewModel.extensionLogReader.logs.count, 10)))") {
+                logContainer {
+                    if viewModel.extensionLogReader.logs.isEmpty {
+                        Text("No extension logs yet")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .italic()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding()
+                    } else {
+                        ScrollView {
+                            VStack(alignment: .leading, spacing: 6) {
+                                ForEach(viewModel.extensionLogReader.logs.prefix(10)) { log in
+                                    extensionLogRow(log: log)
+                                }
+                            }
+                            .padding(12)
+                        }
+                        .frame(maxHeight: 150)
                     }
                 }
             }
@@ -224,6 +271,60 @@ struct DebugPanelView: View {
         }
     }
     
+    /// Extension log row
+    /// - Parameter log: Extension log entry
+    private func extensionLogRow(log: ExtensionLogEntry) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            HStack(spacing: 6) {
+                Circle()
+                    .fill(logLevelColor(for: log.level))
+                    .frame(width: 6, height: 6)
+                
+                Text(formatTime(log.timestamp))
+                    .foregroundColor(.secondary)
+                    .frame(width: 70, alignment: .leading)
+                
+                Text("[\(log.level.uppercased())]")
+                    .foregroundColor(logLevelColor(for: log.level))
+                    .frame(width: 50, alignment: .leading)
+                
+                if !log.context.isEmpty {
+                    Text("[\(log.context)]")
+                        .foregroundColor(.secondary.opacity(0.7))
+                }
+                
+                Text(log.message)
+                    .foregroundColor(.primary)
+                
+                Spacer(minLength: 0)
+            }
+            
+            if let file = log.file {
+                Text("↳ \(file):\(log.line ?? 0)")
+                    .font(.system(size: 9))
+                    .foregroundColor(.secondary.opacity(0.5))
+                    .padding(.leading, 82)
+            }
+        }
+        .font(.caption2)
+    }
+    
+    /// Color for log level
+    private func logLevelColor(for level: String) -> Color {
+        switch level.lowercased() {
+        case "debug":
+            return .gray
+        case "info":
+            return .blue
+        case "warn":
+            return .orange
+        case "error":
+            return .red
+        default:
+            return .secondary
+        }
+    }
+    
     /// Background styling for debug panel
     private var debugBackground: some View {
         RoundedRectangle(cornerRadius: 12, style: .continuous)
@@ -232,6 +333,42 @@ struct DebugPanelView: View {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .stroke(Color.red.opacity(0.3), lineWidth: 1)
             )
+    }
+    
+    /// Log container with terminal-style background
+    private func logContainer<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        content()
+            .background(
+                ZStack {
+                    // Subtle texture/noise effect
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(Color.black.opacity(0.08))
+                    
+                    // Grid pattern
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .stroke(
+                            LinearGradient(
+                                colors: [Color.secondary.opacity(0.15), Color.secondary.opacity(0.05)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 1
+                        )
+                    
+                    // Inner shadow effect
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.black.opacity(0.03), Color.clear],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .frame(height: 3)
+                        .offset(y: -73)
+                }
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
     }
     
     /// Format date for display
@@ -261,6 +398,31 @@ struct DebugPanelView: View {
         formatter.unitsStyle = .abbreviated
         return formatter.localizedString(for: date, relativeTo: Date())
     }
+}
+
+#Preview("Debug Panel") {
+    DebugPanelView(viewModel: AppViewModel())
+        .padding()
+}
+
+#Preview("Debug Panel - With Logs") {
+    struct DebugPreview: View {
+        @StateObject var viewModel: AppViewModel
+        
+        init() {
+            let vm = AppViewModel()
+            vm.extensionEnabled = .enabled
+            vm.activationCount = 5
+            _viewModel = StateObject(wrappedValue: vm)
+        }
+        
+        var body: some View {
+            DebugPanelView(viewModel: viewModel)
+                .padding()
+        }
+    }
+    
+    return DebugPreview()
 }
 #endif
 

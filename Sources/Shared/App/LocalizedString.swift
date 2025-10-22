@@ -120,4 +120,10 @@ enum LocalizedString {
     static func enableExtensionModalOpenSettings() -> String {
         NSLocalizedString("enable_extension.modal.open_settings", comment: "Button to open Settings app")
     }
+    
+    // MARK: - Feedback
+    
+    static func reportFeedback() -> String {
+        NSLocalizedString("feedback.report", comment: "Report feedback button")
+    }
 }

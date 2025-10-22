@@ -23,7 +23,8 @@ struct XcodeManager: ParsableCommand {
             AddBuildScript.self,
             AddFiles.self,
             CleanMissing.self,
-            FixContentBlocker.self
+            FixContentBlocker.self,
+            RemoveDuplicates.self
         ],
         defaultSubcommand: ShowVersion.self
     )

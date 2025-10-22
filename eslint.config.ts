@@ -40,6 +40,13 @@ const baseConfig = defineConfig([
         },
       ],
       "no-unused-labels": "off",
+      "func-style": [
+        "error",
+        "declaration",
+        {
+          allowArrowFunctions: false,
+        },
+      ],
     },
   },
 ]);

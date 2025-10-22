@@ -28,6 +28,7 @@ struct FeedbackReporter {
         report += section("EXTENSION", content: extensionInfo())
         report += section("SESSION", content: sessionInfo())
         report += section("EVENT LOG", content: eventLog())
+        report += section("EXTENSION LOGS", content: extensionLogs())
         
         return report
     }
@@ -88,6 +89,10 @@ struct FeedbackReporter {
             log += "\(formatDateTime(event.timestamp)) \(typeIcon) \(event.message)\n"
         }
         return log
+    }
+    
+    private func extensionLogs() -> String {
+        viewModel.extensionLogReader.formatLogsForReport()
     }
     
     private func eventTypeIcon(_ type: DebugEvent.EventType) -> String {

@@ -12,7 +12,10 @@ import {
   sendRuntimeMessage,
   validObject,
 } from "@/lib/messaging";
+import { ExtensionLogger } from "@lib/logging";
 import { isDev, isPreview, isProd } from "@lib/shims";
+
+const log = ExtensionLogger.for("ContentScript.ts");
 
 const aiTextPatterns = [
   // regex patterns to match "AI overview" in various languages
@@ -58,7 +61,7 @@ type DisplayMode = "hide" | "highlight";
 
 let displayModeCache: DisplayMode | null = null;
 
-const fetchDisplayMode = async () => {
+async function fetchDisplayMode() {
   if (displayModeCache) {
     return displayModeCache;
   }
@@ -79,7 +82,7 @@ const fetchDisplayMode = async () => {
   }
   console.error("invalid response received for getDisplayMode, defaulting");
   return DEFAULT_DISPLAY_MODE;
-};
+}
 
 let mainBodyInitialized = false;
 let hasRun = false;
@@ -88,7 +91,7 @@ let hideCount = 0;
 let lastStatsPrintTime = 0;
 const elements = new WeakSet<HTMLElement>();
 
-const processHeadings = (mainBody: HTMLDivElement) =>
+function processHeadings(mainBody: HTMLDivElement) {
   [...mainBody.querySelectorAll("h1, h2")]
     .filter((e): e is HTMLElement => {
       if (e instanceof HTMLElement) {
@@ -108,8 +111,9 @@ const processHeadings = (mainBody: HTMLDivElement) =>
       return aiOverview;
     })
     .forEach(processSingleElement);
+}
 
-const processPeopleAlsoAsk = (mainBody: HTMLDivElement) =>
+function processPeopleAlsoAsk(mainBody: HTMLDivElement) {
   [...mainBody.querySelectorAll("div.related-question-pair")]
     .filter(
       (el) => el.parentElement?.parentElement?.parentElement?.parentElement,
@@ -117,15 +121,17 @@ const processPeopleAlsoAsk = (mainBody: HTMLDivElement) =>
     .map((el) => el.parentElement!.parentElement!.parentElement!.parentElement)
     .filter((el) => el !== null)
     .forEach(processSingleElement);
+}
 
 // ai mode inline card has a custom tag: ai-mode-inline-card
-const processAICard = (mainBody: HTMLDivElement) =>
+function processAICard(mainBody: HTMLDivElement) {
   [...mainBody.getElementsByTagName("ai-mode-inline-card")]
     .map((card) => card.parentElement)
     .filter((el) => el !== null)
     .forEach(processSingleElement);
+}
 
-const processSingleElement = async (el: Element) => {
+async function processSingleElement(el: Element) {
   if (!(el instanceof HTMLElement)) {
     return;
   }
@@ -139,9 +145,9 @@ const processSingleElement = async (el: Element) => {
   await hideElement(el);
 
   elements.add(el);
-};
+}
 
-const hideElement = async (el: HTMLElement) => {
+async function hideElement(el: HTMLElement) {
   const mode = await fetchDisplayMode();
   const overlay = document.createElement("div");
 
@@ -173,18 +179,20 @@ const hideElement = async (el: HTMLElement) => {
   }
 
   hideCount++;
-};
+}
 
 const observer = new MutationObserver(async () => {
   if (!hasRun) {
     VERBOSE4: console.debug("Initial run");
     hasRun = true;
+    log.debug("Observer initial run", "observer");
   }
 
   const mainBody = document.querySelector("div#main") as HTMLDivElement | null;
   if (mainBody && !mainBodyInitialized) {
     VERBOSE4: console.debug("Main body found");
     mainBodyInitialized = true;
+    log.info("Main body found, starting processing", "observer");
   }
   if (!mainBody) {
     return;
@@ -203,20 +211,30 @@ const observer = new MutationObserver(async () => {
       "Elements hidden:",
       hideCount,
     );
+
+    if (hideCount > 0) {
+      log.debug(
+        `Processed ${hideCount} elements (${dupeCount} duplicates)`,
+        "stats",
+      );
+    }
   }
 });
 
-const bootStrap = async () => {
+async function bootstrap() {
   const displayMode = await fetchDisplayMode();
   VERBOSE4: console.debug({ displayMode, isDev, isPreview, isProd });
+  log.info(`Content script initialized, mode: ${displayMode}`, "bootstrap");
+
   observer.observe(document, {
     childList: true,
     subtree: true,
   });
-};
+}
 
-bootStrap().catch((error) => {
+bootstrap().catch((error) => {
   console.error("Error in bootstrap:", error);
+  log.error(`Bootstrap failed: ${error}`, "bootstrap");
 });
 
 VERBOSE3: {

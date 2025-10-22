@@ -470,4 +470,35 @@ extension XcodeManager {
             }
         }
     }
+    
+    struct RemoveDuplicates: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "Remove duplicate file references from build phases"
+        )
+        
+        @Flag(name: .shortAndLong, help: "Skip backup creation")
+        var noBackup = false
+        
+        func run() throws {
+            Utils.printHeader("Remove Duplicate Files")
+            
+            let manager = try XcodeProjectManager(projectPath: Config.projectPath)
+            
+            if !noBackup {
+                try manager.backup()
+                print()
+            }
+            
+            let removedCount = manager.removeDuplicateFiles()
+            
+            if removedCount > 0 {
+                print("✓ Removed \(removedCount) duplicate file reference(s)")
+                print()
+                try manager.save()
+                Utils.printSuccess("Duplicates removed!")
+            } else {
+                print("✓ No duplicates found")
+            }
+        }
+    }
 }

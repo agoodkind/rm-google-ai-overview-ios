@@ -66,6 +66,12 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
                 let displayMode = getDisplayMode()
                 setResponseData(on: response, data: ["displayMode": displayMode])
                 logInfo("Returned display mode: \(displayMode)", category: logCategory)
+            case "extensionLog":
+                logDebug("Extension log received", category: logCategory)
+                if let logData = messageDict["log"] as? [String: Any] {
+                    storeExtensionLog(logData)
+                }
+                setResponseData(on: response, data: ["status": "logged"])
             default:
                 logError("Unknown message type: \(type)", category: logCategory)
             }
@@ -93,6 +99,49 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         defaults?.set(Date(), forKey: "extension-last-active")
         defaults?.synchronize()
         logInfo("Extension last active timestamp updated", category: logCategory)
+    }
+    
+    private func storeExtensionLog(_ logData: [String: Any]) {
+        guard let timestamp = logData["timestamp"] as? String,
+              let level = logData["level"] as? String,
+              let message = logData["message"] as? String else {
+            logWarning("Invalid log data format", category: logCategory)
+            return
+        }
+        
+        let context = logData["context"] as? String
+        let file = logData["file"] as? String
+        let line = logData["line"] as? Int
+        
+        let defaults = UserDefaults(suiteName: APP_GROUP_ID)
+        var logs = defaults?.array(forKey: "extension-logs") as? [[String: Any]] ?? []
+        
+        var logEntry: [String: Any] = [
+            "timestamp": timestamp,
+            "level": level,
+            "message": message,
+            "context": context ?? ""
+        ]
+        
+        if let file = file {
+            logEntry["file"] = file
+        }
+        if let line = line {
+            logEntry["line"] = line
+        }
+        
+        logs.insert(logEntry, at: 0) // Most recent first
+        
+        // Keep last 50 logs
+        if logs.count > 50 {
+            logs = Array(logs.prefix(50))
+        }
+        
+        defaults?.set(logs, forKey: "extension-logs")
+        defaults?.synchronize()
+        
+        let locationStr = file != nil ? " (\(file!):\(line ?? 0))" : ""
+        logVerbose("Stored extension log: [\(level)]\(locationStr) \(message)", category: logCategory)
     }
     
     // MARK: - Helper Methods

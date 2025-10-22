@@ -22,10 +22,6 @@
 //     - Contains the Hide/Highlight mode selector buttons
 //     - Displays explanation text for each mode
 //
-//  3. DisplayModeButton - Individual button for selecting a display mode
-//     - Changes appearance when selected (filled vs outlined)
-//     - Shows an icon and title
-//     - Calls the view model when tapped
 //
 //  How SwiftUI views work:
 //  - Views are structs (lightweight, value types)
@@ -41,33 +37,59 @@
 //  - Online: https://developer.apple.com/sf-symbols
 
 import SwiftUI
+import SwiftUIBackports
 
 /// Feedback button with share sheet
 struct FeedbackButton: View {
     @ObservedObject var viewModel: AppViewModel
     @State private var showShareSheet = false
+    @State private var screenshot: UIImage?
     
     var body: some View {
-        Button(action: { showShareSheet = true }) {
-            HStack(spacing: 6) {
-                Image(systemName: "envelope")
-                    .font(.subheadline)
-                Text("Report Feedback")
-                    .font(.subheadline)
-            }
-            .fontWeight(.semibold)
-            .padding(.vertical, 10)
-            .padding(.horizontal, 18)
-            .background(
-                Capsule()
-                    .fill(Color.secondary.opacity(0.12))
-            )
+        Button(action: captureAndShare) {
+            Label(LocalizedString.reportFeedback(), systemImage: "envelope.fill")
+                .font(.body)
+                .fontWeight(.semibold)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 4)
         }
-        .buttonStyle(.plain)
+        .backport.glassProminentButtonStyle()
+        .controlSize(.large)
         .sheet(isPresented: $showShareSheet) {
+            #if os(iOS)
+            if let screenshot = screenshot {
+                ShareSheet(activityItems: [viewModel.generateFeedbackReport(), screenshot])
+            } else {
+                ShareSheet(activityItems: [viewModel.generateFeedbackReport()])
+            }
+            #else
             ShareSheet(activityItems: [viewModel.generateFeedbackReport()])
+            #endif
         }
     }
+    
+    private func captureAndShare() {
+        #if os(iOS)
+        screenshot = captureScreen()
+        #endif
+        showShareSheet = true
+    }
+    
+    #if os(iOS)
+    private func captureScreen() -> UIImage? {
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap({ $0.windows })
+            .first(where: { $0.isKeyWindow }) else {
+            return nil
+        }
+        
+        let renderer = UIGraphicsImageRenderer(bounds: window.bounds)
+        return renderer.image { context in
+            window.layer.render(in: context.cgContext)
+        }
+    }
+    #endif
 }
 
 /// Main application view container
@@ -81,6 +103,7 @@ struct FeedbackButton: View {
 struct AppRootView: View {
     @ObservedObject var viewModel: AppViewModel
     @Environment(\.scenePhase) private var scenePhase
+    @State private var showFeedback = false
     
     var body: some View {
         if #available(macOS 14.0, iOS 17.0, *) {
@@ -96,6 +119,14 @@ struct AppRootView: View {
             .sheet(isPresented: $viewModel.showEnableExtensionModal) {
                 EnableExtensionModal(viewModel: viewModel)
             }
+            .sheet(isPresented: $showFeedback) {
+                ShareSheet(activityItems: [viewModel.generateFeedbackReport()])
+            }
+            .onAppear {
+                ShakeDetector.shared.onShake {
+                    showFeedback = true
+                }
+            }
             #endif
         } else {
             content
@@ -109,6 +140,14 @@ struct AppRootView: View {
             #if os(iOS)
             .sheet(isPresented: $viewModel.showEnableExtensionModal) {
                 EnableExtensionModal(viewModel: viewModel)
+            }
+            .sheet(isPresented: $showFeedback) {
+                ShareSheet(activityItems: [viewModel.generateFeedbackReport()])
+            }
+            .onAppear {
+                ShakeDetector.shared.onShake {
+                    showFeedback = true
+                }
             }
             #endif
         }
@@ -147,13 +186,18 @@ struct AppRootView: View {
             ScrollView {
                 VStack(spacing: 32) {
                     headerSection
+                    
                     SettingsPanelView(viewModel: viewModel)
+                    
+                    FeedbackButton(viewModel: viewModel)
+                    
                     #if DEBUG
                     DebugPanelView(viewModel: viewModel)
                     #endif
                 }
                 .applyPlatformFrame(for: viewModel.platform.kind)
-                .padding(.vertical, 48)
+                .padding(.top, 48)
+                .padding(.bottom, 32)
                 .padding(.horizontal, viewModel.platform.horizontalPadding)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -192,8 +236,7 @@ struct AppRootView: View {
                     .buttonStyle(.plain)
                 }
                 
-                // Feedback button (always visible)
-                FeedbackButton(viewModel: viewModel)
+
             }
         }
     }
@@ -216,7 +259,7 @@ struct SettingsPanelView: View {
         }
         .padding(24)
         .frame(maxWidth: .infinity)
-        .background(panelBackground)
+        .backport.glassEffect(in: .rect(cornerRadius: 20))
     }
     
     private var headerText: some View {
@@ -244,7 +287,7 @@ struct SettingsPanelView: View {
             
             DisplayModeButton(
                 title: LocalizedString.displayModeHighlightTitle(),
-                systemImage: "checkmark.seal",
+                systemImage: "text.line.magnify",
                 isSelected: viewModel.displayMode == .highlight,
                 selectedColor: .orange
             ) {
@@ -270,18 +313,7 @@ struct SettingsPanelView: View {
     }
 }
 
-/// Button for selecting a display mode
-///
-/// Visual style changes based on selection state:
-/// - Selected: Filled with color, white text
-/// - Unselected: Gray border, default text color
-///
-/// - Parameters:
-///   - title: Button label text
-///   - systemImage: SF Symbol icon name (see: developer.apple.com/sf-symbols)
-///   - isSelected: Whether this mode is currently selected
-///   - selectedColor: Color to use when selected
-///   - action: Closure to call when tapped
+/// Display mode button with glass effect
 struct DisplayModeButton: View {
     let title: String
     let systemImage: String
@@ -292,34 +324,40 @@ struct DisplayModeButton: View {
     var body: some View {
         Button(action: action) {
             VStack(spacing: 10) {
-                Image(systemName: systemImage)  // SF Symbol icon
+                Image(systemName: systemImage)
                     .font(.title2)
+                    .fontWeight(.semibold)
                 Text(title)
                     .font(.headline)
                     .fontWeight(.semibold)
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
             .foregroundColor(isSelected ? .white : .primary)
-            .background(buttonBackground)
-        }
-        .buttonStyle(.plain)
-    }
-    
-    private var buttonBackground: some View {
-        Group {
-            if isSelected {
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 18)
+            .background(
+                Group {
+                    if isSelected {
+                        selectedColor
+                    } else {
+                        Color.clear
+                    }
+                }
+            )
+            .overlay(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(selectedColor)
-            } else {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(PlatformColor.windowBackground)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .stroke(Color.gray.opacity(0.3), lineWidth: 2)
-                    )
-            }
+                    .stroke(isSelected ? Color.clear : Color.gray.opacity(0.3), lineWidth: 2)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         }
+        .backport.glassButtonStyle()
     }
 }
 
+#Preview("App Root View") {
+    AppRootView(viewModel: AppViewModel())
+}
+
+#Preview("Settings Panel") {
+    SettingsPanelView(viewModel: AppViewModel())
+        .padding()
+}

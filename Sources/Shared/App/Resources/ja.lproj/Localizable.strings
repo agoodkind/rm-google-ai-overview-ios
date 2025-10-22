@@ -22,3 +22,14 @@
 "display_mode.highlight.title" = "強調表示";
 "display_mode.highlight.description" = "強調表示：AI概要セクションをオレンジ色の枠線で表示し、何が検出されているかを確認できます。";
 
+/* Enable Extension Modal */
+"enable_extension.modal.title" = "SafariでSkip AIを有効にする";
+"enable_extension.modal.step1" = "設定を開く。";
+"enable_extension.modal.step2" = "App > Safari > 機能拡張に移動。";
+"enable_extension.modal.step3" = "両方のSkip AI機能拡張を有効にする。完了です！";
+"enable_extension.modal.dismiss" = "了解";
+"enable_extension.modal.open_settings" = "設定を開く";
+
+/* Feedback */
+"feedback.report" = "フィードバックを送信";
+

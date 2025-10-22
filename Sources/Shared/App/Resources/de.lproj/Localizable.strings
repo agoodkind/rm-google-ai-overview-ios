@@ -22,3 +22,14 @@
 "display_mode.highlight.title" = "Hervorheben";
 "display_mode.highlight.description" = "Hervorheben: Zeigt KI-Übersichtsabschnitte mit einem orangefarbenen Rand an, damit du sehen kannst, was erkannt wird.";
 
+/* Enable Extension Modal */
+"enable_extension.modal.title" = "Skip AI für Safari aktivieren";
+"enable_extension.modal.step1" = "Öffne Einstellungen.";
+"enable_extension.modal.step2" = "Gehe zu Apps > Safari > Erweiterungen.";
+"enable_extension.modal.step3" = "Aktiviere beide Skip AI Erweiterungen. Fertig!";
+"enable_extension.modal.dismiss" = "Verstanden";
+"enable_extension.modal.open_settings" = "Einstellungen öffnen";
+
+/* Feedback */
+"feedback.report" = "Feedback senden";
+

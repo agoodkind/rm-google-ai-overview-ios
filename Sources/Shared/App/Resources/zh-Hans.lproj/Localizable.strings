@@ -22,3 +22,14 @@
 "display_mode.highlight.title" = "突出显示";
 "display_mode.highlight.description" = "突出显示：用橙色边框显示 AI 概述部分，以便你可以看到正在检测的内容。";
 
+/* Enable Extension Modal */
+"enable_extension.modal.title" = "为 Safari 启用 Skip AI";
+"enable_extension.modal.step1" = "打开设置。";
+"enable_extension.modal.step2" = "前往 App > Safari > 扩展。";
+"enable_extension.modal.step3" = "启用两个 Skip AI 扩展。完成！";
+"enable_extension.modal.dismiss" = "知道了";
+"enable_extension.modal.open_settings" = "打开设置";
+
+/* Feedback */
+"feedback.report" = "报告反馈";
+

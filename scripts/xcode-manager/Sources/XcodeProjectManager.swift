@@ -385,26 +385,35 @@ class XcodeProjectManager {
         let group = findOrCreateGroup(at: groupPath)
         let fileName = filePath.lastComponent
         
-        // Check if file already exists in group
-        if group.children.compactMap({ $0 as? PBXFileReference }).contains(where: { $0.name == fileName || $0.path == fileName }) {
-            return false // File already exists
+        // Check if file already exists in group, if so use existing reference
+        let fileRef: PBXFileReference
+        if let existing = group.children.compactMap({ $0 as? PBXFileReference }).first(where: { $0.name == fileName || $0.path == fileName }) {
+            fileRef = existing
+        } else {
+            // Create new file reference
+            let relativePath = fileName
+            fileRef = PBXFileReference(
+                sourceTree: .group,
+                name: fileName,
+                path: relativePath
+            )
+            pbxproj.add(object: fileRef)
+            group.children.append(fileRef)
         }
-        
-        // Files are referenced by name when in the same directory as the group
-        let relativePath = fileName
-        
-        let fileRef = PBXFileReference(
-            sourceTree: .group,
-            name: fileName,
-            path: relativePath
-        )
-        pbxproj.add(object: fileRef)
-        group.children.append(fileRef)
         
         var added = false
         for target in targets {
             guard let sourcesPhase = target.buildPhases.first(where: { $0 is PBXSourcesBuildPhase }) as? PBXSourcesBuildPhase else {
                 continue
+            }
+            
+            // Check if file is already in build phase
+            let alreadyInPhase = sourcesPhase.files?.contains(where: { buildFile in
+                buildFile.file?.uuid == fileRef.uuid
+            }) ?? false
+            
+            if alreadyInPhase {
+                continue // Skip - already in this target's build phase
             }
             
             let buildFile = PBXBuildFile(file: fileRef)
@@ -502,5 +511,88 @@ class XcodeProjectManager {
         }
         
         return changed
+    }
+    
+    /// Remove duplicate file references from build phases
+    /// - Returns: Number of duplicates removed
+    func removeDuplicateFiles() -> Int {
+        var removedCount = 0
+        
+        for target in pbxproj.nativeTargets {
+            print("\nChecking target: \(target.name)")
+            for phase in target.buildPhases {
+                if let sourcesPhase = phase as? PBXSourcesBuildPhase {
+                    let removed = removeDuplicatesFromPhase(sourcesPhase, targetName: target.name)
+                    if removed > 0 {
+                        print("  Removed \(removed) duplicate(s) from Sources phase")
+                    }
+                    removedCount += removed
+                }
+                if let resourcesPhase = phase as? PBXResourcesBuildPhase {
+                    let removed = removeDuplicatesFromPhase(resourcesPhase, targetName: target.name)
+                    if removed > 0 {
+                        print("  Removed \(removed) duplicate(s) from Resources phase")
+                    }
+                    removedCount += removed
+                }
+            }
+        }
+        
+        return removedCount
+    }
+    
+    /// Remove duplicates from a build phase
+    private func removeDuplicatesFromPhase<T: PBXBuildPhase>(_ phase: T, targetName: String) -> Int {
+        guard let files = phase.files else { return 0 }
+        
+        print("  Phase has \(files.count) file(s)")
+        
+        var seenFileRefs = Set<String>()
+        var keptIndices = Set<Int>()
+        var removedCount = 0
+        
+        // First pass: identify which entries to keep
+        for (index, buildFile) in files.enumerated() {
+            guard let fileRef = buildFile.file else {
+                keptIndices.insert(index)
+                continue
+            }
+            
+            // Use file reference UUID as identifier
+            let uuid = fileRef.uuid
+            
+            if seenFileRefs.contains(uuid) {
+                // Duplicate found
+                let fileName = (fileRef as? PBXFileReference)?.name 
+                    ?? (fileRef as? PBXFileReference)?.path 
+                    ?? "unknown"
+                print("    Removing duplicate: \(fileName)")
+                removedCount += 1
+            } else {
+                seenFileRefs.insert(uuid)
+                keptIndices.insert(index)
+            }
+        }
+        
+        // Second pass: remove duplicates
+        if removedCount > 0 {
+            let filesToKeep = files.enumerated()
+                .filter { keptIndices.contains($0.offset) }
+                .map { $0.element }
+            
+            let filesToRemove = files.enumerated()
+                .filter { !keptIndices.contains($0.offset) }
+                .map { $0.element }
+            
+            // Delete removed build files from project
+            for buildFile in filesToRemove {
+                pbxproj.delete(object: buildFile)
+            }
+            
+            // Update phase files array
+            phase.files = filesToKeep
+        }
+        
+        return removedCount
     }
 }

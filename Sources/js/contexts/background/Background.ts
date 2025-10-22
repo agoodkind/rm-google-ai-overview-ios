@@ -6,6 +6,7 @@
 //  https://goodkind.io/
 //
 
+import { ExtensionLogger } from "@lib/logging";
 import {
   registerMessageListener,
   sendRuntimeMessage,
@@ -13,9 +14,11 @@ import {
 } from "@lib/messaging";
 import { isDev } from "@lib/shims";
 
+const log = ExtensionLogger.for("Background.ts");
+
 type DisplayMode = "hide" | "highlight";
 
-export const broadcastTabMessage = async (message: unknown) => {
+export async function broadcastTabMessage(message: unknown) {
   const tabs = await browser.tabs.query({});
 
   await Promise.all(
@@ -34,15 +37,15 @@ export const broadcastTabMessage = async (message: unknown) => {
         );
       }),
   );
-};
+}
 
-export const sendMessageToTab = async (tabId: number, message: unknown) => {
+export async function sendMessageToTab(tabId: number, message: unknown) {
   VERBOSE5: console.debug("Sending message to tab:", { tabId, message });
 
   return await browser.tabs.sendMessage(tabId, message);
-};
+}
 
-export const sendNativeMessage = async (message: unknown) => {
+export async function sendNativeMessage(message: unknown) {
   VERBOSE4: console.debug("Sending native message:", message);
 
   // safari ignores  application ID parameter
@@ -52,20 +55,20 @@ export const sendNativeMessage = async (message: unknown) => {
     message,
   );
   return result;
-};
+}
 
-const fetchDisplayModeFromNative = async (): Promise<DisplayMode> => {
+async function fetchDisplayModeFromNative(): Promise<DisplayMode> {
   const result = await sendNativeMessage({
     type: "getDisplayMode",
   });
 
   return result.displayMode;
-};
+}
 
-const relayMessage = async (
+async function relayMessage(
   message: unknown,
   sender: browser.runtime.MessageSender,
-) => {
+) {
   const relayMessage = {
     type: "relayMessage",
     originalMessage: message,
@@ -76,7 +79,7 @@ const relayMessage = async (
     sendRuntimeMessage(relayMessage),
     broadcastTabMessage(relayMessage),
   ]);
-};
+}
 
 // Listen for messages from content scripts
 registerMessageListener((message, sender, sendResponse) => {
@@ -131,16 +134,20 @@ browser.management.onInstalled.addListener((details) => {
 // Listen for extension installation/enabling
 browser.runtime.onInstalled.addListener((details) => {
   VERBOSE3: console.debug("Extension installed/updated:", details);
+  log.info(`Extension ${details.reason}`, "onInstalled");
 
   // Notify native app that extension is active
   sendNativeMessage({ type: "serviceWorkerStarted" }).catch((error) => {
     console.error("Failed to notify native app:", error);
+    log.error(`Failed to notify native app: ${error}`, "onInstalled");
   });
 });
 
 // Also notify on service worker startup (Safari reopened)
 VERBOSE3: console.debug("Service worker initialized");
+log.info("Service worker initialized", "init");
 
 sendNativeMessage({ type: "serviceWorkerStarted" }).catch((error) => {
   VERBOSE4: console.error("Failed to notify native app:", error);
+  log.error(`Failed to notify native app: ${error}`, "init");
 });
