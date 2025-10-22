@@ -34,4 +34,3 @@ let DEFAULT_DISPLAY_MODE = "highlight"  // Show orange borders in development
 #else
 let DEFAULT_DISPLAY_MODE = "hide"       // Hide AI content in production
 #endif
-

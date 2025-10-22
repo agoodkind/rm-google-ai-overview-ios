@@ -39,6 +39,18 @@ struct AppRootView: View {
     @ObservedObject var viewModel: AppViewModel
     
     var body: some View {
+        content
+            .onAppear {
+                viewModel.onAppear()
+            }
+            #if os(iOS)
+            .sheet(isPresented: $viewModel.showEnableExtensionModal) {
+                EnableExtensionModal(isPresented: $viewModel.showEnableExtensionModal)
+            }
+            #endif
+    }
+    
+    private var content: some View {
         ZStack {
             PlatformColor.windowBackground.ignoresSafeArea()
             
@@ -53,9 +65,6 @@ struct AppRootView: View {
             .padding(.vertical, 48)
             .padding(.horizontal, viewModel.platform.horizontalPadding)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-        .onAppear {
-            viewModel.onAppear()
         }
     }
     
@@ -145,7 +154,9 @@ struct SettingsPanelView: View {
     private var descriptionText: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(LocalizedString.displayModeHideDescription())
+                .fixedSize(horizontal: false, vertical: true)
             Text(LocalizedString.displayModeHighlightDescription())
+                .fixedSize(horizontal: false, vertical: true)
         }
         .font(.footnote)
         .foregroundColor(.secondary)
@@ -223,10 +234,14 @@ struct DebugPanelView: View {
     }
     
     private var extensionStateText: String {
-        if let enabled = viewModel.extensionEnabled {
-            return enabled ? "true" : "false"
+        switch viewModel.extensionEnabled {
+        case .unchecked:
+            return "unchecked"
+        case .enabled:
+            return "enabled"
+        case .disabled:
+            return "disabled"
         }
-        return "nil (unknown)"
     }
     
     private func debugRow(label: String, value: String) -> some View {

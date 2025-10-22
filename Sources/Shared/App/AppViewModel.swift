@@ -36,9 +36,15 @@ final class AppViewModel: ObservableObject {
         case highlight  // Show with orange border
     }
     
+    enum ExtensionState {
+        case unchecked  // Haven't checked yet or check failed
+        case enabled    // Extension is enabled
+        case disabled   // Extension is disabled
+    }
+    
     // @Published automatically triggers UI updates when these values change
     @Published var displayMode: DisplayMode
-    @Published var extensionEnabled: Bool?  // nil = unknown, true/false = known state
+    @Published var extensionEnabled: ExtensionState = .unchecked
     @Published var showEnableExtensionModal: Bool = false  // Controls modal visibility on iOS
     
     let platform: PlatformAdapter
@@ -78,20 +84,24 @@ final class AppViewModel: ObservableObject {
     var stateMessage: String {
         switch platform.kind {
         case .ios:
-            guard let enabled = extensionEnabled else {
+            switch extensionEnabled {
+            case .unchecked:
                 return LocalizedString.extensionStateIOSUnknown()
+            case .enabled:
+                return LocalizedString.extensionStateIOSOn()
+            case .disabled:
+                return LocalizedString.extensionStateIOSOff()
             }
-            return enabled
-                ? LocalizedString.extensionStateIOSOn()
-                : LocalizedString.extensionStateIOSOff()
         case .mac:
             let location = LocalizedString.extensionStateMacLocation(useSettings: platform.useSettings)
-            guard let enabled = extensionEnabled else {
+            switch extensionEnabled {
+            case .unchecked:
                 return LocalizedString.extensionStateMacEnable(location: location)
+            case .enabled:
+                return LocalizedString.extensionStateMacOn(location: location)
+            case .disabled:
+                return LocalizedString.extensionStateMacOff(location: location)
             }
-            return enabled
-                ? LocalizedString.extensionStateMacOn(location: location)
-                : LocalizedString.extensionStateMacOff(location: location)
         }
     }
     
@@ -119,15 +129,18 @@ final class AppViewModel: ObservableObject {
             guard let self = self else { return }
             // [weak self] prevents memory leaks by allowing self to be deallocated
             DispatchQueue.main.async {
+                let state: ExtensionState
                 if let enabled = enabled {
+                    state = enabled ? .enabled : .disabled
                     logInfo("Extension state: \(enabled ? "enabled" : "disabled")", category: self.logCategory)
                 } else {
+                    state = .unchecked
                     logWarning("Extension state unknown", category: self.logCategory)
                 }
-                self.extensionEnabled = enabled
+                self.extensionEnabled = state
                 
                 // Platform-specific handling (iOS shows modal, macOS does nothing)
-                self.handleExtensionStateChanged(enabled: enabled)
+                self.handleExtensionStateChanged(state: state)
             }
         }
     }
@@ -163,4 +176,3 @@ final class AppViewModel: ObservableObject {
         logVerbose("Display mode saved successfully", category: "AppViewModel")
     }
 }
-

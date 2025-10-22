@@ -12,13 +12,10 @@ import SwiftUI
 
 extension AppViewModel {
     // Called from refreshExtensionState
-    // Shows modal when extension is disabled or state unknown
-    func handleExtensionStateChanged(enabled: Bool?) {
-        if enabled == false || enabled == nil {
-            // Small delay to ensure view is ready
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.showEnableExtensionModal = true
-            }
+    // Shows modal when extension is disabled
+    func handleExtensionStateChanged(state: ExtensionState) {
+        if state == .disabled {
+            showEnableExtensionModal = true
         }
     }
     
@@ -27,4 +24,3 @@ extension AppViewModel {
         // No-op on iOS
     }
 }
-

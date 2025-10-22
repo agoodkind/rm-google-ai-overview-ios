@@ -51,8 +51,7 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         updateLastActiveTimestamp()
         
         if let messageDict = message as? [String: Any],
-           let type = messageDict["type"] as? String
-        {
+           let type = messageDict["type"] as? String {
             switch type {
             case "ping":
                 logInfo("Ping received from app", category: logCategory)

@@ -66,4 +66,3 @@ class ContentBlockerStateChecker {
         completion(isActive)
     }
 }
-

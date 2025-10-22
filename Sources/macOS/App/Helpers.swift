@@ -19,4 +19,3 @@ extension AppViewModel {
         NSApp.terminate(nil)
     }
 }
-

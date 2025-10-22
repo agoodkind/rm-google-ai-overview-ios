@@ -113,4 +113,3 @@ enum LocalizedString {
         NSLocalizedString("enable_extension.modal.open_settings", comment: "Button to open Settings app")
     }
 }
-

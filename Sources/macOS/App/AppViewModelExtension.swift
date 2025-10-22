@@ -12,7 +12,7 @@ import SwiftUI
 
 extension AppViewModel {
     // macOS stub - no modal needed
-    func handleExtensionStateChanged(enabled: Bool?) {
+    func handleExtensionStateChanged(state: ExtensionState) {
         // macOS doesn't use modal - uses preferences button instead
     }
     
@@ -22,4 +22,3 @@ extension AppViewModel {
         terminateApp()
     }
 }
-

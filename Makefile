@@ -74,6 +74,10 @@ help:
 	@echo "  lint-js                 Run ESLint with auto-fix"
 	@echo "  typecheck-js            Run TypeScript type checking"
 	@echo ""
+	@echo "Swift targets:"
+	@echo "  lint-swift              Run SwiftLint (requires installation)"
+	@echo "  fix-swift               Auto-fix SwiftLint violations"
+	@echo ""
 	@echo "Xcode management:"
 	@echo "  sync-xcode-groups       Sync file groups to Xcode targets"
 	@echo "  show-version            Show current version and build"
@@ -146,6 +150,16 @@ serve-js-debug: install-js
 
 lint-js: install-js
 	$(PNPM) run lint
+
+lint-swift:
+	@echo "Linting Swift code..."
+	@command -v swiftlint >/dev/null 2>&1 || { echo "Error: swiftlint not installed. Run: brew install swiftlint"; exit 1; }
+	swiftlint lint --strict
+
+fix-swift:
+	@echo "Auto-fixing Swift code..."
+	@command -v swiftlint >/dev/null 2>&1 || { echo "Error: swiftlint not installed. Run: brew install swiftlint"; exit 1; }
+	swiftlint --fix
 
 typecheck-js: install-js
 	$(PNPM) exec tsc --noEmit
@@ -267,7 +281,7 @@ clean-xcode: clean
 prepare:
 	$(MKDIR) $(BUILDDIR) $(DERIVED_DATA)
 
-.PHONY: help install-js _build-js lint-js typecheck-js watch-js-debug serve-js-debug \
+.PHONY: help install-js _build-js lint-js lint-swift fix-swift typecheck-js watch-js-debug serve-js-debug \
 	sync-xcode-groups add-xcode-targets fix-infoplist show-version add-build-script remove-build-script \
 	_ios-build _ios-run _ios-archive _macos-build _macos-run _macos-archive \
 	build-js watch-js serve-js typecheck ios macos safari all clean clean-all prepare

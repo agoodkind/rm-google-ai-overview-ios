@@ -20,4 +20,3 @@ extension PlatformColor {
         Color(NSColor.underPageBackgroundColor)
     }
 }
-

@@ -35,4 +35,3 @@ class ContentBlockerRequestHandler: NSObject, NSExtensionRequestHandling {
         context.completeRequest(returningItems: [item], completionHandler: nil)
     }
 }
-

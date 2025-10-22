@@ -52,4 +52,3 @@ class ExtensionCommunicator {
         return isActive
     }
 }
-

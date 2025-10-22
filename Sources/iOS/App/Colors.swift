@@ -19,4 +19,3 @@ extension PlatformColor {
         Color(.secondarySystemBackground)
     }
 }
-

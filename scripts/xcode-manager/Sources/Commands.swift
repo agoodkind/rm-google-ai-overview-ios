@@ -471,4 +471,3 @@ extension XcodeManager {
         }
     }
 }
-

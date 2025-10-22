@@ -27,4 +27,3 @@ struct iOSPlatformAdapter: PlatformAdapter {
         ContentBlockerStateChecker.shared.checkContentBlockerState(completion: completion)
     }
 }
-

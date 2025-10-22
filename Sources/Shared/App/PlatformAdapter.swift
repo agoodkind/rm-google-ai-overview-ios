@@ -42,4 +42,3 @@ enum PlatformKind {
     case ios
     case mac
 }
-

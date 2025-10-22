@@ -145,4 +145,3 @@ func logDebug(_ message: String, category: String = "General", file: String = #f
 func logVerbose(_ message: String, category: String = "General", file: String = #file, line: Int = #line) {
     AppLogger.shared.verbose(message, category: category, file: file, line: line)
 }
-
