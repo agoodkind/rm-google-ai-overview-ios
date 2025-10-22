@@ -318,16 +318,14 @@ struct SettingsPanelView: View {
     }
 }
 
-/// Custom sliding segmented control for display mode
+/// Custom sliding segmented control for display mode (tab bar style)
 struct DisplayModeSlider: View {
     @Binding var selection: AppViewModel.DisplayMode
-    
-    @Namespace private var animation
     
     var body: some View {
         HStack(spacing: 0) {
             // Hide button
-            Button(action: { withAnimation(.spring(response: 0.3)) { selection = .hide } }) {
+            Button(action: { withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) { selection = .hide } }) {
                 VStack(spacing: 10) {
                     Image(systemName: "eye.slash")
                         .font(.title2)
@@ -344,7 +342,7 @@ struct DisplayModeSlider: View {
             .buttonStyle(.plain)
             
             // Highlight button
-            Button(action: { withAnimation(.spring(response: 0.3)) { selection = .highlight } }) {
+            Button(action: { withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) { selection = .highlight } }) {
                 VStack(spacing: 10) {
                     Image(systemName: "text.line.magnify")
                         .font(.title2)
@@ -360,25 +358,26 @@ struct DisplayModeSlider: View {
             }
             .buttonStyle(.plain)
         }
+        .padding(4)
         .background(
             ZStack {
-                // Light background
+                // Light gray background container
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.secondary.opacity(0.08))
+                    .fill(Color.secondary.opacity(0.12))
                 
-                // Sliding colored background
+                // Sliding colored pill
                 GeometryReader { geometry in
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    let pillWidth = (geometry.size.width - 8) / 2
+                    let pillOffset = selection == .hide ? 4.0 : pillWidth + 4
+                    
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
                         .fill(selection == .hide ? Color.blue : Color.orange)
-                        .frame(width: geometry.size.width / 2)
-                        .offset(x: selection == .hide ? 0 : geometry.size.width / 2)
+                        .frame(width: pillWidth, height: geometry.size.height - 8)
+                        .offset(x: pillOffset, y: 4)
                 }
             }
         )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
-        )
+        .backport.glassEffect(.regular.interactive(), in: .rect(cornerRadius: 16))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 }
