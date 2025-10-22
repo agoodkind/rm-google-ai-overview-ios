@@ -12,7 +12,6 @@
 
 import SwiftUI
 import Combine
-import SwiftUIBackports
 
 #if DEBUG
 /// Debug information panel showing app state, lifecycle, and configuration
@@ -83,13 +82,81 @@ struct DebugPanelView: View {
             #if os(iOS)
             // Debug Actions
             debugSection(title: "DEBUG ACTIONS") {
-                Button("Reset Modal Flag") {
-                    viewModel.resetModalDismissal()
+                VStack(spacing: 8) {
+                    Button("Reset Modal Flag") {
+                        viewModel.resetModalDismissal()
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                    
+                    Button("Clear All Extension Data") {
+                        clearAllExtensionData()
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                    .tint(.red)
                 }
-                .backport.glassButtonStyle()
-                .controlSize(.small)
             }
             #endif
+            
+            // Extension Activity
+            debugSection(title: "EXTENSION ACTIVITY") {
+                logContainer {
+                    VStack(alignment: .leading, spacing: 8) {
+                        if let bgPing = viewModel.extensionPingTracker.backgroundPing {
+                            HStack {
+                                Text("Background:")
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                                Text(formatTime(bgPing.timestamp))
+                                    .foregroundColor(.primary)
+                            }
+                        } else {
+                            HStack {
+                                Text("Background:")
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                                Text("No ping yet")
+                                    .foregroundColor(.secondary)
+                                    .italic()
+                            }
+                        }
+                        
+                        if let contentPing = viewModel.extensionPingTracker.contentPing {
+                            HStack {
+                                Text("Content Script:")
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                                Text(formatTime(contentPing.timestamp))
+                                    .foregroundColor(.primary)
+                            }
+                            if let tabId = contentPing.tabId {
+                                HStack {
+                                    Text("  Tab ID:")
+                                        .foregroundColor(.secondary)
+                                    Spacer()
+                                    Text("\(tabId)")
+                                        .foregroundColor(.secondary)
+                                        .font(.system(size: 10))
+                                }
+                            }
+                        } else {
+                            HStack {
+                                Text("Content Script:")
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                                Text("No ping yet")
+                                    .foregroundColor(.secondary)
+                                    .italic()
+                            }
+                        }
+                    }
+                    .font(.caption2)
+                    .padding(12)
+                }
+            }
+            
+            
             
             // Event Log
             debugSection(title: "EVENT LOG (Last \(min(viewModel.debugEventLog.count, 10)))") {
@@ -114,12 +181,80 @@ struct DebugPanelView: View {
                     }
                 }
             }
-            
-            // Extension Logs
-            debugSection(title: "EXTENSION LOGS (Last \(min(viewModel.extensionLogReader.logs.count, 10)))") {
+            // Handler Debug Logs
+            debugSection(title: "HANDLER DEBUG (\(viewModel.handlerDebugLogs.count))") {
                 logContainer {
-                    if viewModel.extensionLogReader.logs.isEmpty {
-                        Text("No extension logs yet")
+                    if viewModel.handlerDebugLogs.isEmpty {
+                        Text("No handler debug logs")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .italic()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding()
+                    } else {
+                        ScrollView {
+                            VStack(alignment: .leading, spacing: 4) {
+                                ForEach(Array(viewModel.handlerDebugLogs.prefix(10).enumerated()), id: \.offset) { index, log in
+                                    Text(log)
+                                        .font(.caption2)
+                                        .foregroundColor(.primary)
+                                }
+                            }
+                            .padding(12)
+                        }
+                        .frame(maxHeight: 150)
+                    }
+                }
+            }
+            // Extension Stats
+            debugSection(title: "EXTENSION STATS") {
+                logContainer {
+                    if let stats = viewModel.extensionStatsReader.stats {
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Text("Total Hidden:")
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                                Text("\(stats.totalHidden)")
+                                    .foregroundColor(.primary)
+                                    .bold()
+                            }
+                            
+                            HStack {
+                                Text("Total Duplicates:")
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                                Text("\(stats.totalDupes)")
+                                    .foregroundColor(.primary)
+                                    .bold()
+                            }
+                            
+                            HStack {
+                                Text("Last Updated:")
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                                Text(formatTime(stats.lastUpdated))
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .font(.caption2)
+                        .padding(12)
+                    } else {
+                        Text("No stats available")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .italic()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding()
+                    }
+                }
+            }
+            
+            // Background Script Logs
+            debugSection(title: "BACKGROUND LOGS (\(viewModel.extensionLogReader.backgroundLogs.count))") {
+                logContainer {
+                    if viewModel.extensionLogReader.backgroundLogs.isEmpty {
+                        Text("No background logs yet")
                             .font(.caption2)
                             .foregroundColor(.secondary)
                             .italic()
@@ -128,7 +263,31 @@ struct DebugPanelView: View {
                     } else {
                         ScrollView {
                             VStack(alignment: .leading, spacing: 6) {
-                                ForEach(viewModel.extensionLogReader.logs.prefix(10)) { log in
+                                ForEach(viewModel.extensionLogReader.backgroundLogs.prefix(10)) { log in
+                                    extensionLogRow(log: log)
+                                }
+                            }
+                            .padding(12)
+                        }
+                        .frame(maxHeight: 150)
+                    }
+                }
+            }
+            
+            // Content Script Logs
+            debugSection(title: "CONTENT LOGS (\(viewModel.extensionLogReader.contentLogs.count))") {
+                logContainer {
+                    if viewModel.extensionLogReader.contentLogs.isEmpty {
+                        Text("No content logs yet")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .italic()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding()
+                    } else {
+                        ScrollView {
+                            VStack(alignment: .leading, spacing: 6) {
+                                ForEach(viewModel.extensionLogReader.contentLogs.prefix(10)) { log in
                                     extensionLogRow(log: log)
                                 }
                             }
@@ -146,6 +305,11 @@ struct DebugPanelView: View {
         .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()) { _ in
             // Update relative times every second
             refreshTrigger = Date()
+            // Refresh extension logs, stats, and pings every second
+            viewModel.extensionLogReader.refreshLogs()
+            viewModel.extensionStatsReader.refreshStats()
+            viewModel.extensionPingTracker.refreshPings()
+            viewModel.refreshHandlerDebugLogs()
         }
     }
     
@@ -323,6 +487,30 @@ struct DebugPanelView: View {
         default:
             return .secondary
         }
+    }
+    
+    /// Clear all extension data from shared storage
+    private func clearAllExtensionData() {
+        guard let defaults = UserDefaults(suiteName: APP_GROUP_ID) else {
+            return
+        }
+        
+        // Clear all extension-related keys
+        defaults.removeObject(forKey: "extension-logs")
+        defaults.removeObject(forKey: "extension-stats")
+        defaults.removeObject(forKey: "extension-ping-background")
+        defaults.removeObject(forKey: "extension-ping-content")
+        defaults.removeObject(forKey: "extension-last-active")
+        defaults.removeObject(forKey: "handler-debug")
+        defaults.synchronize()
+        
+        // Refresh all readers
+        viewModel.extensionLogReader.refreshLogs()
+        viewModel.extensionStatsReader.refreshStats()
+        viewModel.extensionPingTracker.refreshPings()
+        viewModel.refreshHandlerDebugLogs()
+        
+        print("🗑️ Cleared all extension data")
     }
     
     /// Background styling for debug panel

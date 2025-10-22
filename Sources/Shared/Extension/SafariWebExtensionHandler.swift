@@ -36,6 +36,11 @@ let DISPLAY_MODE_KEY = "skip-ai-display-mode"
 class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
     private let logCategory = "SafariExtension"
     
+    override init() {
+        super.init()
+        logDebug("SafariWebExtensionHandler initialized", category: logCategory)
+    }
+    
     func beginRequest(with context: NSExtensionContext) {
         logDebug("beginRequest start", category: logCategory)
         
@@ -57,21 +62,49 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
                 logInfo("Ping received from app", category: logCategory)
                 setResponseData(on: response, data: ["type": "pong"])
                 logDebug("Responded with pong", category: logCategory)
-            case "serviceWorkerStarted":
+                
+            case "service_worker_started", "serviceWorkerStarted": // Support both formats
                 logInfo("Service worker started notification", category: logCategory)
                 setResponseData(on: response, data: ["status": "acknowledged"])
                 logDebug("Acknowledged service worker start", category: logCategory)
-            case "getDisplayMode":
+                
+            case "get_display_mode", "getDisplayMode": // Support both formats
                 logDebug("Display mode requested", category: logCategory)
                 let displayMode = getDisplayMode()
                 setResponseData(on: response, data: ["displayMode": displayMode])
                 logInfo("Returned display mode: \(displayMode)", category: logCategory)
-            case "extensionLog":
+                
+            case "extension_log", "extensionLog": // Support both formats
                 logDebug("Extension log received", category: logCategory)
+                storeHandlerDebug("Received extension_log message")
+                
                 if let logData = messageDict["log"] as? [String: Any] {
+                    storeHandlerDebug("Log data keys: \(logData.keys.joined(separator: ", "))")
                     storeExtensionLog(logData)
+                } else {
+                    storeHandlerDebug("ERROR: Failed to extract log data")
                 }
+                
                 setResponseData(on: response, data: ["status": "logged"])
+                
+            case "extension_stats", "extensionStats": // Support both formats
+                logDebug("Extension stats received", category: logCategory)
+                
+                if let statsData = messageDict["stats"] as? [String: Any] {
+                    storeExtensionStats(statsData)
+                }
+                
+                setResponseData(on: response, data: ["status": "recorded"])
+                
+            case "extension_ping", "extensionPing": // Support both formats
+                logDebug("Extension ping received", category: logCategory)
+                
+                let source = messageDict["source"] as? String ?? "unknown"
+                let tabId = messageDict["tabId"] as? Int
+                
+                storeExtensionPing(source: source, tabId: tabId)
+                setResponseData(on: response, data: ["type": "pong"])
+                
             default:
                 logError("Unknown message type: \(type)", category: logCategory)
             }
@@ -104,7 +137,9 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
     private func storeExtensionLog(_ logData: [String: Any]) {
         guard let timestamp = logData["timestamp"] as? String,
               let level = logData["level"] as? String,
-              let message = logData["message"] as? String else {
+              let message = logData["message"] as? String,
+              let source = logData["source"] as? String else {
+            storeHandlerDebug("ERROR: Missing required log fields")
             logWarning("Invalid log data format", category: logCategory)
             return
         }
@@ -120,6 +155,7 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             "timestamp": timestamp,
             "level": level,
             "message": message,
+            "source": source,
             "context": context ?? ""
         ]
         
@@ -132,16 +168,97 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         
         logs.insert(logEntry, at: 0) // Most recent first
         
-        // Keep last 50 logs
-        if logs.count > 50 {
-            logs = Array(logs.prefix(50))
+        // Keep last 100 logs (50 per source)
+        if logs.count > 100 {
+            logs = Array(logs.prefix(100))
         }
         
         defaults?.set(logs, forKey: "extension-logs")
         defaults?.synchronize()
         
+        storeHandlerDebug("Stored log #\(logs.count): [\(source):\(level)] \(message)")
+        
         let locationStr = file != nil ? " (\(file!):\(line ?? 0))" : ""
-        logVerbose("Stored extension log: [\(level)]\(locationStr) \(message)", category: logCategory)
+        logVerbose("Stored extension log: [\(source):\(level)]\(locationStr) \(message)", category: logCategory)
+    }
+    
+    private func storeHandlerDebug(_ message: String) {
+        let defaults = UserDefaults(suiteName: APP_GROUP_ID)
+        var debugLogs = defaults?.array(forKey: "handler-debug") as? [String] ?? []
+        
+        let timestamp = DateFormatter.localizedString(from: Date(), dateStyle: .none, timeStyle: .medium)
+        debugLogs.insert("\(timestamp): \(message)", at: 0)
+        
+        // Keep last 20 debug messages
+        if debugLogs.count > 20 {
+            debugLogs = Array(debugLogs.prefix(20))
+        }
+        
+        defaults?.set(debugLogs, forKey: "handler-debug")
+        defaults?.synchronize()
+    }
+    
+    private func storeExtensionStats(_ statsData: [String: Any]) {
+        guard let sessionHidden = statsData["elementsHidden"] as? Int,
+              let sessionDupes = statsData["duplicatesFound"] as? Int else {
+            logWarning("Invalid stats data format", category: logCategory)
+            return
+        }
+        
+        let defaults = UserDefaults(suiteName: APP_GROUP_ID)
+        let currentStats = defaults?.dictionary(forKey: "extension-stats") ?? [:]
+        
+        // Get previous session stats to calculate delta
+        let prevSessionHidden = currentStats["lastSessionHidden"] as? Int ?? 0
+        let prevSessionDupes = currentStats["lastSessionDupes"] as? Int ?? 0
+        
+        // Calculate deltas (handles page reloads where counters reset)
+        let deltaHidden = sessionHidden >= prevSessionHidden ? (sessionHidden - prevSessionHidden) : sessionHidden
+        let deltaDupes = sessionDupes >= prevSessionDupes ? (sessionDupes - prevSessionDupes) : sessionDupes
+        
+        // Accumulate into totals
+        let totalHidden = (currentStats["totalHidden"] as? Int ?? 0) + deltaHidden
+        let totalDupes = (currentStats["totalDupes"] as? Int ?? 0) + deltaDupes
+        
+        let stats: [String: Any] = [
+            "lastSessionHidden": sessionHidden,
+            "lastSessionDupes": sessionDupes,
+            "totalHidden": totalHidden,
+            "totalDupes": totalDupes,
+            "timestamp": ISO8601DateFormatter().string(from: Date())
+        ]
+        
+        defaults?.set(stats, forKey: "extension-stats")
+        defaults?.synchronize()
+        
+        logInfo("Stats: session(\(sessionHidden)/\(sessionDupes)) delta(+\(deltaHidden)/+\(deltaDupes)) total(\(totalHidden)/\(totalDupes))", category: logCategory)
+    }
+    
+    private func storeExtensionPing(source: String, tabId: Int?) {
+        let defaults = UserDefaults(suiteName: APP_GROUP_ID)
+        let timestamp = ISO8601DateFormatter().string(from: Date())
+        
+        if source == "background" {
+            let pingData: [String: Any] = [
+                "source": "background",
+                "timestamp": timestamp
+            ]
+            defaults?.set(pingData, forKey: "extension-ping-background")
+            logInfo("Background script ping recorded", category: logCategory)
+        } else if source == "content" {
+            var pingData: [String: Any] = [
+                "source": "content",
+                "timestamp": timestamp
+            ]
+            if let tabId = tabId {
+                pingData["tabId"] = tabId
+            }
+            defaults?.set(pingData, forKey: "extension-ping-content")
+            let tabInfo = tabId != nil ? " (tab: \(tabId!))" : ""
+            logInfo("Content script ping recorded\(tabInfo)", category: logCategory)
+        }
+        
+        defaults?.synchronize()
     }
     
     // MARK: - Helper Methods

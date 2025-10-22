@@ -9,7 +9,6 @@
 //
 
 import SwiftUI
-import SwiftUIBackports
 
 struct EnableExtensionModal: View {
     @ObservedObject var viewModel: AppViewModel
@@ -65,7 +64,7 @@ struct EnableExtensionModal: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 4)
             }
-            .backport.glassProminentButtonStyle()
+            .buttonStyle(.borderedProminent)
             .controlSize(.large)
             .padding(.horizontal, 24)
             .padding(.bottom, 40)
@@ -93,7 +92,7 @@ struct EnableExtensionModal: View {
                     
                     actionButtons
                         .padding(.horizontal, 24)
-                        .padding(.bottom, 32)
+                        .padding(.bottom, 40)
                 }
             }
             
@@ -155,7 +154,7 @@ struct EnableExtensionModal: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 4)
             }
-            .backport.glassProminentButtonStyle()
+            .buttonStyle(.borderedProminent)
             .controlSize(.large)
             
             Button(action: { viewModel.dismissEnableExtensionModal() }) {
@@ -164,7 +163,7 @@ struct EnableExtensionModal: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 4)
             }
-            .backport.glassButtonStyle()
+            .buttonStyle(.bordered)
             .controlSize(.large)
         }
     }

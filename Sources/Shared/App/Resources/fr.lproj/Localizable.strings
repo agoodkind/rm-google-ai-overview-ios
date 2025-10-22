@@ -23,7 +23,7 @@
 "display_mode.highlight.description" = "Mettre en évidence : Affiche les sections d'aperçu IA avec une bordure orange pour que vous puissiez voir ce qui est détecté.";
 
 /* Enable Extension Modal */
-"enable_extension.modal.title" = "Activer Skip AI pour Safari";
+"enable_extension.modal.title" = "Enable Extension";
 "enable_extension.modal.step1" = "Ouvrez Réglages.";
 "enable_extension.modal.step2" = "Allez dans Apps > Safari > Extensions.";
 "enable_extension.modal.step3" = "Activez les deux extensions Skip AI. Vous êtes prêt !";

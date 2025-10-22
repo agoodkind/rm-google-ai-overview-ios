@@ -23,5 +23,14 @@
 		<key>UIColorName</key>
 		<string>systemBackgroundColor</string>
 	</dict>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
 </dict>
 </plist>

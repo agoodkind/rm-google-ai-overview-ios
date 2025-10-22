@@ -27,8 +27,6 @@
 		A475DD6D2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
 		A475DD6E2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
 		A484EB542EA751CF008A1BE9 /* ContentBlocker.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A484EB4B2EA751CF008A1BE9 /* ContentBlocker.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A4C453052EA89D510017F365 /* SwiftUIBackports in Frameworks */ = {isa = PBXBuildFile; productRef = A4C453042EA89D510017F365 /* SwiftUIBackports */; };
-		A4C453072EA89D650017F365 /* SwiftUIBackports in Frameworks */ = {isa = PBXBuildFile; productRef = A4C453062EA89D650017F365 /* SwiftUIBackports */; };
 		A4E45A862EA6FA3C00305F93 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A842EA6FA3C00305F93 /* Release.xcconfig */; };
 		A4E45A872EA6FA3C00305F93 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */; };
 		A4E45A882EA6FA3C00305F93 /* Preview.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */; };
@@ -111,6 +109,7 @@
 		236FD903F4964B92449BD0B6 /* DebugViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViews.swift; sourceTree = "<group>"; };
 		2E761647298E60A467AFE070 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		32578BF837B42E7E3EBEE2F8 /* AppViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModelExtension.swift; sourceTree = "<group>"; };
+		44B87CBA99CAC19729525C40 /* ExtensionStatsReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionStatsReader.swift; sourceTree = "<group>"; };
 		52D66F5BD1BE746150A83F18 /* FeedbackReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackReporter.swift; sourceTree = "<group>"; };
 		7F20E2132CB759B510487EC7 /* PlatformAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformAdapter.swift; sourceTree = "<group>"; };
 		842B6594B7A356E2E33BF554 /* WindowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowConfiguration.swift; sourceTree = "<group>"; };
@@ -178,12 +177,19 @@
 				"/Localized: iOS/App/LaunchScreen.storyboard",
 				"/Localized: iOS/App/Main.storyboard",
 				"/Localized: Shared/App/Resources/Localizable.strings",
+				Shared/App/AppConstants.swift,
 				Shared/App/AppViewModel.swift,
 				Shared/App/AppViews.swift,
 				Shared/App/Assets.xcassets,
 				Shared/App/DebugViews.swift,
 				Shared/App/ExtensionLogReader.swift,
+				Shared/App/ExtensionPingTracker.swift,
+				Shared/App/ExtensionStatsReader.swift,
 				Shared/App/FeedbackReporter.swift,
+				Shared/App/GlassBackport.swift,
+				Shared/App/LocalizedString.swift,
+				Shared/App/PlatformAdapter.swift,
+				Shared/App/PlatformColor.swift,
 				Shared/App/Resources/Icon.png,
 				Shared/App/SkipAIApp.swift,
 				Shared/App/ViewExtensions.swift,
@@ -205,6 +211,10 @@
 				Shared/App/Assets.xcassets,
 				Shared/App/DebugViews.swift,
 				Shared/App/ExtensionLogReader.swift,
+				Shared/App/ExtensionPingTracker.swift,
+				Shared/App/ExtensionStatsReader.swift,
+				Shared/App/FeedbackReporter.swift,
+				Shared/App/GlassBackport.swift,
 				Shared/App/LocalizedString.swift,
 				Shared/App/PlatformAdapter.swift,
 				Shared/App/PlatformColor.swift,
@@ -271,7 +281,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4C453052EA89D510017F365 /* SwiftUIBackports in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,7 +288,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4C453072EA89D650017F365 /* SwiftUIBackports in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +488,7 @@
 				842B6594B7A356E2E33BF554 /* WindowConfiguration.swift */,
 				52D66F5BD1BE746150A83F18 /* FeedbackReporter.swift */,
 				84FE12B2FA07A29E51BCADAE /* ExtensionLogReader.swift */,
+				44B87CBA99CAC19729525C40 /* ExtensionStatsReader.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -528,7 +537,6 @@
 			);
 			dependencies = (
 				A4C4530B2EA89E0E0017F365 /* PBXTargetDependency */,
-				A4C453092EA89E070017F365 /* PBXTargetDependency */,
 				B201AF602E95C4E4008A3464 /* PBXTargetDependency */,
 			);
 			name = "Skip AI (iOS)";
@@ -549,7 +557,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				A4C4530D2EA89E140017F365 /* PBXTargetDependency */,
 				B201AF6A2E95C4E4008A3464 /* PBXTargetDependency */,
 			);
 			name = "Skip AI (macOS)";
@@ -638,7 +645,6 @@
 			mainGroup = B201AF232E95C4E2008A3464;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				A4C453032EA89D510017F365 /* XCRemoteSwiftPackageReference "iOS-Backports" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B201AF412E95C4E4008A3464 /* Products */;
@@ -849,18 +855,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A4C453092EA89E070017F365 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = A4C453082EA89E070017F365 /* SwiftUIBackports */;
-		};
 		A4C4530B2EA89E0E0017F365 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A484EB4A2EA751CF008A1BE9 /* ContentBlocker */;
 			targetProxy = A4C4530A2EA89E0E0017F365 /* PBXContainerItemProxy */;
-		};
-		A4C4530D2EA89E140017F365 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = A4C4530C2EA89E140017F365 /* SwiftUIBackports */;
 		};
 		B201AF602E95C4E4008A3464 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -880,7 +878,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/ContentBlocker/Info.plist;
@@ -911,7 +909,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/ContentBlocker/Info.plist;
@@ -944,7 +942,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/ContentBlocker/Info.plist;
@@ -977,7 +975,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/Extension/Info.plist;
@@ -1012,7 +1010,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/Extension/Info.plist;
@@ -1051,7 +1049,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
@@ -1096,7 +1094,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
@@ -1139,7 +1137,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1177,7 +1175,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1218,7 +1216,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1263,7 +1261,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1487,7 +1485,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
@@ -1533,7 +1531,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1576,7 +1574,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/Extension/Info.plist;
@@ -1612,7 +1610,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 443;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1710,40 +1708,6 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		A4C453032EA89D510017F365 /* XCRemoteSwiftPackageReference "iOS-Backports" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/superwall/iOS-Backports";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.3;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		A4C453042EA89D510017F365 /* SwiftUIBackports */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A4C453032EA89D510017F365 /* XCRemoteSwiftPackageReference "iOS-Backports" */;
-			productName = SwiftUIBackports;
-		};
-		A4C453062EA89D650017F365 /* SwiftUIBackports */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A4C453032EA89D510017F365 /* XCRemoteSwiftPackageReference "iOS-Backports" */;
-			productName = SwiftUIBackports;
-		};
-		A4C453082EA89E070017F365 /* SwiftUIBackports */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A4C453032EA89D510017F365 /* XCRemoteSwiftPackageReference "iOS-Backports" */;
-			productName = SwiftUIBackports;
-		};
-		A4C4530C2EA89E140017F365 /* SwiftUIBackports */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A4C453032EA89D510017F365 /* XCRemoteSwiftPackageReference "iOS-Backports" */;
-			productName = SwiftUIBackports;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B201AF242E95C4E2008A3464 /* Project object */;
 }

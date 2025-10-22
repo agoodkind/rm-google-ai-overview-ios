@@ -23,7 +23,7 @@
 "display_mode.highlight.description" = "تمييز: يعرض أقسام نظرة عامة الذكاء الاصطناعي بحدود برتقالية حتى تتمكن من رؤية ما يتم اكتشافه.";
 
 /* Enable Extension Modal */
-"enable_extension.modal.title" = "تفعيل Skip AI لـ Safari";
+"enable_extension.modal.title" = "Enable Extension";
 "enable_extension.modal.step1" = "افتح الإعدادات.";
 "enable_extension.modal.step2" = "انتقل إلى التطبيقات > Safari > الملحقات.";
 "enable_extension.modal.step3" = "فعّل كلا ملحقي Skip AI. جاهز!";

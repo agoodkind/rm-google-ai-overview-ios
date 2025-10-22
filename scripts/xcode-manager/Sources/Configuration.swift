@@ -12,8 +12,8 @@ import PathKit
 
 /// Global configuration for xcode-manager tool
 enum Config {
-    /// Path to Skip AI.xcodeproj (relative to tool location)
-    static let projectPath = Path("../../Skip AI.xcodeproj")
+    /// Path to Skip AI.xcodeproj
+    static let projectPath = Path("Skip AI.xcodeproj")
     
     /// Absolute path to workspace root directory
     static var workspaceRoot: Path {

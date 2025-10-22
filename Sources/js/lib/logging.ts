@@ -7,75 +7,30 @@
 //
 //  Extension logging that relays to native app
 
-type LogLevel = "debug" | "info" | "warn" | "error";
+import { MessagesToNativeApp } from "./messaging/constants";
+import type { INativeMessenger } from "./messaging/native";
 
-interface LogEntry {
+type LogSource = "background" | "content";
+
+export const LogLevel = {
+  DEBUG: "debug",
+  INFO: "info",
+  WARN: "warn",
+  ERROR: "error",
+} as const;
+
+type LogLevel = (typeof LogLevel)[keyof typeof LogLevel];
+
+export interface LogEntry {
   timestamp: string;
   level: LogLevel;
-  message: string;
+  source: LogSource;
   context?: string;
-  stack?: string;
-  file?: string;
-  line?: number;
-}
-
-/**
- * Extract call location from stack trace
- * Note: Shows bundled file locations (background.js, content.js)
- * Not TypeScript source due to bundling.
- * Use context parameter for source identification.
- */
-function getCallLocation(): {
+  message: string;
+  extra?: unknown;
   file?: string;
   line?: number;
   stack?: string;
-} {
-  const stack = new Error().stack;
-  if (!stack) {
-    return {};
-  }
-
-  // Parse stack trace to find caller
-  // (skip Error, getCallLocation, and the log function)
-  const lines = stack.split("\n");
-  const callerLine = lines[3] || lines[2]; // Line that called logger
-
-  // Extract file:line from bundled code
-  const match = callerLine?.match(/([^/]+\.js):(\d+):\d+/);
-  if (match) {
-    return {
-      file: match[1],
-      line: parseInt(match[2], 10),
-      stack: stack,
-    };
-  }
-
-  return { stack };
-}
-
-/**
- * Send log to native app for storage
- */
-async function sendLogToNative(entry: LogEntry) {
-  try {
-    await browser.runtime.sendNativeMessage("application.id", {
-      type: "extensionLog",
-      log: entry,
-    });
-  } catch (error) {
-    // Silently fail - don't create infinite loop
-    console.error("Failed to send log to native:", error);
-  }
-}
-
-/**
- * File-bound logger for a specific source file
- */
-interface FileLogger {
-  debug: (message: string, fn?: string) => void;
-  info: (message: string, fn?: string) => void;
-  warn: (message: string, fn?: string) => void;
-  error: (message: string, fn?: string) => void;
 }
 
 /**
@@ -91,62 +46,113 @@ interface FileLogger {
  * The fn parameter identifies the function/context
  * Combined they create a traceable log entry despite bundling
  */
-export const ExtensionLogger = {
-  for: (file: string): FileLogger => ({
-    debug: (message: string, fn?: string) => {
-      const context = fn ? `${file}:${fn}` : file;
-      const location = getCallLocation();
+export class ExtensionLogger {
+  #source: LogSource;
+  private static instance: ExtensionLogger | null = null;
 
-      VERBOSE5: console.debug(`[${context}] ${message}`);
-      sendLogToNative({
-        timestamp: new Date().toISOString(),
-        level: "debug",
-        message,
-        context,
-        ...location,
-      });
-    },
+  #messenger: INativeMessenger;
 
-    info: (message: string, fn?: string) => {
-      const context = fn ? `${file}:${fn}` : file;
-      const location = getCallLocation();
+  private constructor(source: LogSource, messenger: INativeMessenger) {
+    this.#source = source;
+    this.#messenger = messenger;
+  }
 
-      VERBOSE4: console.info(`[${context}] ${message}`);
-      sendLogToNative({
-        timestamp: new Date().toISOString(),
-        level: "info",
-        message,
-        context,
-        ...location,
-      });
-    },
+  async #sendLogToNative(entry: LogEntry) {
+    switch (entry.source) {
+      case "background":
+        await this.#messenger.sendNativeMessage(
+          MessagesToNativeApp.ExtensionLog,
+          entry,
+        );
+        break;
+      case "content":
+        await this.#messenger.sendNativeMessage(
+          MessagesToNativeApp.ExtensionLog,
+          entry,
+        );
+        break;
+      default:
+        throw new Error(`Invalid log source: ${entry.source}`);
+    }
+  }
 
-    warn: (message: string, fn?: string) => {
-      const context = fn ? `${file}:${fn}` : file;
-      const location = getCallLocation();
+  static for(source: LogSource, messenger: INativeMessenger): ExtensionLogger {
+    if (!ExtensionLogger.instance) {
+      ExtensionLogger.instance = new ExtensionLogger(source, messenger);
+    }
+    return ExtensionLogger.instance;
+  }
 
-      console.warn(`[${context}] ${message}`);
-      sendLogToNative({
-        timestamp: new Date().toISOString(),
-        level: "warn",
-        message,
-        context,
-        ...location,
-      });
-    },
+  /**
+   * Extract call location from stack trace
+   * Note: Shows bundled file locations (background.js, content.js)
+   * Not TypeScript source due to bundling.
+   * Use context parameter for source identification.
+   */
+  static #getCallLocation(): {
+    file?: string;
+    line?: number;
+    stack?: string;
+  } {
+    const stack = new Error().stack;
+    if (!stack) {
+      return {};
+    }
 
-    error: (message: string, fn?: string) => {
-      const context = fn ? `${file}:${fn}` : file;
-      const location = getCallLocation();
+    // Parse stack trace to find caller
+    // (skip Error, getCallLocation, and the log function)
+    const lines = stack.split("\n");
+    const callerLine = lines[3] || lines[2]; // Line that called logger
 
-      console.error(`[${context}] ${message}`);
-      sendLogToNative({
-        timestamp: new Date().toISOString(),
-        level: "error",
-        message,
-        context,
-        ...location,
-      });
-    },
-  }),
-};
+    // Extract file:line from bundled code
+    const match = callerLine?.match(/([^/]+\.js):(\d+):\d+/);
+    if (match) {
+      return {
+        file: match[1],
+        line: parseInt(match[2], 10),
+        stack: stack,
+      };
+    }
+
+    return { stack };
+  }
+
+  async #doLog({
+    level,
+    context,
+    message,
+    extra,
+  }: {
+    level: LogLevel;
+    context?: string;
+    message: string;
+    extra?: unknown;
+  }): Promise<void> {
+    const location = ExtensionLogger.#getCallLocation();
+    await this.#sendLogToNative({
+      ...location,
+      level,
+      timestamp: new Date().toISOString(),
+      source: this.#source,
+      message,
+      context,
+      extra,
+    });
+  }
+
+  async debug(context: string, message: string, ...extra: unknown[]) {
+    await this.#doLog({ level: LogLevel.DEBUG, context, message, extra });
+  }
+
+  async info(context: string, message: string, ...extra: unknown[]) {
+    await this.#doLog({ level: LogLevel.INFO, context, message, extra });
+  }
+
+  async warn(context: string, message: string, ...extra: unknown[]) {
+    await this.#doLog({ level: LogLevel.WARN, context, message, extra });
+  }
+
+  async error(context: string, message: string, ...extra: unknown[]) {
+    await this.#doLog({ level: LogLevel.ERROR, context, message, extra });
+  }
+}

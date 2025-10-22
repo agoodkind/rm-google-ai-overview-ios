@@ -117,7 +117,7 @@ const postCssPlugin = {
  * Create esbuild BuildOptions for all entries.
  * @returns {Promise<import('esbuild').BuildOptions>}
  */
-const createBuildOptions = async () => {
+async function createBuildOptions() {
   const dynamicAlias = await loadTsconfigAliases();
   const commitSha = await getGitCommitSha();
 
@@ -147,7 +147,7 @@ const createBuildOptions = async () => {
     dropLabels: getLogLevelsToDrop(),
     plugins: [postCssPlugin],
   };
-};
+}
 
 /**
  * Execute build pipeline.

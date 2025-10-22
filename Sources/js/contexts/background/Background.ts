@@ -6,17 +6,48 @@
 //  https://goodkind.io/
 //
 
-import { ExtensionLogger } from "@lib/logging";
+import type { MessageToBackgroundPage } from "@/lib/messaging/background";
 import {
+  MessagesToBackgroundPage,
+  MessagesToNativeApp,
+} from "@/lib/messaging/constants";
+import {
+  BaseNativeMessenger,
   registerMessageListener,
-  sendRuntimeMessage,
   validObject,
-} from "@lib/messaging";
-import { isDev } from "@lib/shims";
+} from "@/lib/messaging/messaging";
+import type { MessageToNativeAppType } from "@/lib/messaging/native";
+import { ExtensionLogger } from "@lib/logging";
+import { bindConsole } from "@lib/shims";
 
-const log = ExtensionLogger.for("Background.ts");
+bindConsole();
 
-type DisplayMode = "hide" | "highlight";
+/**
+ * Messenger for background script to native app communication
+ */
+export class BackgroundNativeMessenger extends BaseNativeMessenger {
+  async sendNativeMessage(
+    type: MessageToNativeAppType,
+    data?: unknown,
+  ): Promise<unknown> {
+    const message: { type: MessageToNativeAppType; data?: unknown } = { type };
+
+    if (data) {
+      message.data = data;
+    }
+    VERBOSE5: console.debug("Sending native message:", message);
+
+    const response = await chrome.runtime.sendNativeMessage("", message);
+    if (response) {
+      VERBOSE5: console.debug("Received native response:", response);
+    }
+
+    return response;
+  }
+}
+
+const nativeMessenger = new BackgroundNativeMessenger();
+const log = ExtensionLogger.for("background", nativeMessenger);
 
 export async function broadcastTabMessage(message: unknown) {
   const tabs = await browser.tabs.query({});
@@ -42,112 +73,75 @@ export async function broadcastTabMessage(message: unknown) {
 export async function sendMessageToTab(tabId: number, message: unknown) {
   VERBOSE5: console.debug("Sending message to tab:", { tabId, message });
 
-  return await browser.tabs.sendMessage(tabId, message);
+  return await chrome.tabs.sendMessage(tabId, message);
 }
 
-export async function sendNativeMessage(message: unknown) {
-  VERBOSE4: console.debug("Sending native message:", message);
-
-  // safari ignores  application ID parameter
-  // and only sends to the native application that contains
-  const result = await browser.runtime.sendNativeMessage(
-    "application.id",
-    message,
-  );
-  return result;
-}
-
-async function fetchDisplayModeFromNative(): Promise<DisplayMode> {
-  const result = await sendNativeMessage({
-    type: "getDisplayMode",
-  });
-
-  return result.displayMode;
-}
-
-async function relayMessage(
+/**
+ * Handle messages from content scripts and other extension contexts
+ */
+function handleMessages(
   message: unknown,
   sender: browser.runtime.MessageSender,
-) {
-  const relayMessage = {
-    type: "relayMessage",
-    originalMessage: message,
-    originalSender: sender,
-  };
-
-  await Promise.all([
-    sendRuntimeMessage(relayMessage),
-    broadcastTabMessage(relayMessage),
-  ]);
-}
-
-// Listen for messages from content scripts
-registerMessageListener((message, sender, sendResponse) => {
-  if (isDev) {
-    relayMessage(message, sender);
-  }
-
-  if (!validObject(message) || !("type" in message)) {
+  sendResponse: (response?: unknown) => void,
+): boolean | void {
+  if (!validObject(message)) {
+    VERBOSE5: console.debug("Invalid message object received:", message);
     return;
+  } else {
+    VERBOSE5: console.debug("Received message in background:", message, sender);
   }
 
-  switch (message.type) {
-    case "ping": {
-      // respond to ping from native app to check if extension is enabled
-      VERBOSE4: console.debug("Ping received from native app");
+  const msg = message as MessageToBackgroundPage;
+  const { type } = msg;
 
-      // gather extension API information
-      const manifest = browser.runtime.getManifest();
+  switch (type) {
+    case MessagesToBackgroundPage.Ping: {
+      // Respond to ping from native app to check if extension is enabled
+      VERBOSE4: console.debug("Ping received");
+      log.debug("Ping received", "handleMessages");
+
+      // Gather extension API information
+      const manifest = chrome.runtime.getManifest();
       const details = {
         version: manifest.version,
         manifestVersion: manifest.manifest_version,
         name: manifest.name,
-        extensionId: browser.runtime.id,
+        extensionId: chrome.runtime.id,
         platform: navigator.platform,
         userAgent: navigator.userAgent,
       };
 
       sendResponse({ type: "pong", details });
+      return;
+    }
+
+    case MessagesToBackgroundPage.ForwardToNativeApp: {
+      nativeMessenger
+        .sendNativeMessage(msg.dataToForward.type, msg.dataToForward.data)
+        .then((result) => sendResponse(result));
+
       return true;
     }
-    case "getDisplayMode":
-      // fetch display mode from native app
-      fetchDisplayModeFromNative()
-        .then((displayMode) => {
-          sendResponse({ type: "getDisplayMode", displayMode });
-        })
-        .catch((error) => {
-          sendResponse({ error: error.message });
-        });
-
-      return true; // return true to indicate async response
-    default:
-      return;
   }
-});
+}
 
-// Listen for extension installation/enabling
-browser.management.onInstalled.addListener((details) => {
-  VERBOSE4: console.debug("Extension installed/updated [management]:", details);
-});
-
-// Listen for extension installation/enabling
-browser.runtime.onInstalled.addListener((details) => {
-  VERBOSE3: console.debug("Extension installed/updated:", details);
-  log.info(`Extension ${details.reason}`, "onInstalled");
-
-  // Notify native app that extension is active
-  sendNativeMessage({ type: "serviceWorkerStarted" }).catch((error) => {
-    console.error("Failed to notify native app:", error);
-    log.error(`Failed to notify native app: ${error}`, "onInstalled");
+nativeMessenger
+  .sendNativeMessage(MessagesToNativeApp.ServiceWorkerStarted)
+  .catch((error) => {
+    VERBOSE4: console.error("Failed to notify native app:", error);
+    log.error("onInstalled", "Failed to notify native app:", { error });
   });
-});
 
-// Also notify on service worker startup (Safari reopened)
-VERBOSE3: console.debug("Service worker initialized");
-log.info("Service worker initialized", "init");
+// Ping native app to register background script activity
+setTimeout(async () => {
+  try {
+    const result = await nativeMessenger.ping();
+    VERBOSE4: console.debug("Ping result:", result);
+  } catch (error) {
+    VERBOSE4: console.error("Failed to ping native app:", error);
+    await log.error("init", "Failed to ping native app:", { error });
+  }
+}, 1000);
 
-sendNativeMessage({ type: "serviceWorkerStarted" }).catch((error) => {
-  VERBOSE4: console.error("Failed to notify native app:", error);
-  log.error(`Failed to notify native app: ${error}`, "init");
-});
+// Register message listener
+registerMessageListener(handleMessages);

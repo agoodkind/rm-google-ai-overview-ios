@@ -501,4 +501,60 @@ extension XcodeManager {
             }
         }
     }
+    
+    struct ListTargets: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "List all targets in the project"
+        )
+        
+        func run() throws {
+            let manager = try XcodeProjectManager(projectPath: Config.projectPath)
+            
+            print("Targets in Skip AI.xcodeproj:\n")
+            
+            for target in manager.project.pbxproj.nativeTargets {
+                let name = target.name
+                let productType = target.productType?.rawValue ?? "unknown"
+                print("  • \(name)")
+                print("    Type: \(productType)")
+                print()
+            }
+        }
+    }
+    
+    struct ListGroups: ParsableCommand {
+        static let configuration = CommandConfiguration(
+            abstract: "List all groups in the project"
+        )
+        
+        @Flag(help: "Show full paths")
+        var fullPaths = false
+        
+        func run() throws {
+            let manager = try XcodeProjectManager(projectPath: Config.projectPath)
+            
+            print("Groups in Skip AI.xcodeproj:\n")
+            
+            func printGroup(_ group: PBXGroup, indent: String = "") {
+                let name = group.name ?? group.path ?? "(unnamed)"
+                let path = group.path ?? ""
+                
+                if fullPaths && !path.isEmpty {
+                    print("\(indent)• \(name) → \(path)")
+                } else {
+                    print("\(indent)• \(name)")
+                }
+                
+                for child in group.children {
+                    if let childGroup = child as? PBXGroup {
+                        printGroup(childGroup, indent: indent + "  ")
+                    }
+                }
+            }
+            
+            if let mainGroup = manager.project.pbxproj.rootObject?.mainGroup {
+                printGroup(mainGroup)
+            }
+        }
+    }
 }

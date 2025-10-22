@@ -55,7 +55,15 @@ final class AppViewModel: ObservableObject {
     }
     
     // @Published automatically triggers UI updates when these values change
-    @Published var displayMode: DisplayMode
+    @Published var displayMode: DisplayMode {
+        didSet {
+            if displayMode != oldValue {
+                logDebug("Display mode changed to \(displayMode.rawValue), saving...", category: logCategory)
+                Self.saveDisplayMode(displayMode)
+                addDebugEvent("Display mode → \(displayMode.rawValue)", type: .displayMode)
+            }
+        }
+    }
     @Published var extensionEnabled: ExtensionState = .unchecked
     @Published var showEnableExtensionModal: Bool = false  // Controls modal visibility on iOS
     
@@ -74,8 +82,13 @@ final class AppViewModel: ObservableObject {
     // Debug event log
     @Published var debugEventLog: [DebugEvent] = []         // Recent events for debug panel
     
-    // Extension logs
+    // Extension logs and stats
     var extensionLogReader = ExtensionLogReader()      // Reads logs from extension
+    var extensionStatsReader = ExtensionStatsReader()  // Reads stats from extension
+    var extensionPingTracker = ExtensionPingTracker()  // Tracks extension pings
+    
+    // Handler debug logs
+    @Published var handlerDebugLogs: [String] = []
     
     // User preferences
     @Published var hasSeenEnableExtensionModal: Bool = false // Track if user dismissed modal
@@ -127,6 +140,14 @@ final class AppViewModel: ObservableObject {
         displayMode = Self.loadDisplayMode()
         refreshExtensionState()
         extensionLogReader.refreshLogs()
+        extensionStatsReader.refreshStats()
+        extensionPingTracker.refreshPings()
+        refreshHandlerDebugLogs()
+    }
+    
+    func refreshHandlerDebugLogs() {
+        guard let defaults = Self.userDefaults() else { return }
+        handlerDebugLogs = defaults.array(forKey: "handler-debug") as? [String] ?? []
     }
     
     /// Track when app becomes active
@@ -183,14 +204,7 @@ final class AppViewModel: ObservableObject {
     }
     
     func selectDisplayMode(_ mode: DisplayMode) {
-        guard displayMode != mode else {
-            logVerbose("Display mode already set to \(mode.rawValue), skipping", category: logCategory)
-            return
-        }
-        logInfo("Changing display mode from \(displayMode.rawValue) to \(mode.rawValue)", category: logCategory)
-        addDebugEvent("Display mode → \(mode.rawValue)", type: .displayMode)
         displayMode = mode
-        Self.saveDisplayMode(mode)
     }
     
     // Computes appropriate status message based on platform and extension state

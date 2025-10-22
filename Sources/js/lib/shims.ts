@@ -15,10 +15,27 @@ export const verbose = isDev || isPreview;
 export const buildTime = process.env.BUILD_TS;
 export const commitSHA = process.env.COMMIT_SHA || "unknown";
 
-const logLabel = `[skip-ai]`;
+// Only bind console methods once
+interface BoundConsole {
+  __skipAiBound?: boolean;
+}
 
-// Bind the timestamp object - toString() gets called at log-time
-console.log = console.log.bind(console, logLabel);
-console.warn = console.warn.bind(console, logLabel);
-console.error = console.error.bind(console, logLabel);
-console.debug = console.debug.bind(console, logLabel);
+export function bindConsole(context?: string) {
+  if (!(console.log as typeof console.log & BoundConsole).__skipAiBound) {
+    const logLabel = `[skip-ai]${context ? ` [${context}]` : ""}`;
+
+    const originalLog = console.log;
+    const originalWarn = console.warn;
+    const originalError = console.error;
+    const originalDebug = console.debug;
+
+    console.log = originalLog.bind(console, logLabel);
+    console.warn = originalWarn.bind(console, logLabel);
+    console.error = originalError.bind(console, logLabel);
+    console.debug = originalDebug.bind(console, logLabel);
+
+    (console.log as typeof console.log & BoundConsole).__skipAiBound = true;
+  }
+}
+
+bindConsole();

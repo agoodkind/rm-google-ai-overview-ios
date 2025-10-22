@@ -37,60 +37,6 @@
 //  - Online: https://developer.apple.com/sf-symbols
 
 import SwiftUI
-import SwiftUIBackports
-
-/// Feedback button with share sheet
-struct FeedbackButton: View {
-    @ObservedObject var viewModel: AppViewModel
-    @State private var showShareSheet = false
-    @State private var screenshot: UIImage?
-    
-    var body: some View {
-        Button(action: captureAndShare) {
-            Label(LocalizedString.reportFeedback(), systemImage: "envelope.fill")
-                .font(.body)
-                .fontWeight(.semibold)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 4)
-        }
-        .backport.glassProminentButtonStyle()
-        .controlSize(.large)
-        .sheet(isPresented: $showShareSheet) {
-            #if os(iOS)
-            if let screenshot = screenshot {
-                ShareSheet(activityItems: [viewModel.generateFeedbackReport(), screenshot])
-            } else {
-                ShareSheet(activityItems: [viewModel.generateFeedbackReport()])
-            }
-            #else
-            ShareSheet(activityItems: [viewModel.generateFeedbackReport()])
-            #endif
-        }
-    }
-    
-    private func captureAndShare() {
-        #if os(iOS)
-        screenshot = captureScreen()
-        #endif
-        showShareSheet = true
-    }
-    
-    #if os(iOS)
-    private func captureScreen() -> UIImage? {
-        guard let window = UIApplication.shared.connectedScenes
-            .compactMap({ $0 as? UIWindowScene })
-            .flatMap({ $0.windows })
-            .first(where: { $0.isKeyWindow }) else {
-            return nil
-        }
-        
-        let renderer = UIGraphicsImageRenderer(bounds: window.bounds)
-        return renderer.image { context in
-            window.layer.render(in: context.cgContext)
-        }
-    }
-    #endif
-}
 
 /// Main application view container
 ///
@@ -104,7 +50,7 @@ struct AppRootView: View {
     @ObservedObject var viewModel: AppViewModel
     @Environment(\.scenePhase) private var scenePhase
     @State private var showFeedback = false
-    
+
     var body: some View {
         if #available(macOS 14.0, iOS 17.0, *) {
             content
@@ -115,46 +61,56 @@ struct AppRootView: View {
                 .onChange(of: scenePhase) { oldPhase, newPhase in
                     handleScenePhaseChange(from: oldPhase, to: newPhase)
                 }
-            #if os(iOS)
-            .sheet(isPresented: $viewModel.showEnableExtensionModal) {
-                EnableExtensionModal(viewModel: viewModel)
-            }
-            .sheet(isPresented: $showFeedback) {
-                ShareSheet(activityItems: [viewModel.generateFeedbackReport()])
-            }
-            .onAppear {
-                ShakeDetector.shared.onShake {
-                    showFeedback = true
-                }
-            }
-            #endif
+                #if os(iOS)
+                    .sheet(isPresented: $viewModel.showEnableExtensionModal) {
+                        EnableExtensionModal(viewModel: viewModel)
+                    }
+                    .sheet(isPresented: $showFeedback) {
+                        ShareSheet(activityItems: [
+                            viewModel.generateFeedbackReport()
+                        ])
+                    }
+                    .onAppear {
+                        ShakeDetector.shared.onShake {
+                            showFeedback = true
+                        }
+                    }
+                #endif
         } else {
             content
                 .onAppear {
                     viewModel.onAppear()
                     viewModel.trackActivation(isInitialLaunch: true)
                 }
-                .onChange(of: scenePhase, perform: { newPhase in
-                    handleScenePhaseChangeLegacy(to: newPhase)
-                })
-            #if os(iOS)
-            .sheet(isPresented: $viewModel.showEnableExtensionModal) {
-                EnableExtensionModal(viewModel: viewModel)
-            }
-            .sheet(isPresented: $showFeedback) {
-                ShareSheet(activityItems: [viewModel.generateFeedbackReport()])
-            }
-            .onAppear {
-                ShakeDetector.shared.onShake {
-                    showFeedback = true
-                }
-            }
-            #endif
+                .onChange(
+                    of: scenePhase,
+                    perform: { newPhase in
+                        handleScenePhaseChangeLegacy(to: newPhase)
+                    }
+                )
+                #if os(iOS)
+                    .sheet(isPresented: $viewModel.showEnableExtensionModal) {
+                        EnableExtensionModal(viewModel: viewModel)
+                    }
+                    .sheet(isPresented: $showFeedback) {
+                        ShareSheet(activityItems: [
+                            viewModel.generateFeedbackReport()
+                        ])
+                    }
+                    .onAppear {
+                        ShakeDetector.shared.onShake {
+                            showFeedback = true
+                        }
+                    }
+                #endif
         }
     }
-    
+
     /// Handle scene phase changes (iOS 17+, macOS 14+)
-    private func handleScenePhaseChange(from oldPhase: ScenePhase, to newPhase: ScenePhase) {
+    private func handleScenePhaseChange(
+        from oldPhase: ScenePhase,
+        to newPhase: ScenePhase
+    ) {
         switch (oldPhase, newPhase) {
         case (_, .active):
             // App came to foreground
@@ -167,7 +123,7 @@ struct AppRootView: View {
             break
         }
     }
-    
+
     /// Handle scene phase changes (legacy iOS/macOS)
     private func handleScenePhaseChangeLegacy(to newPhase: ScenePhase) {
         if newPhase == .active {
@@ -178,21 +134,20 @@ struct AppRootView: View {
             viewModel.trackDeactivation()
         }
     }
-    
+
     private var content: some View {
         ZStack {
             PlatformColor.windowBackground.ignoresSafeArea()
-            
+
             ScrollView {
                 VStack(spacing: 32) {
                     headerSection
-                    
+
                     SettingsPanelView(viewModel: viewModel)
-                    
                     FeedbackButton(viewModel: viewModel)
-                    
+
                     #if DEBUG
-                    DebugPanelView(viewModel: viewModel)
+                        DebugPanelView(viewModel: viewModel)
                     #endif
                 }
                 .applyPlatformFrame(for: viewModel.platform.kind)
@@ -203,7 +158,7 @@ struct AppRootView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
-    
+
     // Header with app icon, status message, and preferences button (macOS only)
     private var headerSection: some View {
         VStack(spacing: 20) {
@@ -212,13 +167,13 @@ struct AppRootView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 128, height: 128)
                 .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
-            
+
             Text(viewModel.stateMessage)
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.secondary)
                 .padding(.horizontal, 12)
-            
+
             VStack(spacing: 12) {
                 // Preferences button (macOS only)
                 if let buttonTitle = viewModel.preferencesButtonTitle {
@@ -228,14 +183,14 @@ struct AppRootView: View {
                             .fontWeight(.semibold)
                             .padding(.vertical, 10)
                             .padding(.horizontal, 20)
-                            .background(
-                                Capsule()
-                                    .fill(Color.accentColor.opacity(0.12))
-                            )
+                        //                            .background(
+                        //                                Capsule()
+                        //                                    .fill(Color.accentColor.opacity(0.12))
+                        //                            )
                     }
                     .buttonStyle(.plain)
+                    .backport.glassEffect(in: Capsule())
                 }
-                
 
             }
         }
@@ -249,7 +204,7 @@ struct AppRootView: View {
 /// - Highlight: Show with orange border
 struct SettingsPanelView: View {
     @ObservedObject var viewModel: AppViewModel
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             headerText
@@ -259,9 +214,12 @@ struct SettingsPanelView: View {
         }
         .padding(24)
         .frame(maxWidth: .infinity)
-        .backport.glassEffect(in: .rect(cornerRadius: 20))
+        .background(
+            .regularMaterial,
+            in: RoundedRectangle(cornerRadius: 20, style: .continuous)
+        )
     }
-    
+
     private var headerText: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(LocalizedString.displayModeTitle())
@@ -272,12 +230,12 @@ struct SettingsPanelView: View {
                 .foregroundColor(.secondary)
         }
     }
-    
+
     // Two-button selector for Hide vs Highlight mode
     private var modeButtons: some View {
         DisplayModeSlider(selection: $viewModel.displayMode)
     }
-    
+
     private var descriptionText: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top, spacing: 8) {
@@ -285,33 +243,43 @@ struct SettingsPanelView: View {
                     .fill(Color.blue)
                     .frame(width: 6, height: 6)
                     .padding(.top, 6)
-                
-                Text(formatDescription(LocalizedString.displayModeHideDescription()))
-                    .fixedSize(horizontal: false, vertical: true)
+
+                Text(
+                    formatDescription(
+                        LocalizedString.displayModeHideDescription()
+                    )
+                )
+                .fixedSize(horizontal: false, vertical: true)
             }
-            
+
             HStack(alignment: .top, spacing: 8) {
                 Circle()
                     .fill(Color.orange)
                     .frame(width: 6, height: 6)
                     .padding(.top, 6)
-                
-                Text(formatDescription(LocalizedString.displayModeHighlightDescription()))
-                    .fixedSize(horizontal: false, vertical: true)
+
+                Text(
+                    formatDescription(
+                        LocalizedString.displayModeHighlightDescription()
+                    )
+                )
+                .fixedSize(horizontal: false, vertical: true)
             }
         }
         .font(.subheadline)
         .foregroundColor(.secondary)
     }
-    
+
     private func formatDescription(_ text: String) -> AttributedString {
         var attributed = AttributedString(text)
         if let colonIndex = attributed.range(of: ":") {
-            attributed[..<colonIndex.upperBound].font = .subheadline.weight(.semibold)
+            attributed[..<colonIndex.upperBound].font = .subheadline.weight(
+                .semibold
+            )
         }
         return attributed
     }
-    
+
     private var panelBackground: some View {
         RoundedRectangle(cornerRadius: 20, style: .continuous)
             .fill(PlatformColor.panelBackground)
@@ -321,72 +289,161 @@ struct SettingsPanelView: View {
 /// Custom sliding segmented control for display mode (tab bar style)
 struct DisplayModeSlider: View {
     @Binding var selection: AppViewModel.DisplayMode
-    
+
     var body: some View {
-        HStack(spacing: 0) {
-            // Hide button
-            Button(action: { withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) { selection = .hide } }) {
-                VStack(spacing: 10) {
-                    Image(systemName: "eye.slash")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                    Text(LocalizedString.displayModeHideTitle())
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                }
-                .foregroundColor(selection == .hide ? .white : .primary)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 18)
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            
-            // Highlight button
-            Button(action: { withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) { selection = .highlight } }) {
-                VStack(spacing: 10) {
-                    Image(systemName: "text.line.magnify")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                    Text(LocalizedString.displayModeHighlightTitle())
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                }
-                .foregroundColor(selection == .highlight ? .white : .primary)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 18)
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
+        // ignore start
+        let hstack = HStack(spacing: 10) {
+            modeButton(
+                mode: .hide,
+                icon: "eye.slash",
+                title: LocalizedString.displayModeHideTitle(),
+            )
+            modeButton(
+                mode: .highlight,
+                icon: "text.line.magnify",
+                title: LocalizedString.displayModeHighlightTitle()
+            )
         }
         .padding(4)
-        .background(
-            ZStack {
-                // Light gray background container
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.secondary.opacity(0.12))
-                
-                // Sliding colored pill
-                GeometryReader { geometry in
-                    let pillWidth = (geometry.size.width - 8) / 2
-                    let pillOffset = selection == .hide ? 4.0 : pillWidth + 4
-                    
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .fill(selection == .hide ? Color.blue : Color.orange)
-                        .frame(width: pillWidth, height: geometry.size.height - 8)
-                        .offset(x: pillOffset, y: 4)
-                }
+
+        if #available(macOS 26.0, iOS 26.0, *) {
+            return GlassEffectContainer {
+                hstack
             }
-        )
-        .backport.glassEffect(.regular.interactive(), in: .rect(cornerRadius: 16))
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        } else {
+            return hstack.background(
+                ZStack {
+                    // Light gray background container
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(Color.secondary.opacity(0.12))
+
+                    // Sliding colored pill
+                    GeometryReader { geometry in
+                        let pillWidth = (geometry.size.width - 8) / 2
+                        let pillOffset =
+                            selection == .hide ? 4.0 : pillWidth + 4
+
+                        RoundedRectangle(cornerRadius: 14, style: .continuous)
+                            .fill(
+                                selection == .hide ? Color.blue : Color.orange
+                            )
+                            .frame(
+                                width: pillWidth,
+                                height: geometry.size.height - 8
+                            )
+                            .offset(x: pillOffset, y: 4)
+                    }
+                }
+            )
+            .background(
+                .regularMaterial,
+                in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        }
+    }
+
+    private func modeButton(
+        mode: AppViewModel.DisplayMode,
+        icon: String,
+        title: String
+    ) -> some View {
+        let button = Button(action: {
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
+                selection = mode
+            }
+        }) {
+            VStack(spacing: 10) {
+                Image(systemName: icon)
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                Text(title)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+            }
+            .foregroundColor(selection == mode ? .white : .primary)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 18)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+
+        if #available(macOS 26.0, iOS 26, *) {
+            return button.glassEffect(
+                .regular.tint(
+                    selection == mode
+                        ? mode == .hide ? .blue : .orange
+                        : nil
+                ).interactive(),
+                in: RoundedRectangle(cornerRadius: 18, style: .continuous)
+            )
+        } else {
+            return button
+        }
     }
 }
 
-#Preview("App Root View") {
-    AppRootView(viewModel: AppViewModel())
-}
+/// Feedback button with share sheet
+struct FeedbackButton: View {
+    @ObservedObject var viewModel: AppViewModel
+    @State private var showShareSheet = false
+    #if os(iOS)
+        @State private var screenshot: UIImage?
+    #endif
 
-#Preview("Settings Panel") {
-    SettingsPanelView(viewModel: AppViewModel())
-        .padding()
+    var body: some View {
+        Button(action: captureAndShare) {
+            Label(
+                LocalizedString.reportFeedback(),
+                systemImage: "envelope.fill"
+            )
+            .font(.body)
+            .fontWeight(.semibold)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 8)
+        }.backport.glassProminentButtonStyle()
+            .controlSize(.large)
+            .sheet(isPresented: $showShareSheet) {
+                #if os(iOS)
+                    if let screenshot = screenshot {
+                        ShareSheet(activityItems: [
+                            viewModel.generateFeedbackReport(), screenshot,
+                        ])
+                    } else {
+                        ShareSheet(activityItems: [
+                            viewModel.generateFeedbackReport()
+                        ])
+                    }
+                #else
+                    ShareSheet(activityItems: [
+                        viewModel.generateFeedbackReport()
+                    ])
+                #endif
+            }
+    }
+
+    private func captureAndShare() {
+        #if os(iOS)
+            screenshot = captureScreen()
+        #endif
+        showShareSheet = true
+    }
+
+    #if os(iOS)
+        private func captureScreen() -> UIImage? {
+            guard
+                let window = UIApplication.shared.connectedScenes
+                    .compactMap({ $0 as? UIWindowScene })
+                    .flatMap({ $0.windows })
+                    .first(where: { $0.isKeyWindow })
+            else {
+                return nil
+            }
+
+            let renderer = UIGraphicsImageRenderer(bounds: window.bounds)
+            return renderer.image { context in
+                window.layer.render(in: context.cgContext)
+            }
+        }
+    #endif
 }
