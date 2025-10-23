@@ -57,52 +57,52 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         
         if let messageDict = message as? [String: Any],
            let type = messageDict["type"] as? String {
+            storeHandlerDebug("Received message: \(type) with data: \(messageDict)")
+            
+            // Store messages that have log data structure (timestamp, level, message, source)
+            if let logData = messageDict["data"] as? [String: Any],
+               logData["timestamp"] != nil,
+               logData["level"] != nil,
+               logData["message"] != nil,
+               logData["source"] != nil {
+                storeExtensionLog(logData)
+            }
+
             switch type {
             case "ping":
                 logInfo("Ping received from app", category: logCategory)
                 setResponseData(on: response, data: ["type": "pong"])
                 logDebug("Responded with pong", category: logCategory)
                 
-            case "service_worker_started", "serviceWorkerStarted": // Support both formats
+            case "service_worker_started":
                 logInfo("Service worker started notification", category: logCategory)
                 setResponseData(on: response, data: ["status": "acknowledged"])
                 logDebug("Acknowledged service worker start", category: logCategory)
                 
-            case "get_display_mode", "getDisplayMode": // Support both formats
+            case "get_display_mode":
                 logDebug("Display mode requested", category: logCategory)
                 let displayMode = getDisplayMode()
                 setResponseData(on: response, data: ["displayMode": displayMode])
-                logInfo("Returned display mode: \(displayMode)", category: logCategory)
+                logDebug("Returned display mode: \(displayMode)", category: logCategory)
                 
-            case "extension_log", "extensionLog": // Support both formats
-                logDebug("Extension log received", category: logCategory)
-                storeHandlerDebug("Received extension_log message")
-                
-                if let logData = messageDict["log"] as? [String: Any] {
-                    storeHandlerDebug("Log data keys: \(logData.keys.joined(separator: ", "))")
-                    storeExtensionLog(logData)
-                } else {
-                    storeHandlerDebug("ERROR: Failed to extract log data")
-                }
-                
-                setResponseData(on: response, data: ["status": "logged"])
-                
-            case "extension_stats", "extensionStats": // Support both formats
+            case "extension_stats":
                 logDebug("Extension stats received", category: logCategory)
                 
-                if let statsData = messageDict["stats"] as? [String: Any] {
+                if let statsData = messageDict["data"] as? [String: Any] {
                     storeExtensionStats(statsData)
                 }
                 
                 setResponseData(on: response, data: ["status": "recorded"])
                 
-            case "extension_ping", "extensionPing": // Support both formats
+            case "extension_ping":
                 logDebug("Extension ping received", category: logCategory)
                 
-                let source = messageDict["source"] as? String ?? "unknown"
-                let tabId = messageDict["tabId"] as? Int
+                if let pingData = messageDict["data"] as? [String: Any] {
+                    let source = pingData["source"] as? String ?? "unknown"
+                    let tabId = pingData["tabId"] as? Int
+                    storeExtensionPing(source: source, tabId: tabId)
+                }
                 
-                storeExtensionPing(source: source, tabId: tabId)
                 setResponseData(on: response, data: ["type": "pong"])
                 
             default:
@@ -135,40 +135,13 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
     }
     
     private func storeExtensionLog(_ logData: [String: Any]) {
-        guard let timestamp = logData["timestamp"] as? String,
-              let level = logData["level"] as? String,
-              let message = logData["message"] as? String,
-              let source = logData["source"] as? String else {
-            storeHandlerDebug("ERROR: Missing required log fields")
-            logWarning("Invalid log data format", category: logCategory)
-            return
-        }
-        
-        let context = logData["context"] as? String
-        let file = logData["file"] as? String
-        let line = logData["line"] as? Int
-        
         let defaults = UserDefaults(suiteName: APP_GROUP_ID)
         var logs = defaults?.array(forKey: "extension-logs") as? [[String: Any]] ?? []
         
-        var logEntry: [String: Any] = [
-            "timestamp": timestamp,
-            "level": level,
-            "message": message,
-            "source": source,
-            "context": context ?? ""
-        ]
+        // Store complete log data as-is
+        logs.insert(logData, at: 0)
         
-        if let file = file {
-            logEntry["file"] = file
-        }
-        if let line = line {
-            logEntry["line"] = line
-        }
-        
-        logs.insert(logEntry, at: 0) // Most recent first
-        
-        // Keep last 100 logs (50 per source)
+        // Keep last 100 logs
         if logs.count > 100 {
             logs = Array(logs.prefix(100))
         }
@@ -176,10 +149,14 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         defaults?.set(logs, forKey: "extension-logs")
         defaults?.synchronize()
         
-        storeHandlerDebug("Stored log #\(logs.count): [\(source):\(level)] \(message)")
+        // Log summary for debugging
+        let timestamp = logData["timestamp"] as? String ?? "?"
+        let level = logData["level"] as? String ?? "?"
+        let message = logData["message"] as? String ?? "?"
+        let source = logData["source"] as? String ?? "?"
         
-        let locationStr = file != nil ? " (\(file!):\(line ?? 0))" : ""
-        logVerbose("Stored extension log: [\(source):\(level)]\(locationStr) \(message)", category: logCategory)
+        storeHandlerDebug("Stored log #\(logs.count): [\(source):\(level)] \(message)")
+        logVerbose("Stored extension log: [\(source):\(level)] \(message)", category: logCategory)
     }
     
     private func storeHandlerDebug(_ message: String) {

@@ -66,9 +66,12 @@ struct AppRootView: View {
                         EnableExtensionModal(viewModel: viewModel)
                     }
                     .sheet(isPresented: $showFeedback) {
-                        ShareSheet(activityItems: [
-                            viewModel.generateFeedbackReport()
-                        ])
+                        let reporter = FeedbackReporter(viewModel: viewModel)
+                        var items: [Any] = [reporter.generateReport()]
+                        if let storageURL = reporter.generateStorageExport() {
+                            items.append(storageURL)
+                        }
+                        ShareSheet(activityItems: items)
                     }
                     .onAppear {
                         ShakeDetector.shared.onShake {
@@ -93,9 +96,12 @@ struct AppRootView: View {
                         EnableExtensionModal(viewModel: viewModel)
                     }
                     .sheet(isPresented: $showFeedback) {
-                        ShareSheet(activityItems: [
-                            viewModel.generateFeedbackReport()
-                        ])
+                        let reporter = FeedbackReporter(viewModel: viewModel)
+                        var items: [Any] = [reporter.generateReport()]
+                        if let storageURL = reporter.generateStorageExport() {
+                            items.append(storageURL)
+                        }
+                        ShareSheet(activityItems: items)
                     }
                     .onAppear {
                         ShakeDetector.shared.onShake {
@@ -406,18 +412,12 @@ struct FeedbackButton: View {
             .sheet(isPresented: $showShareSheet) {
                 #if os(iOS)
                     if let screenshot = screenshot {
-                        ShareSheet(activityItems: [
-                            viewModel.generateFeedbackReport(), screenshot,
-                        ])
+                        ShareSheet(activityItems: generateShareItems() + [screenshot])
                     } else {
-                        ShareSheet(activityItems: [
-                            viewModel.generateFeedbackReport()
-                        ])
+                        ShareSheet(activityItems: generateShareItems())
                     }
                 #else
-                    ShareSheet(activityItems: [
-                        viewModel.generateFeedbackReport()
-                    ])
+                    ShareSheet(activityItems: generateShareItems())
                 #endif
             }
     }
@@ -427,6 +427,18 @@ struct FeedbackButton: View {
             screenshot = captureScreen()
         #endif
         showShareSheet = true
+    }
+    
+    private func generateShareItems() -> [Any] {
+        let reporter = FeedbackReporter(viewModel: viewModel)
+        var items: [Any] = [reporter.generateReport()]
+        
+        // Add JSON export if available
+        if let storageExportURL = reporter.generateStorageExport() {
+            items.append(storageExportURL)
+        }
+        
+        return items
     }
 
     #if os(iOS)

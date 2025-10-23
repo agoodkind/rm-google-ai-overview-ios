@@ -203,6 +203,17 @@ final class AppViewModel: ObservableObject {
         logInfo("User dismissed enable extension modal", category: logCategory)
     }
     
+    #if DEBUG
+    /// Reset modal dismissal flag (DEBUG only)
+    func resetModalDismissal() {
+        hasSeenEnableExtensionModal = false
+        let defaults = Self.userDefaults()
+        defaults?.set(false, forKey: "has_seen_enable_extension_modal")
+        defaults?.synchronize()
+        logInfo("Reset modal dismissal flag", category: logCategory)
+    }
+    #endif
+    
     func selectDisplayMode(_ mode: DisplayMode) {
         displayMode = mode
     }
@@ -303,3 +314,4 @@ final class AppViewModel: ObservableObject {
         logVerbose("Display mode saved successfully", category: "AppViewModel")
     }
 }
+

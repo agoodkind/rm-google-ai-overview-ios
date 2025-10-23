@@ -98,8 +98,13 @@ const aiTextPatterns = [
   /People also ask/i, // en
 ];
 
-// const DISPLAY_MODE_KEY = "skip-ai-display-mode";
 type DisplayMode = "hide" | "highlight";
+let mainBodyInitialized = false;
+let hasRun = false;
+let hideCount = 0;
+let dupeCount = 0;
+let lastRun = 0;
+const elements = new WeakSet<HTMLElement>();
 
 let displayModeCache: DisplayMode | null = null;
 const messenger = new ContentScriptNativeMessenger();
@@ -128,13 +133,6 @@ async function fetchDisplayMode() {
   return DEFAULT_DISPLAY_MODE;
 }
 
-let mainBodyInitialized = false;
-let hasRun = false;
-let hideCount = 0;
-let dupeCount = 0;
-let lastStatsPrintTime = 0;
-const elements = new WeakSet<HTMLElement>();
-
 function processHeadings(mainBody: HTMLDivElement) {
   [...mainBody.querySelectorAll("h1, h2")]
     .filter((e): e is HTMLElement => {
@@ -154,7 +152,12 @@ function processHeadings(mainBody: HTMLDivElement) {
       }
       return aiOverview;
     })
-    .forEach(processSingleElement);
+    .forEach((heading) =>
+      processSingleElement(
+        heading,
+        `heading ${heading.outerHTML.slice(0, 200)}...`,
+      ),
+    );
 }
 
 function processPeopleAlsoAsk(mainBody: HTMLDivElement) {
@@ -164,7 +167,12 @@ function processPeopleAlsoAsk(mainBody: HTMLDivElement) {
     )
     .map((el) => el.parentElement!.parentElement!.parentElement!.parentElement)
     .filter((el) => el !== null)
-    .forEach(processSingleElement);
+    .forEach((el) =>
+      processSingleElement(
+        el,
+        `people also ask ${el.outerHTML.slice(0, 200)}...`,
+      ),
+    );
 }
 
 // ai mode inline card has a custom tag: ai-mode-inline-card
@@ -172,17 +180,16 @@ function processAICard(mainBody: HTMLDivElement) {
   [...mainBody.getElementsByTagName("ai-mode-inline-card")]
     .map((card) => card.parentElement)
     .filter((el) => el !== null)
-    .forEach(processSingleElement);
+    .forEach((card) =>
+      processSingleElement(card, `ai card ${card.outerHTML.slice(0, 200)}...`),
+    );
 }
 
 // hide the AI Mode tab in the search navigation
-function processAIModeTab() {
-  // find all divs with role="tab" or links in the navigation
-  const tabs = [
-    ...document.querySelectorAll('div[role="tab"]'),
-    ...document.querySelectorAll('a[role="tab"]'),
-  ];
+function processAIModeTab(mainBody: HTMLDivElement) {
+  const tabs = [...mainBody.querySelectorAll('div[role="listitem"]')];
 
+  console.log("ASDASDS", tabs);
   tabs
     .filter((tab): tab is HTMLElement => {
       if (tab instanceof HTMLElement) {
@@ -190,10 +197,15 @@ function processAIModeTab() {
       }
       return false;
     })
-    .forEach(processSingleElement);
+    .forEach((tab) =>
+      processSingleElement(
+        tab,
+        `ai mode tab ${tab.outerHTML.slice(0, 200)}...`,
+      ),
+    );
 }
 
-async function processSingleElement(el: Element) {
+async function processSingleElement(el: Element, reason: string) {
   if (!(el instanceof HTMLElement)) {
     return;
   }
@@ -202,20 +214,21 @@ async function processSingleElement(el: Element) {
     dupeCount++;
     return;
   }
+
   VERBOSE5: console.debug("Found new element:", el);
 
-  await hideElement(el);
+  await hideElement(el, reason);
   await log.debug("processSingleElement", "Found new element:", el);
 
   elements.add(el);
 }
 
-async function hideElement(el: HTMLElement) {
+async function hideElement(el: HTMLElement, reason: string) {
   const mode = await fetchDisplayMode();
   const overlay = document.createElement("div");
 
   switch (mode) {
-    case "highlight":
+    case "highlight": {
       el.style.outline = "3px solid orange";
       el.style.outlineOffset = "-1px";
       el.style.backgroundColor = "rgba(255, 165, 0, 0.1)";
@@ -230,9 +243,27 @@ async function hideElement(el: HTMLElement) {
       overlay.style.backgroundColor = "rgba(255, 165, 0, 0.15)";
       overlay.style.pointerEvents = "none";
       overlay.style.zIndex = "1";
+
+      // Add a tiny text box in the top-right corner of the overlay
+      const textbox = document.createElement("div");
+      textbox.textContent = reason;
+      textbox.style.position = "absolute";
+      textbox.style.top = "4px";
+      textbox.style.right = "6px";
+      textbox.style.background = "rgba(255,255,255,0.95)";
+      textbox.style.color = "black";
+      textbox.style.fontSize = "10px";
+      textbox.style.fontFamily = "monospace";
+      textbox.style.padding = "8px";
+      textbox.style.borderRadius = "3px";
+      textbox.style.zIndex = "50";
+      textbox.style.pointerEvents = "none";
+      overlay.appendChild(textbox);
+
       el.appendChild(overlay);
 
       break;
+    }
     case "hide":
       el.style.display = "none";
       break;
@@ -245,39 +276,47 @@ async function hideElement(el: HTMLElement) {
   hideCount++;
 }
 
-const observer = new MutationObserver(async () => {
-  if (!hasRun) {
-    VERBOSE4: console.debug("Initial run");
-    hasRun = true;
-    log.debug("Observer initial run", "observer");
-  }
+function createObserver() {
+  return new MutationObserver(async () => {
+    if (!hasRun) {
+      VERBOSE4: console.debug("Initial run");
+      hasRun = true;
+      log.debug("Observer initial run", "observer");
+    }
 
-  const mainBody = document.querySelector("div#main") as HTMLDivElement | null;
-  if (mainBody && !mainBodyInitialized) {
-    VERBOSE4: console.debug("Main body found");
-    mainBodyInitialized = true;
-    log.info("observer", "Main body found, starting processing");
-  }
-  if (!mainBody) {
-    return;
-  }
+    const mainBody = document.querySelector(
+      "div#main",
+    ) as HTMLDivElement | null;
 
-  processHeadings(mainBody);
-  processPeopleAlsoAsk(mainBody);
-  processAICard(mainBody);
-  processAIModeTab();
+    if (mainBody && !mainBodyInitialized) {
+      VERBOSE4: console.debug("Main body found");
+      mainBodyInitialized = true;
+      log.info("observer", "Main body found, starting processing");
+    }
 
-  VERBOSE5: if (Date.now() - lastStatsPrintTime > 500) {
-    lastStatsPrintTime = Date.now();
-    console.debug("Observer stats:", { hideCount, dupeCount });
-    await messenger.sendStats({
-      elementsHidden: hideCount,
-      duplicatesFound: dupeCount,
-    });
-  }
-});
+    if (!mainBody) {
+      return;
+    }
+
+    if (!lastRun || Date.now() - lastRun > 200) {
+      processHeadings(mainBody);
+      processPeopleAlsoAsk(mainBody);
+      processAICard(mainBody);
+      processAIModeTab(mainBody);
+
+      lastRun = Date.now();
+
+      VERBOSE5: console.debug("Observer run:", { hideCount, dupeCount });
+      await messenger.sendStats({
+        elementsHidden: hideCount,
+        duplicatesFound: dupeCount,
+      });
+    }
+  });
+}
 
 async function bootstrap() {
+  const observer = createObserver();
   const displayMode = await fetchDisplayMode();
   VERBOSE4: console.debug({ displayMode, isDev, isPreview, isProd });
   await log.info("bootstrap", "Content script initialized, mode:", displayMode);

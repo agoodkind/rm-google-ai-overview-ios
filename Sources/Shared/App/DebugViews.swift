@@ -12,6 +12,7 @@
 
 import SwiftUI
 import Combine
+internal import UniformTypeIdentifiers
 
 #if DEBUG
 /// Debug information panel showing app state, lifecycle, and configuration
@@ -28,6 +29,8 @@ struct DebugPanelView: View {
     @ObservedObject var viewModel: AppViewModel
     @Environment(\.scenePhase) private var scenePhase
     @State private var refreshTrigger = Date()
+    @State private var showShareSheet = false
+    @State private var fileToShare: URL?
     
     var body: some View {
         let _ = refreshTrigger // Force view to depend on refreshTrigger
@@ -79,15 +82,30 @@ struct DebugPanelView: View {
                 debugRow(label: "Modal Dismissed", value: "\(viewModel.hasSeenEnableExtensionModal)")
             }
             
-            #if os(iOS)
             // Debug Actions
             debugSection(title: "DEBUG ACTIONS") {
                 VStack(spacing: 8) {
+                    #if os(iOS)
                     Button("Reset Modal Flag") {
                         viewModel.resetModalDismissal()
                     }
                     .buttonStyle(.bordered)
                     .controlSize(.small)
+                    #endif
+                    
+                    Button("Export App Storage") {
+                        exportAppStorage()
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                    .tint(.blue)
+                    #if os(iOS)
+                    .sheet(isPresented: $showShareSheet) {
+                        if let fileURL = fileToShare {
+                            ShareSheet(activityItems: [fileURL])
+                        }
+                    }
+                    #endif
                     
                     Button("Clear All Extension Data") {
                         clearAllExtensionData()
@@ -97,7 +115,6 @@ struct DebugPanelView: View {
                     .tint(.red)
                 }
             }
-            #endif
             
             // Extension Activity
             debugSection(title: "EXTENSION ACTIVITY") {
@@ -153,6 +170,7 @@ struct DebugPanelView: View {
                     }
                     .font(.caption2)
                     .padding(12)
+                    .textSelection(.enabled)
                 }
             }
             
@@ -177,6 +195,7 @@ struct DebugPanelView: View {
                             }
                             .padding(12)
                         }
+                        .textSelection(.enabled)
                         .frame(maxHeight: 150)
                     }
                 }
@@ -202,6 +221,7 @@ struct DebugPanelView: View {
                             }
                             .padding(12)
                         }
+                        .textSelection(.enabled)
                         .frame(maxHeight: 150)
                     }
                 }
@@ -239,6 +259,7 @@ struct DebugPanelView: View {
                         }
                         .font(.caption2)
                         .padding(12)
+                        .textSelection(.enabled)
                     } else {
                         Text("No stats available")
                             .font(.caption2)
@@ -250,11 +271,11 @@ struct DebugPanelView: View {
                 }
             }
             
-            // Background Script Logs
-            debugSection(title: "BACKGROUND LOGS (\(viewModel.extensionLogReader.backgroundLogs.count))") {
+            // Extension Logs
+            debugSection(title: "EXTENSION LOGS (\(viewModel.extensionLogReader.logs.count))") {
                 logContainer {
-                    if viewModel.extensionLogReader.backgroundLogs.isEmpty {
-                        Text("No background logs yet")
+                    if viewModel.extensionLogReader.logs.isEmpty {
+                        Text("No extension logs yet")
                             .font(.caption2)
                             .foregroundColor(.secondary)
                             .italic()
@@ -263,37 +284,14 @@ struct DebugPanelView: View {
                     } else {
                         ScrollView {
                             VStack(alignment: .leading, spacing: 6) {
-                                ForEach(viewModel.extensionLogReader.backgroundLogs.prefix(10)) { log in
+                                ForEach(viewModel.extensionLogReader.logs.prefix(20)) { log in
                                     extensionLogRow(log: log)
                                 }
                             }
                             .padding(12)
                         }
-                        .frame(maxHeight: 150)
-                    }
-                }
-            }
-            
-            // Content Script Logs
-            debugSection(title: "CONTENT LOGS (\(viewModel.extensionLogReader.contentLogs.count))") {
-                logContainer {
-                    if viewModel.extensionLogReader.contentLogs.isEmpty {
-                        Text("No content logs yet")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                            .italic()
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .padding()
-                    } else {
-                        ScrollView {
-                            VStack(alignment: .leading, spacing: 6) {
-                                ForEach(viewModel.extensionLogReader.contentLogs.prefix(10)) { log in
-                                    extensionLogRow(log: log)
-                                }
-                            }
-                            .padding(12)
-                        }
-                        .frame(maxHeight: 150)
+                        .textSelection(.enabled)
+                        .frame(maxHeight: 200)
                     }
                 }
             }
@@ -448,6 +446,10 @@ struct DebugPanelView: View {
                     .foregroundColor(.secondary)
                     .frame(width: 70, alignment: .leading)
                 
+                Text("[\(log.source.prefix(1).uppercased())]")
+                    .foregroundColor(.purple)
+                    .frame(width: 20, alignment: .leading)
+                
                 Text("[\(log.level.uppercased())]")
                     .foregroundColor(logLevelColor(for: log.level))
                     .frame(width: 50, alignment: .leading)
@@ -467,7 +469,7 @@ struct DebugPanelView: View {
                 Text("↳ \(file):\(log.line ?? 0)")
                     .font(.system(size: 9))
                     .foregroundColor(.secondary.opacity(0.5))
-                    .padding(.leading, 82)
+                    .padding(.leading, 102)
             }
         }
         .font(.caption2)
@@ -486,6 +488,109 @@ struct DebugPanelView: View {
             return .red
         default:
             return .secondary
+        }
+    }
+    
+    /// Export all app storage to file
+    private func exportAppStorage() {
+        guard let defaults = UserDefaults(suiteName: APP_GROUP_ID) else {
+            print("❌ Failed to access app group")
+            return
+        }
+        
+        // Define app-specific keys to export
+        let keysToExport = [
+            "extension-logs",
+            "extension-stats",
+            "extension-ping-background",
+            "extension-ping-content",
+            "extension-last-active",
+            "handler-debug",
+            DISPLAY_MODE_KEY
+        ]
+        
+        // Create export data structure
+        var exportData: [String: Any] = [:]
+        exportData["exportDate"] = ISO8601DateFormatter().string(from: Date())
+        exportData["appGroupId"] = APP_GROUP_ID
+        
+        // Add app-specific storage data, converting non-JSON-serializable types
+        for key in keysToExport {
+            if let value = defaults.object(forKey: key) {
+                exportData[key] = convertToJSONSerializable(value)
+            }
+        }
+        
+        // Convert to JSON
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: exportData, options: [.prettyPrinted, .sortedKeys])
+            
+            // Create filename with timestamp
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+            let timestamp = formatter.string(from: Date())
+            let filename = "skip-ai-storage_\(timestamp).json"
+            
+            // Save to temporary directory (works for sandboxed apps)
+            let tempDir = FileManager.default.temporaryDirectory
+            let fileURL = tempDir.appendingPathComponent(filename)
+            try jsonData.write(to: fileURL)
+            
+            print("✅ Exported app storage to: \(fileURL.path)")
+            
+            // Show share sheet
+            self.fileToShare = fileURL
+            #if os(iOS)
+            self.showShareSheet = true
+            #elseif os(macOS)
+            self.showMacSharePicker(for: fileURL)
+            #endif
+        } catch {
+            print("❌ Failed to export app storage: \(error)")
+        }
+    }
+    
+    #if os(macOS)
+    /// Show macOS save panel and share picker
+    private func showMacSharePicker(for fileURL: URL) {
+        let savePanel = NSSavePanel()
+        savePanel.allowedContentTypes = [.json]
+        savePanel.nameFieldStringValue = fileURL.lastPathComponent
+        savePanel.message = "Choose where to save the exported storage file"
+        savePanel.canCreateDirectories = true
+        
+        savePanel.begin { response in
+            if response == .OK, let destination = savePanel.url {
+                do {
+                    // Copy file to chosen location
+                    if FileManager.default.fileExists(atPath: destination.path) {
+                        try FileManager.default.removeItem(at: destination)
+                    }
+                    try FileManager.default.copyItem(at: fileURL, to: destination)
+                    print("✅ Saved to: \(destination.path)")
+                    
+                    // Show in Finder
+                    NSWorkspace.shared.activateFileViewerSelecting([destination])
+                } catch {
+                    print("❌ Failed to save file: \(error)")
+                }
+            }
+        }
+    }
+    #endif
+    
+    /// Convert non-JSON-serializable types to serializable equivalents
+    private func convertToJSONSerializable(_ value: Any) -> Any {
+        if let data = value as? Data {
+            return ["__type": "Data", "__base64": data.base64EncodedString()]
+        } else if let date = value as? Date {
+            return ["__type": "Date", "__iso8601": ISO8601DateFormatter().string(from: date)]
+        } else if let array = value as? [Any] {
+            return array.map { convertToJSONSerializable($0) }
+        } else if let dict = value as? [String: Any] {
+            return dict.mapValues { convertToJSONSerializable($0) }
+        } else {
+            return value
         }
     }
     
@@ -587,6 +692,22 @@ struct DebugPanelView: View {
         return formatter.localizedString(for: date, relativeTo: Date())
     }
 }
+
+#if os(iOS)
+import UIKit
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
+    }
+}
+#endif
 
 #Preview("Debug Panel") {
     DebugPanelView(viewModel: AppViewModel())

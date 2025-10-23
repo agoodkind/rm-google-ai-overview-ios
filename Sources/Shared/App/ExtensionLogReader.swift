@@ -11,19 +11,13 @@ import Foundation
 import SwiftUI
 import Combine
 
-/// Log source type
-enum LogSource: String {
-    case background = "background"
-    case content = "content"
-}
-
 /// Log entry from Safari extension
 struct ExtensionLogEntry: Identifiable {
     let id = UUID()
     let timestamp: Date
     let level: String
     let message: String
-    let source: LogSource
+    let source: String
     let context: String
     let file: String?
     let line: Int?
@@ -32,17 +26,19 @@ struct ExtensionLogEntry: Identifiable {
     /// - Parameter dict: Dictionary from UserDefaults
     /// - Returns: Parsed log entry, or nil if invalid
     static func from(_ dict: [String: Any]) -> ExtensionLogEntry? {
-        guard let timestampString = dict["timestamp"] as? String,
-              let level = dict["level"] as? String,
-              let message = dict["message"] as? String,
-              let sourceString = dict["source"] as? String,
-              let source = LogSource(rawValue: sourceString) else {
-            return nil
-        }
+        let timestampString = dict["timestamp"] as? String ?? ""
+        let level = dict["level"] as? String ?? "unknown"
+        let message = dict["message"] as? String ?? "no message"
+        let source = dict["source"] as? String ?? "unknown"
         
+        // Configure ISO8601 formatter with fractional seconds support
         let formatter = ISO8601DateFormatter()
-        guard let timestamp = formatter.date(from: timestampString) else {
-            return nil
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        var timestamp = formatter.date(from: timestampString)
+        
+        // Only use current time if timestamp string was empty
+        if timestamp == nil {
+            timestamp = timestampString.isEmpty ? Date() : Date(timeIntervalSince1970: 0)
         }
         
         let context = dict["context"] as? String ?? ""
@@ -50,7 +46,7 @@ struct ExtensionLogEntry: Identifiable {
         let line = dict["line"] as? Int
         
         return ExtensionLogEntry(
-            timestamp: timestamp,
+            timestamp: timestamp!,
             level: level,
             message: message,
             source: source,
@@ -64,8 +60,6 @@ struct ExtensionLogEntry: Identifiable {
 /// Reads extension logs from shared storage
 class ExtensionLogReader: ObservableObject {
     @Published var logs: [ExtensionLogEntry] = []
-    @Published var backgroundLogs: [ExtensionLogEntry] = []
-    @Published var contentLogs: [ExtensionLogEntry] = []
     private let logCategory = "ExtensionLogReader"
     private var lastLogCount: Int = 0
     
@@ -80,35 +74,25 @@ class ExtensionLogReader: ObservableObject {
             if lastLogCount != 0 {
                 logDebug("No extension logs in storage", category: logCategory)
                 logs = []
-                backgroundLogs = []
-                contentLogs = []
                 lastLogCount = 0
             }
             return
         }
         
-        let parsedLogs = logData.compactMap { ExtensionLogEntry.from($0) }
-        let failedCount = logData.count - parsedLogs.count
-        
-        logs = parsedLogs
-        backgroundLogs = logs.filter { $0.source == .background }
-        contentLogs = logs.filter { $0.source == .content }
+        logs = logData.compactMap { ExtensionLogEntry.from($0) }
         
         // Only log when count changes
         if logs.count != lastLogCount {
-            let message = "Loaded \(logs.count) extension logs (\(backgroundLogs.count) background, \(contentLogs.count) content), failed to parse: \(failedCount)"
+            let message = "Loaded \(logs.count) extension logs"
             logInfo(message, category: logCategory)
             
-            // Also print to console for visibility
-            if backgroundLogs.count > 0 || contentLogs.count > 0 {
-                print("📊 Extension Logs: \(backgroundLogs.count) background, \(contentLogs.count) content")
+            // Print to console for visibility
+            if logs.count > 0 {
+                print("📊 Extension Logs: \(logs.count) total")
                 
-                // Print most recent log from each source
-                if let recentBackground = backgroundLogs.first {
-                    print("  └─ Background: [\(recentBackground.level)] \(recentBackground.message)")
-                }
-                if let recentContent = contentLogs.first {
-                    print("  └─ Content: [\(recentContent.level)] \(recentContent.message)")
+                // Print most recent log
+                if let recent = logs.first {
+                    print("  └─ Most recent: [\(recent.source):\(recent.level)] \(recent.message)")
                 }
             }
             
@@ -123,23 +107,9 @@ class ExtensionLogReader: ObservableObject {
             return "No extension logs available"
         }
         
-        var report = ""
-        
-        // Background logs section
-        if !backgroundLogs.isEmpty {
-            report += "=== BACKGROUND LOGS ===\n"
-            for log in backgroundLogs.prefix(20) {
-                report += formatLogEntry(log)
-            }
-            report += "\n"
-        }
-        
-        // Content script logs section
-        if !contentLogs.isEmpty {
-            report += "=== CONTENT SCRIPT LOGS ===\n"
-            for log in contentLogs.prefix(20) {
-                report += formatLogEntry(log)
-            }
+        var report = "=== EXTENSION LOGS ===\n"
+        for log in logs.prefix(50) {
+            report += formatLogEntry(log)
         }
         
         return report
