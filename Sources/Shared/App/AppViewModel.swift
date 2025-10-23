@@ -72,10 +72,10 @@ final class AppViewModel: ObservableObject {
     @Published var isFirstLaunchEver: Bool = false          // True only on very first app launch
     @Published var launchCount: Int = 0                     // Total number of times app has launched
     @Published var lastLaunchDate: Date?                    // When app was previously launched
-    @Published var currentSessionStartDate: Date = Date()   // When current app instance started
+    @Published var currentSessionStartDate = Date()   // When current app instance started
     
     // Session tracking
-    @Published var lastActiveDate: Date = Date()            // Last time app became active
+    @Published var lastActiveDate = Date()            // Last time app became active
     @Published var lastInactiveDate: Date?                  // Last time app became inactive
     @Published var isColdLaunch: Bool = true                // True if fresh launch, false if resumed from background
     @Published var activationCount: Int = 0                 // Number of times app became active this session
@@ -332,4 +332,3 @@ final class AppViewModel: ObservableObject {
         logVerbose("Display mode saved successfully", category: "AppViewModel")
     }
 }
-

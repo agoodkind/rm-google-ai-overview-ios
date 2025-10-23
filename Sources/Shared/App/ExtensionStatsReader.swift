@@ -56,4 +56,3 @@ class ExtensionStatsReader: ObservableObject {
         stats = ExtensionStats.from(statsData)
     }
 }
-

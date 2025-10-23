@@ -87,7 +87,7 @@ class ExtensionLogReader: ObservableObject {
             logInfo(message, category: logCategory)
             
             // Print to console for visibility
-            if logs.count > 0 {
+            if !logs.isEmpty {
                 print("📊 Extension Logs: \(logs.count) total")
                 
                 // Print most recent log
@@ -129,4 +129,3 @@ class ExtensionLogReader: ObservableObject {
         return "\(timeStr) [\(log.level.uppercased())]\(contextStr)\(locationStr) \(log.message)\n"
     }
 }
-

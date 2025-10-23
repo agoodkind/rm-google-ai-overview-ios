@@ -26,7 +26,7 @@ struct XcodeManager: ParsableCommand {
             FixContentBlocker.self,
             RemoveDuplicates.self,
             ListTargets.self,
-            ListGroups.self,
+            ListGroups.self
         ],
         defaultSubcommand: ShowVersion.self
     )

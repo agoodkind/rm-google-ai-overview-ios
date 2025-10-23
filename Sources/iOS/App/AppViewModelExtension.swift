@@ -27,4 +27,3 @@ extension AppViewModel {
         // No-op on iOS
     }
 }
-

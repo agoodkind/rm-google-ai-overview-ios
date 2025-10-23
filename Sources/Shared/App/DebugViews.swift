@@ -33,7 +33,7 @@ struct DebugPanelView: View {
     @State private var fileToShare: URL?
     
     var body: some View {
-        let _ = refreshTrigger // Force view to depend on refreshTrigger
+        _ = refreshTrigger // Force view to depend on refreshTrigger
         
         return VStack(alignment: .leading, spacing: 16) {
             HStack {
@@ -188,8 +188,6 @@ struct DebugPanelView: View {
                 }
             }
             
-            
-            
             // Event Log
             debugSection(title: "EVENT LOG (Last \(min(viewModel.debugEventLog.count, 10)))") {
                 logContainer {
@@ -227,7 +225,7 @@ struct DebugPanelView: View {
                     } else {
                         ScrollView {
                             VStack(alignment: .leading, spacing: 4) {
-                                ForEach(Array(viewModel.handlerDebugLogs.prefix(10).enumerated()), id: \.offset) { index, log in
+                                ForEach(Array(viewModel.handlerDebugLogs.prefix(10).enumerated()), id: \.offset) { _, log in
                                     Text(log)
                                         .font(.caption2)
                                         .foregroundColor(.primary)
@@ -769,4 +767,3 @@ struct ShareSheet: NSViewControllerRepresentable {
     return DebugPreview()
 }
 #endif
-

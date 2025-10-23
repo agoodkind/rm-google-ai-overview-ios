@@ -213,4 +213,3 @@ struct FeedbackReporter {
         "N/A"
     }
 }
-

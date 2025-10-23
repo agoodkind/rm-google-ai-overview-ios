@@ -130,9 +130,11 @@
 				iOS/App/ExtensionCommunicator.swift,
 				iOS/App/ShakeDetector.swift,
 				Shared/App/AppConstants.swift,
+				Shared/App/AppIcon.swift,
 				Shared/App/AppViewModel.swift,
 				Shared/App/AppViews.swift,
 				Shared/App/Assets.xcassets,
+				Shared/App/BundleExtension.swift,
 				Shared/App/DebugViews.swift,
 				Shared/App/ExtensionLogReader.swift,
 				Shared/App/ExtensionPingTracker.swift,
@@ -166,9 +168,11 @@
 				macOS/App/Colors.swift,
 				macOS/App/Helpers.swift,
 				Shared/App/AppConstants.swift,
+				Shared/App/AppIcon.swift,
 				Shared/App/AppViewModel.swift,
 				Shared/App/AppViews.swift,
 				Shared/App/Assets.xcassets,
+				Shared/App/BundleExtension.swift,
 				Shared/App/DebugViews.swift,
 				Shared/App/ExtensionLogReader.swift,
 				Shared/App/ExtensionPingTracker.swift,
@@ -892,7 +896,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 300;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
@@ -1312,7 +1316,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 300;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";

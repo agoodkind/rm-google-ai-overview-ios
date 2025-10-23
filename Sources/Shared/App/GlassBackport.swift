@@ -1,7 +1,6 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-
 import SwiftUI
 import ImagePlayground
 #if canImport(WidgetKit)
@@ -20,7 +19,6 @@ public struct Backport<Content> {
 public extension View {
     var backport: Backport<Self> { Backport(self) }
 }
-
 
 // MARK: iOS 17 Extensions
 
