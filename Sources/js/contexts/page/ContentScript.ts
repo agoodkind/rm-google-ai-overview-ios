@@ -256,7 +256,7 @@ const observer = new MutationObserver(async () => {
   if (mainBody && !mainBodyInitialized) {
     VERBOSE4: console.debug("Main body found");
     mainBodyInitialized = true;
-    log.info("Main body found, starting processing", "observer");
+    log.info("observer", "Main body found, starting processing");
   }
   if (!mainBody) {
     return;
