@@ -29,9 +29,11 @@
 "enable_extension.modal.step2.title" = "機能拡張に移動";
 "enable_extension.modal.step2.description" = "App > Safari > 機能拡張に移動します。Skip AIとSkip AI Content Blockerの両方をタップします。";
 "enable_extension.modal.step3.title" = "両方の機能拡張を有効化";
-"enable_extension.modal.step3.description" = "Skip AIとContent Blockerの両方で、機能拡張を許可とプライベートブラウズで許可をオンにします。";
-"enable_extension.modal.step4.title" = "Webサイトアクセスを許可";
+"enable_extension.modal.step3.description" = "Skip AIで、機能拡張を許可とプライベートブラウズで許可をオンにします。";
+"enable_extension.modal.step4.title" = "Allow All Websites";
 "enable_extension.modal.step4.description" = "Skip AIで、すべてのWebサイトをタップして許可を選択します。";
+"enable_extension.modal.step5.title" = "Configure Content Blocker";
+"enable_extension.modal.step5.description" = "Skip AI Content Blockerで、機能拡張を許可とプライベートブラウズで許可をオンにします。";
 "enable_extension.modal.dismiss" = "了解";
 "enable_extension.modal.open_settings" = "設定を開く";
 

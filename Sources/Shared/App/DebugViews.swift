@@ -91,6 +91,20 @@ struct DebugPanelView: View {
                     }
                     .buttonStyle(.bordered)
                     .controlSize(.small)
+                    
+                    Button("Show Welcome View") {
+                        viewModel.showWelcomeView()
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                    .tint(.purple)
+                    
+                    Button("Show Enable Instructions") {
+                        viewModel.showEnableInstructionsView()
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                    .tint(.orange)
                     #endif
                     
                     Button("Export App Storage") {

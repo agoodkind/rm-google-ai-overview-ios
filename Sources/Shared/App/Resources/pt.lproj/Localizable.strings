@@ -29,9 +29,11 @@
 "enable_extension.modal.step2.title" = "Navegar para Extensões";
 "enable_extension.modal.step2.description" = "Vá para Apps > Safari > Extensões. Toque em Skip AI e Skip AI Content Blocker.";
 "enable_extension.modal.step3.title" = "Ativar Ambas as Extensões";
-"enable_extension.modal.step3.description" = "Para Skip AI e Content Blocker, ative Permitir Extensão e Permitir na Navegação Privada.";
-"enable_extension.modal.step4.title" = "Conceder Acesso a Sites";
+"enable_extension.modal.step3.description" = "No Skip AI, ative Permitir Extensão e Permitir na Navegação Privada.";
+"enable_extension.modal.step4.title" = "Allow All Websites";
 "enable_extension.modal.step4.description" = "No Skip AI, toque em Todos os Sites e selecione Permitir.";
+"enable_extension.modal.step5.title" = "Configure Content Blocker";
+"enable_extension.modal.step5.description" = "No Skip AI Content Blocker, ative Permitir Extensão e Permitir na Navegação Privada.";
 "enable_extension.modal.dismiss" = "Entendi";
 "enable_extension.modal.open_settings" = "Abrir Configurações";
 

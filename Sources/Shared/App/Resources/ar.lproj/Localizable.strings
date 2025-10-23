@@ -28,10 +28,12 @@
 "enable_extension.modal.step1.description" = "قم بتشغيل تطبيق الإعدادات على جهازك.";
 "enable_extension.modal.step2.title" = "الانتقال إلى الملحقات";
 "enable_extension.modal.step2.description" = "انتقل إلى التطبيقات > Safari > الملحقات. اضغط على Skip AI و Skip AI Content Blocker.";
-"enable_extension.modal.step3.title" = "تفعيل كلا الملحقين";
-"enable_extension.modal.step3.description" = "لكل من Skip AI و Content Blocker، قم بتشغيل السماح بالملحق والسماح في التصفح الخاص.";
-"enable_extension.modal.step4.title" = "منح حق الوصول إلى المواقع";
+"enable_extension.modal.step3.title" = "Configure Skip AI Extension";
+"enable_extension.modal.step3.description" = "في Skip AI، قم بتشغيل السماح بالملحق والسماح في التصفح الخاص.";
+"enable_extension.modal.step4.title" = "Allow All Websites";
 "enable_extension.modal.step4.description" = "في Skip AI، اضغط على جميع المواقع واختر السماح.";
+"enable_extension.modal.step5.title" = "Configure Content Blocker";
+"enable_extension.modal.step5.description" = "في Skip AI Content Blocker، قم بتشغيل السماح بالملحق والسماح في التصفح الخاص.";
 "enable_extension.modal.dismiss" = "فهمت";
 "enable_extension.modal.open_settings" = "فتح الإعدادات";
 

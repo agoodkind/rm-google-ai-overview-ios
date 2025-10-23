@@ -66,6 +66,7 @@ final class AppViewModel: ObservableObject {
     }
     @Published var extensionEnabled: ExtensionState = .unchecked
     @Published var showEnableExtensionModal: Bool = false  // Controls modal visibility on iOS
+    @Published var forceShowWelcome: Bool = false          // DEBUG: Force welcome view in modal
     
     // Launch tracking
     @Published var isFirstLaunchEver: Bool = false          // True only on very first app launch
@@ -197,6 +198,9 @@ final class AppViewModel: ObservableObject {
     func dismissEnableExtensionModal() {
         showEnableExtensionModal = false
         hasSeenEnableExtensionModal = true
+        #if DEBUG
+        forceShowWelcome = false  // Reset debug flag
+        #endif
         let defaults = Self.userDefaults()
         defaults?.set(true, forKey: "has_seen_enable_extension_modal")
         defaults?.synchronize()
@@ -211,6 +215,20 @@ final class AppViewModel: ObservableObject {
         defaults?.set(false, forKey: "has_seen_enable_extension_modal")
         defaults?.synchronize()
         logInfo("Reset modal dismissal flag", category: logCategory)
+    }
+    
+    /// Show welcome view (DEBUG only)
+    func showWelcomeView() {
+        forceShowWelcome = true
+        showEnableExtensionModal = true
+        logInfo("DEBUG: Showing welcome view", category: logCategory)
+    }
+    
+    /// Show enable instructions view (DEBUG only)
+    func showEnableInstructionsView() {
+        forceShowWelcome = false
+        showEnableExtensionModal = true
+        logInfo("DEBUG: Showing enable instructions view", category: logCategory)
     }
     #endif
     

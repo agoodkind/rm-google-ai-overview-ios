@@ -180,9 +180,9 @@ struct AppRootView: View {
                 .foregroundColor(.secondary)
                 .padding(.horizontal, 12)
 
-            VStack(spacing: 12) {
-                // Preferences button (macOS only)
-                if let buttonTitle = viewModel.preferencesButtonTitle {
+            // Preferences button (macOS only)
+            if let buttonTitle = viewModel.preferencesButtonTitle {
+                VStack(spacing: 12) {
                     Button(action: viewModel.openPreferences) {
                         Text(buttonTitle)
                             .font(.subheadline)
@@ -412,7 +412,9 @@ struct FeedbackButton: View {
             .sheet(isPresented: $showShareSheet) {
                 #if os(iOS)
                     if let screenshot = screenshot {
-                        ShareSheet(activityItems: generateShareItems() + [screenshot])
+                        ShareSheet(
+                            activityItems: generateShareItems() + [screenshot]
+                        )
                     } else {
                         ShareSheet(activityItems: generateShareItems())
                     }
@@ -428,16 +430,16 @@ struct FeedbackButton: View {
         #endif
         showShareSheet = true
     }
-    
+
     private func generateShareItems() -> [Any] {
         let reporter = FeedbackReporter(viewModel: viewModel)
         var items: [Any] = [reporter.generateReport()]
-        
+
         // Add JSON export if available
         if let storageExportURL = reporter.generateStorageExport() {
             items.append(storageExportURL)
         }
-        
+
         return items
     }
 
@@ -459,4 +461,3 @@ struct FeedbackButton: View {
         }
     #endif
 }
-

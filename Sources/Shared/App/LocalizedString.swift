@@ -133,6 +133,14 @@ enum LocalizedString {
         NSLocalizedString("enable_extension.modal.step4.description", comment: "Fourth step description")
     }
     
+    static func enableExtensionModalStep5Title() -> String {
+        NSLocalizedString("enable_extension.modal.step5.title", comment: "Fifth step title")
+    }
+    
+    static func enableExtensionModalStep5Description() -> String {
+        NSLocalizedString("enable_extension.modal.step5.description", comment: "Fifth step description")
+    }
+    
     static func enableExtensionModalDismiss() -> String {
         NSLocalizedString("enable_extension.modal.dismiss", comment: "Button to dismiss modal")
     }

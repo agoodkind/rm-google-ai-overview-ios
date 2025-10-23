@@ -28,10 +28,12 @@
 "enable_extension.modal.step1.description" = "Launch the Settings app on your device.";
 "enable_extension.modal.step2.title" = "Navigate to Extensions";
 "enable_extension.modal.step2.description" = "Go to Apps > Safari > Extensions. Tap into both Skip AI and Skip AI Content Blocker.";
-"enable_extension.modal.step3.title" = "Enable Both Extensions";
-"enable_extension.modal.step3.description" = "For both Skip AI and Content Blocker, turn on Allow Extension and Allow in Private Browsing.";
-"enable_extension.modal.step4.title" = "Grant Website Access";
+"enable_extension.modal.step3.title" = "Configure Skip AI Extension";
+"enable_extension.modal.step3.description" = "In Skip AI, turn on Allow Extension and Allow in Private Browsing.";
+"enable_extension.modal.step4.title" = "Allow All Websites";
 "enable_extension.modal.step4.description" = "In Skip AI, tap All Websites and select Allow.";
+"enable_extension.modal.step5.title" = "Configure Content Blocker";
+"enable_extension.modal.step5.description" = "In Skip AI Content Blocker, turn on Allow Extension and Allow in Private Browsing.";
 "enable_extension.modal.dismiss" = "Got it";
 "enable_extension.modal.open_settings" = "Open Settings";
 

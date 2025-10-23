@@ -16,7 +16,11 @@ struct EnableExtensionModal: View {
     
     init(viewModel: AppViewModel) {
         self.viewModel = viewModel
+        #if DEBUG
+        _showWelcome = State(initialValue: viewModel.forceShowWelcome || viewModel.isFirstLaunchEver)
+        #else
         _showWelcome = State(initialValue: viewModel.isFirstLaunchEver)
+        #endif
     }
     
     var body: some View {
@@ -135,9 +139,16 @@ struct EnableExtensionModal: View {
             )
             
             InstructionStep(
-                icon: "checkmark.seal.fill",
+                icon: "globe",
                 title: LocalizedString.enableExtensionModalStep4Title(),
                 description: LocalizedString.enableExtensionModalStep4Description(),
+                iconColor: .purple
+            )
+            
+            InstructionStep(
+                icon: "checkmark.seal.fill",
+                title: LocalizedString.enableExtensionModalStep5Title(),
+                description: LocalizedString.enableExtensionModalStep5Description(),
                 iconColor: .green
             )
         }
@@ -157,35 +168,16 @@ struct EnableExtensionModal: View {
     }
     
     private var actionButtons: some View {
-        VStack(spacing: 12) {
-            Button(action: openSettings) {
-                Text(LocalizedString.enableExtensionModalOpenSettings())
-                    .font(.body)
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-            }
-            .buttonStyle(.borderedProminent)
-            .backport.glassEffect(.interactive(isEnabled: true))
-            .cornerRadius(14)
-            
-            Button(action: { viewModel.dismissEnableExtensionModal() }) {
-                Text(LocalizedString.enableExtensionModalDismiss())
-                    .font(.body)
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-            }
-            .buttonStyle(.bordered)
-            .backport.glassEffect()
-            .cornerRadius(14)
+        Button(action: { viewModel.dismissEnableExtensionModal() }) {
+            Text(LocalizedString.enableExtensionModalDismiss())
+                .font(.body)
+                .fontWeight(.semibold)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
         }
-    }
-    
-    private func openSettings() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
+        .buttonStyle(.borderedProminent)
+        .backport.glassEffect(.interactive(isEnabled: true))
+        .cornerRadius(14)
     }
 }
 
@@ -283,19 +275,25 @@ struct InstructionStepWithAsset: View {
         InstructionStep(
             icon: "safari.fill",
             title: "Navigate to Extensions",
-            description: "Go to Apps > Safari > Extensions and tap Skip AI.",
+            description: "Go to Apps > Safari > Extensions. Tap into both Skip AI and Skip AI Content Blocker.",
             iconColor: .blue
         )
         InstructionStep(
             icon: "switch.2",
-            title: "Allow Extension",
-            description: "Turn on Allow Extension and Allow in Private Browsing.",
+            title: "Configure Skip AI Extension",
+            description: "In Skip AI, turn on Allow Extension and Allow in Private Browsing.",
             iconColor: .orange
         )
         InstructionStep(
-            icon: "checkmark.seal.fill",
-            title: "Grant Website Access",
+            icon: "globe",
+            title: "Allow All Websites",
             description: "In Skip AI, tap All Websites and select Allow.",
+            iconColor: .purple
+        )
+        InstructionStep(
+            icon: "checkmark.seal.fill",
+            title: "Configure Content Blocker",
+            description: "In Skip AI Content Blocker, turn on Allow Extension and Allow in Private Browsing.",
             iconColor: .green
         )
     }
