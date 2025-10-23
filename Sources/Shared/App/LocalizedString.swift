@@ -101,16 +101,36 @@ enum LocalizedString {
         NSLocalizedString("enable_extension.modal.title", comment: "Modal title for enabling extension")
     }
     
-    static func enableExtensionModalStep1() -> String {
-        NSLocalizedString("enable_extension.modal.step1", comment: "First step to enable extension")
+    static func enableExtensionModalStep1Title() -> String {
+        NSLocalizedString("enable_extension.modal.step1.title", comment: "First step title")
     }
     
-    static func enableExtensionModalStep2() -> String {
-        NSLocalizedString("enable_extension.modal.step2", comment: "Second step to enable extension")
+    static func enableExtensionModalStep1Description() -> String {
+        NSLocalizedString("enable_extension.modal.step1.description", comment: "First step description")
     }
     
-    static func enableExtensionModalStep3() -> String {
-        NSLocalizedString("enable_extension.modal.step3", comment: "Third step to enable extension")
+    static func enableExtensionModalStep2Title() -> String {
+        NSLocalizedString("enable_extension.modal.step2.title", comment: "Second step title")
+    }
+    
+    static func enableExtensionModalStep2Description() -> String {
+        NSLocalizedString("enable_extension.modal.step2.description", comment: "Second step description")
+    }
+    
+    static func enableExtensionModalStep3Title() -> String {
+        NSLocalizedString("enable_extension.modal.step3.title", comment: "Third step title")
+    }
+    
+    static func enableExtensionModalStep3Description() -> String {
+        NSLocalizedString("enable_extension.modal.step3.description", comment: "Third step description")
+    }
+    
+    static func enableExtensionModalStep4Title() -> String {
+        NSLocalizedString("enable_extension.modal.step4.title", comment: "Fourth step title")
+    }
+    
+    static func enableExtensionModalStep4Description() -> String {
+        NSLocalizedString("enable_extension.modal.step4.description", comment: "Fourth step description")
     }
     
     static func enableExtensionModalDismiss() -> String {

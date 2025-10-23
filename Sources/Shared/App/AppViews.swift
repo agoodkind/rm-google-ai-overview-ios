@@ -66,12 +66,7 @@ struct AppRootView: View {
                         EnableExtensionModal(viewModel: viewModel)
                     }
                     .sheet(isPresented: $showFeedback) {
-                        let reporter = FeedbackReporter(viewModel: viewModel)
-                        var items: [Any] = [reporter.generateReport()]
-                        if let storageURL = reporter.generateStorageExport() {
-                            items.append(storageURL)
-                        }
-                        ShareSheet(activityItems: items)
+                        ShareSheet(activityItems: feedbackShareItems)
                     }
                     .onAppear {
                         ShakeDetector.shared.onShake {
@@ -96,12 +91,7 @@ struct AppRootView: View {
                         EnableExtensionModal(viewModel: viewModel)
                     }
                     .sheet(isPresented: $showFeedback) {
-                        let reporter = FeedbackReporter(viewModel: viewModel)
-                        var items: [Any] = [reporter.generateReport()]
-                        if let storageURL = reporter.generateStorageExport() {
-                            items.append(storageURL)
-                        }
-                        ShareSheet(activityItems: items)
+                        ShareSheet(activityItems: feedbackShareItems)
                     }
                     .onAppear {
                         ShakeDetector.shared.onShake {
@@ -110,6 +100,16 @@ struct AppRootView: View {
                     }
                 #endif
         }
+    }
+
+    // Helper: Build feedback share items
+    private var feedbackShareItems: [Any] {
+        let reporter = FeedbackReporter(viewModel: viewModel)
+        var items: [Any] = [reporter.generateReport()]
+        if let storageURL = reporter.generateStorageExport() {
+            items.append(storageURL)
+        }
+        return items
     }
 
     /// Handle scene phase changes (iOS 17+, macOS 14+)
@@ -459,3 +459,4 @@ struct FeedbackButton: View {
         }
     #endif
 }
+

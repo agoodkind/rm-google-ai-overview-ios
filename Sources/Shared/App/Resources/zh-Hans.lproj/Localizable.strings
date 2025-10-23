@@ -24,9 +24,14 @@
 
 /* Enable Extension Modal */
 "enable_extension.modal.title" = "Enable Extension";
-"enable_extension.modal.step1" = "打开设置。";
-"enable_extension.modal.step2" = "前往 App > Safari > 扩展。";
-"enable_extension.modal.step3" = "启用两个 Skip AI 扩展。完成！";
+"enable_extension.modal.step1.title" = "打开设置";
+"enable_extension.modal.step1.description" = "在设备上启动设置应用。";
+"enable_extension.modal.step2.title" = "导航到扩展";
+"enable_extension.modal.step2.description" = "前往 App > Safari > 扩展。点击 Skip AI 和 Skip AI Content Blocker。";
+"enable_extension.modal.step3.title" = "启用两个扩展";
+"enable_extension.modal.step3.description" = "对于 Skip AI 和 Content Blocker，打开允许扩展和允许在隐私浏览中使用。";
+"enable_extension.modal.step4.title" = "授予网站访问权限";
+"enable_extension.modal.step4.description" = "在 Skip AI 中，点击所有网站并选择允许。";
 "enable_extension.modal.dismiss" = "知道了";
 "enable_extension.modal.open_settings" = "打开设置";
 

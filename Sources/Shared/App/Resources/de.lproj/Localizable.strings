@@ -24,9 +24,14 @@
 
 /* Enable Extension Modal */
 "enable_extension.modal.title" = "Enable Extension";
-"enable_extension.modal.step1" = "Öffne Einstellungen.";
-"enable_extension.modal.step2" = "Gehe zu Apps > Safari > Erweiterungen.";
-"enable_extension.modal.step3" = "Aktiviere beide Skip AI Erweiterungen. Fertig!";
+"enable_extension.modal.step1.title" = "Einstellungen öffnen";
+"enable_extension.modal.step1.description" = "Starte die Einstellungen-App auf deinem Gerät.";
+"enable_extension.modal.step2.title" = "Zu Erweiterungen navigieren";
+"enable_extension.modal.step2.description" = "Gehe zu Apps > Safari > Erweiterungen. Tippe auf Skip AI und Skip AI Content Blocker.";
+"enable_extension.modal.step3.title" = "Beide Erweiterungen aktivieren";
+"enable_extension.modal.step3.description" = "Für Skip AI und Content Blocker aktiviere Erweiterung erlauben und In privatem Surfen erlauben.";
+"enable_extension.modal.step4.title" = "Website-Zugriff gewähren";
+"enable_extension.modal.step4.description" = "In Skip AI tippe auf Alle Websites und wähle Erlauben.";
 "enable_extension.modal.dismiss" = "Verstanden";
 "enable_extension.modal.open_settings" = "Einstellungen öffnen";
 

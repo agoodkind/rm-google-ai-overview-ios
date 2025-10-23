@@ -707,6 +707,27 @@ struct ShareSheet: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
     }
 }
+#elseif os(macOS)
+import AppKit
+
+struct ShareSheet: NSViewControllerRepresentable {
+    let activityItems: [Any]
+    
+    func makeNSViewController(context: Context) -> NSViewController {
+        let viewController = NSViewController()
+        viewController.view = NSView()
+        
+        DispatchQueue.main.async {
+            let picker = NSSharingServicePicker(items: activityItems)
+            picker.show(relativeTo: .zero, of: viewController.view, preferredEdge: .minY)
+        }
+        
+        return viewController
+    }
+    
+    func updateNSViewController(_ nsViewController: NSViewController, context: Context) {
+    }
+}
 #endif
 
 #Preview("Debug Panel") {

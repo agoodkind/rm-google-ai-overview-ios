@@ -7,21 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01B7CDD92DF24A420B538C77 /* AppViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32578BF837B42E7E3EBEE2F8 /* AppViewModelExtension.swift */; };
-		0CC2A3477A2D6917ED33D054 /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDA4F2C7D615F2B3B9CB6EB /* LocalizedString.swift */; };
-		12FBC90E28617FDBA2ED23D8 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1910E26082EB948DD88AB31 /* ShareSheet.swift */; };
-		18781BB116FF2515DEC73F7B /* PlatformAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F20E2132CB759B510487EC7 /* PlatformAdapter.swift */; };
-		256DC5C109BF1D1DEDB06497 /* ExtensionCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06461DB463C621F9FCCB7004 /* ExtensionCommunicator.swift */; };
-		2909B814E9B93CFDFC120E51 /* FeedbackReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D66F5BD1BE746150A83F18 /* FeedbackReporter.swift */; };
-		39453CA646D82A68313C2869 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27E1342F71025A6E9003084 /* AppConstants.swift */; };
-		50335E2119A3EE78F5CCAD22 /* PlatformColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C455ED0469B8BF135FE460DF /* PlatformColor.swift */; };
-		55F06E86B433B39FF0FC96B2 /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E9F9461F0F2753BBA0C95A /* Adapter.swift */; };
 		5DFA98E0EA1783232F8C5C6B /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1960AEF4C814D59DD55EAEC9 /* content.js */; };
-		747FD8B126D318A65A640F4D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E761647298E60A467AFE070 /* Colors.swift */; };
-		788D2B355DBBECB15EDFC084 /* ShakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F709FA4F3DF1AF7E1945AEB0 /* ShakeDetector.swift */; };
-		7E1B54ECE834DB0FC5773D8B /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C115C47E5D58EE828020D03 /* ViewExtensions.swift */; };
-		81F91480127A521EC5D03DA7 /* EnableExtensionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201E28F4ACEABD5D238B5820 /* EnableExtensionViews.swift */; };
-		9ACD6A642D220359DF22B03B /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B69A4DF1C24605713909CAB /* ShareSheet.swift */; };
 		A475DD6B2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
 		A475DD6C2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
 		A475DD6D2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
@@ -39,20 +25,34 @@
 		A4E45A8F2EA6FA3C00305F93 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A842EA6FA3C00305F93 /* Release.xcconfig */; };
 		A4E45A902EA6FA3C00305F93 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */; };
 		A4E45A912EA6FA3C00305F93 /* Preview.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */; };
+		A4E9DAB92EA9DB41005A22BC /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */; };
+		A4E9DABA2EA9DB41005A22BC /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */; };
+		A4E9DABB2EA9DB41005A22BC /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */; };
+		A4E9DABC2EA9DB41005A22BC /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */; };
+		A4E9DABD2EA9DB41005A22BC /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */; };
 		B201AF5E2E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B201AF682E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B5B9DF003A953D05DC47D25B /* ContentBlockerStateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43A0B5E187D727083668DC3 /* ContentBlockerStateChecker.swift */; };
 		BF0D87F0D7E3C0EC5ED62652 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1960AEF4C814D59DD55EAEC9 /* content.js */; };
-		C88453A388D4EFF12FBFDE06 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA93A153DD494F412651C147 /* Helpers.swift */; };
-		D3DD7E7F1AF44128D5E81E08 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025072FBF3B0326010F7D8B9 /* Colors.swift */; };
 		DB586B71FDDBBCD20E4A0709 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 8596F8BF0C18B292E85E68C4 /* background.js */; };
-		DBC87247CA62D41A5C05636C /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83F89FCB4F7AEEB0924FB39 /* Adapter.swift */; };
-		DC52D7A809E1EBA3A509920A /* ExtensionLogReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE12B2FA07A29E51BCADAE /* ExtensionLogReader.swift */; };
 		F00442F24DDA0DC5E26C53C6 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 8596F8BF0C18B292E85E68C4 /* background.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		A4C4530A2EA89E0E0017F365 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B201AF242E95C4E2008A3464 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A484EB4A2EA751CF008A1BE9;
+			remoteInfo = ContentBlocker;
+		};
+		A4FFA8E32EA9BF5B003622CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B201AF242E95C4E2008A3464 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A484EB4A2EA751CF008A1BE9;
+			remoteInfo = ContentBlocker;
+		};
+		A4FFA8E52EA9BF5E003622CD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B201AF242E95C4E2008A3464 /* Project object */;
 			proxyType = 1;
@@ -102,23 +102,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		025072FBF3B0326010F7D8B9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		06461DB463C621F9FCCB7004 /* ExtensionCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionCommunicator.swift; sourceTree = "<group>"; };
 		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
-		201E28F4ACEABD5D238B5820 /* EnableExtensionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableExtensionViews.swift; sourceTree = "<group>"; };
-		236FD903F4964B92449BD0B6 /* DebugViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViews.swift; sourceTree = "<group>"; };
-		2E761647298E60A467AFE070 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		32578BF837B42E7E3EBEE2F8 /* AppViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModelExtension.swift; sourceTree = "<group>"; };
-		44B87CBA99CAC19729525C40 /* ExtensionStatsReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionStatsReader.swift; sourceTree = "<group>"; };
-		52D66F5BD1BE746150A83F18 /* FeedbackReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackReporter.swift; sourceTree = "<group>"; };
-		7F20E2132CB759B510487EC7 /* PlatformAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformAdapter.swift; sourceTree = "<group>"; };
-		842B6594B7A356E2E33BF554 /* WindowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowConfiguration.swift; sourceTree = "<group>"; };
-		84FE12B2FA07A29E51BCADAE /* ExtensionLogReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionLogReader.swift; sourceTree = "<group>"; };
 		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
-		8C115C47E5D58EE828020D03 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
-		92E9F9461F0F2753BBA0C95A /* Adapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Adapter.swift; sourceTree = "<group>"; };
-		9B69A4DF1C24605713909CAB /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
-		9DDA4F2C7D615F2B3B9CB6EB /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		A484EB4B2EA751CF008A1BE9 /* ContentBlocker.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ContentBlocker.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4D672352EA705D200B5C8DE /* icon.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = icon.psd; sourceTree = "<group>"; };
@@ -145,38 +130,25 @@
 		A4E45B602EA6FC0400305F93 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		A4E45B612EA6FC0400305F93 /* package.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
 		A4E45B632EA6FC0400305F93 /* tsconfig.app.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tsconfig.app.json; sourceTree = "<group>"; };
+		A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		B201AF402E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF522E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Skip AI Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Skip AI Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B68EF02B0650870C9E8221BA /* SkipAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipAIApp.swift; sourceTree = "<group>"; };
-		B83F89FCB4F7AEEB0924FB39 /* Adapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Adapter.swift; sourceTree = "<group>"; };
-		BA93A153DD494F412651C147 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		C455ED0469B8BF135FE460DF /* PlatformColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformColor.swift; sourceTree = "<group>"; };
-		D65AE1750CA8C22906E3E98A /* AppViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViews.swift; sourceTree = "<group>"; };
-		DCCB35782B38E03888E755EB /* AppViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModelExtension.swift; sourceTree = "<group>"; };
-		DE31A43D8D6ED7CB251434D5 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
-		E1910E26082EB948DD88AB31 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
-		E27E1342F71025A6E9003084 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
-		E43A0B5E187D727083668DC3 /* ContentBlockerStateChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentBlockerStateChecker.swift; sourceTree = "<group>"; };
-		F709FA4F3DF1AF7E1945AEB0 /* ShakeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeDetector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		A484EB5D2EA75206008A1BE9 /* Exceptions for "Sources" folder in "ContentBlocker" target */ = {
+		A4E9BBF52EA9C619005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				iOS/ContentBlocker/blockerList.json,
-				iOS/ContentBlocker/ContentBlockerRequestHandler.swift,
-			);
-			target = A484EB4A2EA751CF008A1BE9 /* ContentBlocker */;
-		};
-		A4E45AC12EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (iOS)" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"/Localized: iOS/App/LaunchScreen.storyboard",
-				"/Localized: iOS/App/Main.storyboard",
 				"/Localized: Shared/App/Resources/Localizable.strings",
+				iOS/App/Adapter.swift,
+				iOS/App/AppViewModelExtension.swift,
+				iOS/App/Colors.swift,
+				iOS/App/ContentBlockerStateChecker.swift,
+				iOS/App/EnableExtensionViews.swift,
+				iOS/App/ExtensionCommunicator.swift,
+				iOS/App/ShakeDetector.swift,
 				Shared/App/AppConstants.swift,
 				Shared/App/AppViewModel.swift,
 				Shared/App/AppViews.swift,
@@ -190,7 +162,6 @@
 				Shared/App/LocalizedString.swift,
 				Shared/App/PlatformAdapter.swift,
 				Shared/App/PlatformColor.swift,
-				Shared/App/Resources/Icon.png,
 				Shared/App/SkipAIApp.swift,
 				Shared/App/ViewExtensions.swift,
 				Shared/App/WindowConfiguration.swift,
@@ -198,13 +169,22 @@
 			);
 			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
 		};
-		A4E45AC22EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (macOS)" target */ = {
+		A4E9BBF72EA9C626005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"/Localized: macOS/App/Main.storyboard",
+				iOS/ContentBlocker/ContentBlockerRequestHandler.swift,
+				Shared/Logger.swift,
+			);
+			target = A484EB4A2EA751CF008A1BE9 /* ContentBlocker */;
+		};
+		A4E9BBFC2EA9C62F005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
 				"/Localized: Shared/App/Resources/Localizable.strings",
 				macOS/App/Adapter.swift,
 				macOS/App/AppViewModelExtension.swift,
+				macOS/App/Colors.swift,
+				macOS/App/Helpers.swift,
 				Shared/App/AppConstants.swift,
 				Shared/App/AppViewModel.swift,
 				Shared/App/AppViews.swift,
@@ -218,7 +198,6 @@
 				Shared/App/LocalizedString.swift,
 				Shared/App/PlatformAdapter.swift,
 				Shared/App/PlatformColor.swift,
-				Shared/App/Resources/Icon.png,
 				Shared/App/SkipAIApp.swift,
 				Shared/App/ViewExtensions.swift,
 				Shared/App/WindowConfiguration.swift,
@@ -226,7 +205,7 @@
 			);
 			target = B201AF512E95C4E4008A3464 /* Skip AI (macOS) */;
 		};
-		A4E45AC32EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (iOS)" target */ = {
+		A4E9BC212EA9C64F005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Shared/Extension/Resources/_locales,
@@ -237,7 +216,7 @@
 			);
 			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
 		};
-		A4E45AC42EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (macOS)" target */ = {
+		A4E9BC222EA9C64F005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Shared/Extension/Resources/_locales,
@@ -251,22 +230,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A4E45A932EA6FA7C00305F93 /* Sources */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				A4E45AC12EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (iOS)" target */,
-				A4E45AC22EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI (macOS)" target */,
-				A4E45AC32EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (iOS)" target */,
-				A4E45AC42EA6FAC100305F93 /* Exceptions for "Sources" folder in "Skip AI Extension (macOS)" target */,
-				A484EB5D2EA75206008A1BE9 /* Exceptions for "Sources" folder in "ContentBlocker" target */,
-			);
-			explicitFolders = (
-				Shared/Extension/Resources/_locales,
-				Shared/Extension/Resources/images,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
+		A4E45A932EA6FA7C00305F93 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A4E9BBF52EA9C619005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E9BBFC2EA9C62F005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E9BC212EA9C64F005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E9BC222EA9C64F005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E9BBF72EA9C626005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFolders = (Shared/Extension/Resources/_locales, Shared/Extension/Resources/images, ); path = Sources; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,51 +272,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		45F97DF20D8B14C0D9C29E51 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				5F89554A652CCB645BFA27FC /* iOS */,
-				FD1EAF3DC53B51527FAE812C /* macOS */,
-				852C7AD7631EB914F877109A /* Shared */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		46137B59AE7C4F4364A99CB5 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				E43A0B5E187D727083668DC3 /* ContentBlockerStateChecker.swift */,
-				201E28F4ACEABD5D238B5820 /* EnableExtensionViews.swift */,
-				06461DB463C621F9FCCB7004 /* ExtensionCommunicator.swift */,
-				92E9F9461F0F2753BBA0C95A /* Adapter.swift */,
-				32578BF837B42E7E3EBEE2F8 /* AppViewModelExtension.swift */,
-				025072FBF3B0326010F7D8B9 /* Colors.swift */,
-				9B69A4DF1C24605713909CAB /* ShareSheet.swift */,
-				F709FA4F3DF1AF7E1945AEB0 /* ShakeDetector.swift */,
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
-		486E9DB4493CECF968FF1BE5 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				B83F89FCB4F7AEEB0924FB39 /* Adapter.swift */,
-				DCCB35782B38E03888E755EB /* AppViewModelExtension.swift */,
-				2E761647298E60A467AFE070 /* Colors.swift */,
-				BA93A153DD494F412651C147 /* Helpers.swift */,
-				E1910E26082EB948DD88AB31 /* ShareSheet.swift */,
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
-		5F89554A652CCB645BFA27FC /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				46137B59AE7C4F4364A99CB5 /* App */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
 		7C00200CF85F355C854B22BE /* webext */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,14 +280,6 @@
 			);
 			name = webext;
 			path = dist/webext;
-			sourceTree = "<group>";
-		};
-		852C7AD7631EB914F877109A /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				D3973F90B6059457B09B6DE5 /* App */,
-			);
-			path = Shared;
 			sourceTree = "<group>";
 		};
 		A484EB5F2EA7535F008A1BE9 /* Frameworks */ = {
@@ -438,6 +349,7 @@
 		B201AF232E95C4E2008A3464 = {
 			isa = PBXGroup;
 			children = (
+				A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */,
 				7C00200CF85F355C854B22BE /* webext */,
 				A4E45B592EA6FC0400305F93 /* esbuild.mjs */,
 				A4E45B5A2EA6FC0400305F93 /* esbuild.config.mjs */,
@@ -457,7 +369,6 @@
 				B201AF412E95C4E4008A3464 /* Products */,
 				A4E45A852EA6FA3C00305F93 /* Configs */,
 				A484EB5F2EA7535F008A1BE9 /* Frameworks */,
-				45F97DF20D8B14C0D9C29E51 /* Sources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -471,34 +382,6 @@
 				A484EB4B2EA751CF008A1BE9 /* ContentBlocker.appex */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		D3973F90B6059457B09B6DE5 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				E27E1342F71025A6E9003084 /* AppConstants.swift */,
-				DE31A43D8D6ED7CB251434D5 /* AppViewModel.swift */,
-				D65AE1750CA8C22906E3E98A /* AppViews.swift */,
-				236FD903F4964B92449BD0B6 /* DebugViews.swift */,
-				9DDA4F2C7D615F2B3B9CB6EB /* LocalizedString.swift */,
-				7F20E2132CB759B510487EC7 /* PlatformAdapter.swift */,
-				C455ED0469B8BF135FE460DF /* PlatformColor.swift */,
-				B68EF02B0650870C9E8221BA /* SkipAIApp.swift */,
-				8C115C47E5D58EE828020D03 /* ViewExtensions.swift */,
-				842B6594B7A356E2E33BF554 /* WindowConfiguration.swift */,
-				52D66F5BD1BE746150A83F18 /* FeedbackReporter.swift */,
-				84FE12B2FA07A29E51BCADAE /* ExtensionLogReader.swift */,
-				44B87CBA99CAC19729525C40 /* ExtensionStatsReader.swift */,
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
-		FD1EAF3DC53B51527FAE812C /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				486E9DB4493CECF968FF1BE5 /* App */,
-			);
-			path = macOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -538,6 +421,8 @@
 			dependencies = (
 				A4C4530B2EA89E0E0017F365 /* PBXTargetDependency */,
 				B201AF602E95C4E4008A3464 /* PBXTargetDependency */,
+				A4FFA8E42EA9BF5B003622CD /* PBXTargetDependency */,
+				A4FFA8E62EA9BF5E003622CD /* PBXTargetDependency */,
 			);
 			name = "Skip AI (iOS)";
 			productName = "Skip AI (iOS)";
@@ -644,8 +529,6 @@
 			);
 			mainGroup = B201AF232E95C4E2008A3464;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B201AF412E95C4E4008A3464 /* Products */;
 			projectDirPath = "";
@@ -671,6 +554,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4E9DABB2EA9DB41005A22BC /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +565,7 @@
 				A4E45A8C2EA6FA3C00305F93 /* Release.xcconfig in Resources */,
 				A4E45A8D2EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
 				A4E45A8E2EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
+				A4E9DABD2EA9DB41005A22BC /* AppIcon.icon in Resources */,
 				A475DD6E2EA70A2200E2C2C9 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -692,6 +577,7 @@
 				A4E45A892EA6FA3C00305F93 /* Release.xcconfig in Resources */,
 				A4E45A8A2EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
 				A475DD6B2EA70A2200E2C2C9 /* AppIcon.icon in Resources */,
+				A4E9DAB92EA9DB41005A22BC /* AppIcon.icon in Resources */,
 				A4E45A8B2EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -706,6 +592,7 @@
 				A475DD6D2EA70A2200E2C2C9 /* AppIcon.icon in Resources */,
 				DB586B71FDDBBCD20E4A0709 /* background.js in Resources */,
 				5DFA98E0EA1783232F8C5C6B /* content.js in Resources */,
+				A4E9DABC2EA9DB41005A22BC /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +606,7 @@
 				A475DD6C2EA70A2200E2C2C9 /* AppIcon.icon in Resources */,
 				F00442F24DDA0DC5E26C53C6 /* background.js in Resources */,
 				BF0D87F0D7E3C0EC5ED62652 /* content.js in Resources */,
+				A4E9DABA2EA9DB41005A22BC /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -809,18 +697,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55F06E86B433B39FF0FC96B2 /* Adapter.swift in Sources */,
-				01B7CDD92DF24A420B538C77 /* AppViewModelExtension.swift in Sources */,
-				D3DD7E7F1AF44128D5E81E08 /* Colors.swift in Sources */,
-				39453CA646D82A68313C2869 /* AppConstants.swift in Sources */,
-				0CC2A3477A2D6917ED33D054 /* LocalizedString.swift in Sources */,
-				18781BB116FF2515DEC73F7B /* PlatformAdapter.swift in Sources */,
-				50335E2119A3EE78F5CCAD22 /* PlatformColor.swift in Sources */,
-				9ACD6A642D220359DF22B03B /* ShareSheet.swift in Sources */,
-				B5B9DF003A953D05DC47D25B /* ContentBlockerStateChecker.swift in Sources */,
-				81F91480127A521EC5D03DA7 /* EnableExtensionViews.swift in Sources */,
-				256DC5C109BF1D1DEDB06497 /* ExtensionCommunicator.swift in Sources */,
-				788D2B355DBBECB15EDFC084 /* ShakeDetector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -828,13 +704,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBC87247CA62D41A5C05636C /* Adapter.swift in Sources */,
-				747FD8B126D318A65A640F4D /* Colors.swift in Sources */,
-				C88453A388D4EFF12FBFDE06 /* Helpers.swift in Sources */,
-				7E1B54ECE834DB0FC5773D8B /* ViewExtensions.swift in Sources */,
-				2909B814E9B93CFDFC120E51 /* FeedbackReporter.swift in Sources */,
-				12FBC90E28617FDBA2ED23D8 /* ShareSheet.swift in Sources */,
-				DC52D7A809E1EBA3A509920A /* ExtensionLogReader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,6 +729,16 @@
 			target = A484EB4A2EA751CF008A1BE9 /* ContentBlocker */;
 			targetProxy = A4C4530A2EA89E0E0017F365 /* PBXContainerItemProxy */;
 		};
+		A4FFA8E42EA9BF5B003622CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A484EB4A2EA751CF008A1BE9 /* ContentBlocker */;
+			targetProxy = A4FFA8E32EA9BF5B003622CD /* PBXContainerItemProxy */;
+		};
+		A4FFA8E62EA9BF5E003622CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A484EB4A2EA751CF008A1BE9 /* ContentBlocker */;
+			targetProxy = A4FFA8E52EA9BF5E003622CD /* PBXContainerItemProxy */;
+		};
 		B201AF602E95C4E4008A3464 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
@@ -878,13 +757,10 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/ContentBlocker/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ContentBlocker;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -909,13 +785,10 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/ContentBlocker/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ContentBlocker;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -942,13 +815,12 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Sources/iOS/ContentBlocker/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = ContentBlocker;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -975,12 +847,9 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/Extension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1010,12 +879,9 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/Extension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1045,22 +911,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = Main.storyboard;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1089,23 +953,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = Main.storyboard;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1137,15 +999,12 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/macOS/Extension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1175,15 +1034,12 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/macOS/Extension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1212,21 +1068,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Sources/macOS/App/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1257,21 +1110,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Sources/macOS/App/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1481,22 +1331,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Sources/iOS/App/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = Main.storyboard;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1527,21 +1375,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Sources/macOS/App/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1574,12 +1419,9 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
-				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/iOS/Extension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1610,15 +1452,12 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Entitlements/Skip AI Extension (macOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 443;
+				CURRENT_PROJECT_VERSION = 300;
 				DEVELOPMENT_TEAM = H3BMXM4W7H;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
-				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Sources/macOS/Extension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Skip AI";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
