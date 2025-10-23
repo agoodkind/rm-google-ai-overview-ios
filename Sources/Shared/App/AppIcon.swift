@@ -1,9 +1,18 @@
 import SwiftUI
 
+#if os(macOS)
+import AppKit
+fileprivate extension NSImage {
+    var isValid: Bool {
+        return representations.count > 0
+    }
+}
+#endif
+
 public struct AppIcon: View {
     
     public var placeholderIconName: String = "AppIcon" // primary try
-    public var placeholderIconBackupName: String = "AppIconBackup" // fallback
+    public var placeholderIconBackupName: String = "LargeIcon" // fallback
     
     public init(setIconName: String? = nil, setBackupName: String? = nil) {
         if let thisName = setIconName, !thisName.isEmpty {
@@ -16,39 +25,53 @@ public struct AppIcon: View {
     
 #if os(macOS)
     var resolvedImage: NSImage? {
-        NSImage(named: placeholderIconName)
-        ?? Bundle.main.iconFileName.flatMap { NSImage(named: $0) }
-        ?? NSImage(named: placeholderIconBackupName)
+        if let primary = NSImage(named: placeholderIconName) {
+            return primary
+        }
+        if let fallbackName = Bundle.main.iconFileName,
+           let fallback = NSImage(named: fallbackName) {
+            return fallback
+        }
+        if let backup = NSImage(named: placeholderIconBackupName) {
+            return backup
+        }
+        return nil
     }
 #else
     var resolvedImage: UIImage? {
-        UIImage(named: placeholderIconName)
-        ?? Bundle.main.iconFileName.flatMap { UIImage(named: $0) }
-        ?? UIImage(named: placeholderIconBackupName)
+        if let primary = UIImage(named: placeholderIconName) {
+            return primary
+        }
+        if let fallbackName = Bundle.main.iconFileName,
+           let fallback = UIImage(named: fallbackName) {
+            return fallback
+        }
+        if let backup = UIImage(named: placeholderIconBackupName) {
+            return backup
+        }
+        return nil
     }
 #endif
     
     public var body: some View {
         Group {
-#if os(macOS)
             if let iconImage = resolvedImage {
+#if os(macOS)
                 Image(nsImage: iconImage)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .cornerRadius(10.0)
+#else
+
+                    Image(uiImage: iconImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .backport.glassEffect(.regular, in: RoundedRectangle(cornerRadius: 10.0))
+
+#endif
             } else {
                 EmptyView()
             }
-#else
-            if let iconImage = resolvedImage {
-                Image(uiImage: iconImage)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(10.0)
-            } else {
-                EmptyView() 
-            }
-#endif
         }
     }
 }

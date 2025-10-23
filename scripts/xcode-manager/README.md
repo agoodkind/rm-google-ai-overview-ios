@@ -9,6 +9,79 @@ cd scripts/xcode-manager
 swift build
 ```
 
+## Configuration
+
+The tool automatically finds your Xcode project using the following order:
+
+1. Environment variable: `XCODE_PROJECT_PATH`
+2. Configuration file: `.env` in project root
+3. Configuration file: `.env.local` in project root
+4. Configuration file: `.xcodemanager` in project root
+5. Configuration file: `~/.xcodemanager` in home directory
+6. Git repository root: searches for .xcodeproj in `git rev-parse --show-toplevel`
+7. Upward search: searches current directory and parent directories for .xcodeproj
+8. Default: `Skip AI.xcodeproj`
+
+This means you can run the tool from anywhere within your git repository and it will find the project automatically.
+
+### Automatic Detection
+
+The tool will automatically find your project if you run it from anywhere within the git repository:
+
+```bash
+cd /Users/you/Projects/skip-ai
+swift run --package-path scripts/xcode-manager xcode-manager show-version
+
+cd /Users/you/Projects/skip-ai/Sources/Shared/App
+swift run --package-path ../../scripts/xcode-manager xcode-manager show-version
+```
+
+Both commands will find the project automatically.
+
+### Using Environment Variable
+
+```bash
+export XCODE_PROJECT_PATH="Skip AI.xcodeproj"
+swift run xcode-manager show-version
+
+# Or specify project name for git detection
+export XCODE_PROJECT_NAME="Skip AI.xcodeproj"
+swift run xcode-manager show-version
+```
+
+### Using .env File
+
+Add to your `.env` or `.env.local` file:
+
+```bash
+# Path to the Xcode project file
+XCODE_PROJECT_PATH=Skip AI.xcodeproj
+```
+
+The tool supports quoted and unquoted values:
+
+```bash
+XCODE_PROJECT_PATH="Skip AI.xcodeproj"
+XCODE_PROJECT_PATH='Skip AI.xcodeproj'
+XCODE_PROJECT_PATH=Skip AI.xcodeproj
+```
+
+### Using .xcodemanager File
+
+Create `.xcodemanager` in your project root:
+
+```bash
+# Path to the Xcode project file
+XCODE_PROJECT_PATH=Skip AI.xcodeproj
+```
+
+Or create `~/.xcodemanager` for global configuration:
+
+```bash
+cp scripts/xcode-manager/.xcodemanager.example ~/.xcodemanager
+# Edit ~/.xcodemanager with your project path
+```
+
 ## Commands
 
 ### Show Version

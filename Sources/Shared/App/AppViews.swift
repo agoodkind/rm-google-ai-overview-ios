@@ -293,6 +293,7 @@ struct SettingsPanelView: View {
 /// Custom sliding segmented control for display mode (tab bar style)
 struct DisplayModeSlider: View {
     @Binding var selection: AppViewModel.DisplayMode
+    @State private var eyeBlink = false
 
     var body: some View {
         // ignore start
@@ -356,11 +357,40 @@ struct DisplayModeSlider: View {
             withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
                 selection = mode
             }
+            if mode == .hide {
+                eyeBlink = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    eyeBlink = false
+                }
+            }
         }) {
             VStack(spacing: 10) {
-                Image(systemName: icon)
-                    .font(.title2)
-                    .fontWeight(.semibold)
+                if mode == .highlight {
+                    ZStack {
+                        Image(systemName: icon)
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .opacity(selection == mode ? 0 : 1)
+                        
+                        Image(systemName: icon)
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .scaleEffect(y: -1)
+                            .offset(y: 2)
+                            .opacity(selection == mode ? 1 : 0)
+                    }
+                    .animation(.easeInOut(duration: 0.35), value: selection)
+                } else {
+                    Image(systemName: icon)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .scaleEffect(
+                            x: 1,
+                            y: mode == .hide && eyeBlink ? 0.1 : 1
+                        )
+                        .animation(.easeInOut(duration: 0.1), value: eyeBlink)
+                }
+                
                 Text(title)
                     .font(.headline)
                     .fontWeight(.semibold)
