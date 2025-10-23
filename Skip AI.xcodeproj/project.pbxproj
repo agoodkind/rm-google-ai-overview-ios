@@ -8,10 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5DFA98E0EA1783232F8C5C6B /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1960AEF4C814D59DD55EAEC9 /* content.js */; };
+		A4060D9C2EA9E26800DF0B35 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A4060D9B2EA9E26800DF0B35 /* AppIcon.icon */; };
+		A4060D9D2EA9E26800DF0B35 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A4060D9B2EA9E26800DF0B35 /* AppIcon.icon */; };
 		A475DD6B2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
-		A475DD6C2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
-		A475DD6D2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
-		A475DD6E2EA70A2200E2C2C9 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */; };
 		A484EB542EA751CF008A1BE9 /* ContentBlocker.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A484EB4B2EA751CF008A1BE9 /* ContentBlocker.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A4E45A862EA6FA3C00305F93 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A842EA6FA3C00305F93 /* Release.xcconfig */; };
 		A4E45A872EA6FA3C00305F93 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */; };
@@ -25,11 +24,6 @@
 		A4E45A8F2EA6FA3C00305F93 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A842EA6FA3C00305F93 /* Release.xcconfig */; };
 		A4E45A902EA6FA3C00305F93 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A822EA6FA3C00305F93 /* Debug.xcconfig */; };
 		A4E45A912EA6FA3C00305F93 /* Preview.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A4E45A832EA6FA3C00305F93 /* Preview.xcconfig */; };
-		A4E9DAB92EA9DB41005A22BC /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */; };
-		A4E9DABA2EA9DB41005A22BC /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */; };
-		A4E9DABB2EA9DB41005A22BC /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */; };
-		A4E9DABC2EA9DB41005A22BC /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */; };
-		A4E9DABD2EA9DB41005A22BC /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */; };
 		B201AF5E2E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B201AF682E95C4E4008A3464 /* Skip AI Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B201AF672E95C4E4008A3464 /* Skip AI Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF0D87F0D7E3C0EC5ED62652 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 1960AEF4C814D59DD55EAEC9 /* content.js */; };
@@ -38,21 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A4C4530A2EA89E0E0017F365 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B201AF242E95C4E2008A3464 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A484EB4A2EA751CF008A1BE9;
-			remoteInfo = ContentBlocker;
-		};
-		A4FFA8E32EA9BF5B003622CD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B201AF242E95C4E2008A3464 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A484EB4A2EA751CF008A1BE9;
-			remoteInfo = ContentBlocker;
-		};
-		A4FFA8E52EA9BF5E003622CD /* PBXContainerItemProxy */ = {
+		A4060D982EA9E15800DF0B35 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B201AF242E95C4E2008A3464 /* Project object */;
 			proxyType = 1;
@@ -104,6 +84,7 @@
 /* Begin PBXFileReference section */
 		1960AEF4C814D59DD55EAEC9 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
 		8596F8BF0C18B292E85E68C4 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
+		A4060D9B2EA9E26800DF0B35 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		A475DD6A2EA70A2200E2C2C9 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		A484EB4B2EA751CF008A1BE9 /* ContentBlocker.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ContentBlocker.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4D672352EA705D200B5C8DE /* icon.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = icon.psd; sourceTree = "<group>"; };
@@ -130,7 +111,6 @@
 		A4E45B602EA6FC0400305F93 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		A4E45B612EA6FC0400305F93 /* package.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
 		A4E45B632EA6FC0400305F93 /* tsconfig.app.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tsconfig.app.json; sourceTree = "<group>"; };
-		A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		B201AF402E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF522E95C4E4008A3464 /* Skip AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skip AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B201AF5D2E95C4E4008A3464 /* Skip AI Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Skip AI Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,7 +118,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		A4E9BBF52EA9C619005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E9BBF52EA9C619005A22BC /* Exceptions for "Sources" folder in "Skip AI (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Shared/App/Resources/Localizable.strings",
@@ -169,7 +149,7 @@
 			);
 			target = B201AF3F2E95C4E4008A3464 /* Skip AI (iOS) */;
 		};
-		A4E9BBF72EA9C626005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E9BBF72EA9C626005A22BC /* Exceptions for "Sources" folder in "ContentBlocker" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				iOS/ContentBlocker/ContentBlockerRequestHandler.swift,
@@ -177,7 +157,7 @@
 			);
 			target = A484EB4A2EA751CF008A1BE9 /* ContentBlocker */;
 		};
-		A4E9BBFC2EA9C62F005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E9BBFC2EA9C62F005A22BC /* Exceptions for "Sources" folder in "Skip AI (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Shared/App/Resources/Localizable.strings",
@@ -205,7 +185,7 @@
 			);
 			target = B201AF512E95C4E4008A3464 /* Skip AI (macOS) */;
 		};
-		A4E9BC212EA9C64F005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E9BC212EA9C64F005A22BC /* Exceptions for "Sources" folder in "Skip AI Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Shared/Extension/Resources/_locales,
@@ -216,7 +196,7 @@
 			);
 			target = B201AF5C2E95C4E4008A3464 /* Skip AI Extension (iOS) */;
 		};
-		A4E9BC222EA9C64F005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		A4E9BC222EA9C64F005A22BC /* Exceptions for "Sources" folder in "Skip AI Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Shared/Extension/Resources/_locales,
@@ -230,7 +210,22 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A4E45A932EA6FA7C00305F93 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A4E9BBF52EA9C619005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E9BBFC2EA9C62F005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E9BC212EA9C64F005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E9BC222EA9C64F005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A4E9BBF72EA9C626005A22BC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFolders = (Shared/Extension/Resources/_locales, Shared/Extension/Resources/images, ); path = Sources; sourceTree = "<group>"; };
+		A4E45A932EA6FA7C00305F93 /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A4E9BBF52EA9C619005A22BC /* Exceptions for "Sources" folder in "Skip AI (iOS)" target */,
+				A4E9BBFC2EA9C62F005A22BC /* Exceptions for "Sources" folder in "Skip AI (macOS)" target */,
+				A4E9BC212EA9C64F005A22BC /* Exceptions for "Sources" folder in "Skip AI Extension (iOS)" target */,
+				A4E9BC222EA9C64F005A22BC /* Exceptions for "Sources" folder in "Skip AI Extension (macOS)" target */,
+				A4E9BBF72EA9C626005A22BC /* Exceptions for "Sources" folder in "ContentBlocker" target */,
+			);
+			explicitFolders = (
+				Shared/Extension/Resources/_locales,
+				Shared/Extension/Resources/images,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -349,7 +344,7 @@
 		B201AF232E95C4E2008A3464 = {
 			isa = PBXGroup;
 			children = (
-				A4E9DAB82EA9DB41005A22BC /* AppIcon.icon */,
+				A4060D9B2EA9E26800DF0B35 /* AppIcon.icon */,
 				7C00200CF85F355C854B22BE /* webext */,
 				A4E45B592EA6FC0400305F93 /* esbuild.mjs */,
 				A4E45B5A2EA6FC0400305F93 /* esbuild.config.mjs */,
@@ -419,10 +414,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				A4C4530B2EA89E0E0017F365 /* PBXTargetDependency */,
+				A4060D992EA9E15800DF0B35 /* PBXTargetDependency */,
 				B201AF602E95C4E4008A3464 /* PBXTargetDependency */,
-				A4FFA8E42EA9BF5B003622CD /* PBXTargetDependency */,
-				A4FFA8E62EA9BF5E003622CD /* PBXTargetDependency */,
 			);
 			name = "Skip AI (iOS)";
 			productName = "Skip AI (iOS)";
@@ -554,7 +547,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4E9DABB2EA9DB41005A22BC /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,8 +557,7 @@
 				A4E45A8C2EA6FA3C00305F93 /* Release.xcconfig in Resources */,
 				A4E45A8D2EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
 				A4E45A8E2EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
-				A4E9DABD2EA9DB41005A22BC /* AppIcon.icon in Resources */,
-				A475DD6E2EA70A2200E2C2C9 /* AppIcon.icon in Resources */,
+				A4060D9D2EA9E26800DF0B35 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,7 +568,7 @@
 				A4E45A892EA6FA3C00305F93 /* Release.xcconfig in Resources */,
 				A4E45A8A2EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
 				A475DD6B2EA70A2200E2C2C9 /* AppIcon.icon in Resources */,
-				A4E9DAB92EA9DB41005A22BC /* AppIcon.icon in Resources */,
+				A4060D9C2EA9E26800DF0B35 /* AppIcon.icon in Resources */,
 				A4E45A8B2EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -589,10 +580,8 @@
 				A4E45A8F2EA6FA3C00305F93 /* Release.xcconfig in Resources */,
 				A4E45A902EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
 				A4E45A912EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
-				A475DD6D2EA70A2200E2C2C9 /* AppIcon.icon in Resources */,
 				DB586B71FDDBBCD20E4A0709 /* background.js in Resources */,
 				5DFA98E0EA1783232F8C5C6B /* content.js in Resources */,
-				A4E9DABC2EA9DB41005A22BC /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,10 +592,8 @@
 				A4E45A862EA6FA3C00305F93 /* Release.xcconfig in Resources */,
 				A4E45A872EA6FA3C00305F93 /* Debug.xcconfig in Resources */,
 				A4E45A882EA6FA3C00305F93 /* Preview.xcconfig in Resources */,
-				A475DD6C2EA70A2200E2C2C9 /* AppIcon.icon in Resources */,
 				F00442F24DDA0DC5E26C53C6 /* background.js in Resources */,
 				BF0D87F0D7E3C0EC5ED62652 /* content.js in Resources */,
-				A4E9DABA2EA9DB41005A22BC /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -724,20 +711,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A4C4530B2EA89E0E0017F365 /* PBXTargetDependency */ = {
+		A4060D992EA9E15800DF0B35 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A484EB4A2EA751CF008A1BE9 /* ContentBlocker */;
-			targetProxy = A4C4530A2EA89E0E0017F365 /* PBXContainerItemProxy */;
-		};
-		A4FFA8E42EA9BF5B003622CD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A484EB4A2EA751CF008A1BE9 /* ContentBlocker */;
-			targetProxy = A4FFA8E32EA9BF5B003622CD /* PBXContainerItemProxy */;
-		};
-		A4FFA8E62EA9BF5E003622CD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A484EB4A2EA751CF008A1BE9 /* ContentBlocker */;
-			targetProxy = A4FFA8E52EA9BF5E003622CD /* PBXContainerItemProxy */;
+			targetProxy = A4060D982EA9E15800DF0B35 /* PBXContainerItemProxy */;
 		};
 		B201AF602E95C4E4008A3464 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
