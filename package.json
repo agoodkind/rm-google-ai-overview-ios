@@ -37,7 +37,7 @@
     "commander": "^14.0.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
-    "esbuild": "^0.24.2",
+    "esbuild": "^0.25.0",
     "eslint": "^9.37.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
